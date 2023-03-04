@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Auto Mall</string>
+    <string name="facebook_app_id">719922359200721</string>
+    <string name="fb_login_protocol_scheme">fb719922359200721</string>
+    <string name="facebook_client_token">b4c503a1a6c46e054c5513ce378ea09d</string>
+</resources>

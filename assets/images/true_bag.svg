@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="15" height="18.918" viewBox="0 0 15 18.918">
+  <g id="Group_11172" data-name="Group 11172" transform="translate(-157 -762.967)">
+    <g id="shopping-bag_1_" data-name="shopping-bag (1)" transform="translate(103.98 762.967)">
+      <g id="Group_11169" data-name="Group 11169" transform="translate(53.02)">
+        <g id="Group_11168" data-name="Group 11168" transform="translate(0)">
+          <path id="Path_31565" data-name="Path 31565" d="M68.011,15.6,67.166,4.955a1.331,1.331,0,0,0-1.321-1.223H64.177V3.657a3.657,3.657,0,0,0-7.314,0v.075H55.195a1.33,1.33,0,0,0-1.32,1.222L53.029,15.6A3.08,3.08,0,0,0,56.1,18.918h8.84A3.08,3.08,0,0,0,68.011,15.6ZM57.971,3.657a2.549,2.549,0,0,1,5.1,0v.075h-5.1Zm8.415,13.521a1.952,1.952,0,0,1-1.447.632H56.1a1.972,1.972,0,0,1-1.967-2.122L54.979,5.04a.217.217,0,0,1,.216-.2h1.669V6.2a.554.554,0,1,0,1.108,0V4.84h5.1V6.2a.554.554,0,0,0,1.108,0V4.84h1.669a.218.218,0,0,1,.216.2l.845,10.646A1.952,1.952,0,0,1,66.387,17.178Z" transform="translate(-53.02)" fill="#fff"/>
+        </g>
+      </g>
+      <g id="Group_11171" data-name="Group 11171" transform="translate(57.862 9.233)">
+        <g id="Group_11170" data-name="Group 11170" transform="translate(0)">
+          <path id="Path_31566" data-name="Path 31566" d="M189.207,250.055a.554.554,0,0,0-.783,0l-2.474,2.474-.951-.951a.554.554,0,0,0-.784.784l1.343,1.343a.554.554,0,0,0,.783,0l2.866-2.866A.554.554,0,0,0,189.207,250.055Z" transform="translate(-184.052 -249.893)" fill="#fff"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

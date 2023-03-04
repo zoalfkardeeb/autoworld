@@ -1,0 +1,11 @@
+<svg id="Group_12540" data-name="Group 12540" xmlns="http://www.w3.org/2000/svg" width="20.682" height="21.378" viewBox="0 0 20.682 21.378">
+  <g id="shopping-cart" transform="translate(0 0)">
+    <g id="Group_12539" data-name="Group 12539" transform="translate(0 0)">
+      <g id="Group_12538" data-name="Group 12538" transform="translate(0 0)">
+        <circle id="Ellipse_2831" data-name="Ellipse 2831" cx="2.527" cy="2.527" r="2.527" transform="translate(5.699 16.324)" fill="#fff"/>
+        <path id="Path_36345" data-name="Path 36345" d="M269.024,324.1h0a2.527,2.527,0,1,0,2.527,2.527A2.527,2.527,0,0,0,269.024,324.1Z" transform="translate(-253.423 -307.774)" fill="#fff"/>
+        <path id="Path_36346" data-name="Path 36346" d="M26.821,13.745H13.644l-.258-1.5H24.217a.774.774,0,0,0,.722-.49l2.579-6.5A.774.774,0,0,0,26.8,4.2H12.045L11.426.644A.774.774,0,0,0,10.652,0H7.687a.774.774,0,1,0,0,1.547h2.321l2.218,13.1a.774.774,0,0,0,.774.645H26.821a.774.774,0,1,0,0-1.547Z" transform="translate(-6.913 0.001)" fill="#fff"/>
+      </g>
+    </g>
+  </g>
+</svg>
