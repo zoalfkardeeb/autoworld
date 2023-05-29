@@ -112,7 +112,7 @@ class NotificationController extends GetxController {
         summaryText: summaryText,
       ),
     );
-    var ios = const IOSNotificationDetails();
+    var ios = const  DarwinNotificationDetails();
     var platform = NotificationDetails(android: android, iOS: ios);
     await flutterLocalNotificationsPlugin.show(id ?? 1, title, lines[0], platform, payload: payload);
   }
@@ -133,13 +133,13 @@ class NotificationController extends GetxController {
     setMessages(messagesNumber);
     flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
     var android = const AndroidInitializationSettings('@mipmap/launcher_icon');
-    var ios = const IOSInitializationSettings();
+    var ios = const  DarwinInitializationSettings();
     var initSettings = InitializationSettings(android: android, iOS: ios);
     flutterLocalNotificationsPlugin.initialize(
       initSettings,
-      onSelectNotification: (payload) {
+      onDidReceiveNotificationResponse : (payload) {
         print(Get.context);
-        if (payload!.split(' ')[0] == 'messages') {
+        if (payload.toString().split(' ')[0] == 'messages') {
           setMessages(0);
           box.write('messagesNumber', 0);
           //Provider.of<GeneralProvider>(Get.context, listen: false).changeCurrentIndex(2);

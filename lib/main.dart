@@ -40,7 +40,7 @@ showNotification(channelId, channelName, id, title, body, payload) async{
     importance: Importance.high,
   );
   // ignore: prefer_const_constructors
-  var ios = IOSNotificationDetails();
+  var ios = DarwinNotificationDetails();
   var platform = NotificationDetails(android: android, iOS: ios);
   await flutterLocalNotificationsPlugin.show(
       id,
@@ -53,11 +53,11 @@ showNotification(channelId, channelName, id, title, body, payload) async{
 
 showNotificationDateTime(channelId, channelName, id, title, body, payload, Duration duration) async{
   var initializationSettingsAndroid = const AndroidInitializationSettings('flutter_devs');
-  var initializationSettingsIOs = const IOSInitializationSettings();
+  var initializationSettingsIOs = DarwinInitializationSettings();
   var initSetttings = InitializationSettings(
       android: initializationSettingsAndroid, iOS: initializationSettingsIOs);
   flutterLocalNotificationsPlugin.initialize(initSetttings,
-      onSelectNotification: onSelectNotification);
+      /*onDidReceiveNotificationResponse : onSelectNotification*/);
   //LocalNotificationService.initialize(context);
   var scheduleNotificationDateTime = DateTime.now().add(duration);
   var android = AndroidNotificationDetails(
@@ -68,7 +68,7 @@ showNotificationDateTime(channelId, channelName, id, title, body, payload, Durat
     importance: Importance.high,
   );
   // ignore: prefer_const_constructors
-  var ios = IOSNotificationDetails();
+  var ios =  DarwinNotificationDetails();
   var platform = NotificationDetails(android: android, iOS: ios);
   await flutterLocalNotificationsPlugin.schedule(
       id,
