@@ -86,6 +86,7 @@ dependencies:
   advance_image_picker: ^0.1.7+1
   permission_handler: ^10.2.0
   device_info_plus: ^9.0.2
+  flutter_native_splash:
 
 dev_dependencies:
   flutter_test:
@@ -109,6 +110,15 @@ flutter_icons:
   ios: true
   image_path: "assets/images/Logo1.png"
   adaptive_icon_background: "#ff0000"
+
+flutter_native_splash:
+  color: "#FFFFFF"
+  image: assets/images/Logo1.png
+  android: true
+  ios: true
+  android_12:
+    color: "#FFFFFF"
+    image: assets/images/Logo1.png
 
 dependency_overrides:
   firebase_messaging_platform_interface: 4.5.1

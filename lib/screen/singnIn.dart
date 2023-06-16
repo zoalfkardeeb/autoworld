@@ -166,10 +166,10 @@ class _Sign_inState extends State<Sign_in> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        _signUpCard(curve, 'assets/images/facebook.svg', AppLocalizations.of(context)!.translate('Sign up with Facebook'), () async => await _faceBookLogIn()),
+                        /*_signUpCard(curve, 'assets/images/facebook.svg', AppLocalizations.of(context)!.translate('Sign up with Facebook'), () async => await _faceBookLogIn()),
                         SizedBox(width: MediaQuery.of(context).size.width/30,),
                         _signUpCard(curve, 'assets/images/google.svg', AppLocalizations.of(context)!.translate('Sign up with Google'), () async => await _googleLogIn()),
-                        SizedBox(width: MediaQuery.of(context).size.width/30,),
+                        SizedBox(width: MediaQuery.of(context).size.width/30,),*/
                         _signUpCard(curve, 'assets/images/user_plus.svg', AppLocalizations.of(context)!.translate('Sign up Manually'),  ()=> _register()),
                       ],
                     ),

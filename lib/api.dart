@@ -17,7 +17,7 @@ import 'package:mailer/mailer.dart';
 
 import 'screen/singnIn.dart';
 class MyAPI{
-  final _baseUrl = 'https://automall-qa.com';
+  final _baseUrl = 'https://autoworldqa.com';
   //final _baseUrl = 'https://automallonline.info';
 
   Future register(name, phone, email, password, cityId, type) async{
