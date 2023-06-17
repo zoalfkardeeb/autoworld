@@ -270,7 +270,7 @@ class MyApp extends StatelessWidget {
         // If the locale of the device is not supported, use the first one
         // from the list (English, in this case).
       },
-      title: 'Auto Mall',
+      title: 'Auto World',
       theme: ThemeData(
         /*textTheme: TextTheme(
           headline1: TextStyle(

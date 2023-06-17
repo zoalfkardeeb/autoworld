@@ -38,7 +38,7 @@
         </intent>
     </queries>
     <application
-        android:label="Auto Market"
+        android:label="Auto World"
         android:requestLegacyExternalStorage="true"
         android:icon="@mipmap/launcher_icon">
         <meta-data android:name="com.facebook.sdk.ApplicationId"
