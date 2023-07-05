@@ -179,10 +179,10 @@ flutter:
         - asset: assets/fonts/SegoeUI-Light.ttf
     - family: Gotham
       fonts:
-        - asset: assets/fonts/GothamBook.ttf
+        - asset: assets/fonts/segoeuisl.ttf
     - family: Gotham_light
       fonts:
-        - asset: assets/fonts/GothamLight.ttf
+        - asset: assets/fonts/SegoeUI-Light.ttf
    # - family: GESS
    #   fonts:
    #     - asset: assets/fonts/GESSTEXTMEDIUM.OTF

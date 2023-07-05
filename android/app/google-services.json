@@ -1,49 +1,34 @@
 {
   "project_info": {
-    "project_number": "219180023147",
-    "project_id": "automall-7255a",
-    "storage_bucket": "automall-7255a.appspot.com"
+    "project_number": "264168242614",
+    "firebase_url": "https://autoworld222222000333-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "autoworld222222000333",
+    "storage_bucket": "autoworld222222000333.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:219180023147:android:be0a4e8bd2f185dba3202e",
+        "mobilesdk_app_id": "1:264168242614:android:51fd4d7b748a78da375517",
         "android_client_info": {
-          "package_name": "com.QAutoParts.automall"
+          "package_name": "com.AutoWorld.AutoWorldQa"
         }
       },
       "oauth_client": [
         {
-          "client_id": "219180023147-9gsevvt67tgtf3kudmfp7o9aths1vi30.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.QAutoParts.automall",
-            "certificate_hash": "c0aeafd86fe9ba1e4036823e83f078d870df2309"
-          }
-        },
-        {
-          "client_id": "219180023147-ukpf8nqpfo44upe0s1t5sa2lmi9h4jrq.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.QAutoParts.automall",
-            "certificate_hash": "dd7177f4c3d878015d8c8f97fd3f16e506d20c51"
-          }
-        },
-        {
-          "client_id": "219180023147-3ejp4d8205msmtcgbt34f7ue83080g6j.apps.googleusercontent.com",
+          "client_id": "264168242614-ma8pob8cqn1m3mv98dh249au6kes4uiq.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyC6CrM7Hi1IYV7a8ysA6qosTbzOkD9gHCU"
+          "current_key": "AIzaSyDt3qTUmoOW14gky-FIZj5dop4qgXKjBCU"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "219180023147-3ejp4d8205msmtcgbt34f7ue83080g6j.apps.googleusercontent.com",
+              "client_id": "264168242614-ma8pob8cqn1m3mv98dh249au6kes4uiq.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

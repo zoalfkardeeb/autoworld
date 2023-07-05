@@ -1,4 +1,4 @@
-package com.QAutoParts.automall;
+package com.AutoWorld.AutoWorldQa;
 
 import io.flutter.embedding.android.FlutterActivity;
 

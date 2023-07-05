@@ -248,7 +248,8 @@ class _Sign_inState extends State<Sign_in> {
               SvgPicture.asset(icon, height: MediaQuery.of(context).size.height/28, fit: BoxFit.contain,),
               //Icon(icon, color: MyColors.mainColor,),
               const Expanded(child: SizedBox()),
-              _m!.bodyText1(text, scale: 0.8, padding: 0.0),
+              //Text(text),
+              _m!.bodyText1(text, scale: 0.8, padding: 0.0, maxLine: 3),
               SizedBox(height: curve/2,)
             ],
           ),
