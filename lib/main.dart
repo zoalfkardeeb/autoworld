@@ -2,10 +2,12 @@ import 'dart:io';
 
 import 'package:automall/color/MyColors.dart';
 import 'package:automall/screen/SplachScreen.dart';
+import 'package:automall/screen/singnIn.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -21,7 +23,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'model/transaction.dart';
 import 'notification_ontroller.dart';
-import 'package:advance_image_picker/advance_image_picker.dart';
 const myTask = "syncWithTheBackEnd";
 FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =FlutterLocalNotificationsPlugin();
 Future onSelectNotification(String? payload) async {
@@ -147,9 +148,11 @@ void main() async {
 
     //LocalNotificationService.display(message);
   });
-
-
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   runApp(const MyApp());
+  FlutterNativeSplash.remove();
+
 }
 
 class MyApp extends StatelessWidget {
@@ -160,7 +163,7 @@ class MyApp extends StatelessWidget {
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
     ]);
-    final configs = ImagePickerConfigs();
+    /*final configs = ImagePickerConfigs();
     // AppBar text color
     configs.appBarTextColor = Colors.white;
     configs.appBarBackgroundColor = Colors.red;
@@ -237,7 +240,7 @@ class MyApp extends StatelessWidget {
       'assets/icon/cus3.png',
       'assets/icon/cus4.png',
       'assets/icon/cus5.png'
-    ];
+    ];*/
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       // These delegates make sure that the localization data for the proper language is loaded
@@ -305,7 +308,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.red,
       ),
-      home: SplashScreen(),
+      home: Sign_in(false),
       routes: const {
         //'about': (context)=> about(),
       },

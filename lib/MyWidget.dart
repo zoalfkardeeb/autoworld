@@ -653,6 +653,7 @@ class MyWidget{
               ),
 
           ),
+          SizedBox(height: 5,),
           error? bodyText2(errorText): const SizedBox(height: 0,),
         ],
       )

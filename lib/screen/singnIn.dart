@@ -143,7 +143,7 @@ class _Sign_inState extends State<Sign_in> {
               margin: EdgeInsets.only(
                 //left: MediaQuery.of(context).size.width/20,
                 //right: MediaQuery.of(context).size.width/20,
-                top: hSpace*1.5 + MediaQuery.of(context).size.width/3.5 + MediaQuery.of(context).size.width/6,
+                top: hSpace*1.5 + MediaQuery.of(context).size.width/3.5 + MediaQuery.of(context).size.width/9,
               ),
               child: SingleChildScrollView(
                 child: Column(
@@ -155,7 +155,7 @@ class _Sign_inState extends State<Sign_in> {
                     _m!.bodyText1(AppLocalizations.of(context)!.translate('Please log in to start your experience'),padV: 0.0),
                     _m!.textFiled(curve, MyColors.black, MyColors.white, _emailController, AppLocalizations.of(context)!.translate('Enter Your Email'), Icons.email_outlined, requiredValidator: requiredValidator, withoutValidator: _firstOpen),
                     _m!.textFiled(curve, MyColors.white, MyColors.black, _passwordController, AppLocalizations.of(context)!.translate('Enter Your Password'),!passwordTextStyle? Icons.lock_open_outlined: Icons.lock_outline, password: passwordTextStyle, requiredValidator: requiredValidator, withoutValidator: _firstOpen, click: ()=> _changePasswordStyle()),
-                    SizedBox(height: hSpace/4,),
+                    SizedBox(height: hSpace/2,),
                     GestureDetector(
                       onTap: ()=> _m!.changePassword(()=>_resetPass()),
                       child: _m!.headText(AppLocalizations.of(context)!.translate('Forget Password?'),align: TextAlign.start,color: MyColors.mainColor, scale: 0.6),
