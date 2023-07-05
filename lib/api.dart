@@ -70,7 +70,6 @@ class MyAPI{
     try{
       String? _deviceId = await PlatformDeviceId.getDeviceId;
       return _deviceId;
-
     }catch(e){
 
     }
@@ -893,7 +892,7 @@ class MyAPI{
       return;
     }
     try {
-      var _serverKey = 'AAAAMwglvWs:APA91bHsPk8XkZsd4YE3mdQsGSJDPlwB_DwXt150mupjJ-CpujuI69ardOGDyM0sQ608LN5oxlS4DkIgloHg5MGGZkCepZudg2PfsfylJnbiPaern8MHCQG66B5XZhi9yomLwRJbz9jM';
+      var _serverKey = 'AAAAPYGnfbY:APA91bE9bjmD44pSqtNgJJeQQAmUWboFPfYG2kaRkEUQv_xpPRrUdSohn7mTwtRriNUEwOAuR9tIyJhZypBYQLBpHuBTenxzc0sfRqW_zrP88nm5AQSSVX8D3zAcnLjVj9eKYZdRORKE';
       var response = await http.post(
         //Uri.parse('https://api.rnfirebase.io/messaging/send'),
         //Uri.parse('https://fcm.googleapis.com/v1/projects/mr-services-15410/messages:send'),
@@ -901,7 +900,7 @@ class MyAPI{
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
           'Authorization': 'key=$_serverKey',
-          'project_id':'219180023147',
+          'project_id':'264168242614',
         },
         body: constructFCMPayload(_token, title, body),
       );
