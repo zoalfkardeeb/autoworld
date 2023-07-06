@@ -101,7 +101,7 @@ class _FeaturedBoardsState extends State<FeaturedBoards> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Image.asset(broadListImageType[index]['image'], fit: BoxFit.contain,),
-                                  MyWidget(context).headText('${6-index}'+AppLocalizations.of(context)!.translate('Numbers') ,scale: 0.8)
+                                  MyWidget(context).headText('${6-index} '+AppLocalizations.of(context)!.translate('Numbers') ,scale: 0.8)
                                 ],
                               ),
                             ),
