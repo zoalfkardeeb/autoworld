@@ -3,6 +3,7 @@ import 'package:automall/api.dart';
 import 'package:automall/color/MyColors.dart';
 import 'package:automall/const.dart';
 import 'package:automall/localizations.dart';
+import 'package:automall/screen/carKey/AddSellCarPanleScreen.dart';
 import 'package:automall/screen/garageCountry.dart';
 import 'package:automall/screen/suplierScreen.dart';
 import 'package:automall/screen/carSell/AddSellCarScreen.dart';
@@ -96,7 +97,13 @@ class _FeaturedBoardsState extends State<FeaturedBoards> {
                             onTap: ()=> _goToOfferCarsBrand(broadListImageType[index]['id']),
                             child: Padding(
                               padding: EdgeInsets.all(curve/3),
-                              child: Image.asset(broadListImageType[index]['image'], fit: BoxFit.contain,),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Image.asset(broadListImageType[index]['image'], fit: BoxFit.contain,),
+                                  MyWidget(context).headText('${6-index}'+AppLocalizations.of(context)!.translate('Numbers') ,scale: 0.8)
+                                ],
+                              ),
                             ),
                           );
                         },
@@ -190,10 +197,10 @@ class _FeaturedBoardsState extends State<FeaturedBoards> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
 
-          /*GestureDetector(
-            child: MyWidget(context).iconText("assets/images/ic_sell_car.svg", AppLocalizations.of(context)!.translate('Sell your car'), MyColors.black, vertical: true, scale: 1.4, imageScale: 1.6),
-            onTap: ()=> _goToSellCar(),
-          ),*/
+          GestureDetector(
+            child: MyWidget(context).iconText("assets/images/ic_sell_car.svg", AppLocalizations.of(context)!.translate('Sell your car Panle'), MyColors.black, vertical: true, scale: 1.3, imageScale: 2),
+            onTap: ()=> _goToSellCarPanle(),
+          ),
 
           GestureDetector(
             child: MyWidget(context).iconText("assets/images/ic_all_brand.svg", AppLocalizations.of(context)!.translate('All type number'), MyColors.black, vertical: true, scale: 1.3, imageScale: 2),
@@ -247,7 +254,13 @@ class _FeaturedBoardsState extends State<FeaturedBoards> {
               children: [
                 Expanded(
                   flex: 1,
-                  child: _m!.drawerButton(_scaffoldKey),
+                  child: IconButton(
+                    icon: Align(
+                      alignment: lng==2?Alignment.centerRight:Alignment.centerLeft,
+                      child: Icon(Icons.arrow_back_ios),
+                    ),
+                    onPressed: ()=> Navigator.of(context).pop(),
+                  ),
                 ),
                 Expanded(
                   flex: 1,
@@ -314,5 +327,18 @@ class _FeaturedBoardsState extends State<FeaturedBoards> {
       await MyAPI(context: context).readUserInfo(userData['id']);
     }
     setState(() {});
+  }
+
+  _goToSellCarPanle() async{
+    if(guestType){
+      _m!.guestDialog();
+      return;
+    }
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => AddSellCarPanleScreen(),
+        )
+    );
   }
 }

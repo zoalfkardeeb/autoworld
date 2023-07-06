@@ -241,8 +241,6 @@ class _AddSellCarScreenState extends State<AddSellCarScreen> {
     });
   }
 
-  _search() {}
-
   _topBar(curve) {
     return Container(
       //centerTitle: true,
@@ -302,53 +300,6 @@ class _AddSellCarScreenState extends State<AddSellCarScreen> {
   }
 
   String path = '' ;
-
-  /*_selectImageProfile() async {
-    final ImagePicker _picker = ImagePicker();
-    final XFile? xFile = await _picker.pickImage(source: ImageSource.gallery);
-    path = xFile!.path;
-    print(path);
-    setState(
-          () {
-        //  image = FileImage(File(path!));
-      },
-    );
-  }*/
-
-  Future<bool> _checkPermission(BuildContext context) async {
-    //FocusScope.of(context).requestFocus(FocusNode());
-    Map<Permission, PermissionStatus> statues = await [
-      Permission.camera,
-      Permission.storage,
-      Permission.photos
-    ].request();
-    PermissionStatus? statusCamera = statues[Permission.camera];
-    PermissionStatus? statusStorage = statues[Permission.storage];
-    PermissionStatus? statusPhotos = statues[Permission.photos];
-    bool isGranted = statusCamera == PermissionStatus.granted &&
-        statusStorage == PermissionStatus.granted &&
-        statusPhotos == PermissionStatus.granted;
-    if (isGranted) {
-      //openCameraGallery();
-      //_openDialog(context);
-    }
-    if (await Permission.storage.request().isGranted) {
-      // Either the permission was already granted before or the user just granted it.
-      print("Location Permission is granted");
-    }else{
-      print("Location Permission is denied.");
-    }
-
-    bool isPermanentlyDenied =
-        statusCamera == PermissionStatus.permanentlyDenied ||
-            statusStorage == PermissionStatus.permanentlyDenied ||
-            statusPhotos == PermissionStatus.permanentlyDenied;
-    if (isPermanentlyDenied) {
-      return false;
-      //_showSettingsDialog(context);
-    }
-    return false;
-  }
 
   selectPhoto(int index) async{
    /* var t  = true;
@@ -538,47 +489,6 @@ class _AddSellCarScreenState extends State<AddSellCarScreen> {
 
   }
 
-  _showDialogForError(){
-    var curve = MediaQuery.of(context).size.height / 30;
-    _okay() async{
-      Navigator.of(context).pop();
-
-    }
-    Dialog errorDialog = Dialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(curve)), //this right here
-      backgroundColor: MyColors.dialogColor,
-      child: Container(
-        //color: MyColors.gray,
-        padding: EdgeInsets.symmetric(horizontal: curve, vertical: curve),
-        height: MediaQuery.of(context).size.width/1.7,
-        width: MediaQuery.of(context).size.width/1.2,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            _m!.dialogText1(AppLocalizations.of(context)!.translate('name'),scale: 1.1),
-            Expanded(child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                SvgPicture.asset('assets/images/checkDialog.svg'),
-                Expanded(
-                  child: _m!.dialogText1(AppLocalizations.of(context)!.translate('please! Fill all fields.')),
-                )
-              ],
-            ))
-            ,
-            Row(
-              children: [
-                _m!.raisedButton(curve, MediaQuery.of(context).size.width/1.2/3, AppLocalizations.of(context)!.translate('Okay'), null, ()=> _okay())
-              ],
-            )
-          ],
-        ),
-      ),
-    );
-    showDialog(context: context, builder: (BuildContext context) => errorDialog);
-
-  }
   final GlobalKey _dropDownKeyType = GlobalKey();
   final GlobalKey _dropDownKeyBrand = GlobalKey();
   final GlobalKey _dropDownKeyModel = GlobalKey();

@@ -117,7 +117,7 @@ class _CompanyOffersScreenState extends State<CompanyOffersScreen> {
                       padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.width/40, horizontal: MediaQuery.of(context).size.width/40),
                       itemCount: _foundOffers.length,
                       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                          childAspectRatio: 1.5,
+                          childAspectRatio: 1.3,
                           crossAxisCount: 1),
                       itemBuilder: (BuildContext context, int index) {
                         return GestureDetector(
@@ -184,7 +184,13 @@ class _CompanyOffersScreenState extends State<CompanyOffersScreen> {
               children: [
                 Expanded(
                   flex: 1,
-                  child: _m!.drawerButton(_scaffoldKey),
+                  child: IconButton(
+                    icon: Align(
+                      alignment: lng==2?Alignment.centerRight:Alignment.centerLeft,
+                      child: Icon(Icons.arrow_back_ios),
+                    ),
+                    onPressed: ()=> Navigator.of(context).pop(),
+                  ),
                 ),
                 Expanded(
                   flex: 1,

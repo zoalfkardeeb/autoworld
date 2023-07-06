@@ -43,7 +43,6 @@ class _CarRentOffersState extends State<CarRentOffers> {
     try{
       _state = cityController.text;
     }catch(e){}
-
     _searchController.addListener(() {
       setState(() {
         if (_searchController.text.isEmpty) {
@@ -187,7 +186,13 @@ class _CarRentOffersState extends State<CarRentOffers> {
               children: [
                 Expanded(
                   flex: 1,
-                  child: _m!.drawerButton(_scaffoldKey),
+                  child: IconButton(
+                    icon: Align(
+                      alignment: lng==2?Alignment.centerRight:Alignment.centerLeft,
+                      child: Icon(Icons.arrow_back_ios),
+                    ),
+                    onPressed: ()=> Navigator.of(context).pop(),
+                  ),
                 ),
                 Expanded(
                   flex: 1,

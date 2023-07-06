@@ -25,7 +25,6 @@ class _BoardSelectState extends State<BoardSelect> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
 
   List<String> imageList = [];
-  //List<DropdownMenuItem<String>> dropDownList = [];
   ImageProvider? image;
 
   List _carBroadKeyList = [];
@@ -40,7 +39,7 @@ class _BoardSelectState extends State<BoardSelect> {
       for(int i = 0; i<carBroadKeyList.length; i++){
         _carBroadKeyList.add({
           'id': carBroadKeyList[i]['id'].toString(),
-          'keyNum': "123456",//carBroadKeyList[i]['id'].toString(),
+          'keyNum': carBroadKeyList[i]['carKeyNum'].toString(),
           'user': carBroadKeyList[i]['user'],
           'keyUser': carBroadKeyList[i]['user']['name'],
           'keyPrice': carBroadKeyList[i]['price'].toString() ,
@@ -157,28 +156,6 @@ class _BoardSelectState extends State<BoardSelect> {
         _carBroadKeyList[index]['keyView']);
   }
 
-  _towRowIcos(){
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height/40),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-
-          GestureDetector(
-            child: MyWidget(context).iconText("assets/images/fill_heart.svg", AppLocalizations.of(context)!.translate('Sell your car'), MyColors.black, vertical: true, scale: 1.5),
-            onTap: ()=> Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => AddSellCarScreen(),
-                )),
-
-          ),
-
-          MyWidget(context).iconText("assets/images/fill_heart.svg", AppLocalizations.of(context)!.translate('All Brands'), MyColors.black, vertical: true, scale: 1.5),
-        ],
-      ),
-    );
-  }
 
   _setState() {
     setState(() {
@@ -186,7 +163,6 @@ class _BoardSelectState extends State<BoardSelect> {
     });
   }
 
-  _search() {}
 
   _topBar(curve) {
     var padT = MediaQuery.of(context).size.height/30;
@@ -210,7 +186,13 @@ class _BoardSelectState extends State<BoardSelect> {
                   children: [
                     Expanded(
                       flex: 1,
-                      child: _m!.drawerButton(_scaffoldKey),
+                      child: IconButton(
+                        icon: Align(
+                          alignment: lng==2?Alignment.centerRight:Alignment.centerLeft,
+                          child: Icon(Icons.arrow_back_ios),
+                        ),
+                        onPressed: ()=> Navigator.of(context).pop(),
+                      ),
                     ),
                     Expanded(
                       flex: 1,
@@ -236,50 +218,6 @@ class _BoardSelectState extends State<BoardSelect> {
           ],
         )
     );
-  }
-
-  _iconCenter(svgImage, Function() onPressed){
-    return IconButton(
-      icon: Align(
-        alignment: Alignment.center,
-        child: SvgPicture.asset(svgImage, height: MediaQuery.of(context).size.width/20, fit: BoxFit.contain, color: MyColors.gray,),),
-      onPressed: () => onPressed(),
-    );
-
-  }
-
-  _selectCard(index) async{
-    setState(() {
-      pleaseWait = true;
-    });
-    if(index != 0) {
-      await MyAPI(context: context).getBrandsCountry();
-    } else {
-      //await MyAPI(context: context).getBrands();
-      await MyAPI(context: context).getSupliers(0.1, 'garages', original: false, afterMarket: false, indexGarage: 0);
-    }
-    setState(() {
-      pleaseWait = false;
-    });
-    if(index == 0) {
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-            //builder: (context) =>  BrandScreen(_state, _country, 1, garageCountry: '', indexGarage: 0,),
-            builder: (context) =>  SuplierScreen(0.1, 1, false, indexGarage: 0,),
-          )
-      );
-    }
-    else{
-      {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) =>  GarageCountry(index),
-            )
-        );
-      }
-    }
   }
 
   _tap(num) async{

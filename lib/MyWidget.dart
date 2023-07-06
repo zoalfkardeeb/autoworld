@@ -653,7 +653,6 @@ class MyWidget{
               ),
 
           ),
-          SizedBox(height: 5,),
           error? bodyText2(errorText): const SizedBox(height: 0,),
         ],
       )
@@ -1342,7 +1341,7 @@ class MyWidget{
             Align(
               alignment: Alignment.topCenter,
               child: Container(
-                height: curve*5.7*scale,
+                height: curve*6.2*scale,
                 alignment: Alignment.bottomRight,
                 margin: EdgeInsets.only(top: raduis*4/3,left: raduis/4, right: raduis/4),
                 /*child: CircleAvatar(
@@ -2276,12 +2275,13 @@ class MyWidget{
                   margin: EdgeInsets.only(bottom: curve/2, left: hSpace, right: hSpace),
                   decoration: BoxDecoration(
                       color: MyColors.white,
-                      borderRadius: BorderRadius.all(Radius.circular(curve/2)),
-                    border: Border.all(color: MyColors.red, width: 2),                     
+                      borderRadius: BorderRadius.all(Radius.circular(curve/1.5)),
+                    border: Border.all(color: MyColors.qatarColor, width: 2),
                   ),
                   child: Row(
+                    textDirection: TextDirection.ltr,
                     children: [
-                      Image.asset('assets/images/background.png', width: hSpace*3.5, height: MediaQuery.of(context).size.width/6, fit: BoxFit.cover,),
+                      Image.asset('assets/images/board_key.png', width: hSpace*3.5, height: MediaQuery.of(context).size.width/6, fit: BoxFit.cover,),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,

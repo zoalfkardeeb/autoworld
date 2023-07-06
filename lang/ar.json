@@ -181,6 +181,7 @@
   "Price": "السعر",
   "please! Fill all fields.": "يجب ملأ جميع الحقول!",
   "You will just submit to sell car!": "أنت تقدم من أجل عرض سيارة للبيع!",
+  "You will just submit to sell car Panle!": "أنت تقدم من أجل عرض لوحة سيارة للبيع!",
   "Sort By Price From High to Low": "ترتبت تنازلي حسب السعر",
   "Sort By Price From Low to High": "ترتيب تصاعدي حسب السعر",
   "Sort By Views From High to Low": "ترتيب تنازلي حسب عدد المشاهدات",
@@ -216,9 +217,11 @@
   "Select Year": "إختر سنة",
   "Featured boards": "اللوحات المميزة",
   "exhibition": "المعارض",
-  "Car Pannel": "Car Pannel",
-  "All type number": "All type number",
-  "Visit": "مشاهدة"
+  "Car Panel": "لوحة السيارة",
+  "Sell your car Panle": "إعرض لوحتك",
+  "All type number": "جميع الأرقام",
+  "Visit": "مشاهدة",
+  "Numbers": "أرقام"
 
 }
 

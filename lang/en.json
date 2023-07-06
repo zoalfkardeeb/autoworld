@@ -180,6 +180,7 @@
   "Kelometrage": "Kelometrage",
   "Price": "Price",
   "You will just submit to sell car!": "You will just submit to sell car!",
+  "You will just submit to sell car Panle!": "You will just submit to sell car Panle!",
   "please! Fill all fields.": "please! Fill all fields.",
   "Sort By Price From High to Low": "Sort By Price From High to Low",
   "Sort By Price From Low to High": "Sort By Price From Low to High",
@@ -216,9 +217,13 @@
   "Select Year": "Select Year",
   "Featured boards": "Featured boards",
   "exhibition": "exhibition",
-  "Car Panel": "Car Pannel",
+  "Car Panel": "Car Panel",
+  "Sell your car Panle": "Sell your car Panel",
   "All type number": "All type number",
-  "Visit": "Visit"
+  "Visit": "Visit",
+  "Numbers": "Numbers"
+
+
 
 
 }

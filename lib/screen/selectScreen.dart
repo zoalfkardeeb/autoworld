@@ -334,6 +334,21 @@ class _SelectScreenState extends State<SelectScreen> {
       setState(() {
         pleaseWait = true;
       });
+      //await MyAPI(context: context).getSupliers(0.1, getGategoryName(index), original: false, afterMarket: false, indexGarage: 0);
+      await MyAPI(context: context).getSupliers(0.1, 'garages', original: false, afterMarket: false, indexGarage: 3);
+      setState(() {
+        pleaseWait = false;
+      });
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+            //builder: (context) =>  BrandScreen(_state, _country, 1, garageCountry: '', indexGarage: 0,),
+            builder: (context) =>  SuplierScreen(0.1, 1, false, indexGarage: 3,),
+          )
+      );
+      /*setState(() {
+        pleaseWait = true;
+      });
       await MyAPI(context: context).getBrandsCountry();
       setState(() {
         pleaseWait = false;
@@ -343,7 +358,7 @@ class _SelectScreenState extends State<SelectScreen> {
           MaterialPageRoute(
             builder: (context) =>  GarageCountry(3),
           )
-      );
+      );*/
     }
     else if(imageList[index]['text'] == AppLocalizations.of(context)!.translate('Rent a Car')){
       setState(() {

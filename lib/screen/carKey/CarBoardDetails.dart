@@ -39,7 +39,7 @@ class _CarBoardDetailsState extends State<CarBoardDetails> {
     // TODO: implement initState
     super.initState();
     view = carBroadKeyList[_indexCarBoard]['viewCount'].toString();
-    name = "123456";
+    name = carBroadKeyList[_indexCarBoard]['carKeyNum'].toString();
     price = formatter.format(carBroadKeyList[_indexCarBoard]['price']).toString();
     venName = carBroadKeyList[_indexCarBoard]['user']['name'].toString();
     venPhone = carBroadKeyList[_indexCarBoard]['user']['mobile'].toString();
@@ -84,13 +84,13 @@ class _CarBoardDetailsState extends State<CarBoardDetails> {
                 children: [
                   _topBar(curve),
                 //  SizedBox(height: hSpace/2,),
-                  _carBoardCard(curve, scale, 'keyNum'),
+                  _carBoardCard(curve, scale, name),
                  // SizedBox(height: hSpace/4,),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: curve),
                     child: Row(
                       children: [
-                        _carBoardCard(curve, scale * 0.3, 'keyNum'),
+                        _carBoardCard(curve, scale * 0.3, name),
                         Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -238,7 +238,13 @@ class _CarBoardDetailsState extends State<CarBoardDetails> {
               children: [
                 Expanded(
                   flex: 1,
-                  child: _m!.drawerButton(_scaffoldKey),
+                  child: IconButton(
+                    icon: Align(
+                      alignment: lng==2?Alignment.centerRight:Alignment.centerLeft,
+                      child: Icon(Icons.arrow_back_ios),
+                    ),
+                    onPressed: ()=> Navigator.of(context).pop(),
+                  ),
                 ),
                 Expanded(
                   flex: 1,
@@ -309,7 +315,7 @@ class _CarBoardDetailsState extends State<CarBoardDetails> {
   }
 
   _carBoardCard(curve, scale, keyNum){
-    var color = MyColors.red;
+    var color = MyColors.qatarColor;
     var width = MediaQuery.of(context).size.width/1.2*scale;
     var height = MediaQuery.of(context).size.height/4*scale;
     curve*=scale;
@@ -326,24 +332,28 @@ class _CarBoardDetailsState extends State<CarBoardDetails> {
       ),
       child: Expanded(
         child: Container(
+          decoration: BoxDecoration(
+            color: MyColors.white,
+            borderRadius: BorderRadius.all(Radius.circular(curve/1.2)),
+          ),
           child: Row(
+            textDirection: TextDirection.ltr,
             children: [
-              Image.asset('assets/images/background.png', width: (height-curve*2)/4, height: height-curve*2, fit: BoxFit.cover,),
+              Image.asset('assets/images/board_key.png', width: (height-curve*2)/3, height: height-curve*2, fit: BoxFit.cover,),
               Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       SizedBox(height: curve/2,),
-                      _m!.headText(AppLocalizations.of(context)!.translate('Car Panel'), paddingH: width/20, scale: scale*0.85, paddingV: curve/2, align: TextAlign.center),
-                      _m!.headText(keyNum, scale: scale*0.85, align: TextAlign.center, paddingH: width/20, paddingV: 0.0),
+                      _m!.headText(AppLocalizations.of(context)!.translate('Car Panel'), paddingH: width/20, scale: scale*0.85, paddingV: curve/4, align: TextAlign.center),
+                      _m!.headText(keyNum, scale: scale*1, align: TextAlign.center, paddingH: width/20, paddingV: 0.0),
                     ],
                   )
               )
 
             ],
           ),
-          color: MyColors.white,
         ),
       )
       ,

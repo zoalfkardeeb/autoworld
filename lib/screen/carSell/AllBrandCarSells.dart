@@ -322,29 +322,6 @@ class _AllBrandCarSellsState extends State<AllBrandCarSells> {
     }
   }
 
-  _towRowIcos(){
-    return Padding(
-        padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height/40),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-
-          GestureDetector(
-            child: MyWidget(context).iconText("assets/images/fill_heart.svg", AppLocalizations.of(context)!.translate('Sell your car'), MyColors.black, vertical: true, scale: 1.5),
-            onTap: ()=> Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => AddSellCarScreen(),
-                )),
-
-          ),
-
-          MyWidget(context).iconText("assets/images/fill_heart.svg", AppLocalizations.of(context)!.translate('All Brands'), MyColors.black, vertical: true, scale: 1.5),
-        ],
-      ),
-    );
-  }
-
   _setState() {
     setState(() {
 
@@ -379,7 +356,13 @@ class _AllBrandCarSellsState extends State<AllBrandCarSells> {
                   children: [
                     Expanded(
                       flex: 1,
-                      child: _m!.drawerButton(_scaffoldKey),
+                      child: IconButton(
+                        icon: Align(
+                          alignment: lng==2?Alignment.centerRight:Alignment.centerLeft,
+                          child: Icon(Icons.arrow_back_ios),
+                        ),
+                        onPressed: ()=> Navigator.of(context).pop(),
+                      ),
                     ),
                     Expanded(
                       flex: 1,

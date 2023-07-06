@@ -1601,6 +1601,81 @@ class MyAPI{
     }
   }
 
+  Future sendSellCarPanle(id, price, carPanleNum) async{
+    var type = 0;
+    switch (carPanleNum.toString().length.toString()){
+      case '6':
+        type = 0;
+        break;
+      case '5':
+        type = 1;
+        break;
+      case '4':
+        type = 2;
+        break;
+      case '3':
+        type = 3;
+        break;
+
+    }
+    try{
+      var  apiUrl =Uri.parse('$_baseUrl/CarKey/CarKey_Create');
+      print('t');
+      Map mapDate = {
+      "customerId": id,
+      "isSold": false,
+      "price": price,
+      "carKeyType": type,
+      //"carKeyImg": "string",
+      //"carKeyImgFile": "string",
+      "carKeyNum": carPanleNum.toString()
+      };
+      print('Req: ------------------------');
+      print(jsonEncode(mapDate));
+      http.Response response = await http.post(apiUrl,body:jsonEncode(mapDate),headers: {
+        //"Accept-Language": LocalizationService.getCurrentLocale().languageCode,
+        "Accept": "application/json",
+        "content-type": "application/json",
+        "Authorization": token,
+      });
+
+      print('ResAll: ------------------------');
+      print(response);
+
+      print('Res: ------------------------');
+      print(response.body);
+
+      print(token);
+
+      //create multipart request for POST or PATCH method
+      //add text fields
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        //Get the response from the server
+        try{
+          if (jsonDecode(response.body)['errors'] == null || jsonDecode(response.body)['errors'] == ''){
+            print('success');
+            flushBar(AppLocalizations.of(context!)!.translate('Your request is added'));
+            return true;
+          }else{
+            flushBar(jsonDecode(response.body)['errors']);
+            return false;
+          }
+        }catch(e){
+          flushBar(e.toString());
+          return false;
+        }
+      } else {
+        flushBar(jsonDecode(response.body)['Errors']);
+        return false;
+        print(response.statusCode);
+      }
+    }catch(e){
+      flushBar(e.toString());
+      return false;
+    }
+  }
+
   Future addViewCar(id) async{
     try{
       var  apiUrl =Uri.parse('$_baseUrl/CarSell/CarSellViewers_Create');
