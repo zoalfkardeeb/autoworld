@@ -45,7 +45,7 @@ class _SuplierScreenState extends State<SuplierScreen> {
   var _tapNum = 1;
   final TextEditingController _searchController = TextEditingController();
   final ScrollController _scrollController = ScrollController();
-  List _foundSupliers = suplierList;
+  List _foundSupliers = [];
 
   @override
   void initState() {
@@ -57,26 +57,21 @@ class _SuplierScreenState extends State<SuplierScreen> {
     suplierList.add({"star":3, "name": "Omar", "sub":"New to the list", "image": null});
     suplierList.add({"star":3, "name": "Omar", "sub":"New to the list", "image": null});
     */
+    _foundSupliers = suplierList.toList();
     for (int i = 0; i < _foundSupliers.length; i++) {
       _suplierListCheck.add(false);
     }
     animateList(_scrollController);
     _searchController.addListener(() {
       setState(() {
-        List results = [];
         if (_searchController.text.isEmpty) {
-          _foundSupliers = suplierList;
+          _foundSupliers = suplierList.toList();
         } else {
           _foundSupliers = suplierList.where((element) => element['fullName'].toString().toLowerCase().contains(_searchController.text.toLowerCase())).toList();
-          //clearAll();
         }
       });
     });
 
-    /*_foundSupliers.add(suplierList[0]);
-    _foundSupliers.add(suplierList[0]);
-    _foundSupliers.add(suplierList[0]);
-    _foundSupliers.add(suplierList[0]);*/
   }
 
   @override
