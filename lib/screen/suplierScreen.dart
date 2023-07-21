@@ -382,89 +382,89 @@ class _SuplierScreenState extends State<SuplierScreen> {
       );
     }
 
-    return Container(
-      height: raduis * 7 / 5,
-      padding:
-          EdgeInsets.symmetric(horizontal: curve * 2, vertical: raduis / 6),
-      child: Row(
-        children: [
-          Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: curve * 0, vertical: raduis / 6 * 0),
-            child: GestureDetector(
-              onTap: () => _check(suplierList.indexOf(_foundSupliers[index])),
+    return GestureDetector(
+      onTap: () => _check(suplierList.indexOf(_foundSupliers[index])),
+      child: Container(
+        height: raduis * 7 / 5,
+        padding:
+            EdgeInsets.symmetric(horizontal: curve * 2, vertical: raduis / 6),
+        child: Row(
+          children: [
+            Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: curve * 0, vertical: raduis / 6 * 0),
               child: SvgPicture.asset(_suplierListCheck[suplierList.indexOf(_foundSupliers[index])]
                   ? 'assets/images/check.svg'
                   : 'assets/images/check-not.svg'),
             ),
-          ),
-          Expanded(
-            child: Stack(
-              children: [
-                Align(
-                  alignment: lng==2?Alignment.centerRight:Alignment.centerLeft,
-                  child: Padding(
-                    padding: lng==2?EdgeInsets.only(right: curve * 2):EdgeInsets.only(left: curve * 2),
-                    child: _m!.logoContainer(_suplierImagePath, raduis, isSupp: true),
-                  ),
-                  /*CircleAvatar(
-                    backgroundImage: _suplierImagePath == null
-                        ? const AssetImage('assets/images/Logo1.png') as ImageProvider
-                        : NetworkImage(_suplierImagePath),
-                    child: ClipOval(
-                      child: _suplierImagePath == null
-                          ? Image.asset('assets/images/Logo1.png')
-                          : Image.network(_suplierImagePath,fit: BoxFit.cover,width: raduis, height: raduis,),
-                      //clipper: CustomClipper,
+            Expanded(
+              child: Stack(
+                children: [
+                  Align(
+                    alignment: lng==2?Alignment.centerRight:Alignment.centerLeft,
+                    child: Padding(
+                      padding: lng==2?EdgeInsets.only(right: curve * 2):EdgeInsets.only(left: curve * 2),
+                      child: _m!.logoContainer(_suplierImagePath, raduis, isSupp: true),
                     ),
-                    radius: raduis,
-                    //maxRadius: raduis,
-                    backgroundColor: Colors.transparent,
-                  ),*/
-                ),
-                Align(
-                  alignment: lng==2?Alignment.bottomRight:Alignment.bottomLeft,
-                  child: Padding(
-                    padding: lng==2?EdgeInsets.only(right: curve * 2+raduis/2):EdgeInsets.only(left: 0.0),
-                    child: _m!.starRow(raduis, _starNum),
+                    /*CircleAvatar(
+                      backgroundImage: _suplierImagePath == null
+                          ? const AssetImage('assets/images/Logo1.png') as ImageProvider
+                          : NetworkImage(_suplierImagePath),
+                      child: ClipOval(
+                        child: _suplierImagePath == null
+                            ? Image.asset('assets/images/Logo1.png')
+                            : Image.network(_suplierImagePath,fit: BoxFit.cover,width: raduis, height: raduis,),
+                        //clipper: CustomClipper,
+                      ),
+                      radius: raduis,
+                      //maxRadius: raduis,
+                      backgroundColor: Colors.transparent,
+                    ),*/
                   ),
-                ),
-                Align(
-                  alignment: lng==2?Alignment.topRight:Alignment.topLeft,
-                  child: suplierName(),
-                ),
-              ],
+                  Align(
+                    alignment: lng==2?Alignment.bottomRight:Alignment.bottomLeft,
+                    child: Padding(
+                      padding: lng==2?EdgeInsets.only(right: curve * 2+raduis/2):EdgeInsets.only(left: 0.0),
+                      child: _m!.starRow(raduis, _starNum),
+                    ),
+                  ),
+                  Align(
+                    alignment: lng==2?Alignment.topRight:Alignment.topLeft,
+                    child: suplierName(),
+                  ),
+                ],
+              ),
             ),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: curve /2),
-            child: GestureDetector(
-              onTap: () => _explore(index),
-              child: SvgPicture.asset('assets/images/eyeCircle.svg'),
+            Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: curve /2),
+              child: GestureDetector(
+                onTap: () => _explore(index),
+                child: SvgPicture.asset('assets/images/eyeCircle.svg'),
+              ),
             ),
-          ),
-          _withoutQutation != null?
-          Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: curve * 0, vertical: raduis / 6 * 0),
-            child: GestureDetector(
-              onTap: () => launchWhatsApp(phone: _foundSupliers[index]['whatsappNumber'].toString(), message: ' ', context: context),
-              child: SvgPicture.asset('assets/images/whatsapp.svg'),
-            ),
-          ):
-          SizedBox(),
-          _withoutQutation != null?
-          Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: curve * 0, vertical: raduis / 6 * 0),
-            child: GestureDetector(
-              onTap: () => launchPhone(phone: _foundSupliers[index]['whatsappNumber'].toString(), context: context),
-              child: SvgPicture.asset('assets/images/phone.svg', color: MyColors.bodyText1),
-            ),
-          ):
-          SizedBox(),
-        ],
+            _withoutQutation != null?
+            Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: curve * 0, vertical: raduis / 6 * 0),
+              child: GestureDetector(
+                onTap: () => launchWhatsApp(phone: _foundSupliers[index]['whatsappNumber'].toString(), message: ' ', context: context),
+                child: SvgPicture.asset('assets/images/whatsapp.svg'),
+              ),
+            ):
+            SizedBox(),
+            _withoutQutation != null?
+            Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: curve * 0, vertical: raduis / 6 * 0),
+              child: GestureDetector(
+                onTap: () => launchPhone(phone: _foundSupliers[index]['whatsappNumber'].toString(), context: context),
+                child: SvgPicture.asset('assets/images/phone.svg', color: MyColors.bodyText1),
+              ),
+            ):
+            SizedBox(),
+          ],
+        ),
       ),
     );
   }

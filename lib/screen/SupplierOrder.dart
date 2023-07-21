@@ -204,13 +204,7 @@ class _SupplierOrdesrState extends State<SupplierOrdesr> {
               children: [
                 Expanded(
                   flex: 1,
-                  child: IconButton(
-                    icon: Align(
-                      alignment: lng==2?Alignment.centerRight:Alignment.centerLeft,
-                      child: Icon(Icons.arrow_back_ios),
-                    ),
-                    onPressed: ()=> Navigator.of(context).pop(),
-                  ),
+                  child: _m!.drawerButton(_scaffoldKey),
                 ),
                 Expanded(
                   flex: 1,

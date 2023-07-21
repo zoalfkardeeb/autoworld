@@ -410,6 +410,7 @@ class MyWidget{
       _home();
     }
     return Drawer(
+      width: MediaQuery.of(context).size.width/5*4,
         child: Container(
             height: double.infinity,
             color: MyColors.backGround,
@@ -588,7 +589,7 @@ class MyWidget{
               alignment: Alignment.center,
               width: width,
               height: height,
-              margin: EdgeInsets.only(left: MediaQuery.of(context).size.width/10*0, right: MediaQuery.of(context).size.width/10*0, top: curve, bottom: 0),
+              margin: EdgeInsets.only(left: MediaQuery.of(context).size.width/10*0, right: MediaQuery.of(context).size.width/10*0, top: curve/2, bottom: 0),
               padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width/20),
               decoration: BoxDecoration(
                 color: containerColor.withOpacity(0.8),
@@ -615,6 +616,7 @@ class MyWidget{
                       maxLines: password? 1: null,
                       //validator: requiredValidator,
                       //autovalidateMode: requiredValidator.errorText == ''? AutovalidateMode.disabled : AutovalidateMode.onUserInteraction,
+
                       keyboardType: password? TextInputType.visiblePassword: number?  TextInputType.number : newLineAction? TextInputType.multiline: TextInputType.text,
                       controller: controller,
                       textAlign: TextAlign.start,
@@ -895,7 +897,7 @@ class MyWidget{
           children: [
             SvgPicture.asset(assets ,height: MediaQuery.of(context).size.width/20*scale * imageScale, fit: BoxFit.contain,),
             SizedBox(width: MediaQuery.of(context).size.height/80*scale,),
-            headText(text, scale: 0.5*scale, color: color, paddingV: MediaQuery.of(context).size.width/40),
+            headText(text, scale: 0.5*scale, color: color, paddingV: MediaQuery.of(context).size.width/40, maxLine: 1),
           ],
         ),
       );

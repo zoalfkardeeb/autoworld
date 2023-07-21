@@ -34,11 +34,12 @@ class _FeaturedBoardsState extends State<FeaturedBoards> {
     super.initState();
     try{
       broadListImageType.clear();
-      for(int i = 0; i<4; i++){
+      for(int i = 3; i>-1; i--){
         broadListImageType.add({
           'image': "assets/images/key_type$i.png",
           //'text': brands[i]['name'],
           'id': i.toString(),
+          'num': 6-i,
         });
       }
 
@@ -51,7 +52,7 @@ class _FeaturedBoardsState extends State<FeaturedBoards> {
     var hSpace = MediaQuery.of(context).size.height / 17;
     var curve = MediaQuery.of(context).size.height / 30;
     _m = MyWidget(context);
-
+    //broadListImageType = broadListImageType.reversed.toList();
     return Scaffold(
       resizeToAvoidBottomInset: true,
       backgroundColor: Colors.grey[100],
@@ -101,7 +102,7 @@ class _FeaturedBoardsState extends State<FeaturedBoards> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Image.asset(broadListImageType[index]['image'], fit: BoxFit.contain,),
-                                  MyWidget(context).headText('${6-index} '+AppLocalizations.of(context)!.translate('Numbers') ,scale: 0.8)
+                                  MyWidget(context).headText('${broadListImageType[index]['num']} '+AppLocalizations.of(context)!.translate('Numbers') ,scale: 0.8)
                                 ],
                               ),
                             ),
@@ -196,16 +197,21 @@ class _FeaturedBoardsState extends State<FeaturedBoards> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-
-          GestureDetector(
-            child: MyWidget(context).iconText("assets/images/ic_sell_car.svg", AppLocalizations.of(context)!.translate('Sell your car Panle'), MyColors.black, vertical: true, scale: 1.3, imageScale: 2),
-            onTap: ()=> _goToSellCarPanle(),
+          Flexible(
+            flex: 1,
+            child: GestureDetector(
+              child: MyWidget(context).iconText("assets/images/ic_sell_car.svg", AppLocalizations.of(context)!.translate('Sell your car Panle'), MyColors.black, vertical: true, scale: 1.15, imageScale: 2.3),
+              onTap: ()=> _goToSellCarPanle(),
+            ),
           ),
 
-          GestureDetector(
-            child: MyWidget(context).iconText("assets/images/ic_all_brand.svg", AppLocalizations.of(context)!.translate('All type number'), MyColors.black, vertical: true, scale: 1.3, imageScale: 2),
-            onTap: ()=> _goToOfferCarsBrand(''),
+          Flexible(
+            flex: 1,
+            child: GestureDetector(
+              child: MyWidget(context).iconText("assets/images/ic_all_brand.svg", AppLocalizations.of(context)!.translate('All type number'), MyColors.black, vertical: true, scale: 1.15, imageScale: 2.3),
+              onTap: ()=> _goToOfferCarsBrand(''),
 
+            ),
           ),
 
         ],

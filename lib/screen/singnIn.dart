@@ -153,6 +153,17 @@ class _Sign_inState extends State<Sign_in> {
                     //SizedBox(height: hSpace*1.5 + MediaQuery.of(context).size.width/3.5 + MediaQuery.of(context).size.width/6,),
                     //SizedBox(height: hSpace,),
                     _m!.bodyText1(AppLocalizations.of(context)!.translate('Please log in to start your experience'),padV: 0.0),
+                    _m!.bodyText1(AppLocalizations.of(context)!.translate('OR'),padV: 0.0),
+                    SizedBox(
+                      child: _m!.raisedButton(curve, MediaQuery.of(context).size.width/4, AppLocalizations.of(context)!.translate('Continue As Guest'), null,
+                            ()=> _countinueAsGuest(), color: MyColors.gray.withOpacity(0.7) ,),
+                      width: MediaQuery.of(context).size.width/2,
+                      height: MediaQuery.of(context).size.width/24*2,
+                    ),
+                    /*GestureDetector(
+                      onTap: ()=> _countinueAsGuest(),
+                      child: _m!.bodyText1(AppLocalizations.of(context)!.translate('Continue As Guest'), align: TextAlign.start, color: MyColors.mainColor, scale: 1),
+                    ),*/
                     _m!.textFiled(curve, MyColors.black, MyColors.white, _emailController, AppLocalizations.of(context)!.translate('Enter Your Email'), Icons.email_outlined, requiredValidator: requiredValidator, withoutValidator: _firstOpen),
                     _m!.textFiled(curve, MyColors.white, MyColors.black, _passwordController, AppLocalizations.of(context)!.translate('Enter Your Password'),!passwordTextStyle? Icons.lock_open_outlined: Icons.lock_outline, password: passwordTextStyle, requiredValidator: requiredValidator, withoutValidator: _firstOpen, click: ()=> _changePasswordStyle()),
                     SizedBox(height: hSpace/2,),
@@ -174,10 +185,6 @@ class _Sign_inState extends State<Sign_in> {
                       ],
                     ),
                     SizedBox(height: hSpace/2,),
-                    GestureDetector(
-                      onTap: ()=> _countinueAsGuest(),
-                      child: _m!.bodyText1(AppLocalizations.of(context)!.translate('Continue As Guest'), align: TextAlign.start, color: MyColors.mainColor, scale: 1),
-                    ),
                     SizedBox(height: hSpace/4,),
                     _m!.copyLangButton(curve, MediaQuery.of(context).size.width/3, AppLocalizations.of(context)!.translate('copy lang'), ()=> setState((){})),
                     //SizedBox(height: hSpace/2,),
@@ -532,12 +539,12 @@ class _Sign_inState extends State<Sign_in> {
 
   _read() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    _emailController.text = sharedPreferences.getString('email')!;
-    _passwordController.text = sharedPreferences.getString('password')!;
+    _emailController.text = sharedPreferences.getString('email')??'';
+    _passwordController.text = sharedPreferences.getString('password')??'';
     var isLogInLast = false;
     try{
-      termsAndConditions = sharedPreferences.getBool('terms')!;
-      isLogInLast = sharedPreferences.getBool('isLogin')!;
+      termsAndConditions = sharedPreferences.getBool('terms')??true;
+      isLogInLast = sharedPreferences.getBool('isLogin')??false;
     }catch(e){
       print(e);
     }

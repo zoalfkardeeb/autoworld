@@ -79,70 +79,73 @@ class _AddSellCarPanleScreenState extends State<AddSellCarPanleScreen> {
       key: _scaffoldKey,
       //appBar: _m!.appBar(barHight, _scaffoldKey),
       drawer: _m!.drawer(() => _setState(), ()=> _tap(2), ()=> _tap(1), _scaffoldKey),
-      body: Stack(
-        children: [
-          Align(
-            alignment: Alignment.topCenter,
-            child: Container(
-              height: MediaQuery.of(context).size.height*(1-_br),
-              width: double.infinity,
+      body: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).requestFocus(new FocusNode());
+        },
+        child: Stack(
+          children: [
+            Align(
               alignment: Alignment.topCenter,
-              padding: EdgeInsets.only(
-                //left: MediaQuery.of(context).size.width/20,
-                //right: MediaQuery.of(context).size.width/20,
-                top: 0*MediaQuery.of(context).size.height / 40,
+              child: Container(
+                height: MediaQuery.of(context).size.height*(1-_br),
+                width: double.infinity,
+                alignment: Alignment.topCenter,
+                padding: EdgeInsets.only(
+                  //left: MediaQuery.of(context).size.width/20,
+                  //right: MediaQuery.of(context).size.width/20,
+                  top: 0*MediaQuery.of(context).size.height / 40,
+                ),
+                child: _tapNum == 1?
+                Column(
+                  //mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    _topBar(curve),
+                    //SizedBox(height: hSpace/2,),
+                   // _m!.bodyText1(AppLocalizations.of(context)!.translate("Fill up the request form below to have the suitable parts for your car."), scale: 1.2, padding: MediaQuery.of(context).size.width/7, maxLine: 3),
+                    Expanded(
+                        child: ListView(
+                          controller: _scrollController,
+                          padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width/10),
+                          children: [
+                            //SizedBox(height: hSpace/3,),
+                            _m!.textFiled(curve, Colors.white, MyColors.bodyText1, _numOfCarPanle, AppLocalizations.of(context)!.translate('Car Panel'), Icons.edit_outlined, withoutValidator: true),
+                            _m!.textFiled(curve, Colors.white, MyColors.bodyText1, _priceController, AppLocalizations.of(context)!.translate('Price'), Icons.edit_outlined, withoutValidator: true, number: true),
+                          ],
+                    )
+                    ),
+                    //SizedBox(height: hSpace/3,),
+                    //_m!.raisedButton(curve, MediaQuery.of(context).size.width/1.2, AppLocalizations.of(context)!.translate('Submit'), 'assets/images/car.svg', active),
+                    //SizedBox(height: hSpace/3,),
+                  ],
+                )
+                    :
+                _m!.userInfoProfile(_topBar(curve), hSpace, curve, () => _setState()),
+
               ),
-              child: _tapNum == 1?
-              Column(
-                //mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  _topBar(curve),
-                  //SizedBox(height: hSpace/2,),
-                 // _m!.bodyText1(AppLocalizations.of(context)!.translate("Fill up the request form below to have the suitable parts for your car."), scale: 1.2, padding: MediaQuery.of(context).size.width/7, maxLine: 3),
-                  Expanded(
-                      child: ListView(
-                        controller: _scrollController,
-                        padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width/10),
-                        children: [
-                          //SizedBox(height: hSpace/3,),
-
-                         _m!.textFiled(curve, Colors.white, MyColors.bodyText1, _numOfCarPanle, AppLocalizations.of(context)!.translate('Car Panel'), Icons.edit_outlined, withoutValidator: true, newLineAction: true, number: true),
-                          _m!.textFiled(curve, Colors.white, MyColors.bodyText1, _priceController, AppLocalizations.of(context)!.translate('Price'), Icons.edit_outlined, withoutValidator: true, newLineAction: true, number: true),
-
-                        ],
-                  )
-                  ),
-                  //SizedBox(height: hSpace/3,),
-                  //_m!.raisedButton(curve, MediaQuery.of(context).size.width/1.2, AppLocalizations.of(context)!.translate('Submit'), 'assets/images/car.svg', active),
-                  //SizedBox(height: hSpace/3,),
-                ],
-              )
-                  :
-              _m!.userInfoProfile(_topBar(curve), hSpace, curve, () => _setState()),
-
             ),
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: MediaQuery
-                .of(context)
-                .viewInsets
-                .bottom == 0 ?
-            _m!.bottomContainer(
-                //_m!.mainChildrenBottomContainer(curve, () => _tap(1), () => _tap(2), () => _tap(3), _tapNum),
-                _m!.raisedButton(curve, MediaQuery.of(context).size.width/1.2, AppLocalizations.of(context)!.translate('Submit'), 'assets/images/car.svg', active),
-                curve, bottomConRati: _br)
-                : const SizedBox(height: 0.1,),
-          ),
-          Align(
-            alignment: Alignment.center,
-            child: pleaseWait?
-            _m!.progress()
-                :
-            const SizedBox(),
-          )
-        ],
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: MediaQuery
+                  .of(context)
+                  .viewInsets
+                  .bottom == 0 ?
+              _m!.bottomContainer(
+                  //_m!.mainChildrenBottomContainer(curve, () => _tap(1), () => _tap(2), () => _tap(3), _tapNum),
+                  _m!.raisedButton(curve, MediaQuery.of(context).size.width/1.2, AppLocalizations.of(context)!.translate('Submit'), 'assets/images/car.svg', active),
+                  curve, bottomConRati: _br)
+                  : const SizedBox(height: 0.1,),
+            ),
+            Align(
+              alignment: Alignment.center,
+              child: pleaseWait?
+              _m!.progress()
+                  :
+              const SizedBox(),
+            )
+          ],
+        ),
       ),
     );
   }

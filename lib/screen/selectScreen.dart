@@ -243,11 +243,11 @@ class _SelectScreenState extends State<SelectScreen> {
             ],
           ),
          // SizedBox(height: MediaQuery.of(context).size.height/40,),
-          _tapNum==1?
+          /*_tapNum==1?
           _m!.headText('$_country, $_state', scale: 0.8, paddingV: MediaQuery.of(context).size.height/120, align: TextAlign.start)
               :
-              const SizedBox()
-          ,
+              const SizedBox(),*/
+
         ],
       )
     );
