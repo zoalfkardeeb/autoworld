@@ -126,7 +126,7 @@ class SplashState extends State<SplashScreen> {
     Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => !welcom ?  Sign_in(false) : userInfo['type'] == 0? SelectScreen() : SupplierOrdesr(),
+          builder: (context) => !welcom ?  Sign_in(false) : userInfo['type'] == 0? SelectScreen() : SelectScreen(),
         )
     );
   }

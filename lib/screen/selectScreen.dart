@@ -109,6 +109,7 @@ class _SelectScreenState extends State<SelectScreen> {
     _m = MyWidget(context);
     imageList.clear();
     imageList.add({'image': 'assets/images/group1.png', 'text': AppLocalizations.of(context)!.translate('Spare Parts')});
+    imageList.add({'image': 'assets/images/group12.png', 'text': AppLocalizations.of(context)!.translate('Car for Sell')});
     imageList.add({'image': 'assets/images/group2.png', 'text': AppLocalizations.of(context)!.translate('Garages')});
     imageList.add({'image': 'assets/images/group4.png', 'text': AppLocalizations.of(context)!.translate('Batteries & tyres')});
     imageList.add({'image': 'assets/images/group3.png', 'text': AppLocalizations.of(context)!.translate('Motor Service Van')});
@@ -119,7 +120,6 @@ class _SelectScreenState extends State<SelectScreen> {
     imageList.add({'image': 'assets/images/group7.png', 'text': AppLocalizations.of(context)!.translate('Car Modifications')});
     imageList.add({'image': 'assets/images/group8.png', 'text': AppLocalizations.of(context)!.translate('Accessories')});
     imageList.add({'image': 'assets/images/group9.png', 'text': AppLocalizations.of(context)!.translate('Customisation')});
-    imageList.add({'image': 'assets/images/group12.png', 'text': AppLocalizations.of(context)!.translate('Car for Sell')});
     imageList.add({'image': 'assets/images/group14.png', 'text': AppLocalizations.of(context)!.translate('Featured boards')});
     imageList.add({'image': 'assets/images/group13.png', 'text': AppLocalizations.of(context)!.translate('exhibition')});
     return Scaffold(
@@ -268,8 +268,13 @@ class _SelectScreenState extends State<SelectScreen> {
       setState(() {
         pleaseWait = true;
       });
-      await MyAPI(context: context).getBrands();
-      await MyAPI(context: context).getCarModel();
+
+      await Future.wait(
+          [
+        MyAPI(context: context).getBrands(),
+        MyAPI(context: context).getCarType(),
+        MyAPI(context: context).getCarModel(),
+      ]);
       setState(() {
         pleaseWait = false;
       });

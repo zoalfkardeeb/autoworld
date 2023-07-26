@@ -6,6 +6,7 @@ import 'dart:math';
 
 import 'package:automall/localization_service.dart';
 import 'package:automall/screen/SupplierOffersScreen.dart';
+import 'package:automall/screen/SupplierOrder.dart';
 import 'package:automall/screen/notificationScreen.dart';
 import 'package:automall/screen/resetPassword.dart';
 import 'package:automall/screen/singnIn.dart';
@@ -453,8 +454,9 @@ class MyWidget{
                   _iconText(()=>_hom(), Icons.home_outlined, AppLocalizations.of(context)!.translate('HOME')),
                   _iconText(()=>_info(), Icons.person_outline, AppLocalizations.of(context)!.translate('Personal info')),
                   driver(),
-                  userInfo['type'] == 0 ? _iconText(()=> guestType ? guestDialog() : Navigator.of(context).push(MaterialPageRoute(builder:(context)=> NotificationScreen())), Icons.bookmark_outline, AppLocalizations.of(context)!.translate('My Orders'))
-                  :_iconText(()=> null/*Navigator.of(context).push(MaterialPageRoute(builder:(context)=> SupplierOffersScreen()))*/, Icons.bookmark_outline, AppLocalizations.of(context)!.translate('My Offers')),
+                  userInfo['type'] == 0 ? SizedBox()
+                  :_iconText(()=> Navigator.of(context).push(MaterialPageRoute(builder:(context)=> SupplierOrdesr())), Icons.local_offer_outlined, AppLocalizations.of(context)!.translate('SupplierOrders')),
+                  _iconText(()=> guestType ? guestDialog() : Navigator.of(context).push(MaterialPageRoute(builder:(context)=> NotificationScreen())), Icons.bookmark_outline, AppLocalizations.of(context)!.translate('My Orders')),
                   driver(),
                   _iconText(()=>changePassword(()=> _resetPass(() => _setState(), _scaffoldKey)), Icons.password_outlined, AppLocalizations.of(context)!.translate('Change Password?')),
                   _iconText(()=>_logout(), Icons.logout_outlined, AppLocalizations.of(context)!.translate('Log out')),
@@ -1858,12 +1860,12 @@ class MyWidget{
     return Stack(
                   children: [
                     Align(
-                      child: textFiled(curve, MyColors.white, MyColors.black, controller, hintText, Icons.keyboard_arrow_down_outlined, width: width, withoutValidator: firstOpen, readOnly: true, click: ()=> press(), fontSize: fontSize),
+                      child: textFiled(curve/2, MyColors.white, MyColors.black, controller, hintText, Icons.keyboard_arrow_down_outlined, width: width, withoutValidator: firstOpen, readOnly: true, click: ()=> press(), fontSize: fontSize, height: MediaQuery.of(context).size.width/8,),
                     ),
                     Align(
                       alignment: Alignment.center,
                       child: Padding(
-                        padding: EdgeInsets.only(top: curve, right: MediaQuery.of(context).size.width/6.5 + MediaQuery.of(context).size.width/50, left: curve,),
+                        padding: EdgeInsets.only(top: curve/2, right: curve /*MediaQuery.of(context).size.width/6.5 + MediaQuery.of(context).size.width/50*/, left: curve,),
                         //padding: EdgeInsets.all(0.0),
                         child: _dropDown,
                       ),

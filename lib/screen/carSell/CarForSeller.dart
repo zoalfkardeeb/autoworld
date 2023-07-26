@@ -149,12 +149,12 @@ class _CarForSellerState extends State<CarForSeller> {
         children: [
 
           GestureDetector(
-            child: MyWidget(context).iconText("assets/images/ic_sell_car.svg", AppLocalizations.of(context)!.translate('Sell your car'), MyColors.black, vertical: true, scale: 1.4, imageScale: 1.6),
+            child: MyWidget(context).iconText("assets/images/ic_sell_car.svg", AppLocalizations.of(context)!.translate('Sell your car'), MyColors.black, vertical: true, scale: 1.2, imageScale: 2),
             onTap: ()=> _goToSellCar(),
           ),
 
           GestureDetector(
-            child: MyWidget(context).iconText("assets/images/ic_all_brand.svg", AppLocalizations.of(context)!.translate('All Brands'), MyColors.black, vertical: true, scale: 1.4, imageScale: 1.6),
+            child: MyWidget(context).iconText("assets/images/ic_all_brand.svg", AppLocalizations.of(context)!.translate('All Brands'), MyColors.black, vertical: true, scale: 1.2, imageScale: 2),
             onTap: ()=> _goToOfferCarsBrand(''),
 
           ),

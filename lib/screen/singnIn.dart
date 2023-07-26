@@ -287,7 +287,7 @@ class _Sign_inState extends State<Sign_in> {
       chLogIn = false;
     });
     if(response){
-      if(userInfo['type'] == 0) {
+      if(true) {
         Navigator.pushReplacement(
             context,
             MaterialPageRoute(
