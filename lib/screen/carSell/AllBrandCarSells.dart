@@ -136,8 +136,6 @@ class _AllBrandCarSellsState extends State<AllBrandCarSells> {
               width: double.infinity,
               alignment: Alignment.topCenter,
               padding: EdgeInsets.only(
-                //left: MediaQuery.of(context).size.width/20,
-                //right: MediaQuery.of(context).size.width/20,
                 top: MediaQuery.of(context).size.height / 40*0,
               ),
               child: _tapNum == 1?
@@ -147,7 +145,6 @@ class _AllBrandCarSellsState extends State<AllBrandCarSells> {
                 children: [
                   _topBar(curve),
                   //SizedBox(height: hSpace/2,),
-
                   filterShow?
                   Container(
                     height:  MediaQuery.of(context).size.height/1.2 - MediaQuery.of(context).viewInsets.bottom,
@@ -254,8 +251,7 @@ class _AllBrandCarSellsState extends State<AllBrandCarSells> {
                         },
                       ),
                     ),
-                  )
-                  ,
+                  ),
                 ],
               )
                   :

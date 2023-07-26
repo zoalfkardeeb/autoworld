@@ -764,7 +764,7 @@ class MyWidget{
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                icon == null? const SizedBox(width: 0,) :SvgPicture.asset(icon, height: iconHight, color: MyColors.white,),
+                icon == null? const SizedBox(width: 0,) :SvgPicture.asset(icon, height: iconHight,/* color: MyColors.white,*/),
                 SizedBox(width: icon == null? 0 :curve/2,),
                 Text(text, style: TextStyle(
                   color: MyColors.buttonText,
