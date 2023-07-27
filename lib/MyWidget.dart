@@ -2112,13 +2112,7 @@ class MyWidget{
     ) ;
   }
 
-  carSellerHCardAds(mainImage, brandImage, typeName, model, kelometrag, cylenders, price, gearBox, productionYear, view, fromUser, isNew, {required status, required id}){
-    _delete(){
-
-    }
-    _markAsSell(){
-
-    }
+  carSellerHCardAds(mainImage, brandImage, typeName, model, kelometrag, cylenders, price, gearBox, productionYear, view, fromUser, isNew, {required status, required id, required Function() delete, required Function() markAsSell}){
     var state = 'pending';
     switch (status){
       case 0:
@@ -2195,7 +2189,7 @@ class MyWidget{
                                     BorderRadius.only(bottomLeft: Radius.circular(MediaQuery.of(context).size.width/40), topRight: Radius.circular(MediaQuery.of(context).size.width/20)),
                                   ),
                                   child: bodyText1(
-                                      state,
+                                      isNew? state : AppLocalizations.of(context)!.translate('Sold'),
                                       color: MyColors.white, padding: MediaQuery.of(context).size.width/80, scale: scale),
                                   //child: Icon(Icons.open_with_outlined, color: MyColors.white),
                                 ),
@@ -2312,7 +2306,7 @@ class MyWidget{
                 ),
                 raisedButton(curve, 100,
                     isNew? AppLocalizations.of(context)!.translate('Mark as sell'):AppLocalizations.of(context)!.translate('Sold')
-                    , null, isNew? () => _markAsSell():null, height: MediaQuery.of(context).size.height/20)
+                    , null, isNew? markAsSell:null, height: MediaQuery.of(context).size.height/20)
               ],
             ),
           ),
@@ -2320,7 +2314,7 @@ class MyWidget{
         Align(
           alignment: lng == 2? Alignment.bottomLeft:Alignment.bottomRight,
           child: GestureDetector(
-            onTap: ()=> _delete(),
+            onTap: delete,
             child: Container(
               padding: EdgeInsets.all(curve/4),
               margin: EdgeInsets.only(bottom: curve, left: 2, right: 2),

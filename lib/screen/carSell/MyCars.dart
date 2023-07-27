@@ -1,4 +1,5 @@
 import 'package:automall/MyWidget.dart';
+import 'package:automall/api.dart';
 import 'package:automall/color/MyColors.dart';
 import 'package:automall/const.dart';
 import 'package:automall/localizations.dart';
@@ -16,6 +17,11 @@ class _MyCarsForSellState extends State<MyCarsForSell> {
   void initState() {
     // TODO: implement initState
     super.initState();
+
+  }
+
+  @override
+  Widget build(BuildContext context) {
     for(int i = 0; i<carSellsList.length; i++) {
       _carSellList.add({
         'id': carSellsList[i]['id'].toString(),
@@ -42,29 +48,37 @@ class _MyCarsForSellState extends State<MyCarsForSell> {
         'status': carSellsList[i]['status']
       });
     }
-  }
-
-  @override
-  Widget build(BuildContext context) {
     var curve = MediaQuery.of(context).size.height / 30;
     return Scaffold(
-      body: Column(
+      body: Stack(
+        
         children: [
-          _topBar(curve),
-          _carSellList.isEmpty?Expanded(
-            child: Center(
-              child: MyWidget(context).headText(AppLocalizations.of(context)!.translate("There isn't!")),
-            ),
-          ): Expanded(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width / 30),
-
-                child: ListView(
-                  children: _carSellList.map((e) => _carSellCard(e)).toList(),
-                ),
+          Column(
+          children: [
+            _topBar(curve),
+            _carSellList.isEmpty?Expanded(
+              child: Center(
+                child: MyWidget(context).headText(AppLocalizations.of(context)!.translate("There isn't!")),
               ),
+            ): Expanded(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width / 30),
+
+                  child: ListView(
+                    children: _carSellList.map((e) => _carSellCard(e)).toList(),
+                  ),
+                ),
+            ),
+          ],
+        ),
+          Align(
+            alignment: Alignment.center,
+            child: pleaseWait?
+            MyWidget(context).progress()
+                :
+            const SizedBox(),
           ),
-        ],
+        ]
       ),
     );
   }
@@ -115,6 +129,15 @@ class _MyCarsForSellState extends State<MyCarsForSell> {
   }
 
   Widget _carSellCard(carSell){
+    _sellOrDellet(status){
+      setState(() {
+        pleaseWait =true;
+      });
+      MyAPI(context: context).updateCarSellStatus(status, carSell['id']);
+      setState(() {
+        pleaseWait =false;
+      });
+    }
     //index = 0;
       return MyWidget(context).carSellerHCardAds(
           carSell['image'],
@@ -131,7 +154,9 @@ class _MyCarsForSellState extends State<MyCarsForSell> {
           carSell['fromUser'],
           carSell['isNew'],
         status: carSell['status'],
-        id: carSell['id']
+        id: carSell['id'],
+        delete: ()=>_sellOrDellet(4),
+        markAsSell: ()=>_sellOrDellet(5),
       );
 
   }

@@ -123,6 +123,7 @@ class MyAPI{
         else if(jsonDecode(response.body)['content'] != null){
           Navigator.of(context!).push(MaterialPageRoute(builder:(context)=>Verification(value: jsonDecode(response.body)['content']['id'] ,email: email, password: password,  verCode: '',),));
           flushBar(jsonDecode(response.body)['error_des']);
+          return false;
         }
         else{
          // Navigator.of(context!).push(MaterialPageRoute(builder:(context)=>Verification(value: 'value' ,email: email, password: password,  verCode: '',),));
@@ -779,16 +780,16 @@ class MyAPI{
 
   }
 
-  updateCarSellStatus(int status) async{
+  updateCarSellStatus(int status, id) async{
     // status 4(Delete) OR 5(Paid)
     var url = "$_baseUrl/CarSell/CarSell_UpdateStatus";
     try{
       http.Response response = await http.post(
           Uri.parse(url),
-          body: {
-            'id':userInfo['id'],
-            'status':status
-          },
+          body: jsonEncode({
+            'id':id,
+            'status':status/*.toString()*/
+          }),
           headers: {
             "Accept-Language": LocalizationService.getCurrentLocale().languageCode,
             "Accept": "application/json",
@@ -796,6 +797,7 @@ class MyAPI{
             "Authorization": token,
           });
       if(response.statusCode == 200){
+        await MyAPI(context: context).getCarSellByUserId();
         print(jsonDecode(response.body));
         if(jsonDecode(response.body)['errors'] == "" || jsonDecode(response.body)['errors'] == null){
           flushBar(jsonDecode(response.body)['Errors']);
