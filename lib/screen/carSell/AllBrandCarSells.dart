@@ -289,7 +289,7 @@ class _AllBrandCarSellsState extends State<AllBrandCarSells> {
         _carSellList[index]['brandLogo'],
         listCarType[listCarType.indexWhere((element) => element['id'].toString()==_carSellList[index]['type'])]['name'],
         _carSellList[index]['carModel'],
-        _carSellList[index]['kelometrage']+  AppLocalizations.of(context)!.translate('Km'),
+        _carSellList[index]['kelometrage'] + AppLocalizations.of(context)!.translate('Km'),
         AppLocalizations.of(context)!.translate('Engine') + ": " +  _carSellList[index]['numberOfCylindes'] + AppLocalizations.of(context)!.translate("Cylinders"),
         AppLocalizations.of(context)!.translate('Price') + ": " + _carSellList[index]['price'],
         AppLocalizations.of(context)!.translate('Gear') + ": " +

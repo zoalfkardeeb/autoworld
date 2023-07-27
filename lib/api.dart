@@ -779,6 +779,45 @@ class MyAPI{
 
   }
 
+  updateCarSellStatus(int status) async{
+    // status 4(Delete) OR 5(Paid)
+    var url = "$_baseUrl/CarSell/CarSell_UpdateStatus";
+    try{
+      http.Response response = await http.post(
+          Uri.parse(url),
+          body: {
+            'id':userInfo['id'],
+            'status':status
+          },
+          headers: {
+            "Accept-Language": LocalizationService.getCurrentLocale().languageCode,
+            "Accept": "application/json",
+            "content-type": "application/json",
+            "Authorization": token,
+          });
+      if(response.statusCode == 200){
+        print(jsonDecode(response.body));
+        if(jsonDecode(response.body)['errors'] == "" || jsonDecode(response.body)['errors'] == null){
+          flushBar(jsonDecode(response.body)['Errors']);
+          //context!.
+          //carSellsList = jsonDecode(response.body)['data'];
+          //editTransactionOrdersList();
+          return true;
+        }
+        else{
+          flushBar(jsonDecode(response.body)['Errors']);
+          return false;
+        }
+      }
+    }
+    catch(e){
+      flushBar(AppLocalizations.of(context!)!.translate('please! check your network connection'));
+      return false;
+      print(e);
+    }
+
+  }
+
   getCarBroadKey(String _brandId) async{
     //var url = "$_baseUrl/Orders/Orders_Read?";
     print('Car sell');
