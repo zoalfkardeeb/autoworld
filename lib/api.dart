@@ -747,7 +747,7 @@ class MyAPI{
 
   getCarSellByUserId() async{
     print('Car sell');
-    var url = "$_baseUrl/CarSell/CarSell_Read";
+    var url = "$_baseUrl/CarSell/CarSell_Read_Mine?filter=customerId~eq~'${userInfo['id']}'";
     //if(_brandId.isNotEmpty) url = "$_baseUrl/CarSell/CarSell_Read?filter=brandId~eq~'$_brandId'";
     print(url.toString());
     try{

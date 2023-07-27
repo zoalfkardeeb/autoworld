@@ -267,7 +267,7 @@ class _CarSellDetailsState extends State<CarSellDetails> {
                               ),
                             ),
                             _aditionalFeatures? _additionalFeatursCountainer(curve, scale): SizedBox(),
-                            Container(
+                            !carSellsList[_indexCarSell]['isPaid']? Container(
                               padding: EdgeInsets.all(curve/4),
                               margin: EdgeInsets.only(bottom: curve/2, left: 2, right: 2),
                               decoration: BoxDecoration(
@@ -322,7 +322,7 @@ class _CarSellDetailsState extends State<CarSellDetails> {
                                   ],
                                 ),
                               ),
-                            ),
+                            ):SizedBox(),
                           ],
 
                         ),

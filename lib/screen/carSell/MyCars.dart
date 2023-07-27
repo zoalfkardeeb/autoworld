@@ -38,7 +38,8 @@ class _MyCarsForSellState extends State<MyCarsForSell> {
         'view': carSellsList[i]['viewCount'].toString(),
         'numberOfCylindes': carSellsList[i]['numberOfCylindes'].toString(),
         'fromUser': carSellsList[i]['user']['type'] == 0 ? true : false,
-        'isNew': true
+        'isNew': !carSellsList[i]['isPaid'],
+        'status': carSellsList[i]['status']
       });
     }
   }
@@ -55,8 +56,12 @@ class _MyCarsForSellState extends State<MyCarsForSell> {
               child: MyWidget(context).headText(AppLocalizations.of(context)!.translate("There isn't!")),
             ),
           ): Expanded(
-              child: ListView(
-                children: _carSellList.map((e) => _carSellCard(e)).toList(),
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width / 30),
+
+                child: ListView(
+                  children: _carSellList.map((e) => _carSellCard(e)).toList(),
+                ),
               ),
           ),
         ],
@@ -111,7 +116,7 @@ class _MyCarsForSellState extends State<MyCarsForSell> {
 
   Widget _carSellCard(carSell){
     //index = 0;
-      return MyWidget(context).carSellerHCard(
+      return MyWidget(context).carSellerHCardAds(
           carSell['image'],
           carSell['brandLogo'],
           listCarType[listCarType.indexWhere((element) => element['id'].toString()==carSell['type'])]['name'],
@@ -124,7 +129,9 @@ class _MyCarsForSellState extends State<MyCarsForSell> {
           AppLocalizations.of(context)!.translate('Man. Date: ') + carSell['productionYear'],
           carSell['view'] + " " + AppLocalizations.of(context)!.translate('View'),
           carSell['fromUser'],
-          carSell['isNew']
+          carSell['isNew'],
+        status: carSell['status'],
+        id: carSell['id']
       );
 
   }

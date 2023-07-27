@@ -307,71 +307,6 @@ class _AddSellCarScreenState extends State<AddSellCarScreen> {
   String path = '' ;
 
   selectPhoto(int index) async{
-   /* var t  = true;
-    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-    AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-    if (androidInfo.version.sdkInt >= 33) {
-      /*if(!await Permission.videos.isGranted) {
-        await Permission.videos.request();
-      }*/
-      if(!await Permission.photos.isGranted) {
-        await Permission.photos.request();
-      }
-    } else {
-      if(!await Permission.storage.isGranted) {
-        await Permission.storage.request();
-      }
-    }
-    
-    if(!await Permission.camera.isGranted && Platform.isAndroid) {
-      await Permission.camera.request();
-    }
-    if(!await Permission.photos.isGranted && Platform.isIOS) {
-      await Permission.photos.request();
-    }
-    if (androidInfo.version.sdkInt >= 33) {
-      if(!await Permission.photos.isGranted) {
-        t=false;
-      }
-    } else {
-      if(!await Permission.storage.isGranted) {
-        t = false;
-      }
-    }
-    if(!await Permission.camera.isGranted && Platform.isAndroid) {
-      t = false;
-    }
-    if(!await Permission.photos.isGranted && Platform.isIOS) {
-      t = false;
-    }
-
-
-    if(t){
-      final List<ImageObject>? objects = await Navigator.of(context)
-          .push(PageRouteBuilder(pageBuilder: (context, animation, __) {
-        return const ImagePicker(maxCount: 1);
-      }));
-      if ((objects?.length ?? 0) > 0) {
-        setState(() {
-          _imgObjs = objects!;
-          path = objects[0]!.modifiedPath;
-          if(index>= imageList.length){
-            var file = File(path);
-            String base64Image = base64Encode(file.readAsBytesSync());
-            //String fileName = file.path.split("/").last;
-            imageList.add(FileImage(File(path)));
-            attach.add({'base': base64Image, 'name':file.path.split("/").last});
-          }else {
-            imageList[index] = FileImage(File(path));
-            var file = File(path);
-            String base64Image = base64Encode(file.readAsBytesSync());
-            attach[index] = {'base': base64Image, 'name':file.path.split("/").last};
-            //String fileName = file.path.split("/").last;
-          }
-        });
-
-      };
-    }*/
          Widget camera(){
       return GestureDetector(
         onTap: ()=> _addImage(index, ImageSource.camera),
@@ -503,11 +438,14 @@ class _AddSellCarScreenState extends State<AddSellCarScreen> {
   final GlobalKey _dropDownKeyMotorType = GlobalKey();
 
   List<String> listNumOfCyl = <String>[
-    '2',
     '3',
     '4',
+    '5',
     '6',
-    '8'
+    '8',
+    '10',
+    '12',
+    '16',
   ];
   Widget _dropDownItem(e, listType){
     return Container(

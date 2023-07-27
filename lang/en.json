@@ -226,7 +226,15 @@
   "Continue As Guest": "Continue As Guest",
   "OR": "OR",
   "upload files instead": "If you are not interested in writing the car details, you can upload the car registration ID and  the parts required by the garage.",
-  "your ads": "Your Ads"
+  "your ads": "Your Ads",
+  "Sold": "Sold",
+  "Mark as sell": "Mark as sell",
+  "Pending": "Pending",
+  "Accepted": "Accepted",
+  "Special": "Special",
+  "Refused": "Refused"
+
+
 
 }
 

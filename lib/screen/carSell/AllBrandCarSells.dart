@@ -70,7 +70,7 @@ class _AllBrandCarSellsState extends State<AllBrandCarSells> {
           'view': carSellsList[i]['viewCount'].toString(),
           'numberOfCylindes': carSellsList[i]['numberOfCylindes'].toString(),
           'fromUser': carSellsList[i]['user']['type'] ==0 ? true : false,
-          'isNew': true
+          'isNew': !carSellsList[i]['isPaid']
         });
         var exist = false;
         for(String item in _listNumOfCyl) {if(item == carSellsList[i]['numberOfCylindes'].toString())exist = true;}
