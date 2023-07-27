@@ -52,12 +52,8 @@ class _SuplierScreenState extends State<SuplierScreen> {
     // TODO: implement initState
     super.initState();
     _state = cityController.text;
-    /*suplierList.add({"star":3, "name": "Omar", "sub":"New to the list", "image": null});
-    suplierList.add({"star":3, "name": "Omar", "sub":"New to the list", "image": null});
-    suplierList.add({"star":3, "name": "Omar", "sub":"New to the list", "image": null});
-    suplierList.add({"star":3, "name": "Omar", "sub":"New to the list", "image": null});
-    */
     _foundSupliers = suplierList.toList();
+    _foundSupliers.removeWhere((element) => element['id']==userInfo['id']);
     for (int i = 0; i < _foundSupliers.length; i++) {
       _suplierListCheck.add(false);
     }
@@ -406,20 +402,6 @@ class _SuplierScreenState extends State<SuplierScreen> {
                       padding: lng==2?EdgeInsets.only(right: curve * 2):EdgeInsets.only(left: curve * 2),
                       child: _m!.logoContainer(_suplierImagePath, raduis, isSupp: true),
                     ),
-                    /*CircleAvatar(
-                      backgroundImage: _suplierImagePath == null
-                          ? const AssetImage('assets/images/Logo1.png') as ImageProvider
-                          : NetworkImage(_suplierImagePath),
-                      child: ClipOval(
-                        child: _suplierImagePath == null
-                            ? Image.asset('assets/images/Logo1.png')
-                            : Image.network(_suplierImagePath,fit: BoxFit.cover,width: raduis, height: raduis,),
-                        //clipper: CustomClipper,
-                      ),
-                      radius: raduis,
-                      //maxRadius: raduis,
-                      backgroundColor: Colors.transparent,
-                    ),*/
                   ),
                   Align(
                     alignment: lng==2?Alignment.bottomRight:Alignment.bottomLeft,
