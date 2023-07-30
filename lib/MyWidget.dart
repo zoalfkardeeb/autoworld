@@ -1832,6 +1832,20 @@ class MyWidget{
         return AppLocalizations.of(context)!.translate('Offers');
       case 5:
         return AppLocalizations.of(context)!.translate('Scrape Parts');
+      case 6:
+        return AppLocalizations.of(context)!.translate('Rent a Car');
+      case 7:
+        return AppLocalizations.of(context)!.translate('Breakdown Service');
+      case 8:
+        return AppLocalizations.of(context)!.translate('Car Modifications');
+      case 9:
+        return AppLocalizations.of(context)!.translate('Accessories');
+      case 10:
+        return AppLocalizations.of(context)!.translate('Customisation');
+       case 11:
+        return AppLocalizations.of(context)!.translate('Featured boards');
+       case 12:
+        return AppLocalizations.of(context)!.translate('exhibition');
     }
 
   }

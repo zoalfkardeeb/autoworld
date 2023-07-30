@@ -30,6 +30,7 @@ List carBroadKeyList = [];
 List carModelList = [];
 Map userData = {};
 Map userInfo = {'email': '....','name': '.....', 'imagePath': null, 'mobile': '+963 0938025347', 'city' : 'Syria', 'aboutYou': 'aboutYou', 'type':0};
+bool isLogin = false;
 
 ImageProvider? image;
 String? path;

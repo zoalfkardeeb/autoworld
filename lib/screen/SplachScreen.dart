@@ -60,6 +60,7 @@ class SplashState extends State<SplashScreen> {
     var duration = date.timeZoneOffset;
     timeDiff = Duration(hours: -duration.inHours, minutes: -duration.inMinutes %60);
   }
+  bool _welcom = false;
 
   _read() async {
     var d = (await _getDeviceId());
@@ -81,13 +82,13 @@ class SplashState extends State<SplashScreen> {
     }
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     try{
-      welcom = sharedPreferences.getBool('isLogin')!;
+      _welcom = sharedPreferences.getBool('isLogin')!;
       lng = sharedPreferences.getInt('lng')!;
       LocalizationService().changeLocale(lng, context);
       token = sharedPreferences.getString('token')!;
       //welcom = false;
     }catch(e){
-      welcom = false;
+      _welcom = false;
       print(e);
     }
   }
@@ -117,16 +118,15 @@ class SplashState extends State<SplashScreen> {
     }));
   }
 
-  bool welcom = false;
 
   navigate() {
-    if(welcom){
+    if(_welcom){
       MyAPI(context: context).getOrders(userInfo['id']);
     }
     Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => !welcom ?  Sign_in(false) : userInfo['type'] == 0? SelectScreen() : SelectScreen(),
+          builder: (context) => !_welcom ?  Sign_in(false) : userInfo['type'] == 0? SelectScreen() : SelectScreen(),
         )
     );
   }

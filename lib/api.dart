@@ -116,6 +116,7 @@ class MyAPI{
           token = await jsonDecode(response.body)['content']['token'];
           userData = await jsonDecode(response.body)['content'];//id , email, name, token, fbKey
           editTransactionUserData();
+          isLogin = true;
           await readUserInfo(userData['id']);
           await userLang(lng, userData['id']);
           return true;
@@ -584,27 +585,6 @@ class MyAPI{
       if(response.statusCode == 200){
         print(jsonDecode(response.body));
         if(jsonDecode(response.body)['error_des'] == "" || jsonDecode(response.body)['error_des'] == null){
-          /*suplierList.add(
-            {
-              "id": 2,
-              "fullName": "string",
-              "spareParts": true,
-              "garages": true,
-              "scraps": true,
-              "batteries": true,
-              "mobiles": true,
-              "orginal": true,
-              "aftermarket": true,
-              "urgentBattery": true,
-              "garagBody": true,
-              "garagMechanical": true,
-              "garagElectrical": true,
-              "garagCustomization": true,
-              "rating": 0,
-              "logo": "string"
-            }
-          );
-          */
           if(perBrand){
             suplierList.clear();
             var k = jsonDecode(response.body)['total'];
@@ -630,6 +610,7 @@ class MyAPI{
               suplierList.removeWhere((element) => element['garagCustomization'] == false);
             }
           }
+          suplierList.removeWhere((element) => element['user']['id']== userInfo['id']);
           editTransactionSuplierList();
           return true;
         }
@@ -1126,6 +1107,37 @@ class MyAPI{
       print(response.statusCode);
       print('fail');
       flushBar(AppLocalizations.of(context!)!.translate("Your profile data Can't be updated"));
+    }
+  }
+
+  Future deActivateAccount() async {
+    var apiUrl = Uri.parse('$_baseUrl/SignUp/SignUp_Deactivate?');
+    var request = http.MultipartRequest('POST', apiUrl);
+    request.fields['Id'] = userInfo["id"];
+    request.fields['Name'] = userInfo["name"];
+    request.fields['LastName'] = userInfo["lastName"];
+    request.fields['Mobile'] = userInfo["mobile"];
+    request.fields['Email'] = userInfo["email"];
+    request.fields['password'] = userInfo["password"];
+    //request.fields['City.Country.City'] = userInfo["city"]['name'];
+    //request.fields['City.Country.Name'] = userInfo["city"]['name'];
+    request.fields['City.Name'] = userInfo["city"]['name'];
+    Map<String, String> headers = {
+      "Accept": "application/json",
+      "Content-type": "multipart/form-data",
+      "Authorization": token,
+    };
+    request.headers.addAll(headers);
+    var response = await request.send();
+    if (response.statusCode == 200) {
+      Navigator.of(context!).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=> Sign_in(false)), ModalRoute.withName('/'));
+
+      print('success');
+      flushBar(AppLocalizations.of(context!)!.translate('Your profile data is deActivated'));
+    } else {
+      print(response.statusCode);
+      print('fail');
+      flushBar(AppLocalizations.of(context!)!.translate("Your profile data Can't be deActivate"));
     }
   }
 

@@ -22,6 +22,7 @@ class _MyCarsForSellState extends State<MyCarsForSell> {
 
   @override
   Widget build(BuildContext context) {
+    _carSellList.clear();
     for(int i = 0; i<carSellsList.length; i++) {
       _carSellList.add({
         'id': carSellsList[i]['id'].toString(),
@@ -128,12 +129,12 @@ class _MyCarsForSellState extends State<MyCarsForSell> {
     );
   }
 
-  Widget _carSellCard(carSell){
-    _sellOrDellet(status){
+  Widget _carSellCard(carSell) {
+    _sellOrDellet(status) async {
       setState(() {
         pleaseWait =true;
       });
-      MyAPI(context: context).updateCarSellStatus(status, carSell['id']);
+       await MyAPI(context: context).updateCarSellStatus(status, carSell['id']);
       setState(() {
         pleaseWait =false;
       });
