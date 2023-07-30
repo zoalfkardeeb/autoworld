@@ -70,7 +70,7 @@ class _AllBrandCarSellsState extends State<AllBrandCarSells> {
           'view': carSellsList[i]['viewCount'].toString(),
           'numberOfCylindes': carSellsList[i]['numberOfCylindes'].toString(),
           'fromUser': carSellsList[i]['user']['type'] ==0 ? true : false,
-          'isNew': true
+          'isNew': !carSellsList[i]['isPaid']
         });
         var exist = false;
         for(String item in _listNumOfCyl) {if(item == carSellsList[i]['numberOfCylindes'].toString())exist = true;}
@@ -136,8 +136,6 @@ class _AllBrandCarSellsState extends State<AllBrandCarSells> {
               width: double.infinity,
               alignment: Alignment.topCenter,
               padding: EdgeInsets.only(
-                //left: MediaQuery.of(context).size.width/20,
-                //right: MediaQuery.of(context).size.width/20,
                 top: MediaQuery.of(context).size.height / 40*0,
               ),
               child: _tapNum == 1?
@@ -147,7 +145,6 @@ class _AllBrandCarSellsState extends State<AllBrandCarSells> {
                 children: [
                   _topBar(curve),
                   //SizedBox(height: hSpace/2,),
-
                   filterShow?
                   Container(
                     height:  MediaQuery.of(context).size.height/1.2 - MediaQuery.of(context).viewInsets.bottom,
@@ -254,8 +251,7 @@ class _AllBrandCarSellsState extends State<AllBrandCarSells> {
                         },
                       ),
                     ),
-                  )
-                  ,
+                  ),
                 ],
               )
                   :
@@ -293,7 +289,7 @@ class _AllBrandCarSellsState extends State<AllBrandCarSells> {
         _carSellList[index]['brandLogo'],
         listCarType[listCarType.indexWhere((element) => element['id'].toString()==_carSellList[index]['type'])]['name'],
         _carSellList[index]['carModel'],
-        _carSellList[index]['kelometrage']+  AppLocalizations.of(context)!.translate('Km'),
+        _carSellList[index]['kelometrage'] + AppLocalizations.of(context)!.translate('Km'),
         AppLocalizations.of(context)!.translate('Engine') + ": " +  _carSellList[index]['numberOfCylindes'] + AppLocalizations.of(context)!.translate("Cylinders"),
         AppLocalizations.of(context)!.translate('Price') + ": " + _carSellList[index]['price'],
         AppLocalizations.of(context)!.translate('Gear') + ": " +

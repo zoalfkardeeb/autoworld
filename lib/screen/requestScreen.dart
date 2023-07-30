@@ -134,8 +134,9 @@ class _RequestScreenState extends State<RequestScreen> {
                               : SizedBox(height: 0,),
                           _m!.textFiled(curve, Colors.white, MyColors.bodyText1, _remarksController, AppLocalizations.of(context)!.translate('remarks'), Icons.edit_outlined, height: MediaQuery.of(context).size.width/6.5*2, withoutValidator: true, newLineAction: true),
                           SizedBox(height: hSpace/2,),
-                          _m!.bodyText1(AppLocalizations.of(context)!.translate('Upload some files to demonstrate'), scale: 1.2, padding: MediaQuery.of(context).size.width/7, maxLine: 3),
+                          _m!.bodyText1(AppLocalizations.of(context)!.translate('upload files instead'), scale: 1, padding: MediaQuery.of(context).size.width/20, maxLine: 5),
                           GridView.builder(
+                            padding: EdgeInsets.symmetric(vertical: 5.0),
                                 shrinkWrap: true,
                                 physics: const ScrollPhysics(),
                                 itemCount: imageList.length == 6 ? imageList.length : imageList.length+1,

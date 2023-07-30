@@ -126,9 +126,14 @@ class _BrandScreenState extends State<BrandScreen> {
                   _m!.bodyText1(AppLocalizations.of(context)!.translate('Select Your Brand'), padding: 0.0, padV: hSpace / 2),
                   Expanded(
                     flex: 1,
-                    child: Padding(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: MyColors.white,
+                        borderRadius: BorderRadius.only(topLeft: Radius.circular(curve), topRight: Radius.circular(curve))
+                      ),
                       padding: EdgeInsets.symmetric(horizontal: curve),
                       child: GridView.builder(
+
                         itemCount: brandList.length,
                         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                             childAspectRatio: 0.8,

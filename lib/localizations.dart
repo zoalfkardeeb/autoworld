@@ -28,7 +28,6 @@ class AppLocalizations {
     _localizedStrings = jsonMap.map((key, value) {
       return MapEntry(key, value.toString());
     });
-
     return true;
   }
 

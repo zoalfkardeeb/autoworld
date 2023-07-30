@@ -48,8 +48,8 @@ class _SupplierOrdesrState extends State<SupplierOrdesr> {
     */
     animateList(_scrollController);
     _foundOrders.clear();
-    for(int i =0; i<ordersList.length; i++){
-      _foundOrders.add(ordersList[i]);
+    for(int i =0; i<ordersListSupplier.length; i++){
+      _foundOrders.add(ordersListSupplier[i]);
     }
     _read();
   }
@@ -61,8 +61,8 @@ class _SupplierOrdesrState extends State<SupplierOrdesr> {
     _m = MyWidget(context);
     //_foundOrders.clear();
     _foundOrders.clear();
-    for(int i =0; i<ordersList.length; i++){
-      _foundOrders.add(ordersList[i]);
+    for(int i =0; i<ordersListSupplier.length; i++){
+      _foundOrders.add(ordersListSupplier[i]);
     }
     var br = 0.1;
     _foundOrders.sort((a, b) {
@@ -204,14 +204,19 @@ class _SupplierOrdesrState extends State<SupplierOrdesr> {
               children: [
                 Expanded(
                   flex: 1,
-                  child: IconButton(
+                  child:
+                  IconButton(
                     icon: Align(
-                      alignment: lng==2?Alignment.centerRight:Alignment.centerLeft,
+                      alignment: lng==2? Alignment.centerRight:Alignment.centerLeft,
                       child: Icon(Icons.arrow_back_ios),
                     ),
                     onPressed: ()=> Navigator.of(context).pop(),
                   ),
                 ),
+                /*Expanded(
+                  flex: 1,
+                  child: _m!.drawerButton(_scaffoldKey),
+                ),*/
                 Expanded(
                   flex: 1,
                   child: _m!.titleText1(
@@ -828,8 +833,8 @@ class _SupplierOrdesrState extends State<SupplierOrdesr> {
     await MyAPI(context: context).getOrders(userInfo['id']);
 
     _foundOrders.clear();
-    for(int i =0; i<ordersList.length; i++){
-      _foundOrders.add(ordersList[i]['orders']);
+    for(int i =0; i<ordersListSupplier.length; i++){
+      _foundOrders.add(ordersListSupplier[i]['orders']);
     }
 
     setState(() {

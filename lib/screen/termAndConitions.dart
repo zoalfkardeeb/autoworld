@@ -1,4 +1,5 @@
 // ignore_for_file: file_names
+import 'package:automall/api.dart';
 import 'package:automall/color/MyColors.dart';
 import 'package:automall/const.dart';
 import 'package:automall/localizations.dart';
@@ -31,14 +32,16 @@ class _TermsAndConditionsState extends State<TermsAndConditions> {
     // TODO: implement initState
     super.initState();
     startTime();
+
   }
 
   startTime() async {
     var duration = const Duration(milliseconds: 500);
     return Timer(duration, () =>
-        setState(() {
+        setState(() async {
           ani = true;
           startAni();
+         // await _read();
         }));
   }
 
@@ -122,7 +125,6 @@ class _TermsAndConditionsState extends State<TermsAndConditions> {
                 ),
               ),
             ),
-
             Align(
               alignment: Alignment.topCenter,
               child: Container(
@@ -133,12 +135,16 @@ class _TermsAndConditionsState extends State<TermsAndConditions> {
                 margin: EdgeInsets.only(top: hSpace*1.5 + MediaQuery.of(context).size.width/3.5 + MediaQuery.of(context).size.width/3 ),
                 padding: EdgeInsets.only(bottom: 0, left: MediaQuery.of(context).size.width/20, right: MediaQuery.of(context).size.width/20),
                 child: SingleChildScrollView(
-                  child: _m!.titleText1(AppLocalizations.of(context)!.translate('term and condition')),
+                  child: Column(
+                    children: [
+                      _m!.titleText1(AppLocalizations.of(context)!.translate('term and condition')),
+                      isLogin? _m!.raisedButton(curve, MediaQuery.of(context).size.width/1.2, AppLocalizations.of(context)!.translate('DeActivate account'), null, ()=> _deActivate(), height: MediaQuery.of(context).size.height/15):SizedBox(),
+                    ],
+                  )
                 )
                 ,
               )
             ),
-
             Align(
               alignment: Alignment.bottomCenter,
               child: MediaQuery
@@ -159,51 +165,16 @@ class _TermsAndConditionsState extends State<TermsAndConditions> {
                       _m!.raisedButton(curve, MediaQuery.of(context).size.width/2 - MediaQuery.of(context).size.width/40  - curve, AppLocalizations.of(context)!.translate('Confirmed'), null, () => _confirmed()),
                     ],
                   ), curve*1.1, bottomConRati: 0.1),
+            ),
+            Align(
+              alignment: Alignment.center,
+              child: pleaseWait?
+              _m!.progress()
+                  :
+              const SizedBox(),
             )
           ],
         ),
-    );
-  }
-
-  _signUpCard(curve, icon, text) {
-    return Container(
-        alignment: Alignment.center,
-        width: MediaQuery
-            .of(context)
-            .size
-            .width / 3.6,
-        height: MediaQuery
-            .of(context)
-            .size
-            .height / 8.5,
-        //margin: EdgeInsets.only(left: MediaQuery.of(context).size.width/10*0, right: MediaQuery.of(context).size.width/10, top: MediaQuery.of(context).size.height/80, bottom: 0),
-        //padding: EdgeInsets.only(left: MediaQuery.of(context).size.width/20),
-        decoration: BoxDecoration(
-          color: MyColors.white,
-          boxShadow: const [
-            BoxShadow(
-              color: MyColors.black,
-              blurRadius: 2,
-              //offset: Offset(0, 1),
-            ),
-          ],
-          borderRadius: BorderRadius.circular(curve),
-        ),
-        child:
-        Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            SizedBox(height: curve / 2,),
-            SvgPicture.asset(icon, height: MediaQuery
-                .of(context)
-                .size
-                .height / 28, fit: BoxFit.contain,),
-            //Icon(icon, color: MyColors.mainColor,),
-            const Expanded(child: SizedBox()),
-            _m!.bodyText1(text, scale: 0.8, padding: 0.0),
-            SizedBox(height: curve / 2,)
-          ],
-        )
     );
   }
 
@@ -236,5 +207,15 @@ class _TermsAndConditionsState extends State<TermsAndConditions> {
         ),
         ModalRoute.withName("")
     );
+  }
+
+  _deActivate() async{
+    setState(() {
+      pleaseWait = true;
+    });
+    await MyAPI(context: context).deActivateAccount();
+    setState(() {
+      pleaseWait = false;
+    });
   }
 }

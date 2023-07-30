@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 import 'package:another_flushbar/flushbar.dart';
+import 'package:automall/screen/verification.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart'as http;
 import 'package:intl/intl.dart';
@@ -115,11 +116,18 @@ class MyAPI{
           token = await jsonDecode(response.body)['content']['token'];
           userData = await jsonDecode(response.body)['content'];//id , email, name, token, fbKey
           editTransactionUserData();
+          isLogin = true;
           await readUserInfo(userData['id']);
           await userLang(lng, userData['id']);
           return true;
         }
+        else if(jsonDecode(response.body)['content'] != null){
+          Navigator.of(context!).push(MaterialPageRoute(builder:(context)=>Verification(value: jsonDecode(response.body)['content']['id'] ,email: email, password: password,  verCode: '',),));
+          flushBar(jsonDecode(response.body)['error_des']);
+          return false;
+        }
         else{
+         // Navigator.of(context!).push(MaterialPageRoute(builder:(context)=>Verification(value: 'value' ,email: email, password: password,  verCode: '',),));
           flushBar(jsonDecode(response.body)['error_des']);
           return false;
         }
@@ -233,7 +241,7 @@ class MyAPI{
 */
   }
 
-  void resend(email) async{
+  Future resend(email) async{
     // curl -X POST "https://mr-service.online/Main/SignUp/ReSendVerificationCode?UserEmail=www.osh.themyth%40gmail.com" -H "accept: */*"
     var apiUrl = Uri.parse('$_baseUrl/SignUp/ReSendVerificationCode?UserEmail=$email');
     http.Response response = await http.post(apiUrl, headers: {
@@ -244,8 +252,8 @@ class MyAPI{
     if (response.statusCode == 200) {
       print("we're good");
       //userData = jsonDecode(response.body);
-      if (jsonDecode(response.body)['Errors'] == "") {
-        flushBar(jsonDecode(response.body)['Errors']);
+      if (jsonDecode(response.body)['errors'] == "") {
+        flushBar(jsonDecode(response.body)['errors']);
           /* Navigator.of(context).pushNamed('sign_in');
           Flushbar(
             padding: EdgeInsets.symmetric(
@@ -270,9 +278,8 @@ class MyAPI{
         }
       else {
           //setState(() => chLogIn = false);
-        flushBar(jsonDecode(response.body)['Errors']);
+        flushBar(jsonDecode(response.body)['errors']);
         }
-
     }
     else {
       print(response.statusCode);
@@ -404,7 +411,7 @@ class MyAPI{
   }
 
 
-  getBrands({country}) async{
+  Future getBrands({country}) async{
     try{
       http.Response response = await http.get(
           Uri.parse('$_baseUrl/Brands/Brands_Read?filter=isActive~eq~true'),
@@ -415,14 +422,43 @@ class MyAPI{
             "content-type": "application/json",
             "Authorization": token,
           });
-      //await Hive.initFlutter();
-      //Hive.registerAdapter(TransactionAdapter());
-      //await Hive.openBox<Transaction>('transactions');
-      //print(email + ',' + password);
       if(response.statusCode == 200){
         print(jsonDecode(response.body));
         if(jsonDecode(response.body)['error_des'] == "" || jsonDecode(response.body)['error_des'] == null){
           brands = jsonDecode(response.body)['data'];
+          editTransactionBrands();
+          if(country != null) brands.removeWhere((element) => element['brandsCountry']['name'] != country);
+          return true;
+        }
+        else{
+          flushBar(jsonDecode(response.body)['error_des']);
+          return false;
+        }
+      }
+    }
+
+    catch(e){
+      flushBar(AppLocalizations.of(context!)!.translate('please! check your network connection'));
+      return false;
+      print(e);
+    }
+  }
+
+  Future getCarType({country}) async{
+    try{
+      http.Response response = await http.get(
+          Uri.parse('$_baseUrl/CarTypes/CarTypes_Read?filter=isActive~eq~true'),
+          //body: jsonEncode({"UserName": email, "Password": password, "FBKey":fcmToken.toString()}),
+          headers: {
+            "Accept-Language": LocalizationService.getCurrentLocale().languageCode,
+            "Accept": "application/json",
+            "content-type": "application/json",
+            "Authorization": token,
+          });
+      if(response.statusCode == 200){
+        print(jsonDecode(response.body));
+        if(jsonDecode(response.body)['error_des'] == "" || jsonDecode(response.body)['error_des'] == null){
+          listCarType = jsonDecode(response.body)['data'];
           editTransactionBrands();
           if(country != null) brands.removeWhere((element) => element['brandsCountry']['name'] != country);
           return true;
@@ -549,27 +585,6 @@ class MyAPI{
       if(response.statusCode == 200){
         print(jsonDecode(response.body));
         if(jsonDecode(response.body)['error_des'] == "" || jsonDecode(response.body)['error_des'] == null){
-          /*suplierList.add(
-            {
-              "id": 2,
-              "fullName": "string",
-              "spareParts": true,
-              "garages": true,
-              "scraps": true,
-              "batteries": true,
-              "mobiles": true,
-              "orginal": true,
-              "aftermarket": true,
-              "urgentBattery": true,
-              "garagBody": true,
-              "garagMechanical": true,
-              "garagElectrical": true,
-              "garagCustomization": true,
-              "rating": 0,
-              "logo": "string"
-            }
-          );
-          */
           if(perBrand){
             suplierList.clear();
             var k = jsonDecode(response.body)['total'];
@@ -595,6 +610,7 @@ class MyAPI{
               suplierList.removeWhere((element) => element['garagCustomization'] == false);
             }
           }
+          suplierList.removeWhere((element) => element['user']['id']== userInfo['id']);
           editTransactionSuplierList();
           return true;
         }
@@ -613,19 +629,10 @@ class MyAPI{
   }
 
   getOrders(id) async{
-    //var url = "$_baseUrl/Orders/Orders_Read?";
-    print('omar');
     var url = "$_baseUrl/Orders/Orders_Read?filter=customerId~eq~'$id'";
-    print(url.toString());
-    //var url = "$_baseUrl/Orders/Orders_Read?";
-    if(userInfo['type'] == 1) url = "$_baseUrl/Orders/Suppliers_Orders_Read?userid=$id";
     try{
-      print('$id');
-      print('$id');
       http.Response response = await http.get(
-          //Uri.parse("$_baseUrl/Suppliers/Suppliers_Read?filter=id~eq~'$id'~and~$brabd~eq~true"),
           Uri.parse(url),
-          //Uri.parse("$_baseUrl/Orders/Orders_Read?"),
           headers: {
             "Accept-Language": LocalizationService.getCurrentLocale().languageCode,
             "Accept": "application/json",
@@ -648,7 +655,35 @@ class MyAPI{
     catch(e){
       flushBar(AppLocalizations.of(context!)!.translate('please! check your network connection'));
       return false;
-      print(e);
+    }
+    if(userInfo['type'] == 1) {
+      url = "$_baseUrl/Orders/Suppliers_Orders_Read?userid=$id";
+      try{
+        http.Response response = await http.get(
+            Uri.parse(url),
+            headers: {
+              "Accept-Language": LocalizationService.getCurrentLocale().languageCode,
+              "Accept": "application/json",
+              "content-type": "application/json",
+              "Authorization": token,
+            });
+        if(response.statusCode == 200){
+          print(jsonDecode(response.body));
+          if(jsonDecode(response.body)['errors'] == "" || jsonDecode(response.body)['errors'] == null){
+            ordersListSupplier = jsonDecode(response.body)['data'];
+           // editTransactionOrdersList();
+            return true;
+          }
+          else{
+            flushBar(jsonDecode(response.body)['Errors']);
+            return false;
+          }
+        }
+      }
+      catch(e){
+        flushBar(AppLocalizations.of(context!)!.translate('please! check your network connection'));
+        return false;
+      }
     }
 
   }
@@ -675,6 +710,80 @@ class MyAPI{
         print(jsonDecode(response.body));
         if(jsonDecode(response.body)['errors'] == "" || jsonDecode(response.body)['errors'] == null){
           carSellsList = jsonDecode(response.body)['data'];
+          //editTransactionOrdersList();
+          return true;
+        }
+        else{
+          flushBar(jsonDecode(response.body)['Errors']);
+          return false;
+        }
+      }
+    }
+    catch(e){
+      flushBar(AppLocalizations.of(context!)!.translate('please! check your network connection'));
+      return false;
+      print(e);
+    }
+
+  }
+
+  getCarSellByUserId() async{
+    print('Car sell');
+    var url = "$_baseUrl/CarSell/CarSell_Read_Mine?filter=customerId~eq~'${userInfo['id']}'";
+    //if(_brandId.isNotEmpty) url = "$_baseUrl/CarSell/CarSell_Read?filter=brandId~eq~'$_brandId'";
+    print(url.toString());
+    try{
+      http.Response response = await http.get(
+          Uri.parse(url),
+          headers: {
+            "Accept-Language": LocalizationService.getCurrentLocale().languageCode,
+            "Accept": "application/json",
+            "content-type": "application/json",
+            "Authorization": token,
+          });
+      if(response.statusCode == 200){
+        print(jsonDecode(response.body));
+        if(jsonDecode(response.body)['errors'] == "" || jsonDecode(response.body)['errors'] == null){
+          carSellsList = jsonDecode(response.body)['data'];
+          return true;
+        }
+        else{
+          flushBar(jsonDecode(response.body)['Errors']);
+          return false;
+        }
+      }
+    }
+    catch(e){
+      flushBar(AppLocalizations.of(context!)!.translate('please! check your network connection'));
+      return false;
+      print(e);
+    }
+
+  }
+
+  updateCarSellStatus(int status, id) async{
+    // status 4(Delete) OR 5(Paid)
+    var url = "$_baseUrl/CarSell/CarSell_UpdateStatus";
+    try{
+      http.Response response = await http.post(
+          Uri.parse(url),
+          body: jsonEncode({
+            'id':id,
+            'status':status/*.toString()*/
+          }),
+          headers: {
+            "Accept-Language": LocalizationService.getCurrentLocale().languageCode,
+            "Accept": "application/json",
+            "content-type": "application/json",
+            "Authorization": token,
+          });
+      if(response.statusCode == 200){
+        await MyAPI(context: context).getCarSellByUserId();
+        print(jsonDecode(response.body));
+        if(jsonDecode(response.body)['errors'] == "" || jsonDecode(response.body)['errors'] == null){
+          flushBar(jsonDecode(response.body)['Errors']);
+          //context!.
+          //carSellsList = jsonDecode(response.body)['data'];
           //editTransactionOrdersList();
           return true;
         }
@@ -731,17 +840,15 @@ class MyAPI{
 
   }
 
-  getCarModel() async{
+  Future getCarModel() async{
     //var url = "$_baseUrl/Orders/Orders_Read?";
     print('Car model');
     var url = "$_baseUrl/CarModels/CarModels_Read";
     print(url.toString());
-    //var url = "$_baseUrl/Orders/Orders_Read?";
     try{
       http.Response response = await http.get(
         //Uri.parse("$_baseUrl/Suppliers/Suppliers_Read?filter=id~eq~'$id'~and~$brabd~eq~true"),
           Uri.parse(url),
-          //Uri.parse("$_baseUrl/Orders/Orders_Read?"),
           headers: {
             "Accept-Language": LocalizationService.getCurrentLocale().languageCode,
             "Accept": "application/json",
@@ -1000,6 +1107,37 @@ class MyAPI{
       print(response.statusCode);
       print('fail');
       flushBar(AppLocalizations.of(context!)!.translate("Your profile data Can't be updated"));
+    }
+  }
+
+  Future deActivateAccount() async {
+    var apiUrl = Uri.parse('$_baseUrl/SignUp/SignUp_Deactivate?');
+    var request = http.MultipartRequest('POST', apiUrl);
+    request.fields['Id'] = userInfo["id"];
+    request.fields['Name'] = userInfo["name"];
+    request.fields['LastName'] = userInfo["lastName"];
+    request.fields['Mobile'] = userInfo["mobile"];
+    request.fields['Email'] = userInfo["email"];
+    request.fields['password'] = userInfo["password"];
+    //request.fields['City.Country.City'] = userInfo["city"]['name'];
+    //request.fields['City.Country.Name'] = userInfo["city"]['name'];
+    request.fields['City.Name'] = userInfo["city"]['name'];
+    Map<String, String> headers = {
+      "Accept": "application/json",
+      "Content-type": "multipart/form-data",
+      "Authorization": token,
+    };
+    request.headers.addAll(headers);
+    var response = await request.send();
+    if (response.statusCode == 200) {
+      Navigator.of(context!).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=> Sign_in(false)), ModalRoute.withName('/'));
+
+      print('success');
+      flushBar(AppLocalizations.of(context!)!.translate('Your profile data is deActivated'));
+    } else {
+      print(response.statusCode);
+      print('fail');
+      flushBar(AppLocalizations.of(context!)!.translate("Your profile data Can't be deActivate"));
     }
   }
 

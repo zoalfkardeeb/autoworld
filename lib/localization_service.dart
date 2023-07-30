@@ -24,7 +24,6 @@ class LocalizationService extends Translations{
       AppLocalizations.delegate.load(const Locale('en','US'));
       MyLang = 'English';
       langs =['English','France','Arabic','Turkish'];
-
     }else if(lang == 1){
       AppLocalizations.delegate.load(const Locale('fr','FR'));
       MyLang = 'France';
