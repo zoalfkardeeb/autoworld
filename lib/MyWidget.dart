@@ -489,7 +489,7 @@ class MyWidget{
   }
 
   _logout() async {
-    islogin = false;
+    isLogin = false;
     final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
  //   sharedPreferences.setString('email', _emailController.text);
     sharedPreferences.setString('password', '');
