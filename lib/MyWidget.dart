@@ -240,7 +240,7 @@ class MyWidget{
               decoration: TextDecoration.none,
               //backgroundColor: MyColors.red,
               fontStyle: FontStyle.normal,
-              fontSize: MediaQuery.of(context).size.width/22,
+              fontSize: 12,
               color: MyColors.white,
               fontFamily: lng==2?'GESS':'Gotham'),
         ),
