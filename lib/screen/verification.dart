@@ -232,6 +232,7 @@ class _VerificationState extends State<Verification> {
           width: MediaQuery.of(context).size.width,
           textFieldAlignment: MainAxisAlignment.center,
           fieldWidth:  MediaQuery.of(context).size.width/9,
+          spaceBetween: MediaQuery.of(context).size.width*((1-6/9)/10),
           fieldStyle: FieldStyle.box,
           outlineBorderRadius: MediaQuery.of(context).size.height/90,
           style: TextStyle(
@@ -501,7 +502,10 @@ class _VerificationState extends State<Verification> {
 
   void resend() async{
     setState(() => chVer = true);
-    bool sent = await myAPI!.sendEmail(AppLocalizations.of(context)!.translate('Your activation code is :') +  '\n$verCode' , AppLocalizations.of(context)!.translate('Activation Code'), email);
+    await Future.wait([
+      //myAPI!.sendEmail(AppLocalizations.of(context)!.translate('Your activation code is :') +  '\n$verCode' , AppLocalizations.of(context)!.translate('Activation Code'), email),
+      myAPI!.resend(email),
+    ]);
     setState(() => chVer = false);
   }
 }

@@ -6,6 +6,7 @@ import 'dart:math';
 
 import 'package:automall/localization_service.dart';
 import 'package:automall/screen/SupplierOffersScreen.dart';
+import 'package:automall/screen/SupplierOrder.dart';
 import 'package:automall/screen/notificationScreen.dart';
 import 'package:automall/screen/resetPassword.dart';
 import 'package:automall/screen/singnIn.dart';
@@ -239,7 +240,7 @@ class MyWidget{
               decoration: TextDecoration.none,
               //backgroundColor: MyColors.red,
               fontStyle: FontStyle.normal,
-              fontSize: MediaQuery.of(context).size.width/22,
+              fontSize: 12,
               color: MyColors.white,
               fontFamily: lng==2?'GESS':'Gotham'),
         ),
@@ -453,8 +454,9 @@ class MyWidget{
                   _iconText(()=>_hom(), Icons.home_outlined, AppLocalizations.of(context)!.translate('HOME')),
                   _iconText(()=>_info(), Icons.person_outline, AppLocalizations.of(context)!.translate('Personal info')),
                   driver(),
-                  userInfo['type'] == 0 ? _iconText(()=> guestType ? guestDialog() : Navigator.of(context).push(MaterialPageRoute(builder:(context)=> NotificationScreen())), Icons.bookmark_outline, AppLocalizations.of(context)!.translate('My Orders'))
-                  :_iconText(()=> null/*Navigator.of(context).push(MaterialPageRoute(builder:(context)=> SupplierOffersScreen()))*/, Icons.bookmark_outline, AppLocalizations.of(context)!.translate('My Offers')),
+                  userInfo['type'] == 0 ? SizedBox()
+                  :_iconText(()=> Navigator.of(context).push(MaterialPageRoute(builder:(context)=> SupplierOrdesr())), Icons.local_offer_outlined, AppLocalizations.of(context)!.translate('SupplierOrders')),
+                  _iconText(()=> guestType ? guestDialog() : Navigator.of(context).push(MaterialPageRoute(builder:(context)=> NotificationScreen())), Icons.bookmark_outline, AppLocalizations.of(context)!.translate('My Orders')),
                   driver(),
                   _iconText(()=>changePassword(()=> _resetPass(() => _setState(), _scaffoldKey)), Icons.password_outlined, AppLocalizations.of(context)!.translate('Change Password?')),
                   _iconText(()=>_logout(), Icons.logout_outlined, AppLocalizations.of(context)!.translate('Log out')),
@@ -487,6 +489,7 @@ class MyWidget{
   }
 
   _logout() async {
+    isLogin = false;
     final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
  //   sharedPreferences.setString('email', _emailController.text);
     sharedPreferences.setString('password', '');
@@ -1830,6 +1833,20 @@ class MyWidget{
         return AppLocalizations.of(context)!.translate('Offers');
       case 5:
         return AppLocalizations.of(context)!.translate('Scrape Parts');
+      case 6:
+        return AppLocalizations.of(context)!.translate('Rent a Car');
+      case 7:
+        return AppLocalizations.of(context)!.translate('Breakdown Service');
+      case 8:
+        return AppLocalizations.of(context)!.translate('Car Modifications');
+      case 9:
+        return AppLocalizations.of(context)!.translate('Accessories');
+      case 10:
+        return AppLocalizations.of(context)!.translate('Customisation');
+       case 11:
+        return AppLocalizations.of(context)!.translate('Featured boards');
+       case 12:
+        return AppLocalizations.of(context)!.translate('exhibition');
     }
 
   }
@@ -1858,12 +1875,12 @@ class MyWidget{
     return Stack(
                   children: [
                     Align(
-                      child: textFiled(curve, MyColors.white, MyColors.black, controller, hintText, Icons.keyboard_arrow_down_outlined, width: width, withoutValidator: firstOpen, readOnly: true, click: ()=> press(), fontSize: fontSize),
+                      child: textFiled(curve/2, MyColors.white, MyColors.black, controller, hintText, Icons.keyboard_arrow_down_outlined, width: width, withoutValidator: firstOpen, readOnly: true, click: ()=> press(), fontSize: fontSize, height: MediaQuery.of(context).size.width/8,),
                     ),
                     Align(
                       alignment: Alignment.center,
                       child: Padding(
-                        padding: EdgeInsets.only(top: curve, right: MediaQuery.of(context).size.width/6.5 + MediaQuery.of(context).size.width/50, left: curve,),
+                        padding: EdgeInsets.only(top: curve/2, right: curve /*MediaQuery.of(context).size.width/6.5 + MediaQuery.of(context).size.width/50*/, left: curve,),
                         //padding: EdgeInsets.all(0.0),
                         child: _dropDown,
                       ),
@@ -1946,7 +1963,7 @@ class MyWidget{
                             alignment: Alignment.center,
                             child: networkImage(mainImage, MediaQuery.of(context).size.height / 7.8),
                           ),
-                          isNew?
+
                           Align(
                             alignment: lng == 2? Alignment.topLeft:Alignment.topRight,
                             child: Container(
@@ -1960,15 +1977,17 @@ class MyWidget{
                                     blurRadius: 0.8,
                                   ),
                                 ],
-                                color: MyColors.red,
+                                color:  isNew? MyColors.red: MyColors.gray,
                                 borderRadius:lng != 2?
                                 BorderRadius.only(bottomRight: Radius.circular(MediaQuery.of(context).size.width/40), topLeft: Radius.circular(MediaQuery.of(context).size.width/20)):
                                 BorderRadius.only(bottomLeft: Radius.circular(MediaQuery.of(context).size.width/40), topRight: Radius.circular(MediaQuery.of(context).size.width/20)),
                               ),
-                              child: bodyText1(AppLocalizations.of(context)!.translate('New'), color: MyColors.white, padding: MediaQuery.of(context).size.width/80, scale: scale),
+                              child: bodyText1(
+                                  isNew?AppLocalizations.of(context)!.translate('New'):AppLocalizations.of(context)!.translate('Sold'),
+                                  color: MyColors.white, padding: MediaQuery.of(context).size.width/80, scale: scale),
                               //child: Icon(Icons.open_with_outlined, color: MyColors.white),
                             ),
-                          ):SizedBox(),
+                          ),
                         ],
                       ),
                       SizedBox(height: hSpace,),
@@ -2106,6 +2125,236 @@ class MyWidget{
         ),
       ],
     ) ;
+  }
+
+  carSellerHCardAds(mainImage, brandImage, typeName, model, kelometrag, cylenders, price, gearBox, productionYear, view, fromUser, isNew, {required status, required id, required Function() delete, required Function() markAsSell}){
+    var state = 'pending';
+    switch (status){
+      case 0:
+        state = AppLocalizations.of(context)!.translate('Pending');
+        break;
+      case 1:
+        state = AppLocalizations.of(context)!.translate('Accepted');
+        break;
+      case 2:
+        state = AppLocalizations.of(context)!.translate('Special');
+        break;
+      case 3:
+        state = AppLocalizations.of(context)!.translate('Refused');
+        break;
+
+    }
+    var vSpace = MediaQuery.of(context).size.height/70;
+    var hSpace = MediaQuery.of(context).size.width/50;
+    var hImages = MediaQuery.of(context).size.width/12;
+    var curve = MediaQuery.of(context).size.width/20;
+
+
+    var scale = 0.72;
+    return Stack(
+      children: [
+        Align(
+          alignment: Alignment.center,
+          child: Container(
+            padding: EdgeInsets.all(curve/2),
+            margin: EdgeInsets.only(bottom: curve, left: 2, right: 2),
+            decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                    color: MyColors.black,
+                    offset: Offset(0, 0.8),
+                    blurRadius: 0.8,
+                  ),
+                ],
+                color: MyColors.white,
+                borderRadius: BorderRadius.all(Radius.circular(curve))
+            ),
+            child: Column(
+              children: [
+                Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Stack(
+                            children: [
+                              Align(
+                                alignment: Alignment.center,
+                                child: networkImage(mainImage, MediaQuery.of(context).size.height / 7.8),
+                              ),
+
+                              Align(
+                                alignment: lng == 2? Alignment.topLeft:Alignment.topRight,
+                                child: Container(
+                                  padding: EdgeInsets.all(curve/4),
+                                  //margin: EdgeInsets.only(bottom: curve, left: 2, right: 2),
+                                  decoration: BoxDecoration(
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: MyColors.black,
+                                        offset: Offset(0, 0.8),
+                                        blurRadius: 0.8,
+                                      ),
+                                    ],
+                                    color:  isNew? MyColors.red: MyColors.gray,
+                                    borderRadius:lng != 2?
+                                    BorderRadius.only(bottomRight: Radius.circular(MediaQuery.of(context).size.width/40), topLeft: Radius.circular(MediaQuery.of(context).size.width/20)):
+                                    BorderRadius.only(bottomLeft: Radius.circular(MediaQuery.of(context).size.width/40), topRight: Radius.circular(MediaQuery.of(context).size.width/20)),
+                                  ),
+                                  child: bodyText1(
+                                      isNew? state : AppLocalizations.of(context)!.translate('Sold'),
+                                      color: MyColors.white, padding: MediaQuery.of(context).size.width/80, scale: scale),
+                                  //child: Icon(Icons.open_with_outlined, color: MyColors.white),
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: hSpace,),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(Icons.remove_red_eye_rounded, color: MyColors.bodyText1, size: MediaQuery.of(context).size.height/55, ),
+                              bodyText1(view, scale: scale, padding: 0.5, padV: 2.0),
+                            ],
+                          ),
+                        ],
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: hSpace),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(left: lng == 2? 0.0: MediaQuery.of(context).size.width/40*0, right: lng == 2?  MediaQuery.of(context).size.width/40*0:0.0),
+                                  child: networkImage(brandImage, hImages),
+                                ),
+
+                                Column(
+                                  children: [
+                                    headText(typeName + "  " + model, scale: scale*scale, maxLine: 2,),
+                                    // bodyText1(model),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: hSpace/2,),
+                            Container(
+                              child: Row(
+                                children: [
+                                  Flexible(
+                                    flex: 1,
+                                    child: Column(
+                                      children: [
+                                        SizedBox(height: vSpace,),
+                                        iconText("assets/images/ic_km.svg", kelometrag, MyColors.red, scale: scale, imageScale: 0.5, paddingH: 0.2),
+                                        SizedBox(height: vSpace,),
+                                        iconText("assets/images/gear_automatic.svg", gearBox, MyColors.red, scale: scale, imageScale: 0.5, paddingH: 0.2),
+                                        SizedBox(height: vSpace,),
+                                        iconText("assets/images/ic_pr_year.svg", productionYear, MyColors.gray, scale: scale, imageScale: 0.5, paddingH: 0.2),
+                                      ],
+                                    ),
+                                  ),
+
+                                  Flexible(
+                                    flex: 1,
+                                    child: Column(
+                                      children: [
+                                        SizedBox(height: vSpace,),
+                                        iconText("assets/images/ic_price.svg", price, MyColors.gray, scale: scale, imageScale: 0.5, paddingH: 0.2),
+                                        SizedBox(height: vSpace,),
+                                        iconText("assets/images/ic_engine.svg", cylenders, MyColors.gray, scale: scale, imageScale: 0.5, paddingH: 0.2),
+                                        SizedBox(height: vSpace,),
+                                        iconText(fromUser?"assets/images/ic_red_user.svg":"assets/images/ic-shop.svg", fromUser? AppLocalizations.of(context)!.translate('From User'): AppLocalizations.of(context)!.translate('From User'), MyColors.gray, scale: scale, imageScale: 0.5, paddingH: 0.2),
+                                      ],
+                                    ),
+                                  ),
+
+                                ],
+                              ),
+                              height: MediaQuery.of(context).size.width / 15 * 3 +hSpace*2,
+                              width: MediaQuery.of(context).size.width / 5 * 2.8,
+                            ),
+                            /*   Container(
+                        child: ListView(
+                          scrollDirection: Axis.horizontal,
+                          children: [
+                            iconText("assets/images/ic_km.svg", kelometrag, MyColors.red, scale: scale, imageScale: 0.5, paddingH: 0.2),
+                            SizedBox(width: MediaQuery.of(context).size.width/40,),
+                            iconText("assets/images/ic_price.svg", price, MyColors.gray, scale: scale, imageScale: 0.5, paddingH: 0.2),
+                          ],
+                        ),
+                        height: MediaQuery.of(context).size.width / 15,
+                        width: MediaQuery.of(context).size.width / 5 * 2.7,
+                      ),
+                      Container(
+                        child: ListView(
+                          scrollDirection: Axis.horizontal,
+                          children: [
+                            iconText("assets/images/gear_automatic.svg", gearBox, MyColors.red, scale: scale, imageScale: 0.5, paddingH: 0.2),
+                            iconText("assets/images/ic_price.svg", cylenders, MyColors.gray, scale: scale, imageScale: 0.5, paddingH: 0.2),
+                          ],
+                        ),
+                        height: MediaQuery.of(context).size.width/15,
+                        width: MediaQuery.of(context).size.width/5*2.7,
+                      ),
+                      Container(
+                        child: ListView(
+                          scrollDirection: Axis.horizontal,
+                          children: [
+                            iconText("assets/images/ic_pr_year.svg", productionYear, MyColors.gray, scale: scale, imageScale: 0.5, paddingH: 0.2),
+                          ],
+                        ),
+                        height: MediaQuery.of(context).size.width/15,
+                        width: MediaQuery.of(context).size.width/5*2,
+                      ),
+*/
+                          ],
+                        ),
+                      ),
+                    ]
+                  //color: MyColors.white,
+                ),
+                raisedButton(curve, 100,
+                    isNew? AppLocalizations.of(context)!.translate('Mark as sell'):AppLocalizations.of(context)!.translate('Sold')
+                    , null, isNew? markAsSell:null, height: MediaQuery.of(context).size.height/20)
+              ],
+            ),
+          ),
+        ),
+        Align(
+          alignment: lng == 2? Alignment.bottomLeft:Alignment.bottomRight,
+          child: GestureDetector(
+            onTap: delete,
+            child: Container(
+              padding: EdgeInsets.all(curve/4),
+              margin: EdgeInsets.only(bottom: curve, left: 2, right: 2),
+              decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                    color: MyColors.black,
+                    offset: Offset(0, 0.8),
+                    blurRadius: 0.8,
+                  ),
+                ],
+                color: MyColors.red,
+                borderRadius:lng != 2?
+                BorderRadius.only(bottomRight: Radius.circular(curve), topLeft: Radius.circular(curve/2)):
+                BorderRadius.only(bottomLeft: Radius.circular(curve), topRight: Radius.circular(curve/2)),
+              ),
+              //child: bodyText1('text', color: MyColors.white, padding: 0.01),
+              child: Icon(Icons.delete_forever_outlined, color: MyColors.white),
+
+            ),
+          ),
+        ),
+      ],
+    ) ;
+
   }
 
   carSellerVCard(mainImage, brandImage, typeName, model, kelometrag, cylenders, price, gearBox, productionYear, view, fromUser,isNew){

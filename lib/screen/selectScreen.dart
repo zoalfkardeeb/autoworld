@@ -108,20 +108,20 @@ class _SelectScreenState extends State<SelectScreen> {
     var curve = MediaQuery.of(context).size.height / 30;
     _m = MyWidget(context);
     imageList.clear();
-    imageList.add({'image': 'assets/images/group1.png', 'text': AppLocalizations.of(context)!.translate('Spare Parts')});
-    imageList.add({'image': 'assets/images/group2.png', 'text': AppLocalizations.of(context)!.translate('Garages')});
-    imageList.add({'image': 'assets/images/group4.png', 'text': AppLocalizations.of(context)!.translate('Batteries & tyres')});
-    imageList.add({'image': 'assets/images/group3.png', 'text': AppLocalizations.of(context)!.translate('Motor Service Van')});
-    imageList.add({'image': 'assets/images/group5.png', 'text': AppLocalizations.of(context)!.translate('Offers')});
-    imageList.add({'image': 'assets/images/group6.png', 'text': AppLocalizations.of(context)!.translate('Scrape Parts')});
-    imageList.add({'image': 'assets/images/group11.png', 'text': AppLocalizations.of(context)!.translate('Rent a Car')});
-    imageList.add({'image': 'assets/images/group10.png', 'text': AppLocalizations.of(context)!.translate('Breakdown Service')});
-    imageList.add({'image': 'assets/images/group7.png', 'text': AppLocalizations.of(context)!.translate('Car Modifications')});
-    imageList.add({'image': 'assets/images/group8.png', 'text': AppLocalizations.of(context)!.translate('Accessories')});
-    imageList.add({'image': 'assets/images/group9.png', 'text': AppLocalizations.of(context)!.translate('Customisation')});
-    imageList.add({'image': 'assets/images/group12.png', 'text': AppLocalizations.of(context)!.translate('Car for Sell')});
-    imageList.add({'image': 'assets/images/group14.png', 'text': AppLocalizations.of(context)!.translate('Featured boards')});
-    imageList.add({'image': 'assets/images/group13.png', 'text': AppLocalizations.of(context)!.translate('exhibition')});
+    imageList.add({'image': 'assets/images/group1.png', 'text': AppLocalizations.of(context)!.translate('Spare Parts'), 'id':0});
+    imageList.add({'image': 'assets/images/group12.png', 'text': AppLocalizations.of(context)!.translate('Car for Sell'), 'id':20});
+    imageList.add({'image': 'assets/images/group2.png', 'text': AppLocalizations.of(context)!.translate('Garages'), 'id':1});
+    imageList.add({'image': 'assets/images/group4.png', 'text': AppLocalizations.of(context)!.translate('Batteries & tyres'), 'id':2});
+    imageList.add({'image': 'assets/images/group3.png', 'text': AppLocalizations.of(context)!.translate('Motor Service Van'), 'id':3});
+    imageList.add({'image': 'assets/images/group5.png', 'text': AppLocalizations.of(context)!.translate('Offers'), 'id':4});
+    imageList.add({'image': 'assets/images/group6.png', 'text': AppLocalizations.of(context)!.translate('Scrape Parts'), 'id':5});
+    imageList.add({'image': 'assets/images/group11.png', 'text': AppLocalizations.of(context)!.translate('Rent a Car'), 'id':6});
+    imageList.add({'image': 'assets/images/group10.png', 'text': AppLocalizations.of(context)!.translate('Breakdown Service'), 'id':7});
+    imageList.add({'image': 'assets/images/group7.png', 'text': AppLocalizations.of(context)!.translate('Car Modifications'), 'id':8});
+    imageList.add({'image': 'assets/images/group8.png', 'text': AppLocalizations.of(context)!.translate('Accessories'), 'id':9});
+    imageList.add({'image': 'assets/images/group9.png', 'text': AppLocalizations.of(context)!.translate('Customisation'), 'id':10});
+    imageList.add({'image': 'assets/images/group14.png', 'text': AppLocalizations.of(context)!.translate('Featured boards'), 'id':11});
+    imageList.add({'image': 'assets/images/group13.png', 'text': AppLocalizations.of(context)!.translate('exhibition'), 'id':12});
     return Scaffold(
       resizeToAvoidBottomInset: true,
       backgroundColor: Colors.grey[100],
@@ -268,8 +268,13 @@ class _SelectScreenState extends State<SelectScreen> {
       setState(() {
         pleaseWait = true;
       });
-      await MyAPI(context: context).getBrands();
-      await MyAPI(context: context).getCarModel();
+
+      await Future.wait(
+          [
+        MyAPI(context: context).getBrands(),
+        MyAPI(context: context).getCarType(),
+        MyAPI(context: context).getCarModel(),
+      ]);
       setState(() {
         pleaseWait = false;
       });
@@ -394,7 +399,7 @@ class _SelectScreenState extends State<SelectScreen> {
       setState(() {
         pleaseWait = true;
       });
-      await MyAPI(context: context).getSupliers(0.1, getGategoryName(index), original: false, afterMarket: false, indexGarage: 0);
+      await MyAPI(context: context).getSupliers(0.1, getGategoryName(imageList[index]['id']), original: false, afterMarket: false, indexGarage: 0);
       setState(() {
         pleaseWait = false;
       });
@@ -402,7 +407,7 @@ class _SelectScreenState extends State<SelectScreen> {
           context,
           MaterialPageRoute(
             //builder: (context) =>  BrandScreen(_state, _country, 1, garageCountry: '', indexGarage: 0,),
-            builder: (context) =>  SuplierScreen(0.1, index, false, indexGarage: 0, withoutQutation: true,),
+            builder: (context) =>  SuplierScreen(0.1, imageList[index]['id'], false, indexGarage: 0, withoutQutation: true,),
           )
       );
     }
@@ -419,7 +424,7 @@ class _SelectScreenState extends State<SelectScreen> {
       setState(() {
         pleaseWait = true;
       });
-      await MyAPI(context: context).getSupliers(0.1, getGategoryName(index), original: false, afterMarket: false, indexGarage: 0);
+      await MyAPI(context: context).getSupliers(0.1, getGategoryName(imageList[index]['id']), original: false, afterMarket: false, indexGarage: 0);
       setState(() {
         pleaseWait = false;
       });
@@ -427,7 +432,7 @@ class _SelectScreenState extends State<SelectScreen> {
           context,
           MaterialPageRoute(
             //builder: (context) =>  BrandScreen(_state, _country, 1, garageCountry: '', indexGarage: 0,),
-            builder: (context) =>  SuplierScreen(0.1, index, false, indexGarage: 0,),
+            builder: (context) =>  SuplierScreen(0.1, imageList[index]['id'], false, indexGarage: 0,),
           )
       );
     }

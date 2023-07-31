@@ -311,7 +311,7 @@ class _RegisterState extends State<Register> {
     if (response.statusCode == 200) {
        if(jsonDecode(x)["errors"] == '' || jsonDecode(x)["errors"] == null){
          if(type == 1){
-           bool sent = await myAPI!.sendEmail(AppLocalizations.of(context)!.translate('We Have sent your information to the Management.\nplease keep your phone available \nand review your email inbox'), AppLocalizations.of(context)!.translate('Welcome Supplier'),  _emailController.text);
+           //bool sent = await myAPI!.sendEmail(AppLocalizations.of(context)!.translate('We Have sent your information to the Management.\nplease keep your phone available \nand review your email inbox'), AppLocalizations.of(context)!.translate('Welcome Supplier'),  _emailController.text);
            setState(()=> chLogIn = false);
            _save();
            Navigator.pushAndRemoveUntil(

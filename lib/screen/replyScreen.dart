@@ -315,14 +315,14 @@ class _ReplyScreenState extends State<ReplyScreen> {
 
   _showDialog(){
     var curve = MediaQuery.of(context).size.height / 30;
-    var ii = ordersList.indexWhere((element) => element['orders']==foundOrder);
+    var ii = ordersListSupplier.indexWhere((element) => element['orders']==foundOrder);
     _undo(){
       Navigator.of(context).pop();
     }
     _okay() async{
       Navigator.of(context).pop();
       setState(() {pleaseWait = true;});
-      var add = await MyAPI(context: context).orderSupplierUpdate(ordersList[0]['supplierId'], foundOrder['id'], _remarksController.text, attach, isWinner: ordersList[ii]['isWinner'], score: ordersList[ii]['score'], scoreNote: ordersList[ii]['scoreNote'], statue: 1, costomerFBkey: foundOrder['user']['fbKey'], orderSerial: foundOrder['serial']);
+      var add = await MyAPI(context: context).orderSupplierUpdate(ordersListSupplier[0]['supplierId'], foundOrder['id'], _remarksController.text, attach, isWinner: ordersListSupplier[ii]['isWinner'], score: ordersListSupplier[ii]['score'], scoreNote: ordersListSupplier[ii]['scoreNote'], statue: 1, costomerFBkey: foundOrder['user']['fbKey'], orderSerial: foundOrder['serial']);
       if(add) await MyAPI(context: context).getOrders(userInfo['id']);
       setState(() {
         pleaseWait = false;
