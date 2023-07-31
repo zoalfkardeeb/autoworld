@@ -143,8 +143,8 @@ class _AddSellCarScreenState extends State<AddSellCarScreen> {
                           //_m!.selectFromTheListDrop(curve, _productionYearController, () => _openList(_dropDownKeyProductionYear), AppLocalizations.of(context)!.translate('production Year'), true, _dropDownProductionYear(width,curve)),
                           _m!.selectFromTheListDrop(curve, _gearBoxTypeController, () => _openList(_dropDownKeyGearBox), AppLocalizations.of(context)!.translate('Gear Box Type'), true, _dropDownGearBoxType(width,curve)),
                           _m!.selectFromTheListDrop(curve, _motorTypeController, () => _openList(_dropDownKeyMotorType), AppLocalizations.of(context)!.translate('Motor Type'), true, _dropDownMotorType(width,curve)),
-                         _m!.textFiled(curve, Colors.white, MyColors.bodyText1, _keloMetrageController, AppLocalizations.of(context)!.translate('Kelometrage'), Icons.edit_outlined, withoutValidator: true, newLineAction: true, number: true),
-                          _m!.textFiled(curve, Colors.white, MyColors.bodyText1, _priceController, AppLocalizations.of(context)!.translate('Price'), Icons.edit_outlined, withoutValidator: true, newLineAction: true, number: true),
+                         _m!.textFiled(curve, Colors.white, MyColors.bodyText1, _keloMetrageController, AppLocalizations.of(context)!.translate('Kelometrage'), Icons.edit_outlined, withoutValidator: true, newLineAction: false, number: true),
+                          _m!.textFiled(curve, Colors.white, MyColors.bodyText1, _priceController, AppLocalizations.of(context)!.translate('Price'), Icons.edit_outlined, withoutValidator: true, newLineAction: false, number: true),
                           _m!.textFiled(curve, Colors.white, MyColors.bodyText1, _descController, AppLocalizations.of(context)!.translate('Remarks'), Icons.edit_outlined, withoutValidator: true, newLineAction: true, height: MediaQuery.of(context).size.height/7),
                           SizedBox(height: hSpace/2,),
                           Column(

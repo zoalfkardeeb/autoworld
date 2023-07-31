@@ -132,7 +132,7 @@ class _RequestScreenState extends State<RequestScreen> {
                               : SizedBox(height: 0,),
                           gategoryId==0?_m!.textFiled(curve, Colors.white, MyColors.bodyText1, _modelController, AppLocalizations.of(context)!.translate('Enter Model'), Icons.edit_outlined, withoutValidator: true)
                               : SizedBox(height: 0,),
-                          _m!.textFiled(curve, Colors.white, MyColors.bodyText1, _remarksController, AppLocalizations.of(context)!.translate('remarks'), Icons.edit_outlined, height: MediaQuery.of(context).size.width/6.5*2, withoutValidator: true, newLineAction: true),
+                          _m!.textFiled(curve, Colors.white, MyColors.bodyText1, _remarksController, AppLocalizations.of(context)!.translate('remarks'), Icons.edit_outlined, height: MediaQuery.of(context).size.width/6.5*2, withoutValidator: true, newLineAction: false),
                           SizedBox(height: hSpace/2,),
                           _m!.bodyText1(AppLocalizations.of(context)!.translate('upload files instead'), scale: 1, padding: MediaQuery.of(context).size.width/20, maxLine: 5),
                           GridView.builder(

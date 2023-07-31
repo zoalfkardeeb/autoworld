@@ -122,7 +122,7 @@ class _ReplyScreenState extends State<ReplyScreen> {
                                   _m!.headText(AppLocalizations.of(context)!.translate("Reply"), scale: 0.9, paddingH: MediaQuery.of(context).size.width/7, maxLine: 3, paddingV: 0.0, align: TextAlign.start),
                                 ],
                               ),*/
-                              _m!.textFiled(curve, Colors.white, MyColors.bodyText1, _remarksController, AppLocalizations.of(context)!.translate('remarks'), Icons.edit_outlined, height: MediaQuery.of(context).size.width/6*2, newLineAction: true),
+                              _m!.textFiled(curve, Colors.white, MyColors.bodyText1, _remarksController, AppLocalizations.of(context)!.translate('remarks'), Icons.edit_outlined, height: MediaQuery.of(context).size.width/6*2, newLineAction: false),
                               SizedBox(height: hSpace/2,),
                               _m!.bodyText1(AppLocalizations.of(context)!.translate('Upload your offer file as Pdf or Image'), scale: 1.2, padding: MediaQuery.of(context).size.width/7, maxLine: 3),
                               GridView.builder(
