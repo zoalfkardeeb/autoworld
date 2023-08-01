@@ -873,7 +873,7 @@ class MyWidget{
               child: SvgPicture.asset(assets ,height: MediaQuery.of(context).size.width/13*scale* imageScale, fit: BoxFit.contain,),
             ),
             SizedBox(width: MediaQuery.of(context).size.width/40*scale*scale*scale*scale,),
-            bodyText1(text, scale: 0.8*scale, padding: 0.0, maxLine: 2)
+            headText(text, scale: 0.47*scale, /*padding: 0.0,*/ maxLine: 2, color: MyColors.black)
           ],
         ):
         Row(
@@ -1931,7 +1931,7 @@ class MyWidget{
    var hImages = MediaQuery.of(context).size.width/12;
    var curve = MediaQuery.of(context).size.width/20;
 
-   var scale = 0.72;
+   var scale = 0.77;
     return Stack(
       children: [
         Align(
@@ -2012,7 +2012,6 @@ class MyWidget{
                               padding: EdgeInsets.only(left: lng == 2? 0.0: MediaQuery.of(context).size.width/40*0, right: lng == 2?  MediaQuery.of(context).size.width/40*0:0.0),
                               child: networkImage(brandImage, hImages),
                             ),
-
                             Column(
                               children: [
                                 headText(typeName + "  " + model, scale: scale*scale, maxLine: 2,),
@@ -2150,7 +2149,7 @@ class MyWidget{
     var curve = MediaQuery.of(context).size.width/20;
 
 
-    var scale = 0.72;
+    var scale = 0.82;
     return Stack(
       children: [
         Align(
