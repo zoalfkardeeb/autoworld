@@ -5,7 +5,7 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:automall/localization_service.dart';
-import 'package:automall/screen/SupplierOffersScreen.dart';
+import 'package:automall/photoView.dart';
 import 'package:automall/screen/SupplierOrder.dart';
 import 'package:automall/screen/notificationScreen.dart';
 import 'package:automall/screen/resetPassword.dart';
@@ -26,7 +26,6 @@ import 'api.dart';
 import 'color/MyColors.dart';
 import 'const.dart';
 import 'localizations.dart';
-import 'package:easy_image_viewer/easy_image_viewer.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:easy_pdf_viewer/easy_pdf_viewer.dart';
 import 'package:path_provider/path_provider.dart';
@@ -1304,10 +1303,7 @@ class MyWidget{
   }
 
   showImage(src){
-    showImageViewer(
-        context, src
-    );
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [SystemUiOverlay.top, SystemUiOverlay.bottom]);
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) => PhotoView(networkImage: src,)));
   }
 
   pickFileAsBase64String() async{
@@ -2605,20 +2601,7 @@ class MyWidget{
 
       /// The widgets to display in the [ImageSlideshow].
       /// Add the sample image file into the images folder
-      children: listImage,/*[
-        Image.asset(
-          'images/sample_image_1.jpg',
-          fit: BoxFit.cover,
-        ),
-        Image.asset(
-          'images/sample_image_2.jpg',
-          fit: BoxFit.cover,
-        ),
-        Image.asset(
-          'images/sample_image_3.jpg',
-          fit: BoxFit.cover,
-        ),
-      ],*/
+      children: listImage,
 
       /// Called whenever the page in the center of the viewport changes.
       onPageChanged: (value) {

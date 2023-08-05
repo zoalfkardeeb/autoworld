@@ -121,8 +121,12 @@ class MyAPI{
           await userLang(lng, userData['id']);
           return true;
         }
-        else if(jsonDecode(response.body)['content'] != null){
+        else if(jsonDecode(response.body)['error_code'] == 2){
           Navigator.of(context!).push(MaterialPageRoute(builder:(context)=>Verification(value: jsonDecode(response.body)['content']['id'] ,email: email, password: password,  verCode: '',),));
+          flushBar(jsonDecode(response.body)['error_des']);
+          return false;
+        }
+        else if(jsonDecode(response.body)['error_code'] == 3){
           flushBar(jsonDecode(response.body)['error_des']);
           return false;
         }
