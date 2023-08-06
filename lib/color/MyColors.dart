@@ -17,7 +17,8 @@ class MyColors {
  static const fieldText = Color(0xff000000);
  static const black = Color(0xff000000);
  static const bottomCon = Color(0xff3C3F41);
- static const topCon = Color(0xffE4E4E4);
+ static const topCon = Color(0xffECECEC);
+ static const backgroundNew = Color(0xffECECEC);
  static const mainColor = Color(0xffE50019);
  static const buttonTextColor =  Color(0xff343434);
  static const gray =  Color(0xff1d1d1d);

@@ -1302,8 +1302,8 @@ class MyWidget{
     );
   }
 
-  showImage(src){
-    Navigator.of(context).push(MaterialPageRoute(builder: (context) => PhotoView(networkImage: src,)));
+  showImage(src,{List<GalarryItems>? listNetworkImage}){
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) => PhotoView(networkImage: src, networkImageList: listNetworkImage,)));
   }
 
   pickFileAsBase64String() async{

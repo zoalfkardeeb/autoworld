@@ -3,6 +3,7 @@ import 'package:automall/api.dart';
 import 'package:automall/color/MyColors.dart';
 import 'package:automall/const.dart';
 import 'package:automall/localizations.dart';
+import 'package:automall/photoView.dart';
 import 'package:automall/screen/garageCountry.dart';
 import 'package:automall/screen/suplierScreen.dart';
 import 'package:automall/screen/carSell/AddSellCarScreen.dart';
@@ -33,6 +34,7 @@ class _CarSellDetailsState extends State<CarSellDetails> {
   var _state = 'state';
 
   List<Widget> imageList = [];
+  List<GalarryItems> imageListGallery = [];
   var name = "name",view = " ", brandLogo="", kelomtarge='2000', productionYear='2022', price='200000', venName='', venNotes='', venPhone='963 03254132', venLocation='123355', cyl = '4', gearType, motorType;
   var _tapNum = 1;
   bool _aditionalFeatures = false;
@@ -70,6 +72,14 @@ class _CarSellDetailsState extends State<CarSellDetails> {
     try{
       _state = cityController.text;
     }catch(e){}
+    imageListGallery.clear();
+    imageListGallery.add(GalarryItems(image: carSellsList[_indexCarSell]['mainAttachment'].toString(), id: 0) );
+    if(carSellsList[_indexCarSell]['firstAttachment'].toString().isNotEmpty) imageListGallery.add(GalarryItems(image: carSellsList[_indexCarSell]['firstAttachment'].toString(), id: 1));
+    if(carSellsList[_indexCarSell]['secondAttachment'].toString().isNotEmpty) imageListGallery.add(GalarryItems(image: carSellsList[_indexCarSell]['secondAttachment'].toString(), id: 2));
+    if(carSellsList[_indexCarSell]['thirdAttachment'].toString().isNotEmpty) imageListGallery.add(GalarryItems(image: carSellsList[_indexCarSell]['thirdAttachment'].toString(), id: 3));
+    if(carSellsList[_indexCarSell]['forthAttachment'].toString().isNotEmpty) imageListGallery.add(GalarryItems(image: carSellsList[_indexCarSell]['forthAttachment'].toString(), id: 4));
+    if(carSellsList[_indexCarSell]['fifthAttachment'].toString().isNotEmpty) imageListGallery.add(GalarryItems(image: carSellsList[_indexCarSell]['fifthAttachment'].toString(), id: 5));
+    if(carSellsList[_indexCarSell]['sixthAttachment'].toString().isNotEmpty) imageListGallery.add(GalarryItems(image: carSellsList[_indexCarSell]['sixthAttachment'].toString(), id: 6));
   }
 
   @override
@@ -81,61 +91,13 @@ class _CarSellDetailsState extends State<CarSellDetails> {
     var vSpace = MediaQuery.of(context).size.height/70;
     var scale =0.95;
     _m = MyWidget(context);
-    imageList.clear();
     print(_indexCarSell.toString());
-    imageList.add(
-      GestureDetector(
-        child: _m!.networkImage(carSellsList[_indexCarSell]['mainAttachment'].toString(), _width, crossAlign: CrossAxisAlignment.center, height: _height),
-        onTap: ()=> _m!.showImage(Image.network(carSellsList[_indexCarSell]['mainAttachment'].toString()).image),
-      )
-        );
-    if(carSellsList[_indexCarSell]['firstAttachment'].toString().isNotEmpty) {
-      imageList.add(
-      GestureDetector(
-      child: _m!.networkImage(carSellsList[_indexCarSell]['firstAttachment'].toString(), _width, crossAlign: CrossAxisAlignment.center, height: _height),
-      onTap: ()=> _m!.showImage(Image.network(carSellsList[_indexCarSell]['firstAttachment'].toString()).image),
-    ));
-    }
-    if(carSellsList[_indexCarSell]['secondAttachment'].toString().isNotEmpty) {
-      imageList.add(
-      GestureDetector(
-      child: _m!.networkImage(carSellsList[_indexCarSell]['secondAttachment'].toString(), _width, crossAlign: CrossAxisAlignment.center, height: _height),
-      onTap: ()=> _m!.showImage(Image.network(carSellsList[_indexCarSell]['secondAttachment'].toString()).image),
-    )
-    );
-    }
-    if(carSellsList[_indexCarSell]['thirdAttachment'].toString().isNotEmpty) {
-      imageList.add(
-      GestureDetector(
-      child: _m!.networkImage(carSellsList[_indexCarSell]['thirdAttachment'].toString(), MediaQuery.of(context).size.height/5, crossAlign: CrossAxisAlignment.center),
-      onTap: ()=> _m!.showImage(Image.network(carSellsList[_indexCarSell]['thirdAttachment'].toString()).image),
-    )
-    );
-    }
-    if(carSellsList[_indexCarSell]['forthAttachment'].toString().isNotEmpty) {
-      imageList.add(
-          GestureDetector(
-            child: _m!.networkImage(carSellsList[_indexCarSell]['forthAttachment'].toString(), MediaQuery.of(context).size.height/5, crossAlign: CrossAxisAlignment.center),
-            onTap: ()=> _m!.showImage(Image.network(carSellsList[_indexCarSell]['forthAttachment'].toString()).image),
-          )
-      );
-    }
-    if(carSellsList[_indexCarSell]['fifthAttachment'].toString().isNotEmpty) {
-      imageList.add(
-          GestureDetector(
-            child: _m!.networkImage(carSellsList[_indexCarSell]['fifthAttachment'].toString(), MediaQuery.of(context).size.height/5, crossAlign: CrossAxisAlignment.center),
-            onTap: ()=> _m!.showImage(Image.network(carSellsList[_indexCarSell]['fifthAttachment'].toString()).image),
-          )
-      );
-    }
-    if(carSellsList[_indexCarSell]['sixthAttachment'].toString().isNotEmpty) {
-      imageList.add(
-          GestureDetector(
-            child: _m!.networkImage(carSellsList[_indexCarSell]['sixthAttachment'].toString(), MediaQuery.of(context).size.height/5, crossAlign: CrossAxisAlignment.center),
-            onTap: ()=> _m!.showImage(Image.network(carSellsList[_indexCarSell]['sixthAttachment'].toString()).image),
-          )
-      );
-    }
+    imageList.clear();
+    imageListGallery.forEach((element) {
+     imageList.add(
+         _m!.networkImage(element.image, _width, crossAlign: CrossAxisAlignment.center, height: _height)
+     );
+   });
     return Scaffold(
       resizeToAvoidBottomInset: true,
       backgroundColor: Colors.grey[100],
@@ -162,7 +124,11 @@ class _CarSellDetailsState extends State<CarSellDetails> {
                 children: [
                   _topBar(curve),
                 //  SizedBox(height: hSpace/2,),
-                  _m!.imageSlider(imageList),
+                  GestureDetector(
+                    onTap: ()=> _m!.showImage('src', listNetworkImage: imageListGallery),
+                    child: _m!.imageSlider(imageList),
+                  )
+                  ,
                  // SizedBox(height: hSpace/4,),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: curve),

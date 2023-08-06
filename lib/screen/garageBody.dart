@@ -2,6 +2,7 @@
 import 'package:automall/api.dart';
 import 'package:automall/color/MyColors.dart';
 import 'package:automall/const.dart';
+import 'package:automall/images/imagePath.dart';
 import 'package:automall/localizations.dart';
 import 'package:automall/screen/garageCountry.dart';
 import 'package:automall/screen/suplierScreen.dart';
@@ -41,9 +42,9 @@ class _GarageBodyState extends State<GarageBody> {
     var curve = MediaQuery.of(context).size.height / 30;
     _m = MyWidget(context);
     imageList.clear();
-    imageList.add({'image': 'assets/images/bodyGarage.png', 'text': AppLocalizations.of(context)!.translate('Body')});
-    imageList.add({'image': 'assets/images/mechanicalGarage.png', 'text': AppLocalizations.of(context)!.translate('Mechanical')});
-    imageList.add({'image': 'assets/images/electricalGarage.png', 'text': AppLocalizations.of(context)!.translate('Electrical')});
+    imageList.add({'image': ImagePath.body, 'text': AppLocalizations.of(context)!.translate('Body')});
+    imageList.add({'image': ImagePath.mechanical, 'text': AppLocalizations.of(context)!.translate('Mechanical')});
+    imageList.add({'image': ImagePath.electrical, 'text': AppLocalizations.of(context)!.translate('Electrical')});
     //imageList.add({'image': 'assets/images/customGarage.png', 'text': AppLocalizations.of(context)!.translate('Customisation')});
     return Scaffold(
       resizeToAvoidBottomInset: true,
@@ -79,20 +80,20 @@ class _GarageBodyState extends State<GarageBody> {
                       itemBuilder: (BuildContext context, int index) {
                         return GestureDetector(
                           child: Padding(
-                            padding: EdgeInsets.only(left: MediaQuery.of(context).size.width/10, right: MediaQuery.of(context).size.width/10,
+                            padding: EdgeInsets.only(left: MediaQuery.of(context).size.width/20, right: MediaQuery.of(context).size.width/20,
                             bottom: MediaQuery.of(context).size.height/20),
                             child:  Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Expanded(
-                                    flex: 1,
-                                    child: Image.asset(imageList[index]['image'], width: MediaQuery.of(context).size.width/3, height: MediaQuery.of(context).size.height/8, fit: BoxFit.contain,),
+                                    flex: 2,
+                                    child: Image.asset(imageList[index]['image'], width: MediaQuery.of(context).size.width/3, height: MediaQuery.of(context).size.height/7, fit: BoxFit.contain,),
                                   ),
                                   SizedBox(width: MediaQuery.of(context).size.width/40,),
                                   Expanded(
-                                    flex: 1,
-                                    child: _m!.headText(imageList[index]['text'], scale: 0.6, align: TextAlign.start),
+                                    flex: 3,
+                                    child: _m!.headText(imageList[index]['text'], scale: 0.6, align: TextAlign.start,paddingH: 0.0),
                                   ),
                                 ]
                               //color: MyColors.white,

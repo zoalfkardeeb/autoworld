@@ -84,14 +84,14 @@ class _FeaturedBoardsState extends State<FeaturedBoards> {
                     flex: 1,
                     child: Container(
                       decoration: BoxDecoration(
-                        color: MyColors.topCon,
+                        color: MyColors.backgroundNew,
                         borderRadius: BorderRadius.horizontal(left: Radius.circular(curve*2), right: Radius.circular(curve*2)),
                       ),
                       padding: EdgeInsets.symmetric(horizontal: curve),
                       child: GridView.builder(
                         itemCount: broadListImageType.length,
                         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                            childAspectRatio: 1,
+                            childAspectRatio: 0.75,
                             crossAxisCount: 2),
                         itemBuilder: (BuildContext context, int index) {
                           return GestureDetector(

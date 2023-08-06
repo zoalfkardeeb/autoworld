@@ -2,6 +2,7 @@
 import 'package:automall/api.dart';
 import 'package:automall/color/MyColors.dart';
 import 'package:automall/const.dart';
+import 'package:automall/images/imagePath.dart';
 import 'package:automall/localizations.dart';
 import 'package:automall/screen/BrandScreen.dart';
 import 'package:automall/screen/CarRentOffers.dart';
@@ -108,20 +109,20 @@ class _SelectScreenState extends State<SelectScreen> {
     var curve = MediaQuery.of(context).size.height / 30;
     _m = MyWidget(context);
     imageList.clear();
-    imageList.add({'image': 'assets/images/group1.png', 'text': AppLocalizations.of(context)!.translate('Spare Parts'), 'id':0});
-    imageList.add({'image': 'assets/images/group12.png', 'text': AppLocalizations.of(context)!.translate('Car for Sell'), 'id':20});
-    imageList.add({'image': 'assets/images/group2.png', 'text': AppLocalizations.of(context)!.translate('Garages'), 'id':1});
-    imageList.add({'image': 'assets/images/group4.png', 'text': AppLocalizations.of(context)!.translate('Batteries & tyres'), 'id':2});
-    imageList.add({'image': 'assets/images/group3.png', 'text': AppLocalizations.of(context)!.translate('Motor Service Van'), 'id':3});
-    imageList.add({'image': 'assets/images/group5.png', 'text': AppLocalizations.of(context)!.translate('Offers'), 'id':4});
-    imageList.add({'image': 'assets/images/group6.png', 'text': AppLocalizations.of(context)!.translate('Scrape Parts'), 'id':5});
-    imageList.add({'image': 'assets/images/group11.png', 'text': AppLocalizations.of(context)!.translate('Rent a Car'), 'id':6});
-    imageList.add({'image': 'assets/images/group10.png', 'text': AppLocalizations.of(context)!.translate('Breakdown Service'), 'id':7});
-    imageList.add({'image': 'assets/images/group7.png', 'text': AppLocalizations.of(context)!.translate('Car Modifications'), 'id':8});
-    imageList.add({'image': 'assets/images/group8.png', 'text': AppLocalizations.of(context)!.translate('Accessories'), 'id':9});
-    imageList.add({'image': 'assets/images/group9.png', 'text': AppLocalizations.of(context)!.translate('Customisation'), 'id':10});
-    imageList.add({'image': 'assets/images/group14.png', 'text': AppLocalizations.of(context)!.translate('Featured boards'), 'id':11});
-    imageList.add({'image': 'assets/images/group13.png', 'text': AppLocalizations.of(context)!.translate('exhibition'), 'id':12});
+    imageList.add({'image': ImagePath.spareParts, 'text': AppLocalizations.of(context)!.translate('Spare Parts'), 'id':0});
+    imageList.add({'image': ImagePath.carForSell, 'text': AppLocalizations.of(context)!.translate('Car for Sell'), 'id':20});
+    imageList.add({'image': ImagePath.garages, 'text': AppLocalizations.of(context)!.translate('Garages'), 'id':1});
+    imageList.add({'image': ImagePath.batteriesAndTyres, 'text': AppLocalizations.of(context)!.translate('Batteries & tyres'), 'id':2});
+    imageList.add({'image': ImagePath.motorVanService, 'text': AppLocalizations.of(context)!.translate('Motor Service Van'), 'id':3});
+    imageList.add({'image': ImagePath.offers, 'text': AppLocalizations.of(context)!.translate('Offers'), 'id':4});
+    imageList.add({'image': ImagePath.scrapParts, 'text': AppLocalizations.of(context)!.translate('Scrape Parts'), 'id':5});
+    imageList.add({'image': ImagePath.rentACar, 'text': AppLocalizations.of(context)!.translate('Rent a Car'), 'id':6});
+    imageList.add({'image': ImagePath.breakDownService, 'text': AppLocalizations.of(context)!.translate('Breakdown Service'), 'id':7});
+    imageList.add({'image': ImagePath.carCare, 'text': AppLocalizations.of(context)!.translate('Car Modifications'), 'id':8});
+    imageList.add({'image': ImagePath.accessories, 'text': AppLocalizations.of(context)!.translate('Accessories'), 'id':9});
+    imageList.add({'image': ImagePath.customisation, 'text': AppLocalizations.of(context)!.translate('Customisation'), 'id':10});
+    imageList.add({'image': ImagePath.featuredBoards, 'text': AppLocalizations.of(context)!.translate('Featured boards'), 'id':11});
+    imageList.add({'image': ImagePath.exhibition, 'text': AppLocalizations.of(context)!.translate('exhibition'), 'id':12});
     return Scaffold(
       resizeToAvoidBottomInset: true,
       backgroundColor: Colors.grey[100],
