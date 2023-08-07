@@ -195,8 +195,9 @@ class MyWidget{
         Text(
       text,
       style: TextStyle(
-          fontSize: MediaQuery.of(context).size.width/25 * scale,
+          fontSize: MediaQuery.of(context).size.width/23 * scale,
           color: MyColors.titleText,
+          fontWeight: FontWeight.bold,
           fontFamily: lng==2?'GESS':'Gotham'),
     ),);
   }
@@ -1302,8 +1303,8 @@ class MyWidget{
     );
   }
 
-  showImage(src,{List<GalarryItems>? listNetworkImage}){
-    Navigator.of(context).push(MaterialPageRoute(builder: (context) => PhotoView(networkImage: src, networkImageList: listNetworkImage,)));
+  showImage(src,{List<GalarryItems>? listNetworkImage, int? selectedIndex}){
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) => PhotoView(networkImage: src, networkImageList: listNetworkImage, imageIndex: selectedIndex,)));
   }
 
   pickFileAsBase64String() async{
@@ -1885,7 +1886,7 @@ class MyWidget{
                 );
   }
 
-  networkImage(netImage, width, {crossAlign, mainAlign, height}){
+  Widget networkImage(netImage, width, {crossAlign, mainAlign, height}){
     crossAlign??=CrossAxisAlignment.start;
     mainAlign??=MainAxisAlignment.center;
     height ??= width;
@@ -2579,42 +2580,6 @@ class MyWidget{
       ],
     )
     ;
-  }
-
-  imageSlider(listImage){
-    return ImageSlideshow(
-
-      /// Width of the [ImageSlideshow].
-      width: double.infinity,
-
-      /// Height of the [ImageSlideshow].
-      height: MediaQuery.of(context).size.height/3.5,
-
-      /// The page to show when first creating the [ImageSlideshow].
-      initialPage: 0,
-
-      /// The color to paint the indicator.
-      indicatorColor: MyColors.red,
-
-      /// The color to paint behind th indicator.
-      indicatorBackgroundColor: Colors.grey,
-
-      /// The widgets to display in the [ImageSlideshow].
-      /// Add the sample image file into the images folder
-      children: listImage,
-
-      /// Called whenever the page in the center of the viewport changes.
-      onPageChanged: (value) {
-        print('Page changed: $value');
-      },
-
-      /// Auto scroll interval.
-      /// Do not auto scroll with null or 0.
-      autoPlayInterval: null,
-
-      /// Loops back to first slide.
-      isLoop: true,
-    );
   }
 
   scrollIndicator(header, List value){

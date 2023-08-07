@@ -8,6 +8,7 @@ import 'package:automall/screen/garageCountry.dart';
 import 'package:automall/screen/suplierScreen.dart';
 import 'package:automall/screen/carSell/AddSellCarScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 
 import '../../MyWidget.dart';
 import 'AllBrandCarSells.dart';
@@ -125,8 +126,8 @@ class _CarSellDetailsState extends State<CarSellDetails> {
                   _topBar(curve),
                 //  SizedBox(height: hSpace/2,),
                   GestureDetector(
-                    onTap: ()=> _m!.showImage('src', listNetworkImage: imageListGallery),
-                    child: _m!.imageSlider(imageList),
+                    onTap: ()=> _m!.showImage('src', listNetworkImage: imageListGallery, selectedIndex: _selectedImageIndex),
+                    child: _imageSlider(imageList),
                   )
                   ,
                  // SizedBox(height: hSpace/4,),
@@ -325,6 +326,45 @@ class _CarSellDetailsState extends State<CarSellDetails> {
           )
         ],
       ),
+    );
+  }
+
+  int _selectedImageIndex = 0;
+
+  _imageSlider(listImage){
+    return ImageSlideshow(
+
+      /// Width of the [ImageSlideshow].
+      width: double.infinity,
+
+      /// Height of the [ImageSlideshow].
+      height: MediaQuery.of(context).size.height/3.5,
+
+      /// The page to show when first creating the [ImageSlideshow].
+      initialPage: 0,
+
+      /// The color to paint the indicator.
+      indicatorColor: MyColors.red,
+
+      /// The color to paint behind th indicator.
+      indicatorBackgroundColor: Colors.grey,
+
+      /// The widgets to display in the [ImageSlideshow].
+      /// Add the sample image file into the images folder
+      children: listImage,
+
+      /// Called whenever the page in the center of the viewport changes.
+      onPageChanged: (value) {
+        _selectedImageIndex = value;
+        print('Page changed: $value');
+      },
+
+      /// Auto scroll interval.
+      /// Do not auto scroll with null or 0.
+      autoPlayInterval: null,
+
+      /// Loops back to first slide.
+      isLoop: true,
     );
   }
 
