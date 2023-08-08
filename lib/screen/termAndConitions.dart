@@ -96,8 +96,8 @@ class _TermsAndConditionsState extends State<TermsAndConditions> {
                     //..scale(1/3.5, 1/3.5*MediaQuery.of(context).size.width/MediaQuery.of(context).size.height)
                 ),
                 child: GestureDetector(
-                  child: SvgPicture.asset(
-                    'assets/images/Logo1.svg',
+                  child: Image.asset(
+                    'assets/images/Logo1.png',
                     height: MediaQuery
                         .of(context)
                         .size
