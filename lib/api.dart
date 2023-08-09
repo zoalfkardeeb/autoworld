@@ -634,6 +634,36 @@ class MyAPI{
 
   getOrders(id) async{
     var url = "$_baseUrl/Orders/Orders_Read?filter=customerId~eq~'$id'";
+    if(userInfo['type'] == 1) {
+      url = "$_baseUrl/Orders/Suppliers_Orders_Read?userid=$id";
+      try{
+        http.Response response = await http.get(
+            Uri.parse(url),
+            headers: {
+              "Accept-Language": LocalizationService.getCurrentLocale().languageCode,
+              "Accept": "application/json",
+              "content-type": "application/json",
+              "Authorization": token,
+            });
+        if(response.statusCode == 200){
+          print(jsonDecode(response.body));
+          if(jsonDecode(response.body)['errors'] == "" || jsonDecode(response.body)['errors'] == null){
+            ordersListSupplier = jsonDecode(response.body)['data'];
+            // editTransactionOrdersList();
+            //return true;
+          }
+          else{
+            flushBar(jsonDecode(response.body)['Errors']);
+            //return false;
+          }
+        }
+      }
+      catch(e){
+        flushBar(AppLocalizations.of(context!)!.translate('please! check your network connection'));
+        //return false;
+      }
+    }
+    url = "$_baseUrl/Orders/Orders_Read?filter=customerId~eq~'$id'";
     try{
       http.Response response = await http.get(
           Uri.parse(url),
@@ -659,35 +689,6 @@ class MyAPI{
     catch(e){
       flushBar(AppLocalizations.of(context!)!.translate('please! check your network connection'));
       return false;
-    }
-    if(userInfo['type'] == 1) {
-      url = "$_baseUrl/Orders/Suppliers_Orders_Read?userid=$id";
-      try{
-        http.Response response = await http.get(
-            Uri.parse(url),
-            headers: {
-              "Accept-Language": LocalizationService.getCurrentLocale().languageCode,
-              "Accept": "application/json",
-              "content-type": "application/json",
-              "Authorization": token,
-            });
-        if(response.statusCode == 200){
-          print(jsonDecode(response.body));
-          if(jsonDecode(response.body)['errors'] == "" || jsonDecode(response.body)['errors'] == null){
-            ordersListSupplier = jsonDecode(response.body)['data'];
-           // editTransactionOrdersList();
-            return true;
-          }
-          else{
-            flushBar(jsonDecode(response.body)['Errors']);
-            return false;
-          }
-        }
-      }
-      catch(e){
-        flushBar(AppLocalizations.of(context!)!.translate('please! check your network connection'));
-        return false;
-      }
     }
 
   }
