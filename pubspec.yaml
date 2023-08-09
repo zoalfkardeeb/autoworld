@@ -115,7 +115,7 @@ flutter_launcher_icons:
   adaptive_icon_background: "#ff0000"
 
 flutter_native_splash:
-  color: "#FFFFFF"
+  color: "#EEFFFF"
   image: assets/images/Logo1.png
   android: true
   ios: true
