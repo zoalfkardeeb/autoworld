@@ -1,8 +1,9 @@
 // ignore_for_file: file_names
 import 'package:automall/api.dart';
-import 'package:automall/color/MyColors.dart';
+import 'package:automall/constant/color/MyColors.dart';
+
 import 'package:automall/const.dart';
-import 'package:automall/images/imagePath.dart';
+import 'package:automall/constant/images/imagePath.dart';
 import 'package:automall/localizations.dart';
 import 'package:automall/screen/BrandScreen.dart';
 import 'package:automall/screen/CarRentOffers.dart';
@@ -20,7 +21,7 @@ import 'dart:io';
 import 'carKey/BoardSelect.dart';
 import 'carKey/FeaturedBoards.dart';
 import 'carSell/CarForSeller.dart';
-import 'boxes.dart';
+import '../helper/boxes.dart';
 import 'exhibtion/ExhibtionScreen.dart';
 import 'garageCountry.dart';
 // ignore: camel_case_types
@@ -70,7 +71,7 @@ class _SelectScreenState extends State<SelectScreen> {
                     },
                     child: Icon(
                       Icons.check,
-                      color: MyColors.mainColor,
+                      color: AppColors.mainColor,
                     ))
               ],
             ));
@@ -125,7 +126,7 @@ class _SelectScreenState extends State<SelectScreen> {
     imageList.add({'image': ImagePath.exhibition, 'text': AppLocalizations.of(context)!.translate('exhibition'), 'id':12});
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      backgroundColor: MyColors.topCon,
+      backgroundColor: AppColors.topCon,
       key: _scaffoldKey,
       //appBar: _m!.appBar(barHight, _scaffoldKey),
       drawer: _m!.drawer(() => _setState(), ()=> _tap(2), ()=> _tap(1), _scaffoldKey),
@@ -218,14 +219,14 @@ class _SelectScreenState extends State<SelectScreen> {
       //height: barHight,
       padding: EdgeInsets.symmetric(horizontal: curve, vertical: curve/2),
       decoration: BoxDecoration(
-        color: MyColors.topCon,
+        color: AppColors.topCon,
         borderRadius: BorderRadius.only(bottomLeft: Radius.circular(curve), bottomRight: Radius.circular(curve)),
         boxShadow: [BoxShadow(
-          color: MyColors.black,
+          color: AppColors.black,
           offset: Offset(0, 1),
           blurRadius: 4,
-        )]
-      ),
+        )],
+       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

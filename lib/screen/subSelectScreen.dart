@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
-import 'package:automall/color/MyColors.dart';
+import 'package:automall/constant/color/MyColors.dart';
+
 import 'package:automall/localizations.dart';
 import 'package:automall/screen/matrialDscScreen.dart';
 import 'package:flutter/material.dart';
@@ -151,9 +152,13 @@ class _SubSelectScreenState extends State<SubSelectScreen> {
       height: MediaQuery.of(context).size.height/8*2.7,
         padding: EdgeInsets.symmetric(horizontal: curve, vertical: curve/2),
         decoration: BoxDecoration(
-          color: MyColors.topCon,
+          color: AppColors.topCon,
           borderRadius: BorderRadius.only(bottomLeft: Radius.circular(curve), bottomRight: Radius.circular(curve)),
-        ),
+          boxShadow: [BoxShadow(
+            color: AppColors.black,
+            offset: Offset(0, 1),
+            blurRadius: 4,
+          )],    ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -199,7 +204,7 @@ class _SubSelectScreenState extends State<SubSelectScreen> {
                   ),
                 ),
             ),
-            _m!.listTextFiled(curve, _searchController, () => press(), MyColors.white, MyColors.black, AppLocalizations.of(context)!.translate('Search Products...'), MyColors.mainColor, width: MediaQuery.of(context).size.width/1.48)
+            _m!.listTextFiled(curve, _searchController, () => press(), AppColors.white, AppColors.black, AppLocalizations.of(context)!.translate('Search Products...'), AppColors.mainColor, width: MediaQuery.of(context).size.width/1.48)
 
           ],
         )

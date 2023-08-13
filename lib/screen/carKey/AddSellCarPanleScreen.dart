@@ -9,7 +9,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import '../../MyWidget.dart';
 import '../../api.dart';
-import '../../color/MyColors.dart';
+import 'package:automall/constant/color/MyColors.dart';
+
 //import '../const.dart';
 import '../../const.dart';
 import '../../localizations.dart';
@@ -110,8 +111,8 @@ class _AddSellCarPanleScreenState extends State<AddSellCarPanleScreen> {
                           padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width/10),
                           children: [
                             //SizedBox(height: hSpace/3,),
-                            _m!.textFiled(curve, Colors.white, MyColors.bodyText1, _numOfCarPanle, AppLocalizations.of(context)!.translate('Car Panel'), Icons.edit_outlined, withoutValidator: true),
-                            _m!.textFiled(curve, Colors.white, MyColors.bodyText1, _priceController, AppLocalizations.of(context)!.translate('Price'), Icons.edit_outlined, withoutValidator: true, number: true),
+                            _m!.textFiled(curve, Colors.white, AppColors.bodyText1, _numOfCarPanle, AppLocalizations.of(context)!.translate('Car Panel'), Icons.edit_outlined, withoutValidator: true),
+                            _m!.textFiled(curve, Colors.white, AppColors.bodyText1, _priceController, AppLocalizations.of(context)!.translate('Price'), Icons.edit_outlined, withoutValidator: true, number: true),
                           ],
                     )
                     ),
@@ -162,9 +163,13 @@ class _AddSellCarPanleScreenState extends State<AddSellCarPanleScreen> {
       //height: barHight,
         padding: EdgeInsets.symmetric(horizontal: curve, vertical: curve/2),
         decoration: BoxDecoration(
-          color: MyColors.topCon,
+          color: AppColors.topCon,
           borderRadius: BorderRadius.only(bottomLeft: Radius.circular(curve), bottomRight: Radius.circular(curve)),
-        ),
+          boxShadow: [BoxShadow(
+            color: AppColors.black,
+            offset: Offset(0, 1),
+            blurRadius: 4,
+          )],  ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -236,7 +241,7 @@ class _AddSellCarPanleScreenState extends State<AddSellCarPanleScreen> {
     }
     Dialog errorDialog = Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(curve)), //this right here
-      backgroundColor: MyColors.dialogColor,
+      backgroundColor: AppColors.dialogColor,
       child: Container(
         //color: MyColors.gray,
         padding: EdgeInsets.symmetric(horizontal: curve, vertical: curve),
@@ -259,7 +264,7 @@ class _AddSellCarPanleScreenState extends State<AddSellCarPanleScreen> {
             ,
             Row(
               children: [
-                _m!.raisedButton(curve, MediaQuery.of(context).size.width/1.2/3, AppLocalizations.of(context)!.translate('Undo'), null, ()=> _undo(), color: MyColors.dialogColor, borderSide: MyColors.white),
+                _m!.raisedButton(curve, MediaQuery.of(context).size.width/1.2/3, AppLocalizations.of(context)!.translate('Undo'), null, ()=> _undo(), color: AppColors.dialogColor, borderSide: AppColors.white),
                 const Expanded(child: SizedBox()),
                 _m!.raisedButton(curve, MediaQuery.of(context).size.width/1.2/3, AppLocalizations.of(context)!.translate('Okay'), null, ()=> _okay())
               ],

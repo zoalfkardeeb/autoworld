@@ -12,7 +12,7 @@ import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'model/transaction.dart';
-import 'screen/boxes.dart';
+import 'helper/boxes.dart';
 
 List listCarType = [{'name':'Sedan' , 'id':1},{'name':'Suv(4x4)' , 'id':2},{'name':'coupe' , 'id':3},];
 List listCarMotorType = [{'name':'Petrol' , 'id':1},{'name':'Diesel' , 'id':2},{'name':'Hybrid' , 'id':3},{'name':'Electrical' , 'id':4},];
@@ -31,6 +31,7 @@ List carModelList = [];
 Map userData = {};
 Map userInfo = {'email': '....','name': '.....', 'imagePath': null, 'mobile': '+963 0938025347', 'city' : 'Syria', 'aboutYou': 'aboutYou', 'type':0};
 bool isLogin = false;
+bool newVersion = false;
 
 ImageProvider? image;
 String? path;

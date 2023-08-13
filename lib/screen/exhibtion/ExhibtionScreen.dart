@@ -1,7 +1,8 @@
 // ignore_for_file: file_names
 import 'package:automall/MyWidget.dart';
 import 'package:automall/api.dart';
-import 'package:automall/color/MyColors.dart';
+import 'package:automall/constant/color/MyColors.dart';
+
 import 'package:automall/const.dart';
 import 'package:automall/localizations.dart';
 import 'package:automall/screen/BrandScreen.dart';
@@ -93,7 +94,7 @@ class _ExhibtionScreenState extends State<ExhibtionScreen> {
                       style: TextStyle(
                           fontSize:
                           MediaQuery.of(context).size.width / 23,
-                          color: MyColors.black,
+                          color: AppColors.black,
                           fontFamily: 'Gotham'),
                       decoration: InputDecoration(
                         //border: InputBorder.none,
@@ -104,7 +105,7 @@ class _ExhibtionScreenState extends State<ExhibtionScreen> {
                         hintStyle: TextStyle(
                             fontSize:
                             MediaQuery.of(context).size.width / 28,
-                            color: MyColors.bodyText1,
+                            color: AppColors.bodyText1,
                             fontFamily: 'GothamLight'),
                         errorStyle: TextStyle(
                           fontSize:
@@ -174,9 +175,13 @@ class _ExhibtionScreenState extends State<ExhibtionScreen> {
       //height: barHight,
         padding: EdgeInsets.symmetric(horizontal: curve, vertical: curve/2),
         decoration: BoxDecoration(
-          color: MyColors.topCon,
+          color: AppColors.topCon,
           borderRadius: BorderRadius.only(bottomLeft: Radius.circular(curve), bottomRight: Radius.circular(curve)),
-        ),
+          boxShadow: [BoxShadow(
+            color: AppColors.black,
+            offset: Offset(0, 1),
+            blurRadius: 4,
+          )],     ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

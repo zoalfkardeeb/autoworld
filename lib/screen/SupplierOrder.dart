@@ -8,10 +8,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../MyWidget.dart';
 import '../api.dart';
-import '../color/MyColors.dart';
+import 'package:automall/constant/color/MyColors.dart';
+
 import '../const.dart';
 import '../localizations.dart';
-import 'boxes.dart';
+import '../helper/boxes.dart';
 
 class SupplierOrdesr extends StatefulWidget {
   @override
@@ -102,9 +103,9 @@ class _SupplierOrdesrState extends State<SupplierOrdesr> {
                       padding: EdgeInsets.symmetric(horizontal: curve/1.2),
                       child: Row(
                         children: [
-                          _m!.bodyText1(AppLocalizations.of(context)!.translate("My Orders"), scale: 1.2, padding: 0.0, align: TextAlign.start, color: MyColors.black),
+                          _m!.bodyText1(AppLocalizations.of(context)!.translate("My Orders"), scale: 1.2, padding: 0.0, align: TextAlign.start, color: AppColors.black),
                           const Expanded(child: SizedBox()),
-                          IconButton(onPressed: ()=> refresh(), icon: Icon(Icons.refresh_outlined, size: MediaQuery.of(context).size.width/15, color: MyColors.black,)),
+                          IconButton(onPressed: ()=> refresh(), icon: Icon(Icons.refresh_outlined, size: MediaQuery.of(context).size.width/15, color: AppColors.black,)),
                         ],
                       )
                   ),
@@ -192,9 +193,13 @@ class _SupplierOrdesrState extends State<SupplierOrdesr> {
       //height: barHight,
         padding: EdgeInsets.symmetric(horizontal: curve, vertical: curve/2),
         decoration: BoxDecoration(
-          color: MyColors.topCon,
+          color: AppColors.topCon,
           borderRadius: BorderRadius.only(bottomLeft: Radius.circular(curve), bottomRight: Radius.circular(curve)),
-        ),
+          boxShadow: [BoxShadow(
+            color: AppColors.black,
+            offset: Offset(0, 1),
+            blurRadius: 4,
+          )],  ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -298,7 +303,7 @@ class _SupplierOrdesrState extends State<SupplierOrdesr> {
 
     String statue =  AppLocalizations.of(context)!.translate('NEW');
     var offerHieght = MediaQuery.of(context).size.width*0.4;
-    var _color = MyColors.mainColor;
+    var _color = AppColors.mainColor;
     _openOffer() async{
       print(_foundOrders[index]['replyAttachment'].toString());
       if(_foundOrders[index]['replyAttachment'] == '') {
@@ -352,9 +357,9 @@ class _SupplierOrdesrState extends State<SupplierOrdesr> {
                       height: MediaQuery.of(context).size.width/10 + curve * 2,
                       width: MediaQuery.of(context).size.width/2.7,
                       padding: EdgeInsets.all(curve),
-                      child:_m!.raisedButton(curve, MediaQuery.of(context).size.width/4, AppLocalizations.of(context)!.translate('Details'), 'assets/images/details.svg', ()=> _showDetails(index), height: MediaQuery.of(context).size.width/10,color: index == _detailsIndexShow? MyColors.mainColor: MyColors.card),
+                      child:_m!.raisedButton(curve, MediaQuery.of(context).size.width/4, AppLocalizations.of(context)!.translate('Details'), 'assets/images/details.svg', ()=> _showDetails(index), height: MediaQuery.of(context).size.width/10,color: index == _detailsIndexShow? AppColors.mainColor: AppColors.card),
                       decoration: BoxDecoration(
-                        border: Border.fromBorderSide(BorderSide(color: index == _detailsIndexShow ? MyColors.card: MyColors.white)),
+                        border: Border.fromBorderSide(BorderSide(color: index == _detailsIndexShow ? AppColors.card: AppColors.white)),
                         borderRadius: BorderRadius.only(topLeft: Radius.circular(curve), topRight: Radius.circular(curve)),
                       ),
                     ),
@@ -363,7 +368,7 @@ class _SupplierOrdesrState extends State<SupplierOrdesr> {
                       margin: EdgeInsets.only(top: curve*2 + MediaQuery.of(context).size.width/10-1),
                       height: 1,
                       width: MediaQuery.of(context).size.width/2.7-2,
-                      color: MyColors.white,
+                      color: AppColors.white,
                     ): SizedBox(),
                   ],
                 ),
@@ -397,7 +402,7 @@ class _SupplierOrdesrState extends State<SupplierOrdesr> {
                   //height: offerHieght,
                   //margin: EdgeInsets.only(left: raduis),
                   decoration: BoxDecoration(
-                    border: Border.fromBorderSide(BorderSide(color: MyColors.card)),
+                    border: Border.fromBorderSide(BorderSide(color: AppColors.card)),
                     borderRadius: BorderRadius.all(Radius.circular(curve)),
                   ),
                   padding: EdgeInsets.symmetric(horizontal: curve, vertical: curve),
@@ -446,7 +451,7 @@ class _SupplierOrdesrState extends State<SupplierOrdesr> {
             ),
           ],*/
                                 border: Border.all(
-                                  color: MyColors.card,
+                                  color: AppColors.card,
                                   width: 1,
                                   style: BorderStyle.solid,
                                 ),
@@ -470,7 +475,7 @@ class _SupplierOrdesrState extends State<SupplierOrdesr> {
                     margin: lng==2? EdgeInsets.only(right: MediaQuery.of(context).size.width/108*5) : EdgeInsets.only(left: MediaQuery.of(context).size.width/108*5),
                     height: 1,
                     width: MediaQuery.of(context).size.width/2.7-1,
-                    color: MyColors.white,
+                    color: AppColors.white,
                   ),
                 ),
               ],
@@ -552,9 +557,9 @@ class _SupplierOrdesrState extends State<SupplierOrdesr> {
                       height: MediaQuery.of(context).size.width/10 + curve * 2,
                       width: MediaQuery.of(context).size.width/2.7,
                       padding: EdgeInsets.all(curve),
-                      child:_m!.raisedButton(curve, MediaQuery.of(context).size.width/4, AppLocalizations.of(context)!.translate('Details'), 'assets/images/details.svg', ()=> _showDetails(index), height: MediaQuery.of(context).size.width/10,color: index == _detailsIndexShow? MyColors.mainColor: MyColors.card),
+                      child:_m!.raisedButton(curve, MediaQuery.of(context).size.width/4, AppLocalizations.of(context)!.translate('Details'), 'assets/images/details.svg', ()=> _showDetails(index), height: MediaQuery.of(context).size.width/10,color: index == _detailsIndexShow? AppColors.mainColor: AppColors.card),
                       decoration: BoxDecoration(
-                        border: Border.fromBorderSide(BorderSide(color: index == _detailsIndexShow ? MyColors.card: MyColors.white)),
+                        border: Border.fromBorderSide(BorderSide(color: index == _detailsIndexShow ? AppColors.card: AppColors.white)),
                         borderRadius: BorderRadius.only(topLeft: Radius.circular(curve), topRight: Radius.circular(curve)),
                       ),
                     ),
@@ -563,7 +568,7 @@ class _SupplierOrdesrState extends State<SupplierOrdesr> {
                       margin: EdgeInsets.only(top: curve*2 + MediaQuery.of(context).size.width/10-1),
                       height: 1,
                       width: MediaQuery.of(context).size.width/2.7-2,
-                      color: MyColors.white,
+                      color: AppColors.white,
                     ): SizedBox(),
                   ],
                 ),
@@ -575,17 +580,17 @@ class _SupplierOrdesrState extends State<SupplierOrdesr> {
                       width: MediaQuery.of(context).size.width/2.7,
                       padding: EdgeInsets.all(curve),
                       decoration: BoxDecoration(
-                        border: Border.fromBorderSide(BorderSide(color: index == _offersIndexShow ? MyColors.card: MyColors.white)),
+                        border: Border.fromBorderSide(BorderSide(color: index == _offersIndexShow ? AppColors.card: AppColors.white)),
                         borderRadius: BorderRadius.only(topLeft: Radius.circular(curve), topRight: Radius.circular(curve)),
                       ),
-                      child: _m!.raisedButton(curve, MediaQuery.of(context).size.width/3, AppLocalizations.of(context)!.translate('Reply'), 'assets/images/reply.svg', ()=> _showOffers(index), height: MediaQuery.of(context).size.width/10,color: index == _offersIndexShow? MyColors.mainColor: MyColors.card),
+                      child: _m!.raisedButton(curve, MediaQuery.of(context).size.width/3, AppLocalizations.of(context)!.translate('Reply'), 'assets/images/reply.svg', ()=> _showOffers(index), height: MediaQuery.of(context).size.width/10,color: index == _offersIndexShow? AppColors.mainColor: AppColors.card),
                     ),
                     index == _offersIndexShow ?Container(
                       //padding: EdgeInsets.symmetric(horizontal: curve),
                       margin: EdgeInsets.only(top: curve*2 + MediaQuery.of(context).size.width/10-1),
                       height: 1,
                       width: MediaQuery.of(context).size.width/2.7-2,
-                      color: MyColors.white,
+                      color: AppColors.white,
                     ):SizedBox(),
                   ],
                 )
@@ -598,7 +603,7 @@ class _SupplierOrdesrState extends State<SupplierOrdesr> {
                   //height: offerHieght,
                   //margin: EdgeInsets.only(left: raduis),
                   decoration: BoxDecoration(
-                    border: Border.fromBorderSide(BorderSide(color: MyColors.card)),
+                    border: Border.fromBorderSide(BorderSide(color: AppColors.card)),
                     borderRadius: BorderRadius.all(Radius.circular(curve)),
                   ),
                   padding: EdgeInsets.symmetric(horizontal: curve, vertical: curve),
@@ -647,7 +652,7 @@ class _SupplierOrdesrState extends State<SupplierOrdesr> {
             ),
           ],*/
                                 border: Border.all(
-                                  color: MyColors.card,
+                                  color: AppColors.card,
                                   width: 1,
                                   style: BorderStyle.solid,
                                 ),
@@ -671,7 +676,7 @@ class _SupplierOrdesrState extends State<SupplierOrdesr> {
                     margin: lng==2?EdgeInsets.only(right: MediaQuery.of(context).size.width/108*5):EdgeInsets.only(left: MediaQuery.of(context).size.width/108*5),
                     height: 1,
                     width: MediaQuery.of(context).size.width/2.7-1,
-                    color: MyColors.white,
+                    color: AppColors.white,
                   ),
                 ),
               ],
@@ -683,7 +688,7 @@ class _SupplierOrdesrState extends State<SupplierOrdesr> {
                     //height: offerHieght,
                     //margin: EdgeInsets.only(left: raduis),
                     decoration: BoxDecoration(
-                      border: Border.fromBorderSide(BorderSide(color: MyColors.card)),
+                      border: Border.fromBorderSide(BorderSide(color: AppColors.card)),
                       borderRadius: BorderRadius.all(Radius.circular(curve)),
                     ),
                     padding: EdgeInsets.symmetric(horizontal: curve, vertical: curve),
@@ -698,7 +703,7 @@ class _SupplierOrdesrState extends State<SupplierOrdesr> {
                       margin: lng==2?EdgeInsets.only(right: MediaQuery.of(context).size.width/12*5):EdgeInsets.only(left: MediaQuery.of(context).size.width/12*5),
                       height: 1,
                       width: MediaQuery.of(context).size.width/2.7-1,
-                      color: MyColors.white,
+                      color: AppColors.white,
                     ),
                   ),
                 ],
@@ -710,11 +715,11 @@ class _SupplierOrdesrState extends State<SupplierOrdesr> {
     }
     //var buttonText = AppLocalizations.of(context)!.translate('NEW');
     if(status == 1) {
-      _color = MyColors.gray;
+      _color = AppColors.gray;
       statue = AppLocalizations.of(context)!.translate('REPLY');
     }
     if(status == 1 && _foundOrders[index]['isWinner']) {
-      _color = MyColors.green;
+      _color = AppColors.green;
       statue = AppLocalizations.of(context)!.translate('WINNER');
     }
     return Container(
@@ -722,15 +727,15 @@ class _SupplierOrdesrState extends State<SupplierOrdesr> {
         padding: EdgeInsets.only( bottom: curve*0),
         margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width/20, vertical: MediaQuery.of(context).size.width/40),
         decoration: BoxDecoration(
-          color: MyColors.white,
-          border: Border.all(color: MyColors.gray),
+          color: AppColors.white,
+          border: Border.all(color: AppColors.gray),
           borderRadius: BorderRadius.all(Radius.circular(curve)),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              child: _m!.bodyText1(statue, color: MyColors.white),
+              child: _m!.bodyText1(statue, color: AppColors.white),
               decoration: BoxDecoration(
                 color: _color,
                 border: Border.all(color: _color),
@@ -755,8 +760,8 @@ class _SupplierOrdesrState extends State<SupplierOrdesr> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              _m!.headText(_header,scale: 0.7, paddingH: MediaQuery.of(context).size.width/20, paddingV: 0.0, align: TextAlign.start, color: MyColors.bodyText1),
-                              _m!.headText(_subHeader,scale: 0.6, paddingH: MediaQuery.of(context).size.width/20, paddingV: MediaQuery.of(context).size.height/200, align: TextAlign.start, color: MyColors.bodyText1),
+                              _m!.headText(_header,scale: 0.7, paddingH: MediaQuery.of(context).size.width/20, paddingV: 0.0, align: TextAlign.start, color: AppColors.bodyText1),
+                              _m!.headText(_subHeader,scale: 0.6, paddingH: MediaQuery.of(context).size.width/20, paddingV: MediaQuery.of(context).size.height/200, align: TextAlign.start, color: AppColors.bodyText1),
                               //_m!.iconText(assets, text, color)
                               //_m!.bodyText1(_subHeader,scale: 1, padding: MediaQuery.of(context).size.width/20, padV: MediaQuery.of(context).size.height/200, align: TextAlign.start, color: MyColors.bodyText1),
                             ],

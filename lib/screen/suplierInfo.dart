@@ -3,7 +3,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../MyWidget.dart';
-import '../color/MyColors.dart';
+import 'package:automall/constant/color/MyColors.dart';
+
 import '../const.dart';
 import '../localizations.dart';
 class SuplierInfo extends StatefulWidget {
@@ -119,7 +120,7 @@ class _SuplierInfoState extends State<SuplierInfo> {
                                         onTap: () => launchPhone(phone: suplierList[index]['whatsappNumber'].toString(), context: context),
                                         child: Padding(
                                       padding: EdgeInsets.symmetric(horizontal: curve, vertical: curve/3),
-                                      child: SvgPicture.asset('assets/images/phone.svg', color: MyColors.bodyText1,),
+                                      child: SvgPicture.asset('assets/images/phone.svg', color: AppColors.bodyText1,),
                                     ),
                                       ),
                                   ]
@@ -138,13 +139,13 @@ class _SuplierInfoState extends State<SuplierInfo> {
                       child: ListView(
                        children: [
                           _m!.bodyText1(AppLocalizations.of(context)!.translate('Full Name'), align: TextAlign.start, padding: MediaQuery.of(context).size.width/10,padV: hSpace/7),
-                          _m!.ProfiletextFiled(curve, MyColors.white, MyColors.black, _nameController, readOnly: true),
+                          _m!.ProfiletextFiled(curve, AppColors.white, AppColors.black, _nameController, readOnly: true),
                           _m!.bodyText1(AppLocalizations.of(context)!.translate('Work Hour'), align: TextAlign.start, padding: MediaQuery.of(context).size.width/10,padV: hSpace/7),
-                          _m!.ProfiletextFiled(curve, MyColors.white, MyColors.black, _workHourController, readOnly: true),
+                          _m!.ProfiletextFiled(curve, AppColors.white, AppColors.black, _workHourController, readOnly: true),
                           _m!.bodyText1(AppLocalizations.of(context)!.translate('Contact Number'), align: TextAlign.start, padding: MediaQuery.of(context).size.width/10,padV: hSpace/7),
-                          _m!.ProfiletextFiled(curve, MyColors.white, MyColors.black, _mobileController, readOnly: true),
+                          _m!.ProfiletextFiled(curve, AppColors.white, AppColors.black, _mobileController, readOnly: true),
                           _m!.bodyText1(AppLocalizations.of(context)!.translate('City'), align: TextAlign.start, padding: MediaQuery.of(context).size.width/10,padV: hSpace/7),
-                          _m!.ProfiletextFiled(curve, MyColors.white, MyColors.black, _cityController, readOnly: true),
+                          _m!.ProfiletextFiled(curve, AppColors.white, AppColors.black, _cityController, readOnly: true),
                         ],
                       ),),
                   ],
@@ -183,9 +184,13 @@ class _SuplierInfoState extends State<SuplierInfo> {
       //height: barHight,
         padding: EdgeInsets.symmetric(horizontal: curve, vertical: curve/2),
         decoration: BoxDecoration(
-          color: MyColors.topCon,
+          color: AppColors.topCon,
           borderRadius: BorderRadius.only(bottomLeft: Radius.circular(curve), bottomRight: Radius.circular(curve)),
-        ),
+          boxShadow: [BoxShadow(
+            color: AppColors.black,
+            offset: Offset(0, 1),
+            blurRadius: 4,
+          )], ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

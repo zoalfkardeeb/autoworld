@@ -1,13 +1,19 @@
 // ignore_for_file: file_names
 import 'package:automall/api.dart';
-import 'package:automall/color/MyColors.dart';
+import 'package:automall/constant/app_size.dart';
+import 'package:automall/constant/color/MyColors.dart';
+
 import 'package:automall/const.dart';
+import 'package:automall/constant/string/Strings.dart';
 import 'package:automall/localizations.dart';
 import 'package:automall/screen/SupplierOrder.dart';
 import 'package:automall/screen/register.dart';
 import 'package:automall/screen/selectScreen.dart';
+import 'package:automall/screen/sharedWidget/newVersionPop.dart';
 import 'package:automall/screen/termAndConitions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:form_field_validator/form_field_validator.dart';
@@ -18,6 +24,8 @@ import 'dart:async';
 import '../MyWidget.dart';
 
 import 'resetPassword.dart';
+import 'package:yaml/yaml.dart';
+
 // ignore: camel_case_types
 class Sign_in extends StatefulWidget {
   bool animate;
@@ -71,6 +79,7 @@ class _Sign_inState extends State<Sign_in> {
 
   @override
   Widget build(BuildContext context) {
+
     _m = MyWidget(context);
     myAPI = MyAPI(context: context);
     requiredValidator = RequiredValidator(errorText: AppLocalizations.of(context)!.translate('Required'));
@@ -156,7 +165,7 @@ class _Sign_inState extends State<Sign_in> {
                     _m!.bodyText1(AppLocalizations.of(context)!.translate('OR'),padV: 0.0),
                     SizedBox(
                       child: _m!.raisedButton(curve, MediaQuery.of(context).size.width/4, AppLocalizations.of(context)!.translate('Continue As Guest'), null,
-                            ()=> _countinueAsGuest(), color: MyColors.gray.withOpacity(0.7) ,),
+                            ()=> _countinueAsGuest(), color: AppColors.gray.withOpacity(0.7) ,),
                       width: MediaQuery.of(context).size.width/2,
                       height: MediaQuery.of(context).size.width/24*2,
                     ),
@@ -164,12 +173,12 @@ class _Sign_inState extends State<Sign_in> {
                       onTap: ()=> _countinueAsGuest(),
                       child: _m!.bodyText1(AppLocalizations.of(context)!.translate('Continue As Guest'), align: TextAlign.start, color: MyColors.mainColor, scale: 1),
                     ),*/
-                    _m!.textFiled(curve, MyColors.black, MyColors.white, _emailController, AppLocalizations.of(context)!.translate('Enter Your Email'), Icons.email_outlined, requiredValidator: requiredValidator, withoutValidator: _firstOpen),
-                    _m!.textFiled(curve, MyColors.white, MyColors.black, _passwordController, AppLocalizations.of(context)!.translate('Enter Your Password'),!passwordTextStyle? Icons.lock_open_outlined: Icons.lock_outline, password: passwordTextStyle, requiredValidator: requiredValidator, withoutValidator: _firstOpen, click: ()=> _changePasswordStyle()),
+                    _m!.textFiled(curve, AppColors.black, AppColors.white, _emailController, AppLocalizations.of(context)!.translate('Enter Your Email'), Icons.email_outlined, requiredValidator: requiredValidator, withoutValidator: _firstOpen),
+                    _m!.textFiled(curve, AppColors.white, AppColors.black, _passwordController, AppLocalizations.of(context)!.translate('Enter Your Password'),!passwordTextStyle? Icons.lock_open_outlined: Icons.lock_outline, password: passwordTextStyle, requiredValidator: requiredValidator, withoutValidator: _firstOpen, click: ()=> _changePasswordStyle()),
                     SizedBox(height: hSpace/2,),
                     GestureDetector(
                       onTap: ()=> _m!.changePassword(()=>_resetPass()),
-                      child: _m!.headText(AppLocalizations.of(context)!.translate('Forget Password?'),align: TextAlign.start,color: MyColors.mainColor, scale: 0.6),
+                      child: _m!.headText(AppLocalizations.of(context)!.translate('Forget Password?'),align: TextAlign.start,color: AppColors.mainColor, scale: 0.6),
                     ),
                     SizedBox(height: hSpace/2,),
                     _m!.bodyText1(AppLocalizations.of(context)!.translate('New to the app? Get Your free account!')),
@@ -223,7 +232,14 @@ class _Sign_inState extends State<Sign_in> {
             _m!.progress()
                 :
             const SizedBox(),
-          )
+          ),
+          newVersion?
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: NewVersionPopUp(later:() => setState(() {
+              newVersion = false;
+            }),),
+          ).animate().moveY(begin: AppHeight.h6):SizedBox(),
         ],
       ),
     ),
@@ -240,9 +256,9 @@ class _Sign_inState extends State<Sign_in> {
           //padding: EdgeInsets.only(left: MediaQuery.of(context).size.width/20),
           // color: Color(0x00000000),
           decoration: BoxDecoration(
-            color: MyColors.white.withOpacity(0.5),// color: MyColors.white,
+            color: AppColors.white.withOpacity(0.5),// color: MyColors.white,
             border: Border.all(
-              color: MyColors.card,
+              color: AppColors.card,
               width: 1,
               style: BorderStyle.solid,
             ),
@@ -538,6 +554,19 @@ class _Sign_inState extends State<Sign_in> {
   }
 
   _read() async {
+    await rootBundle.loadString("pubspec.yaml").then((value) {
+      Map yaml = loadYaml(value);
+      yaml['version'].toString().split('+')[0] == Strings.version
+          ? newVersion = false
+          : newVersion = true;
+      /*print(yaml['name']);
+      print(yaml['description']);
+      print(yaml['version']);
+      print(yaml['author']);
+      print(yaml['homepage']);
+      print(yaml['dependencies']);*/
+    });
+
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     _emailController.text = sharedPreferences.getString('email')??'';
     _passwordController.text = sharedPreferences.getString('password')??'';
@@ -549,7 +578,7 @@ class _Sign_inState extends State<Sign_in> {
       print(e);
     }
 
-    if(isLogInLast) _startSurfing();
+    if(isLogInLast && !newVersion) _startSurfing();
   }
 
   _save() async{

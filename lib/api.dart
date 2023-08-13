@@ -2,14 +2,17 @@
 
 import 'dart:convert';
 import 'package:another_flushbar/flushbar.dart';
+import 'package:automall/constant/string/Strings.dart';
 import 'package:automall/screen/verification.dart';
+import 'package:automall/target.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart'as http;
 import 'package:intl/intl.dart';
 import 'package:mailer/smtp_server/gmail.dart';
 import 'package:platform_device_id/platform_device_id.dart';
 
-import 'color/MyColors.dart';
+import 'package:automall/constant/color/MyColors.dart';
+
 import 'const.dart';
 import 'firebase/Firebase.dart';
 import 'localization_service.dart';
@@ -311,6 +314,43 @@ class MyAPI{
         if(jsonDecode(response.body)['error_des'] == "" || jsonDecode(response.body)['error_des'] == null){
           cities = jsonDecode(response.body)['data'];
           editTransactionCities();
+          return true;
+        }
+        else{
+          flushBar(jsonDecode(response.body)['error_des']);
+          return false;
+        }
+      }
+    }
+    catch(e){
+      flushBar(AppLocalizations.of(context!)!.translate('please! check your network connection'));
+      return false;
+      print(e);
+    }
+
+  }
+
+  getVersion() async{
+    try{
+      print('hhhhhhhhh');
+      http.Response response = await http.get(
+          Uri.parse('$_baseUrl/Content/Appversion_Read?'),
+          //body: jsonEncode({"UserName": email, "Password": password, "FBKey":fcmToken.toString()}),
+          headers: {
+            "Accept-Language": LocalizationService.getCurrentLocale().languageCode,
+            "Accept": "application/json",
+            "content-type": "application/json",
+            "Authorization": token,
+          });
+      //await Hive.initFlutter();
+      //Hive.registerAdapter(TransactionAdapter());
+      //await Hive.openBox<Transaction>('transactions');
+      //print(email + ',' + password);
+      if(response.statusCode == 200){
+        print(jsonDecode(response.body));
+        if(jsonDecode(response.body)['error_des'] == "" || jsonDecode(response.body)['error_des'] == null){
+          isAndroid()? Strings.version = jsonDecode(response.body)['content']['script']??Strings.version : Strings.version = jsonDecode(response.body)['content']['scriptAr']??Strings.version;
+         // Strings.version = '1.0.2';
           return true;
         }
         else{
@@ -890,7 +930,7 @@ class MyAPI{
         icon: Icon(
           Icons.error_outline,
           size: MediaQuery.of(context!).size.height / 30,
-          color: MyColors.white,
+          color: AppColors.white,
         ),
         duration: const Duration(seconds: 3),
         shouldIconPulse: false,
@@ -902,7 +942,7 @@ class MyAPI{
         messageText: Text(text,
           style: const TextStyle(
             fontFamily: 'Gotham',
-            color: MyColors.white,
+            color: AppColors.white,
           ),
         ),
         //flushbarStyle: FlushbarStyle.FLOATING,

@@ -1,6 +1,8 @@
 // ignore_for_file: file_names
 import 'package:automall/api.dart';
-import 'package:automall/color/MyColors.dart';
+import 'package:automall/constant/app_size.dart';
+import 'package:automall/constant/color/MyColors.dart';
+
 import 'package:automall/const.dart';
 import 'package:automall/localizations.dart';
 import 'package:automall/screen/singnIn.dart';
@@ -119,8 +121,8 @@ class _TermsAndConditionsState extends State<TermsAndConditions> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     _m!.headText(AppLocalizations.of(context)!.translate('name'),),
-                    SizedBox(height: MediaQuery.of(context).size.width/14),
-                    _m!.iconText('assets/images/read_black.svg', AppLocalizations.of(context)!.translate('Terms & conditions'), MyColors.black, scale: 1.3)
+                //    SizedBox(height: MediaQuery.of(context).size.width/14),
+                //    _m!.iconText('assets/images/read_black.svg', AppLocalizations.of(context)!.translate('Terms & conditions'), AppColors.black, scale: 1.3)
                   ],
                 ),
               ),
@@ -128,17 +130,39 @@ class _TermsAndConditionsState extends State<TermsAndConditions> {
             Align(
               alignment: Alignment.topCenter,
               child: Container(
-                color: MyColors.white,
-                height: MediaQuery.of(context).size.height*9/10 - ( hSpace*1.5 + MediaQuery.of(context).size.width/3.5 + MediaQuery.of(context).size.width/3 ),
+                color: AppColors.white,
+                height: MediaQuery.of(context).size.height*9/10 - ( hSpace*1.5 + MediaQuery.of(context).size.width/3.5/3 + MediaQuery.of(context).size.width/3 ),
                 width: double.infinity,
                 alignment: Alignment.center,
-                margin: EdgeInsets.only(top: hSpace*1.5 + MediaQuery.of(context).size.width/3.5 + MediaQuery.of(context).size.width/3 ),
-                padding: EdgeInsets.only(bottom: 0, left: MediaQuery.of(context).size.width/20, right: MediaQuery.of(context).size.width/20),
+                margin: EdgeInsets.only(top: hSpace*1.5 + MediaQuery.of(context).size.width/3.5/3 + MediaQuery.of(context).size.width/3 ),
+                padding: EdgeInsets.only(bottom: 0, left: MediaQuery.of(context).size.width/20*0, right: MediaQuery.of(context).size.width/20*0),
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      _m!.titleText1(AppLocalizations.of(context)!.translate('term and condition')),
-                      isLogin? _m!.raisedButton(curve, MediaQuery.of(context).size.width/1.2, AppLocalizations.of(context)!.translate('DeActivate account'), null, ()=> _deActivate(), height: MediaQuery.of(context).size.height/15):SizedBox(),
+
+                      Image.network(
+                        lng == 2 ? 'https://autoworldqa.com/LEGAL_AR.png' : 'https://autoworldqa.com/LEGAL_EN.png',
+                        fit: BoxFit.fill,
+                        loadingBuilder: (BuildContext context, Widget child,
+                            ImageChunkEvent? loadingProgress) {
+                          if (loadingProgress == null) return child;
+                          return Center(
+                            child: CircularProgressIndicator(
+                              value: loadingProgress.expectedTotalBytes != null
+                                  ? loadingProgress.cumulativeBytesLoaded /
+                                  loadingProgress.expectedTotalBytes!
+                                  : null,
+                            ),
+                          );
+                        },
+                      ),
+
+                      //_m!.titleText1(AppLocalizations.of(context)!.translate('term and condition')),
+                      isLogin? Padding(
+                          padding: EdgeInsets.symmetric(horizontal: AppWidth.w8),
+                        child: _m!.raisedButton(curve, MediaQuery.of(context).size.width/1.4, AppLocalizations.of(context)!.translate('DeActivate account'), null, ()=> _deActivate(), height: MediaQuery.of(context).size.height/15),
+                      )
+                       :SizedBox(),
                     ],
                   )
                 )
@@ -160,7 +184,7 @@ class _TermsAndConditionsState extends State<TermsAndConditions> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      _m!.raisedButton(curve, MediaQuery.of(context).size.width/2 - MediaQuery.of(context).size.width/40 - curve, AppLocalizations.of(context)!.translate('Rejected'), null, () => _rejected(), color: MyColors.black),
+                      _m!.raisedButton(curve, MediaQuery.of(context).size.width/2 - MediaQuery.of(context).size.width/40 - curve, AppLocalizations.of(context)!.translate('Rejected'), null, () => _rejected(), color: AppColors.black),
                       SizedBox(width: MediaQuery.of(context).size.width/30,),
                       _m!.raisedButton(curve, MediaQuery.of(context).size.width/2 - MediaQuery.of(context).size.width/40  - curve, AppLocalizations.of(context)!.translate('Confirmed'), null, () => _confirmed()),
                     ],

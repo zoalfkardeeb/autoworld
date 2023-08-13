@@ -1,5 +1,6 @@
 import 'package:automall/MyWidget.dart';
-import 'package:automall/color/MyColors.dart';
+import 'package:automall/constant/color/MyColors.dart';
+
 import 'package:automall/const.dart';
 import 'package:automall/localizations.dart';
 import 'package:flutter/material.dart';
@@ -62,7 +63,7 @@ class PhotoView extends StatelessWidget {
                 ),
               */
                 backgroundDecoration: BoxDecoration(
-                  color: MyColors.white
+                  color: AppColors.white
                 ),
                 pageController: _pageController,
                 onPageChanged: (value) =>  onPageChanged(value),
@@ -78,9 +79,9 @@ class PhotoView extends StatelessWidget {
                 GestureDetector(
                   child: Container(
                     padding: EdgeInsets.symmetric(horizontal: 4),
-                      decoration: imageIndex==networkImageList!.indexOf(e)? BoxDecoration(
-                        border: Border.all(color: MyColors.card),
-                      ): null,
+                      /*decoration: imageIndex==networkImageList!.indexOf(e)? BoxDecoration(
+                        border: Border.all(color: AppColors.card),
+                      ): null,*/
                       child: MyWidget(context).networkImage(e.image, 100.0, crossAlign: CrossAxisAlignment.center, height: 75.0),
                   ),
                   onTap: () => _pageController.animateToPage(networkImageList!.indexOf(e), duration: Duration(milliseconds: 100), curve: Curves.linear),
@@ -106,7 +107,7 @@ class PhotoView extends StatelessWidget {
       //height: barHight,
         padding: EdgeInsets.symmetric(horizontal: curve, vertical: curve/2),
         decoration: BoxDecoration(
-          color: MyColors.topCon,
+          color: AppColors.topCon,
           borderRadius: BorderRadius.only(bottomLeft: Radius.circular(curve), bottomRight: Radius.circular(curve)),
         ),
         child: Column(
@@ -121,7 +122,7 @@ class PhotoView extends StatelessWidget {
                   child: GestureDetector(child:
                   Row(
                     children: [
-                      Icon(Icons.close, color: MyColors.black,),
+                      Icon(Icons.close, color: AppColors.black,),
                     ],
                   ),
                       onTap: ()=>Navigator.pop(context)),

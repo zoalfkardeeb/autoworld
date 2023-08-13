@@ -2,9 +2,11 @@
 import 'dart:io';
 
 import 'package:automall/api.dart';
+import 'package:automall/constant/string/Strings.dart';
 import 'package:automall/screen/selectScreen.dart';
 import 'package:automall/screen/singnIn.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:async';
@@ -15,9 +17,9 @@ import '../const.dart';
 import '../localization_service.dart';
 import '../localizations.dart';
 import 'SupplierOrder.dart';
-import 'boxes.dart';
+import '../helper/boxes.dart';
 import 'package:platform_device_id/platform_device_id.dart';
-
+import 'package:yaml/yaml.dart';
 class SplashScreen extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -63,6 +65,20 @@ class SplashState extends State<SplashScreen> {
   bool _welcom = false;
 
   _read() async {
+    await MyAPI(context: context).getVersion();
+    await rootBundle.loadString("pubspec.yaml").then((value) {
+      Map yaml = loadYaml(value);
+      yaml['version'].toString().split('+')[0] == Strings.version
+          ? newVersion = false
+          : newVersion = true;
+      /*print(yaml['name']);
+      print(yaml['description']);
+      print(yaml['version']);
+      print(yaml['author']);
+      print(yaml['homepage']);
+      print(yaml['dependencies']);*/
+    });
+
     var d = (await _getDeviceId());
     deviceId = d ?? "";
 

@@ -9,7 +9,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import '../MyWidget.dart';
 import '../api.dart';
-import '../color/MyColors.dart';
+import 'package:automall/constant/color/MyColors.dart';
+
 //import '../const.dart';
 import '../const.dart';
 import '../localizations.dart';
@@ -182,7 +183,7 @@ class _OfferScreenState extends State<OfferScreen> {
                         children: [
                           Container(
                             decoration: BoxDecoration(
-                              color: MyColors.white,
+                              color: AppColors.white,
                               /*boxShadow: [
             BoxShadow(
               color: MyColors.black,
@@ -191,7 +192,7 @@ class _OfferScreenState extends State<OfferScreen> {
             ),
           ],*/
                               border: Border.all(
-                                color: MyColors.white,
+                                color: AppColors.white,
                                 width: 0.0,
                                 style: BorderStyle.solid,
                               ),
@@ -261,9 +262,13 @@ class _OfferScreenState extends State<OfferScreen> {
       //height: barHight,
         padding: EdgeInsets.symmetric(horizontal: curve, vertical: curve/2),
         decoration: BoxDecoration(
-          color: MyColors.topCon,
+          color: AppColors.topCon,
           borderRadius: BorderRadius.only(bottomLeft: Radius.circular(curve), bottomRight: Radius.circular(curve)),
-        ),
+          boxShadow: [BoxShadow(
+            color: AppColors.black,
+            offset: Offset(0, 1),
+            blurRadius: 4,
+          )],   ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -333,7 +338,7 @@ class _OfferScreenState extends State<OfferScreen> {
         onTap: ()=> _addImage(index, ImageSource.camera),
         child: Row(
           children: [
-            const Icon(Icons.camera_outlined, color: MyColors.mainColor,),
+            const Icon(Icons.camera_outlined, color: AppColors.mainColor,),
             _m!.bodyText1(AppLocalizations.of(context)!.translate("Camera"),align: TextAlign.start),
           ],
         ),
@@ -344,7 +349,7 @@ class _OfferScreenState extends State<OfferScreen> {
         onTap: ()=> _addImage(index, ImageSource.gallery),
         child: Row(
           children: [
-            const Icon(Icons.photo, color: MyColors.mainColor,),
+            const Icon(Icons.photo, color: AppColors.mainColor,),
             _m!.bodyText1(AppLocalizations.of(context)!.translate("Gallery"),align: TextAlign.start),
           ],
         ),
@@ -400,7 +405,7 @@ class _OfferScreenState extends State<OfferScreen> {
     }
     Dialog errorDialog = Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(curve)), //this right here
-      backgroundColor: MyColors.dialogColor,
+      backgroundColor: AppColors.dialogColor,
       child: Container(
         //color: MyColors.gray,
         padding: EdgeInsets.symmetric(horizontal: curve/1.4, vertical: curve),
@@ -458,7 +463,7 @@ class _OfferScreenState extends State<OfferScreen> {
             SizedBox(height: curve/2,),
             Row(
               children: [
-                _m!.raisedButton(curve, MediaQuery.of(context).size.width/1.2/2.6, AppLocalizations.of(context)!.translate('Undo'), null, ()=> _undo(), color: MyColors.dialogColor, borderSide: MyColors.white),
+                _m!.raisedButton(curve, MediaQuery.of(context).size.width/1.2/2.6, AppLocalizations.of(context)!.translate('Undo'), null, ()=> _undo(), color: AppColors.dialogColor, borderSide: AppColors.white),
                 const Expanded(child: SizedBox()),
                 _m!.raisedButton(curve, MediaQuery.of(context).size.width/1.2/2.6, AppLocalizations.of(context)!.translate('Finish'), null, ()async=> await _okay())
               ],
@@ -505,7 +510,7 @@ class _OfferScreenState extends State<OfferScreen> {
     }
     Dialog errorDialog = Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(curve)), //this right here
-      backgroundColor: MyColors.dialogColor,
+      backgroundColor: AppColors.dialogColor,
       child: Container(
         //color: MyColors.gray,
         padding: EdgeInsets.symmetric(horizontal: curve/1.4, vertical: curve),
@@ -556,13 +561,13 @@ class _OfferScreenState extends State<OfferScreen> {
               animationDuration: Duration(milliseconds: 500),
               valueLabelPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
               valueLabelMargin: const EdgeInsets.only(right: 8),
-              starOffColor: MyColors.white,
-              starColor: MyColors.mainColor,
+              starOffColor: AppColors.white,
+              starColor: AppColors.mainColor,
             ),
             SizedBox(height: curve/2,),
             Row(
               children: [
-                _m!.raisedButton(curve, MediaQuery.of(context).size.width/1.2/2.6, AppLocalizations.of(context)!.translate('Undo'), null, ()=> _undo(), color: MyColors.dialogColor, borderSide: MyColors.white),
+                _m!.raisedButton(curve, MediaQuery.of(context).size.width/1.2/2.6, AppLocalizations.of(context)!.translate('Undo'), null, ()=> _undo(), color: AppColors.dialogColor, borderSide: AppColors.white),
                 const Expanded(child: SizedBox()),
                 _m!.raisedButton(curve, MediaQuery.of(context).size.width/1.2/2.6, AppLocalizations.of(context)!.translate('OK'), null, ()async=> await _okay())
               ],

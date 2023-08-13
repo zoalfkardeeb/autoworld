@@ -1,4 +1,5 @@
 import 'package:automall/api.dart';
+import 'package:automall/constant/color/MyColors.dart';
 import 'package:automall/screen/singnIn.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -12,7 +13,6 @@ import 'package:otp_text_field/otp_field_style.dart';
 import 'package:otp_text_field/style.dart';
 
 import '../MyWidget.dart';
-import '../color/MyColors.dart';
 import '../localizations.dart';
 
 
@@ -223,10 +223,10 @@ class _VerificationState extends State<Verification> {
         child: OTPTextField(
           keyboardType: TextInputType.number,
           otpFieldStyle: OtpFieldStyle(
-            borderColor: MyColors.gray,
-            focusBorderColor: MyColors.mainColor,
-            disabledBorderColor: MyColors.gray,
-            enabledBorderColor: MyColors.gray,
+            borderColor: AppColors.gray,
+            focusBorderColor: AppColors.mainColor,
+            disabledBorderColor: AppColors.gray,
+            enabledBorderColor: AppColors.gray,
           ),
           length: 6,
           width: MediaQuery.of(context).size.width,
@@ -237,7 +237,7 @@ class _VerificationState extends State<Verification> {
           outlineBorderRadius: MediaQuery.of(context).size.height/90,
           style: TextStyle(
             fontSize: MediaQuery.of(context).size.width/15,
-            color: MyColors.mainColor,
+            color: AppColors.mainColor,
             fontFamily: 'Gotham'
           ),
           onChanged: (pin) {

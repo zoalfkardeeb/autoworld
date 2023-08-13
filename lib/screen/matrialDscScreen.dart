@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
-import 'package:automall/color/MyColors.dart';
+import 'package:automall/constant/color/MyColors.dart';
+
 import 'package:automall/localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -66,7 +67,7 @@ class _MaterialDescriptionScreenState extends State<MaterialDescriptionScreen> {
                             width: double.infinity,
                             //padding: EdgeInsets.only(left: MediaQuery.of(context).size.width/20),
                             decoration: BoxDecoration(
-                              color: MyColors.white,
+                              color: AppColors.white,
                               borderRadius: BorderRadius.only(topLeft: Radius.circular(curve), topRight: Radius.circular(curve)),
                             ),
                             child: Column(
@@ -87,21 +88,21 @@ class _MaterialDescriptionScreenState extends State<MaterialDescriptionScreen> {
                                                   flex: 1,
                                                   child: Align(
                                                     alignment: Alignment.topLeft,
-                                                    child: _m!.iconText('assets/images/eye.svg', _like, MyColors.gray, vertical: true, paddingH: MediaQuery.of(context).size.width/50),
+                                                    child: _m!.iconText('assets/images/eye.svg', _like, AppColors.gray, vertical: true, paddingH: MediaQuery.of(context).size.width/50),
                                                   ),
                                                 ),
                                                 Expanded(
                                                   flex: 1,
                                                   child: Align(
                                                     alignment: Alignment.centerLeft,
-                                                    child: _m!.iconText('assets/images/fill_heart.svg', _love, MyColors.gray, vertical: true, paddingH: MediaQuery.of(context).size.width/50),
+                                                    child: _m!.iconText('assets/images/fill_heart.svg', _love, AppColors.gray, vertical: true, paddingH: MediaQuery.of(context).size.width/50),
                                                   ),
                                                 ),
                                                 Expanded(
                                                   flex: 1,
                                                   child: Align(
                                                     alignment: Alignment.bottomLeft,
-                                                    child: _m!.iconText('assets/images/fill_heart.svg', _shopping, MyColors.gray, vertical: true, paddingH: MediaQuery.of(context).size.width/50),
+                                                    child: _m!.iconText('assets/images/fill_heart.svg', _shopping, AppColors.gray, vertical: true, paddingH: MediaQuery.of(context).size.width/50),
                                                   ),
                                                 ),
                                               ],
@@ -119,7 +120,7 @@ class _MaterialDescriptionScreenState extends State<MaterialDescriptionScreen> {
                                           flex: 1,
                                           child: Align(
                                             alignment: Alignment.topRight,
-                                            child: _m!.miniContainer(_m!.iconText('assets/images/star.svg', _starRate, MyColors.white, revers: true, paddingH: 0.0, scale: 1),
+                                            child: _m!.miniContainer(_m!.iconText('assets/images/star.svg', _starRate, AppColors.white, revers: true, paddingH: 0.0, scale: 1),
                                                 MediaQuery.of(context).size.height/25),
                                           ),
                                         ),
@@ -242,7 +243,7 @@ class _MaterialDescriptionScreenState extends State<MaterialDescriptionScreen> {
       alignment: Alignment.center,
       padding: EdgeInsets.symmetric(horizontal: curve, vertical: curve/2),
       decoration: BoxDecoration(
-        color: MyColors.gray,
+        color: AppColors.gray,
         borderRadius: BorderRadius.all(Radius.circular(curve)),
       ),
       child: _child,
@@ -273,7 +274,7 @@ class _MaterialDescriptionScreenState extends State<MaterialDescriptionScreen> {
             flex: 1,
               child: Align(
                 alignment: Alignment.topRight,
-                child: _m!.miniContainer(_m!.headText(((_price - _priceSale)/_price * 100).round().toString()+'%', scale: 0.45, paddingV: 0.0, color: MyColors.mainColor), MediaQuery.of(context).size.height/25),
+                child: _m!.miniContainer(_m!.headText(((_price - _priceSale)/_price * 100).round().toString()+'%', scale: 0.45, paddingV: 0.0, color: AppColors.mainColor), MediaQuery.of(context).size.height/25),
               ),
           ),
         ],
@@ -286,7 +287,7 @@ class _MaterialDescriptionScreenState extends State<MaterialDescriptionScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        _m!.bodyText1(_descHead, color: MyColors.mainColor, padding: 0.0),
+        _m!.bodyText1(_descHead, color: AppColors.mainColor, padding: 0.0),
         _m!.bodyText1(_descText, scale: 0.9, padding: 0.0, align: TextAlign.start),
       ],
     );
@@ -330,7 +331,7 @@ class _MaterialDescriptionScreenState extends State<MaterialDescriptionScreen> {
             child: Align(
               alignment: Alignment.centerRight,
               child: IconButton(
-                icon: Icon(Icons.share_outlined, color: MyColors.black, size: MediaQuery.of(context).size.width/15),
+                icon: Icon(Icons.share_outlined, color: AppColors.black, size: MediaQuery.of(context).size.width/15),
                 // ignore: avoid_returning_null_for_void
                 onPressed: () => _share(),
               ),),
