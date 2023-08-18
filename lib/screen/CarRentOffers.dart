@@ -95,7 +95,7 @@ class _CarRentOffersState extends State<CarRentOffers> {
                       style: TextStyle(
                           fontSize:
                           MediaQuery.of(context).size.width / 23,
-                          color: AppColors.black,
+                          color: MyColors.black,
                           fontFamily: 'Gotham'),
                       decoration: InputDecoration(
                         //border: InputBorder.none,
@@ -106,7 +106,7 @@ class _CarRentOffersState extends State<CarRentOffers> {
                         hintStyle: TextStyle(
                             fontSize:
                             MediaQuery.of(context).size.width / 28,
-                            color: AppColors.bodyText1,
+                            color: MyColors.bodyText1,
                             fontFamily: 'GothamLight'),
                         errorStyle: TextStyle(
                           fontSize:
@@ -175,10 +175,10 @@ class _CarRentOffersState extends State<CarRentOffers> {
       //height: barHight,
         padding: EdgeInsets.symmetric(horizontal: curve, vertical: curve/2),
         decoration: BoxDecoration(
-          color: AppColors.topCon,
+          color: MyColors.topCon,
           borderRadius: BorderRadius.only(bottomLeft: Radius.circular(curve), bottomRight: Radius.circular(curve)),
           boxShadow: [BoxShadow(
-            color: AppColors.black,
+            color: MyColors.black,
             offset: Offset(0, 1),
             blurRadius: 4,
           )],    ),

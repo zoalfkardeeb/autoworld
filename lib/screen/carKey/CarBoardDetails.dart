@@ -102,7 +102,7 @@ class _CarBoardDetailsState extends State<CarBoardDetails> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Icon(Icons.remove_red_eye_rounded, color: AppColors.bodyText1, size: MediaQuery.of(context).size.height/50, ),
+                                Icon(Icons.remove_red_eye_rounded, color: MyColors.bodyText1, size: MediaQuery.of(context).size.height/50, ),
                                 _m!.bodyText1(view + ' ' + AppLocalizations.of(context)!.translate('View'), scale: 0.9, padding: 0.5, padV: 2.0),
                               ],
                             ),
@@ -127,12 +127,12 @@ class _CarBoardDetailsState extends State<CarBoardDetails> {
                               decoration: BoxDecoration(
                                   boxShadow: [
                                     BoxShadow(
-                                      color: AppColors.black,
+                                      color: MyColors.black,
                                       offset: Offset(0, 0.8),
                                       blurRadius: 0.8,
                                     ),
                                   ],
-                                  color: AppColors.white,
+                                  color: MyColors.white,
                                   borderRadius: BorderRadius.all(Radius.circular(curve))
                               ),
                               child: Padding(
@@ -152,13 +152,13 @@ class _CarBoardDetailsState extends State<CarBoardDetails> {
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               mainAxisAlignment: MainAxisAlignment.start,
                                               children: [
-                                                _m!.iconText('assets/images/ic_red_user.svg', venName, AppColors.black, imageScale: 0.5, scale: scale, paddingH: 0.2),
+                                                _m!.iconText('assets/images/ic_red_user.svg', venName, MyColors.black, imageScale: 0.5, scale: scale, paddingH: 0.2),
                                                 SizedBox(height: hSpace/10,),
                                                 venNotes.isNotEmpty?_notes(venNotes, curve/2, scale):SizedBox(),
                                                 SizedBox(height: hSpace/4,),
-                                                _m!.iconText('assets/images/ic_red_phone.svg', venPhone, AppColors.black, imageScale: 0.5, scale: scale, paddingH: 0.2),
+                                                _m!.iconText('assets/images/ic_red_phone.svg', venPhone, MyColors.black, imageScale: 0.5, scale: scale, paddingH: 0.2),
                                                 SizedBox(height: hSpace/4,),
-                                                _m!.iconText('assets/images/ic_red_location.svg', venLocation, AppColors.black, imageScale: 0.5, scale: scale, paddingH: 0.2),
+                                                _m!.iconText('assets/images/ic_red_location.svg', venLocation, MyColors.black, imageScale: 0.5, scale: scale, paddingH: 0.2),
                                                 SizedBox(height: hSpace/8,),
                                               ],
                                             )),
@@ -169,7 +169,7 @@ class _CarBoardDetailsState extends State<CarBoardDetails> {
                                         Expanded(child:
                                         _m!.raisedButton(curve, MediaQuery.of(context).size.width/3, AppLocalizations.of(context)!.translate('Call '), 'assets/images/phone.svg', ()=> launchPhone(phone: venPhone, context: context), height: MediaQuery.of(context).size.width/9),),
                                         SizedBox(width: hSpace/4,),
-                                        _m!.raisedButton(curve, MediaQuery.of(context).size.width/3, AppLocalizations.of(context)!.translate('Whatsapp'), 'assets/images/whatsapp.svg', ()=> launchWhatsApp(phone: venPhone, message: '', context: context), color: AppColors.green, height: MediaQuery.of(context).size.width/9)
+                                        _m!.raisedButton(curve, MediaQuery.of(context).size.width/3, AppLocalizations.of(context)!.translate('Whatsapp'), 'assets/images/whatsapp.svg', ()=> launchWhatsApp(phone: venPhone, message: '', context: context), color: MyColors.green, height: MediaQuery.of(context).size.width/9)
                                       ],
                                     ),
                                     SizedBox(height: hSpace/8,),
@@ -227,10 +227,10 @@ class _CarBoardDetailsState extends State<CarBoardDetails> {
       //height: barHight,
         padding: EdgeInsets.symmetric(horizontal: curve, vertical: curve/2),
         decoration: BoxDecoration(
-          color: AppColors.topCon,
+          color: MyColors.topCon,
           borderRadius: BorderRadius.only(bottomLeft: Radius.circular(curve), bottomRight: Radius.circular(curve)),
           boxShadow: [BoxShadow(
-            color: AppColors.black,
+            color: MyColors.black,
             offset: Offset(0, 1),
             blurRadius: 4,
           )],  ),
@@ -297,10 +297,10 @@ class _CarBoardDetailsState extends State<CarBoardDetails> {
             margin: EdgeInsets.only(top: curve, left: MediaQuery.of(context).size.width/60, right: MediaQuery.of(context).size.width/60),
             decoration: BoxDecoration(
                 border: Border.all(
-                  color: AppColors.bodyText1,
+                  color: MyColors.bodyText1,
                   width: 1,
                 ),
-                color: AppColors.white,
+                color: MyColors.white,
                 borderRadius: BorderRadius.all(Radius.circular(curve))
             ),
             width: MediaQuery.of(context).size.width,
@@ -320,7 +320,7 @@ class _CarBoardDetailsState extends State<CarBoardDetails> {
   }
 
   _carBoardCard(curve, scale, keyNum){
-    var color = AppColors.qatarColor;
+    var color = MyColors.qatarColor;
     var width = MediaQuery.of(context).size.width/1.2*scale;
     var height = MediaQuery.of(context).size.height/4*scale;
     curve*=scale;
@@ -338,7 +338,7 @@ class _CarBoardDetailsState extends State<CarBoardDetails> {
       child: Expanded(
         child: Container(
           decoration: BoxDecoration(
-            color: AppColors.white,
+            color: MyColors.white,
             borderRadius: BorderRadius.all(Radius.circular(curve/1.2)),
           ),
           child: Row(
@@ -377,7 +377,7 @@ class MyPainter extends CustomPainter { //         <-- CustomPainter class
       Offset(0, curve*2),
     ];
     final paint = Paint()
-      ..color = AppColors.bodyText1
+      ..color = MyColors.bodyText1
       ..strokeWidth = 1
       ..strokeCap = StrokeCap.round;
     final rect = Rect.fromLTRB(0, curve, curve*2, curve*3);
@@ -385,7 +385,7 @@ class MyPainter extends CustomPainter { //         <-- CustomPainter class
     final sweepAngle = 3.14/2;
     final useCenter = false;
     final paintArc = Paint()
-      ..color = AppColors.white
+      ..color = MyColors.white
       ..style = PaintingStyle.stroke
       ..strokeWidth = 3;
     canvas.drawArc(rect, startAngle, sweepAngle, useCenter, paintArc);

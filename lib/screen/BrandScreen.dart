@@ -129,7 +129,7 @@ class _BrandScreenState extends State<BrandScreen> {
                     flex: 1,
                     child: Container(
                       decoration: BoxDecoration(
-                        color: AppColors.white,
+                        color: MyColors.white,
                         borderRadius: BorderRadius.only(topLeft: Radius.circular(curve), topRight: Radius.circular(curve))
                       ),
                       padding: EdgeInsets.symmetric(horizontal: curve),
@@ -186,7 +186,7 @@ class _BrandScreenState extends State<BrandScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
-                    color: show? AppColors.gray: Colors.transparent,
+                    color: show? MyColors.gray: Colors.transparent,
             child: Image.network(brandList[index]['image'],
               width: MediaQuery.of(context).size.width / 5,
               height: MediaQuery.of(context).size.width / 5,
@@ -220,9 +220,9 @@ class _BrandScreenState extends State<BrandScreen> {
           ballonPadding: EdgeInsets.symmetric(horizontal: hSpace/20,vertical: hSpace/20),
           animationDuration: const Duration(milliseconds: 500),
           show: show,
-          customShadows: const [BoxShadow(color: AppColors.black, blurRadius: 4, spreadRadius: 2)],
-          backgroundColor: AppColors.black,
-          borderColor: AppColors.black,
+          customShadows: const [BoxShadow(color: MyColors.black, blurRadius: 4, spreadRadius: 2)],
+          backgroundColor: MyColors.black,
+          borderColor: MyColors.black,
         //tooltipDirection: TooltipDirection.up,
           child: _child(),
           content: SizedBox(
@@ -257,11 +257,11 @@ class _BrandScreenState extends State<BrandScreen> {
       //height: barHight,
         padding: EdgeInsets.symmetric(horizontal: curve, vertical: curve/2),
         decoration: BoxDecoration(
-          color: AppColors.topCon,
+          color: MyColors.topCon,
           borderRadius: BorderRadius.only(bottomLeft: Radius.circular(curve),
               bottomRight: Radius.circular(curve)),
           boxShadow: [BoxShadow(
-            color: AppColors.black,
+            color: MyColors.black,
             offset: Offset(0, 1),
             blurRadius: 4,
           )],   ),

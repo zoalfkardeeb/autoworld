@@ -157,7 +157,7 @@ class _SuplierScreenState extends State<SuplierScreen> {
                             style: TextStyle(
                                 fontSize:
                                     MediaQuery.of(context).size.width / 23,
-                                color: AppColors.black,
+                                color: MyColors.black,
                                 fontFamily: 'Gotham'),
                             decoration: InputDecoration(
                               //border: InputBorder.none,
@@ -168,7 +168,7 @@ class _SuplierScreenState extends State<SuplierScreen> {
                               hintStyle: TextStyle(
                                   fontSize:
                                       MediaQuery.of(context).size.width / 28,
-                                  color: AppColors.bodyText1,
+                                  color: MyColors.bodyText1,
                                   fontFamily: 'GothamLight'),
                               errorStyle: TextStyle(
                                 fontSize:
@@ -261,12 +261,12 @@ class _SuplierScreenState extends State<SuplierScreen> {
             horizontal: curve,
             vertical: curve/2),
         decoration: BoxDecoration(
-          color: AppColors.topCon,
+          color: MyColors.topCon,
           borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(curve),
               bottomRight: Radius.circular(curve)),
           boxShadow: [BoxShadow(
-            color: AppColors.black,
+            color: MyColors.black,
             offset: Offset(0, 1),
             blurRadius: 4,
           )],  ),
@@ -446,7 +446,7 @@ class _SuplierScreenState extends State<SuplierScreen> {
                   horizontal: curve * 0, vertical: raduis / 6 * 0),
               child: GestureDetector(
                 onTap: () => launchPhone(phone: _foundSupliers[index]['whatsappNumber'].toString(), context: context),
-                child: SvgPicture.asset('assets/images/phone.svg', color: AppColors.bodyText1),
+                child: SvgPicture.asset('assets/images/phone.svg', color: MyColors.bodyText1),
               ),
             ):
             SizedBox(),

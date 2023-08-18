@@ -97,9 +97,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
                       padding: EdgeInsets.symmetric(horizontal: curve/1.2),
                       child: Row(
                     children: [
-                      _m!.bodyText1(AppLocalizations.of(context)!.translate("My Orders"), scale: 1.2, padding: 0.0, align: TextAlign.start, color: AppColors.black),
+                      _m!.bodyText1(AppLocalizations.of(context)!.translate("My Orders"), scale: 1.2, padding: 0.0, align: TextAlign.start, color: MyColors.black),
                        const Expanded(child: SizedBox()),
-                       IconButton(onPressed: ()=> refresh(), icon: Icon(Icons.refresh_outlined, size: MediaQuery.of(context).size.width/15, color: AppColors.black,)),
+                       IconButton(onPressed: ()=> refresh(), icon: Icon(Icons.refresh_outlined, size: MediaQuery.of(context).size.width/15, color: MyColors.black,)),
                     ],
                   )
                   ),
@@ -169,9 +169,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
       //height: barHight,
         padding: EdgeInsets.symmetric(horizontal: curve, vertical: curve/2),
         decoration: BoxDecoration(
-          color: AppColors.topCon,
+          color: MyColors.topCon,
           boxShadow: [BoxShadow(
-            color: AppColors.black,
+            color: MyColors.black,
             offset: Offset(0, 1),
             blurRadius: 4,
           )],
@@ -348,7 +348,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
             //height: offerHieght,
             //margin: EdgeInsets.only(left: raduis),
             decoration: BoxDecoration(
-              border: Border.fromBorderSide(BorderSide(color: AppColors.card)),
+              border: Border.fromBorderSide(BorderSide(color: MyColors.card)),
               borderRadius: BorderRadius.all(Radius.circular(curve)),
             ),
             padding: EdgeInsets.symmetric(horizontal: curve, vertical: curve),
@@ -390,7 +390,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
             ),
           ],*/
                           border: Border.all(
-                            color: AppColors.card,
+                            color: MyColors.card,
                             width: 1,
                             style: BorderStyle.solid,
                           ),
@@ -414,20 +414,20 @@ class _NotificationScreenState extends State<NotificationScreen> {
               margin: lng==2?EdgeInsets.only(right: MediaQuery.of(context).size.width/108*5):EdgeInsets.only(left: MediaQuery.of(context).size.width/108*5),
               height: 1,
               width: MediaQuery.of(context).size.width/2.7-1,
-              color: AppColors.white,
+              color: MyColors.white,
             ),
           ),
         ],
       );
     }
-    var _color = AppColors.mainColor;
+    var _color = MyColors.mainColor;
     String statue =  AppLocalizations.of(context)!.translate('NEW');
     if(replyNum>0){
-      _color = AppColors.green;
+      _color = MyColors.green;
       statue = AppLocalizations.of(context)!.translate('REPLY');
     }
     if(_foundOrders[index]['status'] == 2){
-      _color = AppColors.gray;
+      _color = MyColors.gray;
       statue = AppLocalizations.of(context)!.translate('FINISH');
     }
     return Container(
@@ -435,8 +435,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
       padding: EdgeInsets.only(bottom: curve),
       margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width/20, vertical: MediaQuery.of(context).size.width/40),
       decoration: BoxDecoration(
-        color: AppColors.white,
-        border: Border.all(color: AppColors.gray),
+        color: MyColors.white,
+        border: Border.all(color: MyColors.gray),
         borderRadius: BorderRadius.all(Radius.circular(curve)),
       ),
         child: Column(
@@ -444,7 +444,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children:[
           Container(
-            child: _m!.bodyText1(statue, color: AppColors.white),
+            child: _m!.bodyText1(statue, color: MyColors.white),
             decoration: BoxDecoration(
               color: _color,
               border: Border.all(color: _color),
@@ -467,8 +467,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          _m!.headText(_header,scale: 0.65, paddingH: MediaQuery.of(context).size.width/30, paddingV: 0.0, align: TextAlign.start, color: AppColors.bodyText1),
-                          _m!.headText(_subHeader,scale: 0.6, paddingH: MediaQuery.of(context).size.width/20, paddingV: MediaQuery.of(context).size.height/100, align: TextAlign.start, color: AppColors.bodyText1),
+                          _m!.headText(_header,scale: 0.65, paddingH: MediaQuery.of(context).size.width/30, paddingV: 0.0, align: TextAlign.start, color: MyColors.bodyText1),
+                          _m!.headText(_subHeader,scale: 0.6, paddingH: MediaQuery.of(context).size.width/20, paddingV: MediaQuery.of(context).size.height/100, align: TextAlign.start, color: MyColors.bodyText1),
                           GestureDetector(
                             onTap: ()=> _showOffers(index),
                             child: _m!.bodyText1( AppLocalizations.of(context)!.translate('offers received') + ' ' + replyNum.toString() + AppLocalizations.of(context)!.translate(' of ')+ _orderSuppliers.length.toString(), color: _color),
@@ -501,9 +501,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
                               height: MediaQuery.of(context).size.width/10 + curve * 2,
                               width: MediaQuery.of(context).size.width/2.7,
                               padding: EdgeInsets.all(curve),
-                              child:_m!.raisedButton(curve, MediaQuery.of(context).size.width/4, AppLocalizations.of(context)!.translate('Details'), 'assets/images/details.svg', ()=> _showDetails(index), height: MediaQuery.of(context).size.width/10,color: index == _detailsIndexShow? AppColors.mainColor: AppColors.card),
+                              child:_m!.raisedButton(curve, MediaQuery.of(context).size.width/4, AppLocalizations.of(context)!.translate('Details'), 'assets/images/details.svg', ()=> _showDetails(index), height: MediaQuery.of(context).size.width/10,color: index == _detailsIndexShow? MyColors.mainColor: MyColors.card),
                               decoration: BoxDecoration(
-                                border: Border.fromBorderSide(BorderSide(color: index == _detailsIndexShow ? AppColors.card: AppColors.white)),
+                                border: Border.fromBorderSide(BorderSide(color: index == _detailsIndexShow ? MyColors.card: MyColors.white)),
                                 borderRadius: BorderRadius.only(topLeft: Radius.circular(curve), topRight: Radius.circular(curve)),
                               ),
                             ),
@@ -512,7 +512,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                               margin: EdgeInsets.only(top: curve*2 + MediaQuery.of(context).size.width/10-1),
                               height: 1,
                               width: MediaQuery.of(context).size.width/2.7-2,
-                              color: AppColors.white,
+                              color: MyColors.white,
                             ): SizedBox(),
                           ],
                         ),
@@ -524,17 +524,17 @@ class _NotificationScreenState extends State<NotificationScreen> {
                               width: MediaQuery.of(context).size.width/2.7,
                               padding: EdgeInsets.all(curve),
                               decoration: BoxDecoration(
-                                border: Border.fromBorderSide(BorderSide(color: index == _offersIndexShow ? AppColors.card: AppColors.white)),
+                                border: Border.fromBorderSide(BorderSide(color: index == _offersIndexShow ? MyColors.card: MyColors.white)),
                                 borderRadius: BorderRadius.only(topLeft: Radius.circular(curve), topRight: Radius.circular(curve)),
                               ),
-                              child: _m!.raisedButton(curve, MediaQuery.of(context).size.width/4, AppLocalizations.of(context)!.translate('Suppliers'), 'assets/images/reply.svg', ()=> _showOffers(index), height: MediaQuery.of(context).size.width/10,color: index == _offersIndexShow? AppColors.mainColor: AppColors.card),
+                              child: _m!.raisedButton(curve, MediaQuery.of(context).size.width/4, AppLocalizations.of(context)!.translate('Suppliers'), 'assets/images/reply.svg', ()=> _showOffers(index), height: MediaQuery.of(context).size.width/10,color: index == _offersIndexShow? MyColors.mainColor: MyColors.card),
                             ),
                             index == _offersIndexShow ?Container(
                               //padding: EdgeInsets.symmetric(horizontal: curve),
                               margin: EdgeInsets.only(top: curve*2 + MediaQuery.of(context).size.width/10-1),
                               height: 1,
                               width: MediaQuery.of(context).size.width/2.7-2,
-                              color: AppColors.white,
+                              color: MyColors.white,
                             ):SizedBox(),
                           ],
                         )
@@ -554,7 +554,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                       //height: offerHieght,
                       //margin: EdgeInsets.only(left: raduis),
                       decoration: BoxDecoration(
-                        border: Border.fromBorderSide(BorderSide(color: AppColors.card)),
+                        border: Border.fromBorderSide(BorderSide(color: MyColors.card)),
                         borderRadius: BorderRadius.all(Radius.circular(curve)),
                       ),
                       padding: EdgeInsets.symmetric(horizontal: curve*0, vertical: curve),
@@ -580,7 +580,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                         margin: lng==2?EdgeInsets.only(right: MediaQuery.of(context).size.width/12*5):EdgeInsets.only(left: MediaQuery.of(context).size.width/12*5),
                         height: 1,
                         width: MediaQuery.of(context).size.width/2.7-1,
-                        color: AppColors.white,
+                        color: MyColors.white,
                       ),
                     ),
                   ],
@@ -679,7 +679,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 Stack(
                   children: [
                     Align(
-                      child: _m!.listTextFiled(curve, controller, () => press(), AppColors.black, AppColors.white, AppLocalizations.of(context)!.translate('Filter your orders'), AppColors.white, width: width, withOutValidate: true),
+                      child: _m!.listTextFiled(curve, controller, () => press(), MyColors.black, MyColors.white, AppLocalizations.of(context)!.translate('Filter your orders'), MyColors.white, width: width, withOutValidate: true),
                     ),
                     Align(
                       alignment: Alignment.center,
@@ -724,18 +724,18 @@ class _NotificationScreenState extends State<NotificationScreen> {
             key: _dropDownKey,
             underline: DropdownButtonHideUnderline(child: Container(),),
             icon: const Icon(Icons.search, size: 0.000001,),
-            dropdownColor: AppColors.gray.withOpacity(0.9),
+            dropdownColor: MyColors.gray.withOpacity(0.9),
             //value: cityName,
             style: TextStyle(
                 fontSize: MediaQuery.of(context).size.width/25,
-                color: AppColors.black,
+                color: MyColors.black,
                 fontFamily: 'Gotham'),
             items: filtersName.map((e) => DropdownMenuItem(
                 value: e,
                 child: Text(e.toString(),
                   style: TextStyle(
                       fontSize: MediaQuery.of(context).size.width/25,
-                      color: AppColors.white,
+                      color: MyColors.white,
                       fontFamily: 'Gotham'),
                 ))).toList(),
             selectedItemBuilder: (BuildContext context){
@@ -823,7 +823,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
   _close(orderId) {
     Widget _no(){
       return IconButton(
-          onPressed: ()=> Navigator.of(context).pop(), icon: const Icon(Icons.close_outlined, color: AppColors.mainColor,));
+          onPressed: ()=> Navigator.of(context).pop(), icon: const Icon(Icons.close_outlined, color: MyColors.mainColor,));
     }
     Widget _ok(){
       return IconButton(
@@ -835,7 +835,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
           await refresh(),
           pleaseWait = false,
           _setState(),
-        }, icon: const Icon(Icons.check, color: AppColors.mainColor,),
+        }, icon: const Icon(Icons.check, color: MyColors.mainColor,),
 
       );
     }
