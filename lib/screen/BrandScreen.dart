@@ -129,7 +129,7 @@ class _BrandScreenState extends State<BrandScreen> {
                     flex: 1,
                     child: Container(
                       decoration: BoxDecoration(
-                        color: MyColors.white,
+                        color: MyColors.topCon,
                         borderRadius: BorderRadius.only(topLeft: Radius.circular(curve), topRight: Radius.circular(curve))
                       ),
                       padding: EdgeInsets.symmetric(horizontal: curve),
