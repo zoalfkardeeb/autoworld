@@ -186,7 +186,7 @@ class _BrandScreenState extends State<BrandScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
-                    color: show? MyColors.gray: Colors.transparent,
+                    color: /*show? MyColors.white.withOpacity(0.5):*/ Colors.transparent,
             child: Image.network(brandList[index]['image'],
               width: MediaQuery.of(context).size.width / 5,
               height: MediaQuery.of(context).size.width / 5,
@@ -220,7 +220,7 @@ class _BrandScreenState extends State<BrandScreen> {
           ballonPadding: EdgeInsets.symmetric(horizontal: hSpace/20,vertical: hSpace/20),
           animationDuration: const Duration(milliseconds: 500),
           show: show,
-          customShadows: const [BoxShadow(color: MyColors.black, blurRadius: 4, spreadRadius: 2)],
+          customShadows: const [BoxShadow(color: MyColors.white, blurRadius: 4, spreadRadius: 2)],
           backgroundColor: MyColors.black,
           borderColor: MyColors.black,
         //tooltipDirection: TooltipDirection.up,

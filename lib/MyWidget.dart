@@ -283,7 +283,7 @@ class MyWidget{
               decoration: TextDecoration.none,
               //backgroundColor: MyColors.red,
               fontStyle: FontStyle.normal,
-              fontSize: 12,
+              fontSize: FontSize.s16,
               color: MyColors.white,
               fontFamily: lng==2?'GESS':'Gotham'),
         ),
@@ -1283,6 +1283,7 @@ class MyWidget{
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _topBar,
+          SizedBox(height: 3,),
           Expanded(
             child: ListView(
             children: [

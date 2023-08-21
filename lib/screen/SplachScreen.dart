@@ -174,7 +174,7 @@ class SplashState extends State<SplashScreen> {
                     Color(0xff6E000F),
                   ],
                 ),
-              borderRadius: !ani?BorderRadius.zero: BorderRadius.all(Radius.elliptical(MediaQuery.of(context).size.width/10*3.5,MediaQuery.of(context).size.width/10*(3.5/MediaQuery.of(context).size.width*MediaQuery.of(context).size.height))),
+              borderRadius: !ani?BorderRadius.zero: BorderRadius.all(Radius.elliptical(MediaQuery.of(context).size.width/10*2,MediaQuery.of(context).size.width/10*(2/MediaQuery.of(context).size.width*MediaQuery.of(context).size.height))),
             ),
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,

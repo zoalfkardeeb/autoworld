@@ -88,7 +88,7 @@ dependencies:
   permission_handler: ^10.2.0
   device_info_plus: ^9.0.2
   responsive_sizer: ^3.1.1
-  flutter_native_splash:
+  flutter_native_splash: ^2.3.2
 
 dev_dependencies:
   flutter_test:
@@ -113,18 +113,32 @@ flutter_launcher_icons:
   remove_alpha_ios: true
   image_path: "assets/images/Logo_r.png"
   min_sdk_android: 21 # android min sdk min:16, default 21
-  adaptive_icon_background: "#ff0000"
+  adaptive_icon_background: "#eeffff"
 
+#flutter_native_splash:
+#  color: "#EEFFFF"
+#  image: assets/images/Logo1.png
+#  android: true
+#  ios: true
+#
+#  #android_12:
+#    color: "#FFFFFF"
+#    image: assets/images/Logo1.png
 flutter_native_splash:
-  color: "#EEFFFF"
+  color: "#eeffff"
   image: assets/images/Logo1.png
-  android: true
-  ios: true
+  color_dark: "#eeffff"
+  image_dark: assets/images/Logo1.png
+  branding_dark: assets/images/Logo1.png
 
   android_12:
-    color: "#FFFFFF"
+    color: "#EEFFFF"
     image: assets/images/Logo1.png
+    icon_background_color: "#eeffff"
+    image_dark: assets/images/Logo1.png
+    icon_background_color_dark: "#eeffff"
 
+  web: false
 #dependency_overrides:
 #  firebase_messaging_platform_interface: 4.5.1
 #  firebase_core_platform_interface: 4.4.1
