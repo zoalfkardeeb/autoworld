@@ -342,7 +342,7 @@ class _AddSellCarScreenState extends State<AddSellCarScreen> {
 
     Navigator.of(context).pop();
     final ImagePicker _picker = ImagePicker();
-    XFile? xFile = await _picker.pickImage(source: source, imageQuality: 50, maxHeight: 2000,maxWidth: 2000);
+    XFile? xFile = await _picker.pickImage(source: source, imageQuality: 50, maxHeight: 1000,maxWidth: 1000);
 
     path = xFile!.path;
     print(path);

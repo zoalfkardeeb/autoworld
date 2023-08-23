@@ -5,6 +5,8 @@ import 'dart:io';
 import 'dart:math';
 import 'package:automall/constant/font_size.dart';
 import 'package:automall/constant/app_size.dart';
+import 'package:automall/constant/string/Strings.dart';
+import 'package:automall/helper/launchUrlHelper.dart';
 
 import 'package:automall/localization_service.dart';
 import 'package:automall/photoView.dart';
@@ -475,6 +477,8 @@ class MyWidget{
                           radius: MediaQuery.of(context).size.width/10,
                         ),*/
                         SizedBox(
+                          width: MediaQuery.of(context).size.width*0.87-MediaQuery.of(context).size.width/5*2,
+                          height: MediaQuery.of(context).size.width/5*2,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -485,8 +489,6 @@ class MyWidget{
                               //iconButton(hSpace, 'assets/images/user.svg', () => _selectImageProfile())
                             ],
                           ),
-                          width: MediaQuery.of(context).size.width*0.87-MediaQuery.of(context).size.width/5*2,
-                          height: MediaQuery.of(context).size.width/5*2,
                         )
                       ],
                     ),
@@ -503,6 +505,8 @@ class MyWidget{
                   driver(),
                   _iconText(()=>changePassword(()=> _resetPass(() => _setState(), _scaffoldKey)), Icons.password_outlined, AppLocalizations.of(context)!.translate('Change Password?')),
                   _iconText(()=>_logout(), Icons.logout_outlined, AppLocalizations.of(context)!.translate('Log out')),
+                  driver(),
+                  _iconText(()=>LaunchUrlHelper.makePhoneCall(Strings.contactNum), Icons.call_outlined, AppLocalizations.of(context)!.translate('Contact us')),
                   //raisedButton(1.0, AppLocalizations.of(context)!.translate('about'), () => Navigator.pushNamed(context, 'about')),
                   /*Expanded(
                   child: myFarms.isEmpty? Padding(
@@ -776,14 +780,14 @@ class MyWidget{
 
   listTextFiled(curve, controller, Function() pressIcon, containerColor, textColor, hintText, iconColor, {width, bool? boxShadow, bool? withOutValidate}){
     withOutValidate??=true;
-    width??= MediaQuery.of(context).size.width/1.6;
+    width??= MediaQuery.of(context).size.width/1.2;
     boxShadow??=false;
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         textFiled(curve, containerColor, textColor, controller, hintText, Icons.search, width: width, blurRaduis: 0, boxShadow: true, withoutValidator: withOutValidate, readOnly: true),
-        SizedBox(width: MediaQuery.of(context).size.width/50,),
-        iconButton(MediaQuery.of(context).size.height/35, 'assets/images/filter.svg', () => pressIcon(), curve: curve, color: containerColor, iconColor: iconColor),
+        //SizedBox(width: MediaQuery.of(context).size.width/50,),
+        //iconButton(MediaQuery.of(context).size.height/35, 'assets/images/filter.svg', () => pressIcon(), curve: curve, color: containerColor, iconColor: iconColor),
       ],
     );
 
@@ -865,8 +869,9 @@ class MyWidget{
       ;
   }
 
-  iconButton(double height, icon, Function() click, {width, double? curve, color, iconColor}) {
+  iconButton(double height, icon, Function() click, {width, double? curve, color, iconColor, ispng}) {
     width??= height;
+    ispng??= false;
     curve??= 0.0;
     color??= MyColors.black;
     iconColor??= MyColors.white;
@@ -883,7 +888,8 @@ class MyWidget{
             ),
             primary: color,
           ),
-        child: SvgPicture.asset(icon, height: height, width: height, fit: BoxFit.contain, color: iconColor,),
+        child: ispng? Image.asset(icon, height: height, width: height, fit: BoxFit.contain):
+        SvgPicture.asset(icon, height: height, width: height, fit: BoxFit.contain, color: iconColor,),
         onPressed: () {
           click();
         },
@@ -1824,11 +1830,6 @@ class MyWidget{
       ),
       height: width,
       width: width,
-      //padding: EdgeInsets.all(width/20),
-/*      child: logo == null && isSupp && image == null? Image.asset('assets/images/Logo1.png', height: width - width/20, width: width- width/20,)
-          : logo == null && !isSupp && image == null? Image.asset('assets/images/profile.png', height: width- width/20, width: width- width/20,)
-          //: logo == null && image != null? Image.file(image!., height: width- width/20, width: width- width/20,)
-        : Image.network(logo.toString(),height: width, width: width, fit: BoxFit.contain,),*/
     );
   }
 
