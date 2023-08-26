@@ -60,7 +60,7 @@ class _CarForSellerState extends State<CarForSeller> {
     //imageList.add({'image': 'assets/images/customGarage.png', 'text': AppLocalizations.of(context)!.translate('Customisation')});
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      backgroundColor: Colors.grey[100],
+      backgroundColor: MyColors.topCon,
       key: _scaffoldKey,
       //appBar: _m!.appBar(barHight, _scaffoldKey),
       drawer: _m!.drawer(() => _setState(), ()=> _tap(2), ()=> _tap(1), _scaffoldKey),
@@ -89,7 +89,7 @@ class _CarForSellerState extends State<CarForSeller> {
                     flex: 1,
                     child: Container(
                       decoration: BoxDecoration(
-                        color: MyColors.white,
+                        color: MyColors.topCon,
                         borderRadius: BorderRadius.horizontal(left: Radius.circular(curve*2), right: Radius.circular(curve*2)),
                       ),
                       padding: EdgeInsets.symmetric(horizontal: curve),
