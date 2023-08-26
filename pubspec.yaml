@@ -38,9 +38,9 @@ dependencies:
   #fluttertoast: ^8.0.8
   hive_flutter: ^1.1.0
   hive: ^2.0.4
-  flutter_local_notifications: ^15.1.0+1
+  flutter_local_notifications: ^14.1.0
   firebase_messaging: ^14.6.1
-  firebase_core: ^2.15.0
+  firebase_core: ^2.13.0
   firebase_auth: ^4.6.1
   cloud_firestore: ^4.7.1
   #get: ^4.3.8
@@ -52,26 +52,26 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
-  flutter_svg: ^2.0.7
+  flutter_svg: ^1.0.3
   intl_phone_field: ^3.0.0
   #firebase_phone_auth_handler: ^1.0.1
   shared_preferences: ^2.0.13
   form_field_validator: ^1.1.0
-  http: ^1.1.0
+  http: ^0.13.4
   double_back_to_close_app: ^2.1.0
   dio: ^5.1.2
   another_flushbar: ^1.10.29
   otp_text_field: ^1.1.2
 
-  flutter_facebook_auth: ^6.0.1
+  flutter_facebook_auth: ^5.0.11
   toggle_switch: ^2.0.1
   google_sign_in: ^6.1.2
   progress_indicators: ^1.0.0
   gradient_progress_indicator: ^1.0.0+5
   #flutter_email_sender: ^5.1.0
   mailer: ^6.0.1
-  enhanced_drop_down: ^0.3.0+0
-  image_picker: ^1.0.2
+  enhanced_drop_down: ^0.2.0+2
+  image_picker: ^0.8.7+5
   simple_tooltip: ^1.0.0
   date_format: ^2.0.6
   intl:
@@ -125,9 +125,9 @@ flutter_native_splash:
     color: "#FFFFFF"
     image: assets/images/Logo1.png
 
-#dependency_overrides:
-#  firebase_messaging_platform_interface: 4.5.1
-#  firebase_core_platform_interface: 4.4.1
+dependency_overrides:
+  firebase_messaging_platform_interface: 4.5.1
+  firebase_core_platform_interface: 4.8.0
 
 
 # For information on the generic Dart part of this file, see the

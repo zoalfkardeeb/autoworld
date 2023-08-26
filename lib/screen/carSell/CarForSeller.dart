@@ -77,9 +77,8 @@ class _CarForSellerState extends State<CarForSeller> {
                 //right: MediaQuery.of(context).size.width/20,
                 top: MediaQuery.of(context).size.height / 40*0,
               ),
-              color: MyColors.topCon,
               child: _tapNum == 1?
-                Column(
+              Column(
                 //mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -90,7 +89,7 @@ class _CarForSellerState extends State<CarForSeller> {
                     flex: 1,
                     child: Container(
                       decoration: BoxDecoration(
-                        color: MyColors.topCon,
+                        color: AppColors.white,
                         borderRadius: BorderRadius.horizontal(left: Radius.circular(curve*2), right: Radius.circular(curve*2)),
                       ),
                       padding: EdgeInsets.symmetric(horizontal: curve),
@@ -151,12 +150,12 @@ class _CarForSellerState extends State<CarForSeller> {
         children: [
 
           GestureDetector(
-            child: MyWidget(context).iconText("assets/images/ic_sell_car.svg", AppLocalizations.of(context)!.translate('Sell your car'), MyColors.black, vertical: true, scale: 1.2, imageScale: 2),
+            child: MyWidget(context).iconText("assets/images/ic_sell_car.svg", AppLocalizations.of(context)!.translate('Sell your car'), AppColors.black, vertical: true, scale: 1.2, imageScale: 2),
             onTap: ()=> _goToSellCar(),
           ),
 
           GestureDetector(
-            child: MyWidget(context).iconText("assets/images/ic_all_brand.svg", AppLocalizations.of(context)!.translate('All Brands'), MyColors.black, vertical: true, scale: 1.2, imageScale: 2),
+            child: MyWidget(context).iconText("assets/images/ic_all_brand.svg", AppLocalizations.of(context)!.translate('All Brands'), AppColors.black, vertical: true, scale: 1.2, imageScale: 2),
             onTap: ()=> _goToOfferCarsBrand(''),
 
           ),
@@ -214,14 +213,13 @@ class _CarForSellerState extends State<CarForSeller> {
       //height: barHight,
         padding: EdgeInsets.symmetric(horizontal: curve, vertical: curve/2),
         decoration: BoxDecoration(
-          color: MyColors.topCon,
+          color: AppColors.topCon,
           borderRadius: BorderRadius.only(bottomLeft: Radius.circular(curve), bottomRight: Radius.circular(curve)),
           boxShadow: [BoxShadow(
-            color: MyColors.black,
+            color: AppColors.black,
             offset: Offset(0, 1),
             blurRadius: 4,
-          )],
-        ),
+          )],   ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

@@ -183,7 +183,7 @@ class _RegisterState extends State<Register> {
                                 //SizedBox(height: hSpace*1.5 + MediaQuery.of(context).size.width/3.5 + MediaQuery.of(context).size.width/6,),
                                 //SizedBox(height: hSpace,),
                                 _m!.bodyText1(AppLocalizations.of(context)!.translate('Complete your personal information')),
-                                _m!.textFiled(curve, MyColors.black, MyColors.white, _fullNameController, AppLocalizations.of(context)!.translate('Full Name'), Icons.person_outline, requiredValidator: requiredValidator, withoutValidator: _firstOpen),
+                                _m!.textFiled(curve, AppColors.black, AppColors.white, _fullNameController, AppLocalizations.of(context)!.translate('Full Name'), Icons.person_outline, requiredValidator: requiredValidator, withoutValidator: _firstOpen),
                                 Padding(
                                   padding: EdgeInsets.only(left: MediaQuery.of(context).size.width/10, right: MediaQuery.of(context).size.width/10, top:  MediaQuery.of(context).size.width/20),
                                   child: IntlPhoneField(
@@ -192,12 +192,12 @@ class _RegisterState extends State<Register> {
                                     invalidNumberMessage: '',
                                     //autovalidateMode: AutovalidateMode.onUserInteraction,
                                     //controller: phoneController,
-                                    style: TextStyle(color: MyColors.black, fontSize: MediaQuery.of(context).size.width/20),
+                                    style: TextStyle(color: AppColors.black, fontSize: MediaQuery.of(context).size.width/20),
                                     decoration: InputDecoration(
                                       hintText: AppLocalizations.of(context)!.translate('Mobile Number'),
                                       hintStyle: TextStyle(
                                         fontSize: MediaQuery.of(context).size.width/25,
-                                        color: MyColors.gray,
+                                        color: AppColors.gray,
                                       ),
                                       errorStyle: TextStyle(
                                           fontSize:MediaQuery.of(context).size.width/24
@@ -215,7 +215,7 @@ class _RegisterState extends State<Register> {
                                       ),
                                       focusedErrorBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(curve/2),
-                                        borderSide: const BorderSide(color: MyColors.red, width: 2),
+                                        borderSide: const BorderSide(color: AppColors.red, width: 2),
                                       ),
                                     ),
                                     initialCountryCode: "QA",
@@ -234,11 +234,11 @@ class _RegisterState extends State<Register> {
                                 _m!.bodyText1(AppLocalizations.of(context)!.translate('Log in credentals')),
                                 SizedBox(height: hSpace/2,),
                                 _selectType(),
-                                _m!.textFiled(curve, MyColors.black, MyColors.white, _emailController, AppLocalizations.of(context)!.translate('Enter Your Email'), Icons.email_outlined, requiredValidator: requiredValidator, withoutValidator: _firstOpen),
-                                _m!.textFiled(curve, MyColors.white, MyColors.black, _passwordController, AppLocalizations.of(context)!.translate('Enter Your Password'), !passwordTextStyle? Icons.lock_open_outlined: Icons.lock_outline, requiredValidator: requiredValidator, password: passwordTextStyle, withoutValidator: _firstOpen, click: ()=> _changePasswordStyle()),
-                                _m!.textFiled(curve, MyColors.white, MyColors.black, _passwordConfirmController, AppLocalizations.of(context)!.translate('Confirm Your Password'), !passwordTextStyle? Icons.lock_open_outlined: Icons.lock_outline, requiredValidator: requiredValidator, val: _passwordController.text, password: passwordTextStyle, withoutValidator: _firstOpen, click: ()=> _changePasswordStyle()),
+                                _m!.textFiled(curve, AppColors.black, AppColors.white, _emailController, AppLocalizations.of(context)!.translate('Enter Your Email'), Icons.email_outlined, requiredValidator: requiredValidator, withoutValidator: _firstOpen),
+                                _m!.textFiled(curve, AppColors.white, AppColors.black, _passwordController, AppLocalizations.of(context)!.translate('Enter Your Password'), !passwordTextStyle? Icons.lock_open_outlined: Icons.lock_outline, requiredValidator: requiredValidator, password: passwordTextStyle, withoutValidator: _firstOpen, click: ()=> _changePasswordStyle()),
+                                _m!.textFiled(curve, AppColors.white, AppColors.black, _passwordConfirmController, AppLocalizations.of(context)!.translate('Confirm Your Password'), !passwordTextStyle? Icons.lock_open_outlined: Icons.lock_outline, requiredValidator: requiredValidator, val: _passwordController.text, password: passwordTextStyle, withoutValidator: _firstOpen, click: ()=> _changePasswordStyle()),
                                 SizedBox(height: hSpace/2,),
-                                _m!.iconText(termsAndConditions?'assets/images/check.svg':'assets/images/check-not.svg', AppLocalizations.of(context)!.translate("I've read and confirmed the terms and conditions"), MyColors.bodyText1, click: ()=> _acceptTerms()),
+                                _m!.iconText(termsAndConditions?'assets/images/check.svg':'assets/images/check-not.svg', AppLocalizations.of(context)!.translate("I've read and confirmed the terms and conditions"), AppColors.bodyText1, click: ()=> _acceptTerms()),
                                 SizedBox(height: hSpace,),
 
                               ],
@@ -464,18 +464,18 @@ class _RegisterState extends State<Register> {
           key: _dropDownKey,
           underline: DropdownButtonHideUnderline(child: Container(),),
           icon: const Icon(Icons.search, size: 0.000001,),
-          dropdownColor: MyColors.gray.withOpacity(0.9),
+          dropdownColor: AppColors.gray.withOpacity(0.9),
           //value: cityName,
             style: TextStyle(
                 fontSize: MediaQuery.of(context).size.width/25,
-                color: MyColors.black,
+                color: AppColors.black,
                 fontFamily: 'Gotham'),
             items: citiesName.map((e) => DropdownMenuItem(
                 value: e,
                 child: Text(e.toString(),
                   style: TextStyle(
                       fontSize: MediaQuery.of(context).size.width/25,
-                      color: MyColors.white,
+                      color: AppColors.white,
                       fontFamily: 'Gotham'),
                 ))).toList(),
             selectedItemBuilder: (BuildContext context){
@@ -554,7 +554,7 @@ class _RegisterState extends State<Register> {
                 Stack(
                   children: [
                     Align(
-                      child: _m!.listTextFiled(curve, controller, () => press(), MyColors.black, MyColors.white, AppLocalizations.of(context)!.translate('Select from the list'), MyColors.white, width: width, withOutValidate: _firstOpen),
+                      child: _m!.listTextFiled(curve, controller, () => press(), AppColors.black, AppColors.white, AppLocalizations.of(context)!.translate('Select from the list'), AppColors.white, width: width, withOutValidate: _firstOpen),
                     ),
                     Align(
                       alignment: Alignment.center,
@@ -641,14 +641,14 @@ class _RegisterState extends State<Register> {
             flex: 1,
             child: Column(
               children: [
-                _m!.iconText(termsAndConditions?'assets/images/check.svg':'assets/images/check-not.svg', AppLocalizations.of(context)!.translate("Customer"), MyColors.bodyText1, click: ()=> _acceptTerms()),
+                _m!.iconText(termsAndConditions?'assets/images/check.svg':'assets/images/check-not.svg', AppLocalizations.of(context)!.translate("Customer"), AppColors.bodyText1, click: ()=> _acceptTerms()),
               ],
             ),),
           Expanded(
             flex: 1,
             child: Column(
               children: [
-                _m!.iconText(termsAndConditions?'assets/images/check.svg':'assets/images/check-not.svg', AppLocalizations.of(context)!.translate('Supplier'), MyColors.bodyText1, click: ()=> _acceptTerms()),
+                _m!.iconText(termsAndConditions?'assets/images/check.svg':'assets/images/check-not.svg', AppLocalizations.of(context)!.translate('Supplier'), AppColors.bodyText1, click: ()=> _acceptTerms()),
               ],
             ),),
 

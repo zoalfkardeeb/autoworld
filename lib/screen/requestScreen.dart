@@ -127,13 +127,13 @@ class _RequestScreenState extends State<RequestScreen> {
                         padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width/10),
                         children: [
                           //SizedBox(height: hSpace/3,),
-                          gategoryId==0?_m!.textFiled(curve, Colors.white, MyColors.bodyText1, _vinNumberController, AppLocalizations.of(context)!.translate('Enter VIN Number'), Icons.edit_outlined,number: false, withoutValidator: true)
+                          gategoryId==0?_m!.textFiled(curve, Colors.white, AppColors.bodyText1, _vinNumberController, AppLocalizations.of(context)!.translate('Enter VIN Number'), Icons.edit_outlined,number: false, withoutValidator: true)
                               : SizedBox(height: 0,),
-                          gategoryId==0?_m!.textFiled(curve, Colors.white, MyColors.bodyText1, _carNameController, AppLocalizations.of(context)!.translate('Enter Car Name'), Icons.edit_outlined, withoutValidator: true)
+                          gategoryId==0?_m!.textFiled(curve, Colors.white, AppColors.bodyText1, _carNameController, AppLocalizations.of(context)!.translate('Enter Car Name'), Icons.edit_outlined, withoutValidator: true)
                               : SizedBox(height: 0,),
-                          gategoryId==0?_m!.textFiled(curve, Colors.white, MyColors.bodyText1, _modelController, AppLocalizations.of(context)!.translate('Enter Model'), Icons.edit_outlined, withoutValidator: true)
+                          gategoryId==0?_m!.textFiled(curve, Colors.white, AppColors.bodyText1, _modelController, AppLocalizations.of(context)!.translate('Enter Model'), Icons.edit_outlined, withoutValidator: true)
                               : SizedBox(height: 0,),
-                          _m!.textFiled(curve, Colors.white, MyColors.bodyText1, _remarksController, AppLocalizations.of(context)!.translate('remarks'), Icons.edit_outlined, height: MediaQuery.of(context).size.width/6.5*2, withoutValidator: true, newLineAction: false),
+                          _m!.textFiled(curve, Colors.white, AppColors.bodyText1, _remarksController, AppLocalizations.of(context)!.translate('remarks'), Icons.edit_outlined, height: MediaQuery.of(context).size.width/6.5*2, withoutValidator: true, newLineAction: false),
                           SizedBox(height: hSpace/2,),
                           _m!.bodyText1(AppLocalizations.of(context)!.translate('upload files instead'), scale: 1, padding: MediaQuery.of(context).size.width/20, maxLine: 5),
                           GridView.builder(
@@ -162,13 +162,13 @@ class _RequestScreenState extends State<RequestScreen> {
             ),
           ],*/
                                         border: Border.all(
-                                          color: MyColors.card,
+                                          color: AppColors.card,
                                           width: 1,
                                           style: BorderStyle.solid,
                                         ),
                                         borderRadius: BorderRadius.circular(curve/2),
                                       ),
-                                      child: Icon(Icons.camera_alt, color: MyColors.white,size: MediaQuery.of(context).size.width/10,),
+                                      child: Icon(Icons.camera_alt, color: AppColors.white,size: MediaQuery.of(context).size.width/10,),
                                     ),
                                     onTap: () => selectPhoto(index),
                                   )
@@ -228,10 +228,10 @@ class _RequestScreenState extends State<RequestScreen> {
       //height: barHight,
         padding: EdgeInsets.symmetric(horizontal: curve, vertical: curve/2),
         decoration: BoxDecoration(
-          color: MyColors.topCon,
+          color: AppColors.topCon,
           borderRadius: BorderRadius.only(bottomLeft: Radius.circular(curve), bottomRight: Radius.circular(curve)),
           boxShadow: [BoxShadow(
-            color: MyColors.black,
+            color: AppColors.black,
             offset: Offset(0, 1),
             blurRadius: 4,
           )],    ),
@@ -304,7 +304,7 @@ class _RequestScreenState extends State<RequestScreen> {
         onTap: ()=> _addImage(index, ImageSource.camera),
         child: Row(
         children: [
-         const Icon(Icons.camera_outlined, color: MyColors.mainColor,),
+         const Icon(Icons.camera_outlined, color: AppColors.mainColor,),
           _m!.bodyText1(AppLocalizations.of(context)!.translate("Camera"),align: TextAlign.start),
         ],
       ),
@@ -315,7 +315,7 @@ class _RequestScreenState extends State<RequestScreen> {
         onTap: ()=> _addImage(index, ImageSource.gallery),
         child: Row(
           children: [
-            const Icon(Icons.photo, color: MyColors.mainColor,),
+            const Icon(Icons.photo, color: AppColors.mainColor,),
             _m!.bodyText1(AppLocalizations.of(context)!.translate("Gallery"),align: TextAlign.start),
           ],
         ),
@@ -400,7 +400,7 @@ class _RequestScreenState extends State<RequestScreen> {
     }
     Dialog errorDialog = Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(curve)), //this right here
-      backgroundColor: MyColors.dialogColor,
+      backgroundColor: AppColors.dialogColor,
       child: Container(
         //color: MyColors.gray,
         padding: EdgeInsets.symmetric(horizontal: curve, vertical: curve),
@@ -423,7 +423,7 @@ class _RequestScreenState extends State<RequestScreen> {
             ,
             Row(
               children: [
-                _m!.raisedButton(curve, MediaQuery.of(context).size.width/1.2/3, AppLocalizations.of(context)!.translate('Undo'), null, ()=> _undo(), color: MyColors.dialogColor, borderSide: MyColors.white),
+                _m!.raisedButton(curve, MediaQuery.of(context).size.width/1.2/3, AppLocalizations.of(context)!.translate('Undo'), null, ()=> _undo(), color: AppColors.dialogColor, borderSide: AppColors.white),
                 const Expanded(child: SizedBox()),
                 _m!.raisedButton(curve, MediaQuery.of(context).size.width/1.2/3, AppLocalizations.of(context)!.translate('Okay'), null, ()=> _okay())
               ],

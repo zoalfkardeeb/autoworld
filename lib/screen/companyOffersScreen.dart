@@ -92,7 +92,7 @@ class _CompanyOffersScreenState extends State<CompanyOffersScreen> {
                       style: TextStyle(
                           fontSize:
                           MediaQuery.of(context).size.width / 23,
-                          color: MyColors.black,
+                          color: AppColors.black,
                           fontFamily: 'Gotham'),
                       decoration: InputDecoration(
                         //border: InputBorder.none,
@@ -103,7 +103,7 @@ class _CompanyOffersScreenState extends State<CompanyOffersScreen> {
                         hintStyle: TextStyle(
                             fontSize:
                             MediaQuery.of(context).size.width / 28,
-                            color: MyColors.bodyText1,
+                            color: AppColors.bodyText1,
                             fontFamily: 'GothamLight'),
                         errorStyle: TextStyle(
                           fontSize:
@@ -173,10 +173,10 @@ class _CompanyOffersScreenState extends State<CompanyOffersScreen> {
       //height: barHight,
         padding: EdgeInsets.symmetric(horizontal: curve, vertical: curve/2),
         decoration: BoxDecoration(
-          color: MyColors.topCon,
+          color: AppColors.topCon,
           borderRadius: BorderRadius.only(bottomLeft: Radius.circular(curve), bottomRight: Radius.circular(curve)),
           boxShadow: [BoxShadow(
-            color: MyColors.black,
+            color: AppColors.black,
             offset: Offset(0, 1),
             blurRadius: 4,
           )],  ),

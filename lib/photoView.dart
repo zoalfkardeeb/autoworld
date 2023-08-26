@@ -63,7 +63,7 @@ class PhotoView extends StatelessWidget {
                 ),
               */
                 backgroundDecoration: BoxDecoration(
-                  color: MyColors.white
+                  color: AppColors.white
                 ),
                 pageController: _pageController,
                 onPageChanged: (value) =>  onPageChanged(value),
@@ -107,7 +107,7 @@ class PhotoView extends StatelessWidget {
       //height: barHight,
         padding: EdgeInsets.symmetric(horizontal: curve, vertical: curve/2),
         decoration: BoxDecoration(
-          color: MyColors.topCon,
+          color: AppColors.topCon,
           borderRadius: BorderRadius.only(bottomLeft: Radius.circular(curve), bottomRight: Radius.circular(curve)),
         ),
         child: Column(
@@ -122,7 +122,7 @@ class PhotoView extends StatelessWidget {
                   child: GestureDetector(child:
                   Row(
                     children: [
-                      Icon(Icons.close, color: MyColors.black,),
+                      Icon(Icons.close, color: AppColors.black,),
                     ],
                   ),
                       onTap: ()=>Navigator.pop(context)),

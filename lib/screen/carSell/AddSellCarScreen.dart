@@ -140,13 +140,13 @@ class _AddSellCarScreenState extends State<AddSellCarScreen> {
                           _m!.selectFromTheListDrop(curve, _brandController, () => _openList(_dropDownKeyBrand), AppLocalizations.of(context)!.translate('Brand'), true, _dropDownBrand(width,curve)),
                           _m!.selectFromTheListDrop(curve, _modelController, (_brandController.text.isEmpty && _typeController.text.isEmpty)? ()=>MyAPI(context: context).flushBar(AppLocalizations.of(context)!.translate('Select type and brand first')): ()=>_openList(_dropDownKeyModel), AppLocalizations.of(context)!.translate('Model'), true, _dropDownModel(width,curve)),
                           _m!.selectFromTheListDrop(curve, _numOfCylYearController, () => _openList(_dropDownKeyNumOfCyl), AppLocalizations.of(context)!.translate('Number of cylinders'), true, _dropDownNumOfSyl(width,curve)),
-                          _m!.textFiled(curve/2, MyColors.white, MyColors.black, _productionYearController, AppLocalizations.of(context)!.translate('production Year'), Icons.keyboard_arrow_down_outlined, withoutValidator: true, readOnly: true, click: ()=> _yearPicker(), height: MediaQuery.of(context).size.width/8),
+                          _m!.textFiled(curve/2, AppColors.white, AppColors.black, _productionYearController, AppLocalizations.of(context)!.translate('production Year'), Icons.keyboard_arrow_down_outlined, withoutValidator: true, readOnly: true, click: ()=> _yearPicker(), height: MediaQuery.of(context).size.width/8),
                           //_m!.selectFromTheListDrop(curve, _productionYearController, () => _openList(_dropDownKeyProductionYear), AppLocalizations.of(context)!.translate('production Year'), true, _dropDownProductionYear(width,curve)),
                           _m!.selectFromTheListDrop(curve, _gearBoxTypeController, () => _openList(_dropDownKeyGearBox), AppLocalizations.of(context)!.translate('Gear Box Type'), true, _dropDownGearBoxType(width,curve)),
                           _m!.selectFromTheListDrop(curve, _motorTypeController, () => _openList(_dropDownKeyMotorType), AppLocalizations.of(context)!.translate('Motor Type'), true, _dropDownMotorType(width,curve)),
-                         _m!.textFiled(curve/2, Colors.white, MyColors.bodyText1, _keloMetrageController, AppLocalizations.of(context)!.translate('Kelometrage'), Icons.edit_outlined, withoutValidator: true, newLineAction: true, number: true, height: MediaQuery.of(context).size.width/8),
-                          _m!.textFiled(curve/2, Colors.white, MyColors.bodyText1, _priceController, AppLocalizations.of(context)!.translate('Price'), Icons.edit_outlined, withoutValidator: true, newLineAction: true, number: true, height: MediaQuery.of(context).size.width/8),
-                          _m!.textFiled(curve/2, Colors.white, MyColors.bodyText1, _descController, AppLocalizations.of(context)!.translate('Remarks'), Icons.edit_outlined, withoutValidator: true, newLineAction: true, height: MediaQuery.of(context).size.height/7),
+                         _m!.textFiled(curve/2, Colors.white, AppColors.bodyText1, _keloMetrageController, AppLocalizations.of(context)!.translate('Kelometrage'), Icons.edit_outlined, withoutValidator: true, newLineAction: true, number: true, height: MediaQuery.of(context).size.width/8),
+                          _m!.textFiled(curve/2, Colors.white, AppColors.bodyText1, _priceController, AppLocalizations.of(context)!.translate('Price'), Icons.edit_outlined, withoutValidator: true, newLineAction: true, number: true, height: MediaQuery.of(context).size.width/8),
+                          _m!.textFiled(curve/2, Colors.white, AppColors.bodyText1, _descController, AppLocalizations.of(context)!.translate('Remarks'), Icons.edit_outlined, withoutValidator: true, newLineAction: true, height: MediaQuery.of(context).size.height/7),
                           SizedBox(height: hSpace/2,),
                           Column(
                             mainAxisAlignment: MainAxisAlignment.start,
@@ -190,13 +190,13 @@ class _AddSellCarScreenState extends State<AddSellCarScreen> {
             ),
           ],*/
                                         border: Border.all(
-                                          color: MyColors.card,
+                                          color: AppColors.card,
                                           width: 1,
                                           style: BorderStyle.solid,
                                         ),
                                         borderRadius: BorderRadius.circular(curve/2),
                                       ),
-                                      child: Icon(Icons.camera_alt, color: MyColors.white,size: MediaQuery.of(context).size.width/10,),
+                                      child: Icon(Icons.camera_alt, color: AppColors.white,size: MediaQuery.of(context).size.width/10,),
                                     ),
                                     onTap: () => selectPhoto(index),
                                   )
@@ -253,10 +253,10 @@ class _AddSellCarScreenState extends State<AddSellCarScreen> {
       //height: barHight,
         padding: EdgeInsets.symmetric(horizontal: curve, vertical: curve/2),
         decoration: BoxDecoration(
-          color: MyColors.topCon,
+          color: AppColors.topCon,
           borderRadius: BorderRadius.only(bottomLeft: Radius.circular(curve), bottomRight: Radius.circular(curve)),
           boxShadow: [BoxShadow(
-            color: MyColors.black,
+            color: AppColors.black,
             offset: Offset(0, 1),
             blurRadius: 4,
           )],  ),
@@ -317,7 +317,7 @@ class _AddSellCarScreenState extends State<AddSellCarScreen> {
         onTap: ()=> _addImage(index, ImageSource.camera),
         child: Row(
         children: [
-         const Icon(Icons.camera_outlined, color: MyColors.mainColor,),
+         const Icon(Icons.camera_outlined, color: AppColors.mainColor,),
           _m!.bodyText1(AppLocalizations.of(context)!.translate("Camera"),align: TextAlign.start),
         ],
       ),
@@ -328,7 +328,7 @@ class _AddSellCarScreenState extends State<AddSellCarScreen> {
         onTap: ()=> _addImage(index, ImageSource.gallery),
         child: Row(
           children: [
-            const Icon(Icons.photo, color: MyColors.mainColor,),
+            const Icon(Icons.photo, color: AppColors.mainColor,),
             _m!.bodyText1(AppLocalizations.of(context)!.translate("Gallery"),align: TextAlign.start),
           ],
         ),
@@ -398,7 +398,7 @@ class _AddSellCarScreenState extends State<AddSellCarScreen> {
     }
     Dialog errorDialog = Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(curve)), //this right here
-      backgroundColor: MyColors.dialogColor,
+      backgroundColor: AppColors.dialogColor,
       child: Container(
         //color: MyColors.gray,
         padding: EdgeInsets.symmetric(horizontal: curve, vertical: curve),
@@ -421,7 +421,7 @@ class _AddSellCarScreenState extends State<AddSellCarScreen> {
             ,
             Row(
               children: [
-                _m!.raisedButton(curve, MediaQuery.of(context).size.width/1.2/3, AppLocalizations.of(context)!.translate('Undo'), null, ()=> _undo(), color: MyColors.dialogColor, borderSide: MyColors.white),
+                _m!.raisedButton(curve, MediaQuery.of(context).size.width/1.2/3, AppLocalizations.of(context)!.translate('Undo'), null, ()=> _undo(), color: AppColors.dialogColor, borderSide: AppColors.white),
                 const Expanded(child: SizedBox()),
                 _m!.raisedButton(curve, MediaQuery.of(context).size.width/1.2/3, AppLocalizations.of(context)!.translate('Okay'), null, ()=> _okay())
               ],
@@ -454,14 +454,14 @@ class _AddSellCarScreenState extends State<AddSellCarScreen> {
   ];
   Widget _dropDownItem(e, listType){
     return Container(
-      color: listType.indexWhere((element) => element == e).isEven? MyColors.white : MyColors.gray.withOpacity(0.05),
+      color: listType.indexWhere((element) => element == e).isEven? AppColors.white : AppColors.gray.withOpacity(0.05),
       height: kMinInteractiveDimension,
       alignment: lng ==2 ? Alignment.centerRight:Alignment.centerLeft,
       child: Text(e.toString(),
         textAlign: TextAlign.center,
         style: TextStyle(
             fontSize: MediaQuery.of(context).size.width/25,
-            color: listType.indexWhere((element) => element == e).isEven? MyColors.black : MyColors.blue,
+            color: listType.indexWhere((element) => element == e).isEven? AppColors.black : AppColors.blue,
             fontFamily: 'Gotham'),
       ),
     );
@@ -482,11 +482,11 @@ class _AddSellCarScreenState extends State<AddSellCarScreen> {
             key: _dropDownKeyType,
             underline: DropdownButtonHideUnderline(child: Container(),),
             icon: const Icon(Icons.search, size: 0.000001,),
-            dropdownColor: MyColors.white.withOpacity(0.95),
+            dropdownColor: AppColors.white.withOpacity(0.95),
             //value: cityName,
             style: TextStyle(
                 fontSize: MediaQuery.of(context).size.width/25,
-                color: MyColors.black,
+                color: AppColors.black,
                 fontFamily: 'Gotham'),
             items: listType.map((e) => DropdownMenuItem(
                 value: e,
@@ -523,11 +523,11 @@ class _AddSellCarScreenState extends State<AddSellCarScreen> {
             key: _dropDownKeyBrand,
             underline: DropdownButtonHideUnderline(child: Container(),),
             icon: const Icon(Icons.search, size: 0.000001,),
-            dropdownColor: MyColors.white.withOpacity(0.9),
+            dropdownColor: AppColors.white.withOpacity(0.9),
             //value: cityName,
             style: TextStyle(
                 fontSize: MediaQuery.of(context).size.width/25,
-                color: MyColors.black,
+                color: AppColors.black,
                 fontFamily: 'Gotham'),
             items: listType.map((e) => DropdownMenuItem(
                 value: e,
@@ -575,11 +575,11 @@ class _AddSellCarScreenState extends State<AddSellCarScreen> {
             key: _dropDownKeyModel,
             underline: DropdownButtonHideUnderline(child: Container(),),
             icon: const Icon(Icons.search, size: 0.000001,),
-            dropdownColor: MyColors.white.withOpacity(0.9),
+            dropdownColor: AppColors.white.withOpacity(0.9),
             //value: cityName,
             style: TextStyle(
                 fontSize: MediaQuery.of(context).size.width/25,
-                color: MyColors.black,
+                color: AppColors.black,
                 fontFamily: 'Gotham'),
             items: listType.map((e) => DropdownMenuItem(
                 value: e,
@@ -615,11 +615,11 @@ class _AddSellCarScreenState extends State<AddSellCarScreen> {
             key: _dropDownKeyNumOfCyl,
             underline: DropdownButtonHideUnderline(child: Container(),),
             icon: const Icon(Icons.search, size: 0.000001,),
-            dropdownColor: MyColors.white.withOpacity(0.9),
+            dropdownColor: AppColors.white.withOpacity(0.9),
             //value: cityName,
             style: TextStyle(
                 fontSize: MediaQuery.of(context).size.width/25,
-                color: MyColors.black,
+                color: AppColors.black,
                 fontFamily: 'Gotham'),
             items: listType.map((e) => DropdownMenuItem(
                 value: e,
@@ -655,18 +655,18 @@ class _AddSellCarScreenState extends State<AddSellCarScreen> {
             key: _dropDownKeyProductionYear,
             underline: DropdownButtonHideUnderline(child: Container(),),
             icon: const Icon(Icons.search, size: 0.000001,),
-            dropdownColor: MyColors.white.withOpacity(0.9),
+            dropdownColor: AppColors.white.withOpacity(0.9),
             //value: cityName,
             style: TextStyle(
                 fontSize: MediaQuery.of(context).size.width/25,
-                color: MyColors.black,
+                color: AppColors.black,
                 fontFamily: 'Gotham'),
             items: listType.map((e) => DropdownMenuItem(
                 value: e,
                 child: Text(e.toString(),
                   style: TextStyle(
                       fontSize: MediaQuery.of(context).size.width/25,
-                      color: MyColors.black,
+                      color: AppColors.black,
                       fontFamily: 'Gotham'),
                 ))).toList(),
             selectedItemBuilder: (BuildContext context){
@@ -699,11 +699,11 @@ class _AddSellCarScreenState extends State<AddSellCarScreen> {
             key: _dropDownKeyGearBox,
             underline: DropdownButtonHideUnderline(child: Container(),),
             icon: const Icon(Icons.search, size: 0.000001,),
-            dropdownColor: MyColors.white.withOpacity(0.9),
+            dropdownColor: AppColors.white.withOpacity(0.9),
             //value: cityName,
             style: TextStyle(
                 fontSize: MediaQuery.of(context).size.width/25,
-                color: MyColors.black,
+                color: AppColors.black,
                 fontFamily: 'Gotham'),
             items: listType.map((e) => DropdownMenuItem(
                 value: e,
@@ -738,11 +738,11 @@ class _AddSellCarScreenState extends State<AddSellCarScreen> {
             key: _dropDownKeyMotorType,
             underline: DropdownButtonHideUnderline(child: Container(),),
             icon: const Icon(Icons.search, size: 0.000001,),
-            dropdownColor: MyColors.white.withOpacity(0.9),
+            dropdownColor: AppColors.white.withOpacity(0.9),
             //value: cityName,
             style: TextStyle(
                 fontSize: MediaQuery.of(context).size.width/25,
-                color: MyColors.black,
+                color: AppColors.black,
                 fontFamily: 'Gotham'),
             items: listType.map((e) => DropdownMenuItem(
                 value: e,

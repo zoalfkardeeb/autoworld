@@ -223,10 +223,10 @@ class _VerificationState extends State<Verification> {
         child: OTPTextField(
           keyboardType: TextInputType.number,
           otpFieldStyle: OtpFieldStyle(
-            borderColor: MyColors.gray,
-            focusBorderColor: MyColors.mainColor,
-            disabledBorderColor: MyColors.gray,
-            enabledBorderColor: MyColors.gray,
+            borderColor: AppColors.gray,
+            focusBorderColor: AppColors.mainColor,
+            disabledBorderColor: AppColors.gray,
+            enabledBorderColor: AppColors.gray,
           ),
           length: 6,
           width: MediaQuery.of(context).size.width,
@@ -237,7 +237,7 @@ class _VerificationState extends State<Verification> {
           outlineBorderRadius: MediaQuery.of(context).size.height/90,
           style: TextStyle(
             fontSize: MediaQuery.of(context).size.width/15,
-            color: MyColors.mainColor,
+            color: AppColors.mainColor,
             fontFamily: 'Gotham'
           ),
           onChanged: (pin) {

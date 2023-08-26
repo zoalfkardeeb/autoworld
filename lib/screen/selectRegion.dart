@@ -129,7 +129,7 @@ class _SelectRegionScreenState extends State<SelectRegionScreen> {
       child: Column(
         children: [
           _m!.bodyText1(text,scale: 1.1, padding: 0.0),
-          _m!.listTextFiled(curve, controller, () => press(), MyColors.black, MyColors.white, AppLocalizations.of(context)!.translate('Select from the list'), MyColors.white)
+          _m!.listTextFiled(curve, controller, () => press(), AppColors.black, AppColors.white, AppLocalizations.of(context)!.translate('Select from the list'), AppColors.white)
       /*    Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

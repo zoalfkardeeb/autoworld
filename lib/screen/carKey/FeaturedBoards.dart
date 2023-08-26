@@ -56,7 +56,7 @@ class _FeaturedBoardsState extends State<FeaturedBoards> {
     //broadListImageType = broadListImageType.reversed.toList();
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      backgroundColor: MyColors.topCon,
+      backgroundColor: AppColors.topCon,
       key: _scaffoldKey,
       //appBar: _m!.appBar(barHight, _scaffoldKey),
       drawer: _m!.drawer(() => _setState(), ()=> _tap(2), ()=> _tap(1), _scaffoldKey),
@@ -85,7 +85,7 @@ class _FeaturedBoardsState extends State<FeaturedBoards> {
                     flex: 1,
                     child: Container(
                       decoration: BoxDecoration(
-                        color: MyColors.backgroundNew,
+                        color: AppColors.backgroundNew,
                         borderRadius: BorderRadius.horizontal(left: Radius.circular(curve*2), right: Radius.circular(curve*2)),
                       ),
                       padding: EdgeInsets.symmetric(horizontal: curve),
@@ -142,7 +142,7 @@ class _FeaturedBoardsState extends State<FeaturedBoards> {
   }
 
   _carBoardCard(curve, scale, keyNum){
-    var color = MyColors.red;
+    var color = AppColors.red;
     var width = MediaQuery.of(context).size.width/1.2*scale;
     var height = MediaQuery.of(context).size.height/4*scale;
     curve*=scale;
@@ -175,7 +175,7 @@ class _FeaturedBoardsState extends State<FeaturedBoards> {
               )
             ],
           ),
-          color: MyColors.white,
+          color: AppColors.white,
         ),
       )
       ,
@@ -201,7 +201,7 @@ class _FeaturedBoardsState extends State<FeaturedBoards> {
           Flexible(
             flex: 1,
             child: GestureDetector(
-              child: MyWidget(context).iconText("assets/images/ic_sell_car.svg", AppLocalizations.of(context)!.translate('Sell your car Panle'), MyColors.black, vertical: true, scale: 1.15, imageScale: 2.3),
+              child: MyWidget(context).iconText("assets/images/ic_sell_car.svg", AppLocalizations.of(context)!.translate('Sell your car Panle'), AppColors.black, vertical: true, scale: 1.15, imageScale: 2.3),
               onTap: ()=> _goToSellCarPanle(),
             ),
           ),
@@ -209,7 +209,7 @@ class _FeaturedBoardsState extends State<FeaturedBoards> {
           Flexible(
             flex: 1,
             child: GestureDetector(
-              child: MyWidget(context).iconText("assets/images/ic_all_brand.svg", AppLocalizations.of(context)!.translate('All type number'), MyColors.black, vertical: true, scale: 1.15, imageScale: 2.3),
+              child: MyWidget(context).iconText("assets/images/ic_all_brand.svg", AppLocalizations.of(context)!.translate('All type number'), AppColors.black, vertical: true, scale: 1.15, imageScale: 2.3),
               onTap: ()=> _goToOfferCarsBrand(''),
 
             ),
@@ -249,10 +249,10 @@ class _FeaturedBoardsState extends State<FeaturedBoards> {
       //height: barHight,
         padding: EdgeInsets.symmetric(horizontal: curve, vertical: curve/2),
         decoration: BoxDecoration(
-          color: MyColors.topCon,
+          color: AppColors.topCon,
           borderRadius: BorderRadius.only(bottomLeft: Radius.circular(curve), bottomRight: Radius.circular(curve)),
             boxShadow: [BoxShadow(
-              color: MyColors.black,
+              color: AppColors.black,
               offset: Offset(0, 1),
               blurRadius: 4,
             )],

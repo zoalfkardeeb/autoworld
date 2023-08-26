@@ -152,10 +152,10 @@ class _SubSelectScreenState extends State<SubSelectScreen> {
       height: MediaQuery.of(context).size.height/8*2.7,
         padding: EdgeInsets.symmetric(horizontal: curve, vertical: curve/2),
         decoration: BoxDecoration(
-          color: MyColors.topCon,
+          color: AppColors.topCon,
           borderRadius: BorderRadius.only(bottomLeft: Radius.circular(curve), bottomRight: Radius.circular(curve)),
           boxShadow: [BoxShadow(
-            color: MyColors.black,
+            color: AppColors.black,
             offset: Offset(0, 1),
             blurRadius: 4,
           )],    ),
@@ -204,7 +204,7 @@ class _SubSelectScreenState extends State<SubSelectScreen> {
                   ),
                 ),
             ),
-            _m!.listTextFiled(curve, _searchController, () => press(), MyColors.white, MyColors.black, AppLocalizations.of(context)!.translate('Search Products...'), MyColors.mainColor, width: MediaQuery.of(context).size.width/1.48)
+            _m!.listTextFiled(curve, _searchController, () => press(), AppColors.white, AppColors.black, AppLocalizations.of(context)!.translate('Search Products...'), AppColors.mainColor, width: MediaQuery.of(context).size.width/1.48)
 
           ],
         )

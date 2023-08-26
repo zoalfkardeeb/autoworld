@@ -70,12 +70,12 @@ showNotificationDateTime(channelId, channelName, id, title, body, payload, Durat
   // ignore: prefer_const_constructors
   var ios =  DarwinNotificationDetails();
   var platform = NotificationDetails(android: android, iOS: ios);
-  /*await flutterLocalNotificationsPlugin.schedule(
+  await flutterLocalNotificationsPlugin.schedule(
       id,
       title,
       body,
       scheduleNotificationDateTime,
-      platform, payload: payload);*/
+      platform, payload: payload);
 }
 
 
@@ -90,19 +90,19 @@ void main() async {
   HttpOverrides.global = MyHttpOverrides();
 
   WidgetsFlutterBinding.ensureInitialized();
+  await GetStorage.init();
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
   FirebaseMessaging.onBackgroundMessage(backgroundHandler);
 
   NotificationController notificationController = Get.put(NotificationController());
-/*
-  WidgetsFlutterBinding.ensureInitialized();
-  await GetStorage.init();
+
   await Hive.initFlutter();
 
   Hive.registerAdapter(TransactionAdapter());
   await Hive.openBox<Transaction>('transactions');
-*/
+
 
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [SystemUiOverlay.top, SystemUiOverlay.bottom]);
   await SystemChrome.setPreferredOrientations([

@@ -155,7 +155,7 @@ class _ExhibtionCarsState extends State<ExhibtionCars> {
                     padding: EdgeInsets.symmetric(horizontal: curve),
                     margin: EdgeInsets.symmetric(horizontal: curve/1.5),
                     decoration: BoxDecoration(
-                      color: MyColors.white,
+                      color: AppColors.white,
                       borderRadius: BorderRadius.only(bottomLeft: Radius.circular(curve), bottomRight: Radius.circular(curve)),
                     ),
                     child:  SingleChildScrollView(
@@ -179,7 +179,7 @@ class _ExhibtionCarsState extends State<ExhibtionCars> {
                                     SizedBox(width: MediaQuery.of(context).size.width/50,),
                                     Flexible(
                                       flex : 1,
-                                        child: _m!.textFiled(curve, MyColors.white, MyColors.black, _dateToController, AppLocalizations.of(context)!.translate('To'), Icons.keyboard_arrow_down_outlined, withoutValidator: true, readOnly: true, click: () => _yearPicker(2), fontSize: MediaQuery.of(context).size.width/25)
+                                        child: _m!.textFiled(curve, AppColors.white, AppColors.black, _dateToController, AppLocalizations.of(context)!.translate('To'), Icons.keyboard_arrow_down_outlined, withoutValidator: true, readOnly: true, click: () => _yearPicker(2), fontSize: MediaQuery.of(context).size.width/25)
                                      // child: _m!.selectFromTheListDrop(curve, _dateToController, () => _yearPicker(2), AppLocalizations.of(context)!.translate('To'), true, _dropDownDateTo(width/2,curve/2)),
                                     ),
                                   ],
@@ -195,14 +195,14 @@ class _ExhibtionCarsState extends State<ExhibtionCars> {
                                   children: [
                                     Flexible(
                                       flex : 1,
-                                      child: _m!.textFiled(curve, MyColors.white, MyColors.bodyText1, _priceFromController,  AppLocalizations.of(context)!.translate('From'), null, withoutValidator: true, number: true),
+                                      child: _m!.textFiled(curve, AppColors.white, AppColors.bodyText1, _priceFromController,  AppLocalizations.of(context)!.translate('From'), null, withoutValidator: true, number: true),
 
 //                                    child: _m!.selectFromTheListDrop(curve, _priceFromController, () => _openList(_dropDownKeyPriceFrom), AppLocalizations.of(context)!.translate('From'), true, _dropDownPriceFrom(width/2,curve/2), fontSize: MediaQuery.of(context).size.width/35),
                                     ),
                                     SizedBox(width: MediaQuery.of(context).size.width/50,),
                                     Flexible(
                                       flex : 1,
-                                      child: _m!.textFiled(curve, MyColors.white, MyColors.bodyText1, _priceToController,  AppLocalizations.of(context)!.translate('To'), null, withoutValidator: true, number: true),
+                                      child: _m!.textFiled(curve, AppColors.white, AppColors.bodyText1, _priceToController,  AppLocalizations.of(context)!.translate('To'), null, withoutValidator: true, number: true),
                                       //child: _m!.selectFromTheListDrop(curve, _priceToController, () => _openList(_dropDownKeyPriceTo), AppLocalizations.of(context)!.translate('To'), true, _dropDownPriceTo(width/2,curve/2), fontSize: MediaQuery.of(context).size.width/35),
                                     ),
                                   ],
@@ -216,7 +216,7 @@ class _ExhibtionCarsState extends State<ExhibtionCars> {
                                 children: [
                                   _m!.raisedButton(curve, MediaQuery.of(context).size.width/3, AppLocalizations.of(context)!.translate('Apply'), null, ()=> applyFilter(),),
                                   Expanded(child: SizedBox()),
-                                  _m!.raisedButton(curve, MediaQuery.of(context).size.width/3, AppLocalizations.of(context)!.translate('Cancel'), null, ()=> cancleFilter(), color: MyColors.card),
+                                  _m!.raisedButton(curve, MediaQuery.of(context).size.width/3, AppLocalizations.of(context)!.translate('Cancel'), null, ()=> cancleFilter(), color: AppColors.card),
                                 ],
                               ),
                             )
@@ -329,7 +329,7 @@ class _ExhibtionCarsState extends State<ExhibtionCars> {
         children: [
 
           GestureDetector(
-            child: MyWidget(context).iconText("assets/images/fill_heart.svg", AppLocalizations.of(context)!.translate('Sell your car'), MyColors.black, vertical: true, scale: 1.5),
+            child: MyWidget(context).iconText("assets/images/fill_heart.svg", AppLocalizations.of(context)!.translate('Sell your car'), AppColors.black, vertical: true, scale: 1.5),
             onTap: ()=> Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -338,7 +338,7 @@ class _ExhibtionCarsState extends State<ExhibtionCars> {
 
           ),
 
-          MyWidget(context).iconText("assets/images/fill_heart.svg", AppLocalizations.of(context)!.translate('All Brands'), MyColors.black, vertical: true, scale: 1.5),
+          MyWidget(context).iconText("assets/images/fill_heart.svg", AppLocalizations.of(context)!.translate('All Brands'), AppColors.black, vertical: true, scale: 1.5),
         ],
       ),
     );
@@ -360,10 +360,10 @@ class _ExhibtionCarsState extends State<ExhibtionCars> {
       //height: MediaQuery.of(context).size.height/10,
         padding: EdgeInsets.symmetric(horizontal: curve, vertical: curve/2),
         decoration: BoxDecoration(
-          color: MyColors.topCon,
+          color: AppColors.topCon,
           borderRadius: BorderRadius.only(bottomLeft: Radius.circular(curve), bottomRight: Radius.circular(curve)),
           boxShadow: [BoxShadow(
-            color: MyColors.black,
+            color: AppColors.black,
             offset: Offset(0, 1),
             blurRadius: 4,
           )], ),
@@ -427,7 +427,7 @@ class _ExhibtionCarsState extends State<ExhibtionCars> {
     return IconButton(
       icon: Align(
         alignment: Alignment.center,
-        child: SvgPicture.asset(svgImage, height: MediaQuery.of(context).size.width/20, fit: BoxFit.contain, color: MyColors.gray,),),
+        child: SvgPicture.asset(svgImage, height: MediaQuery.of(context).size.width/20, fit: BoxFit.contain, color: AppColors.gray,),),
       onPressed: () => onPressed(),
     );
 
@@ -525,11 +525,11 @@ class _ExhibtionCarsState extends State<ExhibtionCars> {
         key: _dropDownKey,
         underline: DropdownButtonHideUnderline(child: Container(),),
         icon:  SvgPicture.asset('assets/images/ic_sort_less.svg', height: 0.0000001, fit: BoxFit.contain,),
-        dropdownColor: MyColors.white.withOpacity(0.9),
+        dropdownColor: AppColors.white.withOpacity(0.9),
         //value: cityName,
         style: TextStyle(
             fontSize: MediaQuery.of(context).size.width/25,
-            color: MyColors.bodyText1,
+            color: AppColors.bodyText1,
             fontFamily: 'Gotham'),
         items: dropDownListString.map((e) => DropdownMenuItem(
             value: e,
@@ -537,7 +537,7 @@ class _ExhibtionCarsState extends State<ExhibtionCars> {
               child: Text(e.toString(),
                 style: TextStyle(
                     fontSize: MediaQuery.of(context).size.width/25,
-                    color: MyColors.bodyText1,
+                    color: AppColors.bodyText1,
                     fontFamily: 'Gotham'),
               ),
 
@@ -612,18 +612,18 @@ class _ExhibtionCarsState extends State<ExhibtionCars> {
             key: _dropDownKeyType,
             underline: DropdownButtonHideUnderline(child: Container(),),
             icon: const Icon(Icons.search, size: 0.000001,),
-            dropdownColor: MyColors.white.withOpacity(0.9),
+            dropdownColor: AppColors.white.withOpacity(0.9),
             //value: cityName,
             style: TextStyle(
                 fontSize: MediaQuery.of(context).size.width/25,
-                color: MyColors.black,
+                color: AppColors.black,
                 fontFamily: 'Gotham'),
             items: listType.map((e) => DropdownMenuItem(
                 value: e,
                 child: Text(e.toString(),
                   style: TextStyle(
                       fontSize: MediaQuery.of(context).size.width/25,
-                      color: MyColors.black,
+                      color: AppColors.black,
                       fontFamily: 'Gotham'),
                 ))).toList(),
             selectedItemBuilder: (BuildContext context){
@@ -658,18 +658,18 @@ class _ExhibtionCarsState extends State<ExhibtionCars> {
             key: _dropDownKeyBrand,
             underline: DropdownButtonHideUnderline(child: Container(),),
             icon: const Icon(Icons.search, size: 0.000001,),
-            dropdownColor: MyColors.white.withOpacity(0.9),
+            dropdownColor: AppColors.white.withOpacity(0.9),
             //value: cityName,
             style: TextStyle(
                 fontSize: MediaQuery.of(context).size.width/25,
-                color: MyColors.black,
+                color: AppColors.black,
                 fontFamily: 'Gotham'),
             items: listType.map((e) => DropdownMenuItem(
                 value: e,
                 child: Text(e.toString(),
                   style: TextStyle(
                       fontSize: MediaQuery.of(context).size.width/25,
-                      color: MyColors.black,
+                      color: AppColors.black,
                       fontFamily: 'Gotham'),
                 ))).toList(),
             selectedItemBuilder: (BuildContext context){
@@ -707,18 +707,18 @@ class _ExhibtionCarsState extends State<ExhibtionCars> {
             key: _dropDownKeyModel,
             underline: DropdownButtonHideUnderline(child: Container(),),
             icon: const Icon(Icons.search, size: 0.000001,),
-            dropdownColor: MyColors.white.withOpacity(0.9),
+            dropdownColor: AppColors.white.withOpacity(0.9),
             //value: cityName,
             style: TextStyle(
                 fontSize: MediaQuery.of(context).size.width/25,
-                color: MyColors.black,
+                color: AppColors.black,
                 fontFamily: 'Gotham'),
             items: listType.map((e) => DropdownMenuItem(
                 value: e,
                 child: Text(e.toString(),
                   style: TextStyle(
                       fontSize: MediaQuery.of(context).size.width/25,
-                      color: MyColors.black,
+                      color: AppColors.black,
                       fontFamily: 'Gotham'),
                 ))).toList(),
             selectedItemBuilder: (BuildContext context){
@@ -753,18 +753,18 @@ class _ExhibtionCarsState extends State<ExhibtionCars> {
             key: _dropDownKeyNumOfCyl,
             underline: DropdownButtonHideUnderline(child: Container(),),
             icon: const Icon(Icons.search, size: 0.000001,),
-            dropdownColor: MyColors.white.withOpacity(0.9),
+            dropdownColor: AppColors.white.withOpacity(0.9),
             //value: cityName,
             style: TextStyle(
                 fontSize: MediaQuery.of(context).size.width/25,
-                color: MyColors.black,
+                color: AppColors.black,
                 fontFamily: 'Gotham'),
             items: listType.map((e) => DropdownMenuItem(
                 value: e,
                 child: Text(e.toString(),
                   style: TextStyle(
                       fontSize: MediaQuery.of(context).size.width/25,
-                      color: MyColors.black,
+                      color: AppColors.black,
                       fontFamily: 'Gotham'),
                 ))).toList(),
             selectedItemBuilder: (BuildContext context){
@@ -799,18 +799,18 @@ class _ExhibtionCarsState extends State<ExhibtionCars> {
             key: _dropDownKeyPriceFrom,
             underline: DropdownButtonHideUnderline(child: Container(),),
             icon: const Icon(Icons.search, size: 0.000001,),
-            dropdownColor: MyColors.white.withOpacity(0.9),
+            dropdownColor: AppColors.white.withOpacity(0.9),
             //value: cityName,
             style: TextStyle(
                 fontSize: MediaQuery.of(context).size.width/35,
-                color: MyColors.black,
+                color: AppColors.black,
                 fontFamily: 'Gotham'),
             items: listType.map((e) => DropdownMenuItem(
                 value: e,
                 child: Text(e.toString(),
                   style: TextStyle(
                       fontSize: MediaQuery.of(context).size.width/35,
-                      color: MyColors.black,
+                      color: AppColors.black,
                       fontFamily: 'Gotham'),
                 ))).toList(),
             selectedItemBuilder: (BuildContext context){
@@ -850,18 +850,18 @@ class _ExhibtionCarsState extends State<ExhibtionCars> {
             key: _dropDownKeyPriceTo,
             underline: DropdownButtonHideUnderline(child: Container(),),
             icon: const Icon(Icons.search, size: 0.000001,),
-            dropdownColor: MyColors.white.withOpacity(0.9),
+            dropdownColor: AppColors.white.withOpacity(0.9),
             //value: cityName,
             style: TextStyle(
                 fontSize: MediaQuery.of(context).size.width/35,
-                color: MyColors.black,
+                color: AppColors.black,
                 fontFamily: 'Gotham'),
             items: listType.map((e) => DropdownMenuItem(
                 value: e,
                 child: Text(e.toString(),
                   style: TextStyle(
                       fontSize: MediaQuery.of(context).size.width/35,
-                      color: MyColors.black,
+                      color: AppColors.black,
                       fontFamily: 'Gotham'),
                 ))).toList(),
             selectedItemBuilder: (BuildContext context){
@@ -906,18 +906,18 @@ class _ExhibtionCarsState extends State<ExhibtionCars> {
             key: _dropDownKeyDateFrom,
             underline: DropdownButtonHideUnderline(child: Container(),),
             icon: const Icon(Icons.search, size: 0.000001,),
-            dropdownColor: MyColors.white.withOpacity(0.9),
+            dropdownColor: AppColors.white.withOpacity(0.9),
             //value: cityName,
             style: TextStyle(
                 fontSize: MediaQuery.of(context).size.width/25,
-                color: MyColors.black,
+                color: AppColors.black,
                 fontFamily: 'Gotham'),
             items: listType.map((e) => DropdownMenuItem(
                 value: e,
                 child: Text(e.toString(),
                   style: TextStyle(
                       fontSize: MediaQuery.of(context).size.width/25,
-                      color: MyColors.black,
+                      color: AppColors.black,
                       fontFamily: 'Gotham'),
                 ))).toList(),
             selectedItemBuilder: (BuildContext context){
@@ -961,18 +961,18 @@ class _ExhibtionCarsState extends State<ExhibtionCars> {
             key: _dropDownKeyDateTo,
             underline: DropdownButtonHideUnderline(child: Container(),),
             icon: const Icon(Icons.search, size: 0.000001,),
-            dropdownColor: MyColors.white.withOpacity(0.9),
+            dropdownColor: AppColors.white.withOpacity(0.9),
             //value: cityName,
             style: TextStyle(
                 fontSize: MediaQuery.of(context).size.width/25,
-                color: MyColors.black,
+                color: AppColors.black,
                 fontFamily: 'Gotham'),
             items: listType.map((e) => DropdownMenuItem(
                 value: e,
                 child: Text(e.toString(),
                   style: TextStyle(
                       fontSize: MediaQuery.of(context).size.width/25,
-                      color: MyColors.black,
+                      color: AppColors.black,
                       fontFamily: 'Gotham'),
                 ))).toList(),
             selectedItemBuilder: (BuildContext context){
