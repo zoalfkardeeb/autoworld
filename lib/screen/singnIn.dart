@@ -4,6 +4,7 @@ import 'package:automall/constant/app_size.dart';
 import 'package:automall/constant/color/MyColors.dart';
 
 import 'package:automall/const.dart';
+import 'package:automall/constant/font_size.dart';
 import 'package:automall/constant/string/Strings.dart';
 import 'package:automall/localizations.dart';
 import 'package:automall/screen/SupplierOrder.dart';
@@ -177,7 +178,7 @@ class _Sign_inState extends State<Sign_in> {
                     _m!.textFiled(curve, MyColors.white, MyColors.black, _passwordController, AppLocalizations.of(context)!.translate('Enter Your Password'),!passwordTextStyle? Icons.lock_open_outlined: Icons.lock_outline, password: passwordTextStyle, requiredValidator: requiredValidator, withoutValidator: _firstOpen, click: ()=> _changePasswordStyle()),
                     SizedBox(height: hSpace/2,),
                     GestureDetector(
-                      onTap: ()=> _m!.changePassword(()=>_resetPass()),
+                      onTap: ()=> _forgetPassword(),//_m!.changePassword(()=>_resetPass()),
                       child: _m!.headText(AppLocalizations.of(context)!.translate('Forget Password?'),align: TextAlign.start,color: MyColors.mainColor, scale: 0.6),
                     ),
                     SizedBox(height: hSpace/2,),
@@ -618,5 +619,59 @@ class _Sign_inState extends State<Sign_in> {
     setState(() {
       chLogIn = false;
     });
+  }
+
+
+  _forgetPassword() {
+
+    Widget _no(){
+      return IconButton(
+          onPressed: ()=> Navigator.of(context).pop(), icon: const Icon(Icons.close_outlined, color: MyColors.mainColor,));
+    }
+    Widget _ok() {
+      return IconButton(
+        onPressed: ()
+        {
+          Navigator.of(context).pop();
+          _resetPass();
+        }, icon: const Icon(Icons.check, color: MyColors.mainColor,),
+
+      );
+    }
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return SimpleDialog(
+              title: Text(AppLocalizations.of(context)!.translate('Forget Password?'),
+                style: TextStyle(
+                    fontSize: MediaQuery.of(context).size.width/22,
+                    color: MyColors.black,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'Gotham'),
+              ),
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width/20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(height: AppHeight.h2,),
+                      _m!.bodyText1(AppLocalizations.of(context)!.translate('Confirm your email address'),scale: 0.8, padding: 0.1),
+                      _m!.textFiled(MediaQuery.of(context).size.width/40, MyColors.black, MyColors.white, _emailController, AppLocalizations.of(context)!.translate('Enter Your Email'), Icons.email_outlined, withoutValidator: true, fontSize: FontSize.s16),
+                      SizedBox(height: AppHeight.h2,),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          _no(),
+                          const Expanded(child: SizedBox()),
+                          _ok(),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+
+              ]);
+        });
   }
 }
