@@ -5,6 +5,8 @@ import 'dart:io';
 import 'dart:math';
 import 'package:automall/constant/font_size.dart';
 import 'package:automall/constant/app_size.dart';
+import 'package:automall/constant/string/Strings.dart';
+import 'package:automall/helper/launchUrlHelper.dart';
 
 import 'package:automall/localization_service.dart';
 import 'package:automall/photoView.dart';
@@ -43,7 +45,7 @@ class MyWidget{
         height,
         width,
         fontSize}) {
-    backcolor ??= AppColors.mainColor;
+    backcolor ??= MyColors.mainColor;
     fontSize ??= FontSize.s18;
     height ??= FontSize.s18 + 40;
     width ??= double.infinity;
@@ -67,7 +69,7 @@ class MyWidget{
             text,
             textAlign: TextAlign.center,
             style: TextStyle(
-              color: AppColors.white,
+              color: MyColors.white,
               fontSize: fontSize,
             ),
           ),
@@ -84,7 +86,7 @@ class MyWidget{
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(curve)),
-          color: AppColors.bottomCon,
+          color: MyColors.bottomCon,
         ),
         height: MediaQuery.of(context).size.width/2,
         width: MediaQuery.of(context).size.width/3*2,
@@ -95,10 +97,10 @@ class MyWidget{
             Expanded(
               child: Row(
                 children: [
-                  Icon(Icons.info_outline, color: AppColors.white, size: MediaQuery.of(context).size.width/10,),
+                  Icon(Icons.info_outline, color: MyColors.white, size: MediaQuery.of(context).size.width/10,),
                   SizedBox(
                     width: MediaQuery.of(context).size.width/2,
-                    child: bodyText1(AppLocalizations.of(context)!.translate('You should signIn to get this service'), maxLine: 2, color: AppColors.white, scale: 1),
+                    child: bodyText1(AppLocalizations.of(context)!.translate('You should signIn to get this service'), maxLine: 2, color: MyColors.white, scale: 1),
                   )
                 ],
               ),
@@ -108,7 +110,7 @@ class MyWidget{
                 TextButton(onPressed: () {
                   Navigator.of(context).pop();
                 },
-                    child: bodyText1(AppLocalizations.of(context)!.translate('Later!'),  color: AppColors.white)),
+                    child: bodyText1(AppLocalizations.of(context)!.translate('Later!'),  color: MyColors.white)),
                 Expanded(child: SizedBox()),
                 TextButton(onPressed: () {
                   guestType = true;
@@ -116,7 +118,7 @@ class MyWidget{
                   Navigator.of(context).pop();
                   Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> Sign_in(false)));
                 },
-                    child: bodyText1(AppLocalizations.of(context)!.translate('SignIn'), color: AppColors.mainColor))
+                    child: bodyText1(AppLocalizations.of(context)!.translate('SignIn'), color: MyColors.mainColor))
               ],
             )
           ],
@@ -134,7 +136,7 @@ class MyWidget{
               title: Text(title,
                 style: TextStyle(
                     fontSize: MediaQuery.of(context).size.width/22,
-                    color: AppColors.black,
+                    color: MyColors.black,
                     fontWeight: FontWeight.bold,
                     fontFamily: 'Gotham'),
               ),
@@ -167,7 +169,7 @@ class MyWidget{
 
   headText(text,{double? scale, color, paddingV, paddingH, align, maxLine}){
     scale ??= 1.0;
-    color ??= AppColors.headText;
+    color ??= MyColors.headText;
     paddingV ??= 0.0;
     paddingH ??= 0.0;
     align ??= TextAlign.center;
@@ -196,7 +198,7 @@ class MyWidget{
       textAlign: TextAlign.center, maxLines: 1,
       style: TextStyle(
           fontSize: MediaQuery.of(context).size.width/25 * scale,
-          color: AppColors.fieldText,
+          color: MyColors.fieldText,
           fontFamily: lng==2?'GESS':'Gotham'),
     );
   }
@@ -207,7 +209,7 @@ class MyWidget{
     maxLine??=2;
     baseLine??=false;
     padV??=0.0;
-    color??= AppColors.bodyText1;
+    color??= MyColors.bodyText1;
     align ??= TextAlign.center;
     return Padding(
           padding: EdgeInsets.symmetric(horizontal: padding, vertical: padV),
@@ -239,7 +241,7 @@ class MyWidget{
       text,
       style: TextStyle(
           fontSize: MediaQuery.of(context).size.width/23 * scale,
-          color: AppColors.titleText,
+          color: MyColors.titleText,
           fontWeight: FontWeight.bold,
           fontFamily: lng==2?'GESS':'Gotham'),
     ),);
@@ -255,7 +257,7 @@ class MyWidget{
           maxLines: 5,
           style: TextStyle(
           fontSize: MediaQuery.of(context).size.width/23 * scale,
-          color: AppColors.white,
+          color: MyColors.white,
           fontFamily: lng==2?'GESS':'Gotham'),
     ),);
   }
@@ -266,7 +268,7 @@ class MyWidget{
       text,
       style: TextStyle(
           fontSize: MediaQuery.of(context).size.width/35,
-          color: AppColors.red,
+          color: MyColors.red,
           fontFamily: lng==2?'GESS':'Gotham'),
     ),
     )
@@ -283,8 +285,8 @@ class MyWidget{
               decoration: TextDecoration.none,
               //backgroundColor: MyColors.red,
               fontStyle: FontStyle.normal,
-              fontSize: 12,
-              color: AppColors.white,
+              fontSize: FontSize.s16,
+              color: MyColors.white,
               fontFamily: lng==2?'GESS':'Gotham'),
         ),
         onTap: ()=> tap(),
@@ -299,7 +301,7 @@ class MyWidget{
       text,
       style: TextStyle(
           fontSize: MediaQuery.of(context).size.width/20,
-          color: AppColors.red,
+          color: MyColors.red,
           fontFamily: lng==2?'GESS':'Gotham'),
     ),
     )
@@ -311,7 +313,7 @@ class MyWidget{
     padding??= 0.0;
     maxLine??=1;
     baseLine??=false;
-    color??= AppColors.bodyText1;
+    color??= MyColors.bodyText1;
     align ??= TextAlign.center;
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: padding),
@@ -350,7 +352,7 @@ class MyWidget{
       ),
       actions: [
         IconButton(
-          icon: const Icon(Icons.notification_add_outlined, color: AppColors.black,),
+          icon: const Icon(Icons.notification_add_outlined, color: MyColors.black,),
           // ignore: avoid_returning_null_for_void
           onPressed: () => null,
         )
@@ -378,7 +380,7 @@ class MyWidget{
     return Align(
         alignment: lng==2?Alignment.centerLeft:Alignment.centerRight,
         child: IconButton(
-          icon: Icon(Icons.notification_add_outlined, color: thereNotification? AppColors.mainColor :AppColors.black,),
+          icon: Icon(Icons.notification_add_outlined, color: thereNotification? MyColors.mainColor :MyColors.black,),
           // ignore: avoid_returning_null_for_void
           onPressed: () => _onPress(),
         ),);
@@ -411,7 +413,7 @@ class MyWidget{
                 //mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Icon(icon, size: MediaQuery.of(context).size.width/10, color: AppColors.mainColor,),
+                  Icon(icon, size: MediaQuery.of(context).size.width/10, color: MyColors.mainColor,),
                   SizedBox(width: MediaQuery.of(context).size.width/80,),
                   bodyText1(text, scale: 1.1, padding: 0.0)
                 ],
@@ -423,7 +425,7 @@ class MyWidget{
     _language(){
       Widget _no(){
         return IconButton(
-            onPressed: ()=> Navigator.of(context).pop(), icon: const Icon(Icons.close_outlined, color: AppColors.mainColor,));
+            onPressed: ()=> Navigator.of(context).pop(), icon: const Icon(Icons.close_outlined, color: MyColors.mainColor,));
       }
       Widget _ok(){
         return IconButton(
@@ -435,7 +437,7 @@ class MyWidget{
             MyAPI(context: context).userLang(lng == 0?2:0, userInfo['id']),
             pleaseWait == false,
             _setState(),
-          }, icon: const Icon(Icons.check, color: AppColors.mainColor,),
+          }, icon: const Icon(Icons.check, color: MyColors.mainColor,),
         );
       }
       showSDialog(AppLocalizations.of(context)!.translate('Are you sure? change Language'), _no(), _ok());
@@ -457,7 +459,7 @@ class MyWidget{
       width: MediaQuery.of(context).size.width/5*4,
         child: Container(
             height: double.infinity,
-            color: AppColors.backGround,
+            color: MyColors.backGround,
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -475,6 +477,8 @@ class MyWidget{
                           radius: MediaQuery.of(context).size.width/10,
                         ),*/
                         SizedBox(
+                          width: MediaQuery.of(context).size.width*0.87-MediaQuery.of(context).size.width/5*2,
+                          height: MediaQuery.of(context).size.width/5*2,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -485,8 +489,6 @@ class MyWidget{
                               //iconButton(hSpace, 'assets/images/user.svg', () => _selectImageProfile())
                             ],
                           ),
-                          width: MediaQuery.of(context).size.width*0.87-MediaQuery.of(context).size.width/5*2,
-                          height: MediaQuery.of(context).size.width/5*2,
                         )
                       ],
                     ),
@@ -503,6 +505,8 @@ class MyWidget{
                   driver(),
                   _iconText(()=>changePassword(()=> _resetPass(() => _setState(), _scaffoldKey)), Icons.password_outlined, AppLocalizations.of(context)!.translate('Change Password?')),
                   _iconText(()=>_logout(), Icons.logout_outlined, AppLocalizations.of(context)!.translate('Log out')),
+                  driver(),
+                  _iconText(()=>LaunchUrlHelper.makePhoneCall(Strings.contactNum), Icons.call_outlined, AppLocalizations.of(context)!.translate('Contact us')),
                   //raisedButton(1.0, AppLocalizations.of(context)!.translate('about'), () => Navigator.pushNamed(context, 'about')),
                   /*Expanded(
                   child: myFarms.isEmpty? Padding(
@@ -558,14 +562,14 @@ class MyWidget{
     else{
       Widget _no(){
         return IconButton(
-            onPressed: ()=> Navigator.of(context).pop(), icon: const Icon(Icons.close_outlined, color: AppColors.mainColor,));
+            onPressed: ()=> Navigator.of(context).pop(), icon: const Icon(Icons.close_outlined, color: MyColors.mainColor,));
       }
       Widget _ok(){
         return IconButton(
           onPressed: ()=> {
             Navigator.of(context).pop(),
             restPassword(),
-          }, icon: const Icon(Icons.check, color: AppColors.mainColor,),
+          }, icon: const Icon(Icons.check, color: MyColors.mainColor,),
 
         );
       }
@@ -647,7 +651,7 @@ class MyWidget{
             ),
           ],*/
                 border: Border.all(
-                  color: error ? AppColors.red : boxShadow? containerColor: AppColors.card,
+                  color: error ? MyColors.red : boxShadow? containerColor: MyColors.card,
                   width: 1,
                   style: BorderStyle.solid,
                 ),
@@ -767,7 +771,7 @@ class MyWidget{
             width: width,
             height: MediaQuery.of(context).size.height/150,
             margin: EdgeInsets.only(left: MediaQuery.of(context).size.width/10, right: MediaQuery.of(context).size.width/10, top: 0, bottom: curve),
-            color: !readOnly? AppColors.mainColor: containerColor,
+            color: !readOnly? MyColors.mainColor: containerColor,
           )
         ],
       )
@@ -776,14 +780,14 @@ class MyWidget{
 
   listTextFiled(curve, controller, Function() pressIcon, containerColor, textColor, hintText, iconColor, {width, bool? boxShadow, bool? withOutValidate}){
     withOutValidate??=true;
-    width??= MediaQuery.of(context).size.width/1.6;
+    width??= MediaQuery.of(context).size.width/1.2;
     boxShadow??=false;
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         textFiled(curve, containerColor, textColor, controller, hintText, Icons.search, width: width, blurRaduis: 0, boxShadow: true, withoutValidator: withOutValidate, readOnly: true),
-        SizedBox(width: MediaQuery.of(context).size.width/50,),
-        iconButton(MediaQuery.of(context).size.height/35, 'assets/images/filter.svg', () => pressIcon(), curve: curve, color: containerColor, iconColor: iconColor),
+        //SizedBox(width: MediaQuery.of(context).size.width/50,),
+        //iconButton(MediaQuery.of(context).size.height/35, 'assets/images/filter.svg', () => pressIcon(), curve: curve, color: containerColor, iconColor: iconColor),
       ],
     );
 
@@ -792,7 +796,7 @@ class MyWidget{
   raisedButton(double curve, double width, String text, icon, click,{double? iconHight, height, color, borderSide, container}) {
     height??= MediaQuery.of(context).size.width/6.5;
     iconHight??=height/1.9;
-    color??= AppColors.mainColor;
+    color??= MyColors.mainColor;
     borderSide??= color;
     container??= false ;
     return ElevatedButton(
@@ -813,7 +817,7 @@ class MyWidget{
                 icon == null? const SizedBox(width: 0,) :SvgPicture.asset(icon, height: iconHight,/* color: MyColors.white,*/),
                 SizedBox(width: icon == null? 0 :curve/2,),
                 Text(text, style: TextStyle(
-                  color: AppColors.buttonText,
+                  color: MyColors.buttonText,
                   fontSize: min(width/6.5, MediaQuery.of(context).size.width/22),
                   fontFamily: lng==2?'GESS':'Gotham',
                   fontWeight: FontWeight.bold,
@@ -827,7 +831,7 @@ class MyWidget{
   copyLangButton(double curve, double width, String text, Function() _setState,{double? iconHight, height, color, borderSide, container}) {
     height??= MediaQuery.of(context).size.width/9;
     iconHight??=height/1.9;
-    color??= AppColors.mainColor;
+    color??= MyColors.mainColor;
     borderSide??= color;
     container??= false ;
 
@@ -849,10 +853,10 @@ class MyWidget{
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.language_outlined, size: iconHight, color: AppColors.white,),
+                Icon(Icons.language_outlined, size: iconHight, color: MyColors.white,),
                 SizedBox(width: curve/2,),
                 Text(text, style: TextStyle(
-                  color: AppColors.buttonText,
+                  color: MyColors.buttonText,
                   fontSize: min(width/6.5, MediaQuery.of(context).size.width/22),
                   fontFamily: lng==2?'GESS':'Gotham',
                   fontWeight: FontWeight.bold,
@@ -865,11 +869,12 @@ class MyWidget{
       ;
   }
 
-  iconButton(double height, icon, Function() click, {width, double? curve, color, iconColor}) {
+  iconButton(double height, icon, Function() click, {width, double? curve, color, iconColor, ispng}) {
     width??= height;
+    ispng??= false;
     curve??= 0.0;
-    color??= AppColors.black;
-    iconColor??= AppColors.white;
+    color??= MyColors.black;
+    iconColor??= MyColors.white;
     return Padding(padding: EdgeInsets.only(top: curve, bottom: 0),
       child: ButtonTheme(
         minWidth: MediaQuery.of(context).size.width/6.7,
@@ -883,7 +888,8 @@ class MyWidget{
             ),
             primary: color,
           ),
-        child: SvgPicture.asset(icon, height: height, width: height, fit: BoxFit.contain, color: iconColor,),
+        child: ispng? Image.asset(icon, height: height, width: height, fit: BoxFit.contain):
+        SvgPicture.asset(icon, height: height, width: height, fit: BoxFit.contain, color: iconColor,),
         onPressed: () {
           click();
         },
@@ -916,7 +922,7 @@ class MyWidget{
               child: SvgPicture.asset(assets ,height: MediaQuery.of(context).size.width/13*scale* imageScale, fit: BoxFit.contain,),
             ),
             SizedBox(width: MediaQuery.of(context).size.width/40*scale*scale*scale*scale,),
-            headText(text, scale: 0.47*scale, /*padding: 0.0,*/ maxLine: 2, color: AppColors.black)
+            headText(text, scale: 0.47*scale, /*padding: 0.0,*/ maxLine: 2, color: MyColors.black)
           ],
         ):
         Row(
@@ -964,7 +970,7 @@ class MyWidget{
           builder: (context) {
             return AlertDialog(
               content: Text(text, textAlign: TextAlign.right,
-                style: const TextStyle(color: AppColors.bodyText1, fontSize: 18),),
+                style: const TextStyle(color: MyColors.bodyText1, fontSize: 18),),
               /*actions: <Widget>[
                 FlatButton(
                   child: Text(AppLocalizations.of(context)!.translate('no'),
@@ -999,7 +1005,7 @@ class MyWidget{
       width: double.infinity,
       //padding: EdgeInsets.only(left: MediaQuery.of(context).size.width/20),
       decoration: BoxDecoration(
-          color: AppColors.bottomCon,
+          color: MyColors.bottomCon,
           borderRadius: BorderRadius.only(topLeft: Radius.circular(curve), topRight: Radius.circular(curve)),
          ),
       child: _child,
@@ -1020,12 +1026,12 @@ class MyWidget{
       initialLabelIndex: tapNumber-1,
       cornerRadius: 20.0,
       activeFgColor: Colors.white,
-      inactiveBgColor: AppColors.bottomCon,
+      inactiveBgColor: MyColors.bottomCon,
       inactiveFgColor: Colors.white,
       totalSwitches: 2,
       labels: [tapNumber == 1? AppLocalizations.of(context)!.translate('HOME'): '',tapNumber==2? AppLocalizations.of(context)!.translate('Profile'): ''],
       icons: const [Icons.home_outlined,  Icons.person_outline],
-      activeBgColors: const [[AppColors.mainColor],[AppColors.mainColor]],
+      activeBgColors: const [[MyColors.mainColor],[MyColors.mainColor]],
       onToggle: (index) {
         if(index==0){
           clickT1();
@@ -1083,12 +1089,12 @@ class MyWidget{
       decoration: BoxDecoration(
         boxShadow: const [
           BoxShadow(
-            color: AppColors.card,
+            color: MyColors.card,
             offset: Offset(0, 1),
             blurRadius: 1,
           ),
         ],
-        color: AppColors.white,
+        color: MyColors.white,
         borderRadius: BorderRadius.all(Radius.circular(curve),),
       ),
       margin: const EdgeInsets.symmetric(horizontal: 1, vertical: 2),
@@ -1107,8 +1113,8 @@ class MyWidget{
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                       colors: [
-                        AppColors.white,
-                        AppColors.metal,
+                        MyColors.white,
+                        MyColors.metal,
                       ],
                     ),
                   ),
@@ -1116,13 +1122,13 @@ class MyWidget{
                     children: [
                       Row(
                         children: [
-                          miniContainer(iconText('assets/images/star.svg', _starRate, AppColors.white, revers: true, paddingH: 0.0, scale: 0.8), MediaQuery.of(context).size.height/35),
+                          miniContainer(iconText('assets/images/star.svg', _starRate, MyColors.white, revers: true, paddingH: 0.0, scale: 0.8), MediaQuery.of(context).size.height/35),
                           const Expanded(
                             child: Align(
 
                             ),
                           ),
-                          favorait? SvgPicture.asset('assets/images/heart_red.svg', color: AppColors.mainColor, height: curve,):SvgPicture.asset('assets/images/heart.svg', color: AppColors.black,)
+                          favorait? SvgPicture.asset('assets/images/heart_red.svg', color: MyColors.mainColor, height: curve,):SvgPicture.asset('assets/images/heart.svg', color: MyColors.black,)
 
                         ],
                       ),
@@ -1139,7 +1145,7 @@ class MyWidget{
                     children: [
                       Expanded(
                         flex: 4,
-                          child: bodyText1(materialName,scale: 0.7,color: AppColors.mainColor, padding: 0.0, align: TextAlign.start),
+                          child: bodyText1(materialName,scale: 0.7,color: MyColors.mainColor, padding: 0.0, align: TextAlign.start),
                       ),
                       Expanded(
                         flex: 3,
@@ -1173,7 +1179,7 @@ class MyWidget{
            alignment: Alignment.centerRight,
            child: Padding(
              padding: EdgeInsets.symmetric(horizontal: curve/2),
-             child: iconButton(curve, 'assets/images/shopping_cart_add.svg', () => _select(), curve: height/5, color: AppColors.mainColor,),
+             child: iconButton(curve, 'assets/images/shopping_cart_add.svg', () => _select(), curve: height/5, color: MyColors.mainColor,),
            )
          ),
         ],
@@ -1188,7 +1194,7 @@ class MyWidget{
       alignment: Alignment.center,
       padding: EdgeInsets.symmetric(horizontal: curve, vertical: curve/2),
       decoration: BoxDecoration(
-        color: AppColors.gray,
+        color: MyColors.gray,
         borderRadius: BorderRadius.all(Radius.circular(curve)),
       ),
       child: _child,
@@ -1219,7 +1225,7 @@ class MyWidget{
             JumpingText(AppLocalizations.of(context)!.translate('please Wait...'),
             style: TextStyle(
                 fontSize: MediaQuery.of(context).size.width/22,
-                color: AppColors.mainColor,
+                color: MyColors.mainColor,
                 fontFamily: 'Gotham',
              // fontStyle: FontStyle.italic,
             ),
@@ -1240,15 +1246,15 @@ class MyWidget{
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(_starNum < 1 ? Icons.star_outline : _starNum >= 2  ? Icons.star: Icons.star_half,color:  AppColors.white,/*: MyColors.gray,*/ size: raduis/5,),
-          Icon(_starNum < 3 ? Icons.star_outline : _starNum >= 4  ? Icons.star: Icons.star_half,color:  AppColors.white,/*: MyColors.gray,*/ size: raduis/5,),
-          Icon(_starNum < 5 ? Icons.star_outline : _starNum >= 6  ? Icons.star: Icons.star_half,color:  AppColors.white,/*: MyColors.gray,*/ size: raduis/5,),
-          Icon(_starNum < 7 ? Icons.star_outline : _starNum >= 8  ? Icons.star: Icons.star_half,color:  AppColors.white,/*: MyColors.gray,*/ size: raduis/5,),
-          Icon(_starNum < 9 ? Icons.star_outline : _starNum >= 10 ? Icons.star: Icons.star_half,color:  AppColors.white,/*: MyColors.gray,*/ size: raduis/5,),
+          Icon(_starNum < 1 ? Icons.star_outline : _starNum >= 2  ? Icons.star: Icons.star_half,color:  MyColors.white,/*: MyColors.gray,*/ size: raduis/5,),
+          Icon(_starNum < 3 ? Icons.star_outline : _starNum >= 4  ? Icons.star: Icons.star_half,color:  MyColors.white,/*: MyColors.gray,*/ size: raduis/5,),
+          Icon(_starNum < 5 ? Icons.star_outline : _starNum >= 6  ? Icons.star: Icons.star_half,color:  MyColors.white,/*: MyColors.gray,*/ size: raduis/5,),
+          Icon(_starNum < 7 ? Icons.star_outline : _starNum >= 8  ? Icons.star: Icons.star_half,color:  MyColors.white,/*: MyColors.gray,*/ size: raduis/5,),
+          Icon(_starNum < 9 ? Icons.star_outline : _starNum >= 10 ? Icons.star: Icons.star_half,color:  MyColors.white,/*: MyColors.gray,*/ size: raduis/5,),
         ],
       ),
       decoration: BoxDecoration(
-        color: AppColors.mainColor,
+        color: MyColors.mainColor,
         borderRadius: BorderRadius.circular(raduis/7),
       ),
     );
@@ -1283,6 +1289,7 @@ class MyWidget{
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _topBar,
+          SizedBox(height: 3,),
           Expanded(
             child: ListView(
             children: [
@@ -1335,11 +1342,11 @@ class MyWidget{
                 ],
               ),
               bodyText1(AppLocalizations.of(context)!.translate('Full Name'), align: TextAlign.start, padding: MediaQuery.of(context).size.width/10,padV: hSpace/7),
-              ProfiletextFiled(curve, AppColors.white, AppColors.black, nameController, readOnly: !editProfile),
+              ProfiletextFiled(curve, MyColors.white, MyColors.black, nameController, readOnly: !editProfile),
               bodyText1(AppLocalizations.of(context)!.translate('Mobile'), align: TextAlign.start, padding: MediaQuery.of(context).size.width/10,padV: hSpace/7),
-              ProfiletextFiled(curve, AppColors.white, AppColors.black, mobileController, readOnly: true),
+              ProfiletextFiled(curve, MyColors.white, MyColors.black, mobileController, readOnly: true),
               bodyText1(AppLocalizations.of(context)!.translate('City'), align: TextAlign.start, padding: MediaQuery.of(context).size.width/10,padV: hSpace/7),
-              ProfiletextFiled(curve, AppColors.white, AppColors.black, cityController, readOnly: true),
+              ProfiletextFiled(curve, MyColors.white, MyColors.black, cityController, readOnly: true),
             ],),
           ),
         ],
@@ -1405,7 +1412,7 @@ class MyWidget{
             ),
           ],*/
                   border: Border.all(
-                    color: AppColors.mainColor,
+                    color: MyColors.mainColor,
                     width: 1,
                     style: BorderStyle.solid,
                   ),
@@ -1431,7 +1438,7 @@ class MyWidget{
           ],
         ),
         headText(toolName /*+ AppLocalizations.of(context)!.translate(' Kit ') + disacount.toString() + ' % ' + AppLocalizations.of(context)!.translate('OFF')*/,scale: 0.45*scale, maxLine: 2, paddingV: MediaQuery.of(context).size.height/100, paddingH: raduis/4),
-        bodyText1(companyName.toString(),color: AppColors.red, scale: scale),
+        bodyText1(companyName.toString(),color: MyColors.red, scale: scale),
       ],
     )
       ;
@@ -1469,8 +1476,8 @@ class MyWidget{
                       radius: raduis,
                       backgroundColor: Colors.transparent,
                     ),
-                    headText(companyName.toString(),color: AppColors.black, scale: scale*0.6, maxLine: 2, paddingV: MediaQuery.of(context).size.height/80,),
-                    headText(toolName /*+ AppLocalizations.of(context)!.translate(' Kit ') + disacount.toString() + ' % ' + AppLocalizations.of(context)!.translate('OFF')*/,scale: 0.45*scale, maxLine: 2,  paddingH: raduis/4, color: AppColors.bodyText1),
+                    headText(companyName.toString(),color: MyColors.black, scale: scale*0.6, maxLine: 2, paddingV: MediaQuery.of(context).size.height/80,),
+                    headText(toolName /*+ AppLocalizations.of(context)!.translate(' Kit ') + disacount.toString() + ' % ' + AppLocalizations.of(context)!.translate('OFF')*/,scale: 0.45*scale, maxLine: 2,  paddingH: raduis/4, color: MyColors.bodyText1),
                     SizedBox(height: curve/4,),
                     SizedBox(width: MediaQuery.of(context).size.width/4,
                     child: raisedButton(curve, MediaQuery.of(context).size.width/4.5, AppLocalizations.of(context)!.translate('Visit'), 'assets/images/ic_street_view.svg', ()=>click(), iconHight: curve/1.4 ,height: MediaQuery.of(context).size.height/16),
@@ -1480,7 +1487,7 @@ class MyWidget{
                 ),
                 decoration: BoxDecoration(
                   /*image: DecorationImage(image: toolImage == null || toolImage == ''? AssetImage("assets/images/background.png") : NetworkImage(toolImage) as ImageProvider, fit: BoxFit.contain),*/
-                  color: AppColors.white,
+                  color: MyColors.white,
                   //color: containerColor.withOpacity(0.8),
                   /*boxShadow: [
             BoxShadow(
@@ -1490,7 +1497,7 @@ class MyWidget{
             ),
           ],*/
                   border: Border.all(
-                    color: AppColors.white,
+                    color: MyColors.white,
                     width: 1,
                     style: BorderStyle.solid,
                   ),
@@ -1516,12 +1523,12 @@ class MyWidget{
       margin: EdgeInsets.only(top: raduis*4/3,left: raduis, right: raduis),
       decoration: BoxDecoration(
         border: Border.all(
-          color: AppColors.white,
+          color: MyColors.white,
           width: 1,
           style: BorderStyle.solid,
         ),
         borderRadius: BorderRadius.only(bottomLeft: Radius.circular(curve), bottomRight: Radius.circular(curve)),
-        color: AppColors.white
+        color: MyColors.white
       ),
       child: Column(
         children: [
@@ -1573,12 +1580,12 @@ class MyWidget{
       margin: EdgeInsets.only(top: raduis*4/3,left: raduis, right: raduis),
       decoration: BoxDecoration(
         border: Border.all(
-          color: AppColors.white,
+          color: MyColors.white,
           width: 1,
           style: BorderStyle.solid,
         ),
         borderRadius: BorderRadius.only(bottomLeft: Radius.circular(curve), bottomRight: Radius.circular(curve)),
-          color: AppColors.white
+          color: MyColors.white
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1607,7 +1614,7 @@ class MyWidget{
           SizedBox(height: curve/2,),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width/40),
-            child: raisedButton(curve, MediaQuery.of(context).size.width/1.3, AppLocalizations.of(context)!.translate('Connect With Whatsapp'), 'assets/images/whatsapp.svg', ()=> launchWhatsApp(phone: phone, message: message, context: context), color: AppColors.green)
+            child: raisedButton(curve, MediaQuery.of(context).size.width/1.3, AppLocalizations.of(context)!.translate('Connect With Whatsapp'), 'assets/images/whatsapp.svg', ()=> launchWhatsApp(phone: phone, message: message, context: context), color: MyColors.green)
           ),
 
           SizedBox(height: curve/2,)
@@ -1818,16 +1825,11 @@ class MyWidget{
               : NetworkImage(logo)) : image as ImageProvider,
         ),
         //color: MyColors.white,
-        border: Border.all(color: AppColors.metal, width: width/50),
+        border: Border.all(color: MyColors.metal, width: width/50),
         borderRadius: BorderRadius.all(Radius.circular(width/5)),
       ),
       height: width,
       width: width,
-      //padding: EdgeInsets.all(width/20),
-/*      child: logo == null && isSupp && image == null? Image.asset('assets/images/Logo1.png', height: width - width/20, width: width- width/20,)
-          : logo == null && !isSupp && image == null? Image.asset('assets/images/profile.png', height: width- width/20, width: width- width/20,)
-          //: logo == null && image != null? Image.file(image!., height: width- width/20, width: width- width/20,)
-        : Image.network(logo.toString(),height: width, width: width, fit: BoxFit.contain,),*/
     );
   }
 
@@ -1852,7 +1854,7 @@ class MyWidget{
               ),
             ],
           ),
-          driver(color: AppColors.metal, padH: 0.0),
+          driver(color: MyColors.metal, padH: 0.0),
         ],
       ),
     )
@@ -1915,7 +1917,7 @@ class MyWidget{
     return Stack(
                   children: [
                     Align(
-                      child: textFiled(curve/2, AppColors.white, AppColors.black, controller, hintText, Icons.keyboard_arrow_down_outlined, width: width, withoutValidator: firstOpen, readOnly: true, click: ()=> press(), fontSize: fontSize, height: MediaQuery.of(context).size.width/8,),
+                      child: textFiled(curve/2, MyColors.white, MyColors.black, controller, hintText, Icons.keyboard_arrow_down_outlined, width: width, withoutValidator: firstOpen, readOnly: true, click: ()=> press(), fontSize: fontSize, height: MediaQuery.of(context).size.width/8,),
                     ),
                     Align(
                       alignment: Alignment.center,
@@ -1982,12 +1984,12 @@ class MyWidget{
             decoration: BoxDecoration(
                 boxShadow: [
                   BoxShadow(
-                    color: AppColors.black,
+                    color: MyColors.black,
                     offset: Offset(0, 0.8),
                     blurRadius: 0.8,
                   ),
                 ],
-                color: AppColors.white,
+                color: MyColors.white,
                 borderRadius: BorderRadius.all(Radius.circular(curve))
             ),
             child: Row(
@@ -2012,19 +2014,19 @@ class MyWidget{
                               decoration: BoxDecoration(
                                 boxShadow: [
                                   BoxShadow(
-                                    color: AppColors.black,
+                                    color: MyColors.black,
                                     offset: Offset(0, 0.8),
                                     blurRadius: 0.8,
                                   ),
                                 ],
-                                color:  isNew? AppColors.red: AppColors.gray,
+                                color:  isNew? MyColors.red: MyColors.gray,
                                 borderRadius:lng != 2?
                                 BorderRadius.only(bottomRight: Radius.circular(MediaQuery.of(context).size.width/40), topLeft: Radius.circular(MediaQuery.of(context).size.width/20)):
                                 BorderRadius.only(bottomLeft: Radius.circular(MediaQuery.of(context).size.width/40), topRight: Radius.circular(MediaQuery.of(context).size.width/20)),
                               ),
                               child: bodyText1(
                                   isNew?AppLocalizations.of(context)!.translate('New'):AppLocalizations.of(context)!.translate('Sold'),
-                                  color: AppColors.white, padding: MediaQuery.of(context).size.width/80, scale: scale),
+                                  color: MyColors.white, padding: MediaQuery.of(context).size.width/80, scale: scale),
                               //child: Icon(Icons.open_with_outlined, color: MyColors.white),
                             ),
                           ),
@@ -2034,7 +2036,7 @@ class MyWidget{
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(Icons.remove_red_eye_rounded, color: AppColors.bodyText1, size: MediaQuery.of(context).size.height/55, ),
+                          Icon(Icons.remove_red_eye_rounded, color: MyColors.bodyText1, size: MediaQuery.of(context).size.height/55, ),
                           bodyText1(view, scale: scale, padding: 0.5, padV: 2.0),
                         ],
                       ),
@@ -2069,11 +2071,11 @@ class MyWidget{
                                 child: Column(
                                   children: [
                                     SizedBox(height: vSpace,),
-                                    iconText("assets/images/ic_km.svg", kelometrag, AppColors.red, scale: scale, imageScale: 0.5, paddingH: 0.2),
+                                    iconText("assets/images/ic_km.svg", kelometrag, MyColors.red, scale: scale, imageScale: 0.5, paddingH: 0.2),
                                     SizedBox(height: vSpace,),
-                                    iconText("assets/images/gear_automatic.svg", gearBox, AppColors.red, scale: scale, imageScale: 0.5, paddingH: 0.2),
+                                    iconText("assets/images/gear_automatic.svg", gearBox, MyColors.red, scale: scale, imageScale: 0.5, paddingH: 0.2),
                                     SizedBox(height: vSpace,),
-                                    iconText("assets/images/ic_pr_year.svg", productionYear, AppColors.gray, scale: scale, imageScale: 0.5, paddingH: 0.2),
+                                    iconText("assets/images/ic_pr_year.svg", productionYear, MyColors.gray, scale: scale, imageScale: 0.5, paddingH: 0.2),
                                   ],
                                 ),
                               ),
@@ -2083,11 +2085,11 @@ class MyWidget{
                                 child: Column(
                                   children: [
                                     SizedBox(height: vSpace,),
-                                    iconText("assets/images/ic_price.svg", price, AppColors.gray, scale: scale, imageScale: 0.5, paddingH: 0.2),
+                                    iconText("assets/images/ic_price.svg", price, MyColors.gray, scale: scale, imageScale: 0.5, paddingH: 0.2),
                                     SizedBox(height: vSpace,),
-                                    iconText("assets/images/ic_engine.svg", cylenders, AppColors.gray, scale: scale, imageScale: 0.5, paddingH: 0.2),
+                                    iconText("assets/images/ic_engine.svg", cylenders, MyColors.gray, scale: scale, imageScale: 0.5, paddingH: 0.2),
                                     SizedBox(height: vSpace,),
-                                    iconText(fromUser?"assets/images/ic_red_user.svg":"assets/images/ic-shop.svg", fromUser? AppLocalizations.of(context)!.translate('From User'): AppLocalizations.of(context)!.translate('From User'), AppColors.gray, scale: scale, imageScale: 0.5, paddingH: 0.2),
+                                    iconText(fromUser?"assets/images/ic_red_user.svg":"assets/images/ic-shop.svg", fromUser? AppLocalizations.of(context)!.translate('From User'): AppLocalizations.of(context)!.translate('From User'), MyColors.gray, scale: scale, imageScale: 0.5, paddingH: 0.2),
                                   ],
                                 ),
                               ),
@@ -2147,18 +2149,18 @@ class MyWidget{
             decoration: BoxDecoration(
                 boxShadow: [
                   BoxShadow(
-                    color: AppColors.black,
+                    color: MyColors.black,
                     offset: Offset(0, 0.8),
                     blurRadius: 0.8,
                   ),
                 ],
-                color: AppColors.red,
+                color: MyColors.red,
                 borderRadius:lng != 2?
                 BorderRadius.only(bottomRight: Radius.circular(curve), topLeft: Radius.circular(curve/2)):
                 BorderRadius.only(bottomLeft: Radius.circular(curve), topRight: Radius.circular(curve/2)),
             ),
             //child: bodyText1('text', color: MyColors.white, padding: 0.01),
-            child: Icon(Icons.open_with_outlined, color: AppColors.white),
+            child: Icon(Icons.open_with_outlined, color: MyColors.white),
 
           ),
         ),
@@ -2200,12 +2202,12 @@ class MyWidget{
             decoration: BoxDecoration(
                 boxShadow: [
                   BoxShadow(
-                    color: AppColors.black,
+                    color: MyColors.black,
                     offset: Offset(0, 0.8),
                     blurRadius: 0.8,
                   ),
                 ],
-                color: AppColors.white,
+                color: MyColors.white,
                 borderRadius: BorderRadius.all(Radius.circular(curve))
             ),
             child: Column(
@@ -2232,19 +2234,19 @@ class MyWidget{
                                   decoration: BoxDecoration(
                                     boxShadow: [
                                       BoxShadow(
-                                        color: AppColors.black,
+                                        color: MyColors.black,
                                         offset: Offset(0, 0.8),
                                         blurRadius: 0.8,
                                       ),
                                     ],
-                                    color:  isNew? AppColors.red: AppColors.gray,
+                                    color:  isNew? MyColors.red: MyColors.gray,
                                     borderRadius:lng != 2?
                                     BorderRadius.only(bottomRight: Radius.circular(MediaQuery.of(context).size.width/40), topLeft: Radius.circular(MediaQuery.of(context).size.width/20)):
                                     BorderRadius.only(bottomLeft: Radius.circular(MediaQuery.of(context).size.width/40), topRight: Radius.circular(MediaQuery.of(context).size.width/20)),
                                   ),
                                   child: bodyText1(
                                       isNew? state : AppLocalizations.of(context)!.translate('Sold'),
-                                      color: AppColors.white, padding: MediaQuery.of(context).size.width/80, scale: scale),
+                                      color: MyColors.white, padding: MediaQuery.of(context).size.width/80, scale: scale),
                                   //child: Icon(Icons.open_with_outlined, color: MyColors.white),
                                 ),
                               ),
@@ -2254,7 +2256,7 @@ class MyWidget{
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(Icons.remove_red_eye_rounded, color: AppColors.bodyText1, size: MediaQuery.of(context).size.height/55, ),
+                              Icon(Icons.remove_red_eye_rounded, color: MyColors.bodyText1, size: MediaQuery.of(context).size.height/55, ),
                               bodyText1(view, scale: scale, padding: 0.5, padV: 2.0),
                             ],
                           ),
@@ -2290,11 +2292,11 @@ class MyWidget{
                                     child: Column(
                                       children: [
                                         SizedBox(height: vSpace,),
-                                        iconText("assets/images/ic_km.svg", kelometrag, AppColors.red, scale: scale, imageScale: 0.5, paddingH: 0.2),
+                                        iconText("assets/images/ic_km.svg", kelometrag, MyColors.red, scale: scale, imageScale: 0.5, paddingH: 0.2),
                                         SizedBox(height: vSpace,),
-                                        iconText("assets/images/gear_automatic.svg", gearBox, AppColors.red, scale: scale, imageScale: 0.5, paddingH: 0.2),
+                                        iconText("assets/images/gear_automatic.svg", gearBox, MyColors.red, scale: scale, imageScale: 0.5, paddingH: 0.2),
                                         SizedBox(height: vSpace,),
-                                        iconText("assets/images/ic_pr_year.svg", productionYear, AppColors.gray, scale: scale, imageScale: 0.5, paddingH: 0.2),
+                                        iconText("assets/images/ic_pr_year.svg", productionYear, MyColors.gray, scale: scale, imageScale: 0.5, paddingH: 0.2),
                                       ],
                                     ),
                                   ),
@@ -2304,11 +2306,11 @@ class MyWidget{
                                     child: Column(
                                       children: [
                                         SizedBox(height: vSpace,),
-                                        iconText("assets/images/ic_price.svg", price, AppColors.gray, scale: scale, imageScale: 0.5, paddingH: 0.2),
+                                        iconText("assets/images/ic_price.svg", price, MyColors.gray, scale: scale, imageScale: 0.5, paddingH: 0.2),
                                         SizedBox(height: vSpace,),
-                                        iconText("assets/images/ic_engine.svg", cylenders, AppColors.gray, scale: scale, imageScale: 0.5, paddingH: 0.2),
+                                        iconText("assets/images/ic_engine.svg", cylenders, MyColors.gray, scale: scale, imageScale: 0.5, paddingH: 0.2),
                                         SizedBox(height: vSpace,),
-                                        iconText(fromUser?"assets/images/ic_red_user.svg":"assets/images/ic-shop.svg", fromUser? AppLocalizations.of(context)!.translate('From User'): AppLocalizations.of(context)!.translate('From User'), AppColors.gray, scale: scale, imageScale: 0.5, paddingH: 0.2),
+                                        iconText(fromUser?"assets/images/ic_red_user.svg":"assets/images/ic-shop.svg", fromUser? AppLocalizations.of(context)!.translate('From User'): AppLocalizations.of(context)!.translate('From User'), MyColors.gray, scale: scale, imageScale: 0.5, paddingH: 0.2),
                                       ],
                                     ),
                                   ),
@@ -2375,18 +2377,18 @@ class MyWidget{
               decoration: BoxDecoration(
                 boxShadow: [
                   BoxShadow(
-                    color: AppColors.black,
+                    color: MyColors.black,
                     offset: Offset(0, 0.8),
                     blurRadius: 0.8,
                   ),
                 ],
-                color: AppColors.red,
+                color: MyColors.red,
                 borderRadius:lng != 2?
                 BorderRadius.only(bottomRight: Radius.circular(curve), topLeft: Radius.circular(curve/2)):
                 BorderRadius.only(bottomLeft: Radius.circular(curve), topRight: Radius.circular(curve/2)),
               ),
               //child: bodyText1('text', color: MyColors.white, padding: 0.01),
-              child: Icon(Icons.delete_forever_outlined, color: AppColors.white),
+              child: Icon(Icons.delete_forever_outlined, color: MyColors.white),
 
             ),
           ),
@@ -2414,12 +2416,12 @@ class MyWidget{
             decoration: BoxDecoration(
                 boxShadow: [
                   BoxShadow(
-                    color: AppColors.black,
+                    color: MyColors.black,
                     offset: Offset(0, 0.8),
                     blurRadius: 0.8,
                   ),
                 ],
-                color: AppColors.white,
+                color: MyColors.white,
                 borderRadius: BorderRadius.all(Radius.circular(curve))
             ),
             child:  Column(
@@ -2437,10 +2439,10 @@ class MyWidget{
                           padding: EdgeInsets.only(top: MediaQuery.of(context).size.width / 4.6, right: MediaQuery.of(context).size.width / 47, left: MediaQuery.of(context).size.width / 47),
                           child: Row(
                             children: [
-                              Icon(Icons.person, color: AppColors.white,),
+                              Icon(Icons.person, color: MyColors.white,),
                               Expanded(child: SizedBox()),
-                              Icon(Icons.remove_red_eye_rounded, color: AppColors.white,),
-                              bodyText1(view, color: AppColors.white, padding: 0.2),
+                              Icon(Icons.remove_red_eye_rounded, color: MyColors.white,),
+                              bodyText1(view, color: MyColors.white, padding: 0.2),
                             ],
                           )
                       ),
@@ -2454,17 +2456,17 @@ class MyWidget{
                         decoration: BoxDecoration(
                           boxShadow: [
                             BoxShadow(
-                              color: AppColors.black,
+                              color: MyColors.black,
                               offset: Offset(0, 0.8),
                               blurRadius: 0.8,
                             ),
                           ],
-                          color: AppColors.red,
+                          color: MyColors.red,
                           borderRadius:lng != 2?
                           BorderRadius.only(bottomRight: Radius.circular(MediaQuery.of(context).size.width/40), topLeft: Radius.circular(MediaQuery.of(context).size.width/20)):
                           BorderRadius.only(bottomLeft: Radius.circular(MediaQuery.of(context).size.width/40), topRight: Radius.circular(MediaQuery.of(context).size.width/20)),
                         ),
-                        child: bodyText1(AppLocalizations.of(context)!.translate('New'), color: AppColors.white, padding: MediaQuery.of(context).size.width/80, scale: scale),
+                        child: bodyText1(AppLocalizations.of(context)!.translate('New'), color: MyColors.white, padding: MediaQuery.of(context).size.width/80, scale: scale),
                         //child: Icon(Icons.open_with_outlined, color: MyColors.white),
                       ),
                     ):SizedBox()
@@ -2488,13 +2490,13 @@ class MyWidget{
                 Column(
                   children: [
                     SizedBox(height: vSpace,),
-                    iconText("assets/images/ic_km.svg", kelometrag, AppColors.red, scale: scale, imageScale: 0.5, paddingH: 0.2),
+                    iconText("assets/images/ic_km.svg", kelometrag, MyColors.red, scale: scale, imageScale: 0.5, paddingH: 0.2),
                     SizedBox(height: vSpace,),
-                    iconText("assets/images/ic_pr_year.svg", productionYear, AppColors.gray, scale: scale, imageScale: 0.5, paddingH: 0.2),
+                    iconText("assets/images/ic_pr_year.svg", productionYear, MyColors.gray, scale: scale, imageScale: 0.5, paddingH: 0.2),
                     SizedBox(height: vSpace,),
-                    iconText("assets/images/ic_price.svg", price, AppColors.gray, scale: scale, imageScale: 0.5, paddingH: 0.2),
+                    iconText("assets/images/ic_price.svg", price, MyColors.gray, scale: scale, imageScale: 0.5, paddingH: 0.2),
                     SizedBox(height: vSpace,),
-                    iconText("assets/images/gear_automatic.svg", gearBox, AppColors.red, scale: scale, imageScale: 0.5, paddingH: 0.2),
+                    iconText("assets/images/gear_automatic.svg", gearBox, MyColors.red, scale: scale, imageScale: 0.5, paddingH: 0.2),
 
                   ],
                 )
@@ -2511,18 +2513,18 @@ class MyWidget{
             decoration: BoxDecoration(
               boxShadow: [
                 BoxShadow(
-                  color: AppColors.black,
+                  color: MyColors.black,
                   offset: Offset(0, 0.8),
                   blurRadius: 0.8,
                 ),
               ],
-              color: AppColors.red,
+              color: MyColors.red,
               borderRadius:lng != 2?
               BorderRadius.only(bottomRight: Radius.circular(curve), topLeft: Radius.circular(curve/2)):
               BorderRadius.only(bottomLeft: Radius.circular(curve), topRight: Radius.circular(curve/2)),
             ),
             //child: bodyText1('text', color: MyColors.white, padding: 0.01),
-            child: Icon(Icons.open_with_outlined, color: AppColors.white),
+            child: Icon(Icons.open_with_outlined, color: MyColors.white),
           ),
         ),
       ],
@@ -2546,12 +2548,12 @@ class MyWidget{
             decoration: BoxDecoration(
                 boxShadow: [
                   BoxShadow(
-                    color: AppColors.black,
+                    color: MyColors.black,
                     offset: Offset(0, 0.8),
                     blurRadius: 0.8,
                   ),
                 ],
-                color: AppColors.white,
+                color: MyColors.white,
                 borderRadius: BorderRadius.all(Radius.circular(curve))
             ),
             child:  Column(
@@ -2564,9 +2566,9 @@ class MyWidget{
                   padding: EdgeInsets.all(0.0),
                   margin: EdgeInsets.only(bottom: curve/2, left: hSpace, right: hSpace),
                   decoration: BoxDecoration(
-                      color: AppColors.white,
+                      color: MyColors.white,
                       borderRadius: BorderRadius.all(Radius.circular(curve/1.5)),
-                    border: Border.all(color: AppColors.qatarColor, width: 2),
+                    border: Border.all(color: MyColors.qatarColor, width: 2),
                   ),
                   child: Row(
                     textDirection: TextDirection.ltr,
@@ -2587,10 +2589,10 @@ class MyWidget{
                 Expanded(child: headText(keyUser, scale: scale)),
                 Row(
                   children: [
-                    iconText("assets/images/ic_price.svg", keyPrice, AppColors.gray, scale: scale, imageScale: 0.5, paddingH: 0.2),
+                    iconText("assets/images/ic_price.svg", keyPrice, MyColors.gray, scale: scale, imageScale: 0.5, paddingH: 0.2),
                     SizedBox(width: hSpace/2,),
-                    Icon(Icons.remove_red_eye_rounded, color: AppColors.gray,size: curve/1.3,),
-                    bodyText1(keyView, color: AppColors.gray, padding: 0.2, scale: scale*0.9),
+                    Icon(Icons.remove_red_eye_rounded, color: MyColors.gray,size: curve/1.3,),
+                    bodyText1(keyView, color: MyColors.gray, padding: 0.2, scale: scale*0.9),
                   ],
                 ),
               ],
@@ -2606,18 +2608,18 @@ class MyWidget{
             decoration: BoxDecoration(
               boxShadow: [
                 BoxShadow(
-                  color: AppColors.black,
+                  color: MyColors.black,
                   offset: Offset(0, 0.8),
                   blurRadius: 0.8,
                 ),
               ],
-              color: AppColors.red,
+              color: MyColors.red,
               borderRadius:lng != 2?
               BorderRadius.only(bottomRight: Radius.circular(curve), topLeft: Radius.circular(curve/2)):
               BorderRadius.only(bottomLeft: Radius.circular(curve), topRight: Radius.circular(curve/2)),
             ),
             //child: bodyText1('text', color: MyColors.white, padding: 0.01),
-            child: Icon(Icons.open_with_outlined, color: AppColors.white),
+            child: Icon(Icons.open_with_outlined, color: MyColors.white),
           ),
         ),
       ],
@@ -2641,12 +2643,12 @@ class MyWidget{
               height: MediaQuery.of(context).size.height/400,
               width: width,
               margin: EdgeInsets.symmetric(horizontal: 0, vertical: MediaQuery.of(context).size.height/100),
-              color: AppColors.card,
+              color: MyColors.card,
             ),
             Container(
               height: MediaQuery.of(context).size.height/400,
               margin: EdgeInsets.symmetric(horizontal: width, vertical: MediaQuery.of(context).size.height/100),
-              color: AppColors.red,
+              color: MyColors.red,
             ),
 
           ],

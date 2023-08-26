@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 import 'package:automall/api.dart';
+import 'package:automall/constant/app_size.dart';
 import 'package:automall/constant/color/MyColors.dart';
 
 import 'package:automall/const.dart';
@@ -149,6 +150,7 @@ class _SelectScreenState extends State<SelectScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   _topBar(curve),
+                  SizedBox(height: 3,),
                   Expanded(
                     flex: 1,
                       child: GridView.builder(

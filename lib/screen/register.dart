@@ -1,9 +1,9 @@
 // ignore_for_file: file_names
 import 'dart:convert';
-
+import 'package:automall/helper/launchUrlHelper.dart';
 import 'package:automall/api.dart';
 import 'package:automall/constant/color/MyColors.dart';
-
+import 'package:automall/constant/string/Strings.dart';
 import 'package:automall/const.dart';
 import 'package:automall/localizations.dart';
 import 'package:automall/screen/selectScreen.dart';
@@ -257,7 +257,7 @@ class _RegisterState extends State<Register> {
                     :
                 _m!.bottomContainer(
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         _m!.iconButton(
                             curve, 'assets/images/read.svg', () => _terms()),
@@ -268,9 +268,15 @@ class _RegisterState extends State<Register> {
                         _m!.raisedButton(curve, MediaQuery
                             .of(context)
                             .size
-                            .width / 1.6, AppLocalizations.of(context)!.translate(
-                            'Sign up'), 'assets/images/user_plus.svg', () =>
-                            _register())
+                            .width / 2.2, AppLocalizations.of(context)!.translate(
+                            'Sign up'), null, () =>
+                            _register()),
+                        SizedBox(width: MediaQuery
+                            .of(context)
+                            .size
+                            .width / 40,),
+                        _m!.iconButton(
+                            curve, 'assets/images/contact.png', () => LaunchUrlHelper.makePhoneCall(Strings.contactNum), ispng: true),
                       ],
                     ), curve * 1.1, bottomConRati: 0.1),
               ),
@@ -542,7 +548,7 @@ class _RegisterState extends State<Register> {
   }
 
   _selectFromTheList(text, curve, controller, Function() press){
-    var width = MediaQuery.of(context).size.width/1.5;
+    var width = MediaQuery.of(context).size.width/1.2;
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width/40*0),
       child: Stack(
