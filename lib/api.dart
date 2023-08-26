@@ -930,7 +930,7 @@ class MyAPI{
         icon: Icon(
           Icons.error_outline,
           size: MediaQuery.of(context!).size.height / 30,
-          color: AppColors.white,
+          color: MyColors.white,
         ),
         duration: const Duration(seconds: 3),
         shouldIconPulse: false,
@@ -942,7 +942,7 @@ class MyAPI{
         messageText: Text(text,
           style: const TextStyle(
             fontFamily: 'Gotham',
-            color: AppColors.white,
+            color: MyColors.white,
           ),
         ),
         //flushbarStyle: FlushbarStyle.FLOATING,

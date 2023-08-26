@@ -111,8 +111,8 @@ class _AddSellCarPanleScreenState extends State<AddSellCarPanleScreen> {
                           padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width/10),
                           children: [
                             //SizedBox(height: hSpace/3,),
-                            _m!.textFiled(curve, Colors.white, AppColors.bodyText1, _numOfCarPanle, AppLocalizations.of(context)!.translate('Car Panel'), Icons.edit_outlined, withoutValidator: true),
-                            _m!.textFiled(curve, Colors.white, AppColors.bodyText1, _priceController, AppLocalizations.of(context)!.translate('Price'), Icons.edit_outlined, withoutValidator: true, number: true),
+                            _m!.textFiled(curve, Colors.white, MyColors.bodyText1, _numOfCarPanle, AppLocalizations.of(context)!.translate('Car Panel'), Icons.edit_outlined, withoutValidator: true),
+                            _m!.textFiled(curve, Colors.white, MyColors.bodyText1, _priceController, AppLocalizations.of(context)!.translate('Price'), Icons.edit_outlined, withoutValidator: true, number: true),
                           ],
                     )
                     ),
@@ -163,10 +163,10 @@ class _AddSellCarPanleScreenState extends State<AddSellCarPanleScreen> {
       //height: barHight,
         padding: EdgeInsets.symmetric(horizontal: curve, vertical: curve/2),
         decoration: BoxDecoration(
-          color: AppColors.topCon,
+          color: MyColors.topCon,
           borderRadius: BorderRadius.only(bottomLeft: Radius.circular(curve), bottomRight: Radius.circular(curve)),
           boxShadow: [BoxShadow(
-            color: AppColors.black,
+            color: MyColors.black,
             offset: Offset(0, 1),
             blurRadius: 4,
           )],  ),
@@ -241,7 +241,7 @@ class _AddSellCarPanleScreenState extends State<AddSellCarPanleScreen> {
     }
     Dialog errorDialog = Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(curve)), //this right here
-      backgroundColor: AppColors.dialogColor,
+      backgroundColor: MyColors.dialogColor,
       child: Container(
         //color: MyColors.gray,
         padding: EdgeInsets.symmetric(horizontal: curve, vertical: curve),
@@ -264,7 +264,7 @@ class _AddSellCarPanleScreenState extends State<AddSellCarPanleScreen> {
             ,
             Row(
               children: [
-                _m!.raisedButton(curve, MediaQuery.of(context).size.width/1.2/3, AppLocalizations.of(context)!.translate('Undo'), null, ()=> _undo(), color: AppColors.dialogColor, borderSide: AppColors.white),
+                _m!.raisedButton(curve, MediaQuery.of(context).size.width/1.2/3, AppLocalizations.of(context)!.translate('Undo'), null, ()=> _undo(), color: MyColors.dialogColor, borderSide: MyColors.white),
                 const Expanded(child: SizedBox()),
                 _m!.raisedButton(curve, MediaQuery.of(context).size.width/1.2/3, AppLocalizations.of(context)!.translate('Okay'), null, ()=> _okay())
               ],

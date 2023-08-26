@@ -205,10 +205,10 @@ class _ResetPasswordState extends State<ResetPassword> {
         child: OTPTextField(
           keyboardType: TextInputType.number,
           otpFieldStyle: OtpFieldStyle(
-            borderColor: AppColors.gray,
-            focusBorderColor: AppColors.mainColor,
-            disabledBorderColor: AppColors.gray,
-            enabledBorderColor: AppColors.gray,
+            borderColor: MyColors.gray,
+            focusBorderColor: MyColors.mainColor,
+            disabledBorderColor: MyColors.gray,
+            enabledBorderColor: MyColors.gray,
           ),
           length: 6,
           width: MediaQuery.of(context).size.width,
@@ -219,7 +219,7 @@ class _ResetPasswordState extends State<ResetPassword> {
           spaceBetween: MediaQuery.of(context).size.width/60,
           style: TextStyle(
               fontSize: MediaQuery.of(context).size.width/15,
-              color: AppColors.mainColor,
+              color: MyColors.mainColor,
               fontFamily: 'Gotham'
           ),
           onChanged: (pin) {
@@ -329,13 +329,13 @@ class _ResetPasswordState extends State<ResetPassword> {
         controller: controller,
         validator: requiredValidator,
         autovalidateMode: AutovalidateMode.onUserInteraction,
-        style: TextStyle(color: AppColors.black, fontSize: MediaQuery.of(context).size.width/25),
+        style: TextStyle(color: MyColors.black, fontSize: MediaQuery.of(context).size.width/25),
         decoration: InputDecoration(
           suffixIcon: IconButton(
             padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width/20),
             icon: Icon(
               Icons.remove_red_eye,
-              color: _secureText? Colors.grey : AppColors.black,
+              color: _secureText? Colors.grey : MyColors.black,
               size: MediaQuery.of(context).size.height/33,
             ),
             onPressed: () {
@@ -347,7 +347,7 @@ class _ResetPasswordState extends State<ResetPassword> {
           labelText: labelText,
           labelStyle: TextStyle(
             fontSize: MediaQuery.of(context).size.width/20,
-            color: AppColors.black,
+            color: MyColors.black,
           ),
           errorStyle: TextStyle(
               fontSize: MediaQuery.of(context).size.width/24
@@ -361,11 +361,11 @@ class _ResetPasswordState extends State<ResetPassword> {
           ),
           errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(MediaQuery.of(context).size.height/12),
-            borderSide: BorderSide(color: AppColors.red, width: 2),
+            borderSide: BorderSide(color: MyColors.red, width: 2),
           ),
           focusedErrorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(MediaQuery.of(context).size.height/12),
-            borderSide: BorderSide(color: AppColors.red, width: 2),
+            borderSide: BorderSide(color: MyColors.red, width: 2),
           ),
         ),
       ),
@@ -388,12 +388,12 @@ class _ResetPasswordState extends State<ResetPassword> {
           return null;
         },
         autovalidateMode: AutovalidateMode.onUserInteraction,
-        style: TextStyle(color: AppColors.black, fontSize: MediaQuery.of(context).size.width/25),
+        style: TextStyle(color: MyColors.black, fontSize: MediaQuery.of(context).size.width/25),
         decoration: InputDecoration(
           labelText: labelText,
           labelStyle: TextStyle(
             fontSize: MediaQuery.of(context).size.width/20,
-            color:AppColors.black,
+            color:MyColors.black,
           ),
           errorStyle: TextStyle(
             fontSize: MediaQuery.of(context).size.width/24,
@@ -407,11 +407,11 @@ class _ResetPasswordState extends State<ResetPassword> {
           ),
           errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(MediaQuery.of(context).size.height/12),
-            borderSide: BorderSide(color: AppColors.red, width: 2),
+            borderSide: BorderSide(color: MyColors.red, width: 2),
           ),
           focusedErrorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(MediaQuery.of(context).size.height/12),
-            borderSide: BorderSide(color: AppColors.red, width: 2),
+            borderSide: BorderSide(color: MyColors.red, width: 2),
           ),
         ),
       ),

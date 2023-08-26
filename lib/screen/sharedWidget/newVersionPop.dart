@@ -17,12 +17,12 @@ class NewVersionPopUp extends StatelessWidget {
       alignment: Alignment.bottomCenter,
       height: AppHeight.h100,
       decoration: BoxDecoration(
-        color: AppColors.white.withOpacity(0.3),
+        color: MyColors.white.withOpacity(0.3),
       ),
       child: Container(
         height: AppPadding.p20*3 + AppHeight.h6 + FontSize.s16*2,
         decoration: BoxDecoration(
-            color: AppColors.bottomCon,
+            color: MyColors.bottomCon,
             borderRadius: BorderRadius.only(
               topRight: Radius.circular(AppWidth.w10),
               topLeft: Radius.circular(AppWidth.w10),
@@ -30,12 +30,12 @@ class NewVersionPopUp extends StatelessWidget {
         ),
         child: Column(
           children: [
-            MyWidget(context).bodyText1(AppLocalizations.of(context)!.translate('New version!'), padV: AppPadding.p20, color: AppColors.white),
+            MyWidget(context).bodyText1(AppLocalizations.of(context)!.translate('New version!'), padV: AppPadding.p20, color: MyColors.white),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                MyWidget.elevatedButton(text: AppLocalizations.of(context)!.translate('Update'), press: ()=> _update(), backcolor: AppColors.mainColor, width: AppWidth.w35, height: AppHeight.h6),
-                MyWidget.elevatedButton(text: AppLocalizations.of(context)!.translate('Later'), press: ()=> later(), backcolor: AppColors.mainColor, width: AppWidth.w35, height: AppHeight.h6),
+                MyWidget.elevatedButton(text: AppLocalizations.of(context)!.translate('Update'), press: ()=> _update(), backcolor: MyColors.mainColor, width: AppWidth.w35, height: AppHeight.h6),
+                MyWidget.elevatedButton(text: AppLocalizations.of(context)!.translate('Later'), press: ()=> later(), backcolor: MyColors.mainColor, width: AppWidth.w35, height: AppHeight.h6),
               ],),
             SizedBox(height: AppPadding.p20,),
           ],

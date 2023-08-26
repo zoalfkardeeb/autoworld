@@ -2,7 +2,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class AppColors {
+class MyColors {
  static const blue = Colors.black;
  static const trans = Color(0x00000000);
  static const backGround = Color(0xffE4E4E4);
