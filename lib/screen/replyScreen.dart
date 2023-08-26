@@ -123,7 +123,7 @@ class _ReplyScreenState extends State<ReplyScreen> {
                                   _m!.headText(AppLocalizations.of(context)!.translate("Reply"), scale: 0.9, paddingH: MediaQuery.of(context).size.width/7, maxLine: 3, paddingV: 0.0, align: TextAlign.start),
                                 ],
                               ),*/
-                              _m!.textFiled(curve, Colors.white, AppColors.bodyText1, _remarksController, AppLocalizations.of(context)!.translate('remarks'), Icons.edit_outlined, height: MediaQuery.of(context).size.width/6*2, newLineAction: false),
+                              _m!.textFiled(curve, Colors.white, MyColors.bodyText1, _remarksController, AppLocalizations.of(context)!.translate('remarks'), Icons.edit_outlined, height: MediaQuery.of(context).size.width/6*2, newLineAction: false),
                               SizedBox(height: hSpace/2,),
                               _m!.bodyText1(AppLocalizations.of(context)!.translate('Upload your offer file as Pdf or Image'), scale: 1.2, padding: MediaQuery.of(context).size.width/7, maxLine: 3),
                               GridView.builder(
@@ -146,7 +146,7 @@ class _ReplyScreenState extends State<ReplyScreen> {
                                           image: DecorationImage(image: imageList.length == index? const AssetImage("assets/images/background.png") : imageList[index] as ImageProvider, fit: BoxFit.cover),
                                           color: Colors.grey,
                                           border: Border.all(
-                                            color: AppColors.card,
+                                            color: MyColors.card,
                                             width: 1,
                                             style: BorderStyle.solid,
                                           ),
@@ -157,7 +157,7 @@ class _ReplyScreenState extends State<ReplyScreen> {
                                             attach.length > 0? _m!.viewFileBase64(attach[0]['base'].toString()) : SizedBox(),
                                             Align(
                                               alignment: Alignment.center,
-                                              child: Icon(Icons.file_open, color: AppColors.bodyText1,size: MediaQuery.of(context).size.width/7,),
+                                              child: Icon(Icons.file_open, color: MyColors.bodyText1,size: MediaQuery.of(context).size.width/7,),
                                             )
                                           ],
                                         )
@@ -216,10 +216,10 @@ class _ReplyScreenState extends State<ReplyScreen> {
       //height: barHight,
         padding: EdgeInsets.symmetric(horizontal: curve, vertical: curve/2),
         decoration: BoxDecoration(
-          color: AppColors.topCon,
+          color: MyColors.topCon,
           borderRadius: BorderRadius.only(bottomLeft: Radius.circular(curve), bottomRight: Radius.circular(curve)),
           boxShadow: [BoxShadow(
-            color: AppColors.black,
+            color: MyColors.black,
             offset: Offset(0, 1),
             blurRadius: 4,
           )], ),
@@ -341,7 +341,7 @@ class _ReplyScreenState extends State<ReplyScreen> {
     }
     Dialog errorDialog = Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(curve)), //this right here
-      backgroundColor: AppColors.dialogColor,
+      backgroundColor: MyColors.dialogColor,
       child: Container(
         //color: MyColors.gray,
         padding: EdgeInsets.symmetric(horizontal: curve, vertical: curve),
@@ -364,7 +364,7 @@ class _ReplyScreenState extends State<ReplyScreen> {
             ,
             Row(
               children: [
-                _m!.raisedButton(curve, MediaQuery.of(context).size.width/1.2/3, AppLocalizations.of(context)!.translate('Undo'), null, ()=> _undo(), color: AppColors.dialogColor, borderSide: AppColors.white),
+                _m!.raisedButton(curve, MediaQuery.of(context).size.width/1.2/3, AppLocalizations.of(context)!.translate('Undo'), null, ()=> _undo(), color: MyColors.dialogColor, borderSide: MyColors.white),
                 const Expanded(child: SizedBox()),
                 _m!.raisedButton(curve, MediaQuery.of(context).size.width/1.2/3, AppLocalizations.of(context)!.translate('Okay'), null, ()=> _okay())
               ],

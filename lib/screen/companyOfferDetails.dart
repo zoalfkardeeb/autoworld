@@ -82,7 +82,7 @@ class _CompanyOfferDetailsState extends State<CompanyOfferDetails> {
                   ),),
                   _m!. raisedButton(curve, MediaQuery.of(context).size.width/1.3, AppLocalizations.of(context)!.translate('Call Via Phone'), 'assets/images/phone.svg', ()=> launchPhone(phone: offers[index]['supplier']['whatsappNumber'].toString(), context: context)),
                   SizedBox(height: hSpace/2,),
-                  _m!. raisedButton(curve, MediaQuery.of(context).size.width/1.3, AppLocalizations.of(context)!.translate('Connect With Whatsapp'), 'assets/images/whatsapp.svg', ()=> launchWhatsApp(phone: offers[index]['supplier']['whatsappNumber'].toString(), message: '', context: context), color: AppColors.green),
+                  _m!. raisedButton(curve, MediaQuery.of(context).size.width/1.3, AppLocalizations.of(context)!.translate('Connect With Whatsapp'), 'assets/images/whatsapp.svg', ()=> launchWhatsApp(phone: offers[index]['supplier']['whatsappNumber'].toString(), message: '', context: context), color: MyColors.green),
 /*                  Row(
                     children: [
                       SizedBox(width: MediaQuery.of(context).size.width/20,),
@@ -137,10 +137,10 @@ class _CompanyOfferDetailsState extends State<CompanyOfferDetails> {
       //height: barHight,
         padding: EdgeInsets.symmetric(horizontal: curve, vertical: curve/2),
         decoration: BoxDecoration(
-          color: AppColors.topCon,
+          color: MyColors.topCon,
           borderRadius: BorderRadius.only(bottomLeft: Radius.circular(curve), bottomRight: Radius.circular(curve)),
           boxShadow: [BoxShadow(
-            color: AppColors.black,
+            color: MyColors.black,
             offset: Offset(0, 1),
             blurRadius: 4,
           )],

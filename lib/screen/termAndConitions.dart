@@ -130,7 +130,7 @@ class _TermsAndConditionsState extends State<TermsAndConditions> {
             Align(
               alignment: Alignment.topCenter,
               child: Container(
-                color: AppColors.white,
+                color: MyColors.white,
                 height: MediaQuery.of(context).size.height*9/10 - ( hSpace*1.5 + MediaQuery.of(context).size.width/3.5/3 + MediaQuery.of(context).size.width/3 ),
                 width: double.infinity,
                 alignment: Alignment.center,
@@ -184,7 +184,7 @@ class _TermsAndConditionsState extends State<TermsAndConditions> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      _m!.raisedButton(curve, MediaQuery.of(context).size.width/2 - MediaQuery.of(context).size.width/40 - curve, AppLocalizations.of(context)!.translate('Rejected'), null, () => _rejected(), color: AppColors.black),
+                      _m!.raisedButton(curve, MediaQuery.of(context).size.width/2 - MediaQuery.of(context).size.width/40 - curve, AppLocalizations.of(context)!.translate('Rejected'), null, () => _rejected(), color: MyColors.black),
                       SizedBox(width: MediaQuery.of(context).size.width/30,),
                       _m!.raisedButton(curve, MediaQuery.of(context).size.width/2 - MediaQuery.of(context).size.width/40  - curve, AppLocalizations.of(context)!.translate('Confirmed'), null, () => _confirmed()),
                     ],
