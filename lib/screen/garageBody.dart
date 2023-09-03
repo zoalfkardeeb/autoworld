@@ -198,11 +198,15 @@ class _GarageBodyState extends State<GarageBody> {
     setState(() {
       pleaseWait = true;
     });
+    var garageFilter = 'garages';
+    if(index == 0)garageFilter = 'GaragBody';
+    else if(index == 1)garageFilter = 'GaragMechanical';
+    else if(index == 2)garageFilter = 'GaragElectrical';
     if(index != 0) {
       await MyAPI(context: context).getBrandsCountry();
     } else {
       //await MyAPI(context: context).getBrands();
-      await MyAPI(context: context).getSupliers(0.1, 'garages', original: false, afterMarket: false, indexGarage: 0);
+      await MyAPI(context: context).getSupliers(0.1, garageFilter, original: false, afterMarket: false, indexGarage: 0);
     }
     setState(() {
       pleaseWait = false;

@@ -369,7 +369,7 @@ class _SuplierScreenState extends State<SuplierScreen> {
     curve = MediaQuery.of(context).size.height / 30 / 2;
     suplierName() {
       return Container(
-        margin: lng==2?EdgeInsets.only(right: raduis * 1.7):EdgeInsets.only(left: raduis * 1.7),
+        margin: lng==2?EdgeInsets.only(right: raduis * 1.5):EdgeInsets.only(left: raduis * 1.5),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -404,14 +404,14 @@ class _SuplierScreenState extends State<SuplierScreen> {
                   Align(
                     alignment: lng==2?Alignment.centerRight:Alignment.centerLeft,
                     child: Padding(
-                      padding: lng==2?EdgeInsets.only(right: curve * 2):EdgeInsets.only(left: curve * 2),
+                      padding: lng==2?EdgeInsets.only(right: curve * 1.5):EdgeInsets.only(left: curve * 1.5),
                       child: _m!.logoContainer(_suplierImagePath, raduis, isSupp: true),
                     ),
                   ),
                   Align(
                     alignment: lng==2?Alignment.bottomRight:Alignment.bottomLeft,
                     child: Padding(
-                      padding: lng==2?EdgeInsets.only(right: curve * 2+raduis/2):EdgeInsets.only(left: 0.0),
+                      padding: lng==2?EdgeInsets.only(right: curve * 1.5+raduis/2):EdgeInsets.only(left: 0.0 ),
                       child: _m!.starRow(raduis, _starNum),
                     ),
                   ),

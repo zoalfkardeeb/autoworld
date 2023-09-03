@@ -62,7 +62,7 @@ class _BoardSelectState extends State<BoardSelect> {
 
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      backgroundColor: Colors.grey[100],
+      backgroundColor: MyColors.topCon,
       key: _scaffoldKey,
       //appBar: _m!.appBar(barHight, _scaffoldKey),
       drawer: _m!.drawer(() => _setState(), ()=> _tap(2), ()=> _tap(1), _scaffoldKey),
@@ -99,7 +99,7 @@ class _BoardSelectState extends State<BoardSelect> {
                       child: GridView.builder(
                         itemCount: _carBroadKeyList.length,
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            childAspectRatio: 1,
+                            childAspectRatio: 1.2,
                             crossAxisCount: 2),
                         itemBuilder: (BuildContext context, int index) {
                           return GestureDetector(

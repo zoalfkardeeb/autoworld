@@ -11,7 +11,7 @@ class MyColors {
  static const buttonText = Color(0xffffffff);
  static const button = Color(0xffffce00);
  static const bodyText1 = Color(0xff343434);
- static const qatarColor = Color(0xff9B0D65);
+ static const qatarColor = Color(0xff802C3C);
  static const red = Color(0xffff0000);
  static const bodyText2 = Color(0xff111111);
  static const fieldText = Color(0xff000000);
