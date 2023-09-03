@@ -300,7 +300,8 @@ class MyWidget{
       child: Text(
       text,
       style: TextStyle(
-          fontSize: MediaQuery.of(context).size.width/20,
+          fontSize: FontSize.s18,
+          fontWeight: FontWeight.bold,
           color: MyColors.red,
           fontFamily: lng==2?'GESS':'Gotham'),
     ),
@@ -2549,11 +2550,11 @@ class MyWidget{
                 boxShadow: [
                   BoxShadow(
                     color: MyColors.black,
-                    offset: Offset(0, 0.8),
-                    blurRadius: 0.8,
+                    offset: Offset(1, 2),
+                    blurRadius: 2,
                   ),
                 ],
-                color: MyColors.white,
+                color: MyColors.topCon,
                 borderRadius: BorderRadius.all(Radius.circular(curve))
             ),
             child:  Column(
@@ -2562,18 +2563,26 @@ class MyWidget{
                 SizedBox(height: vSpace*1.5,),
                 Container(
                   width: double.infinity,
-                  height: MediaQuery.of(context).size.width/6,
+                  height: MediaQuery.of(context).size.width/5.5,
                   padding: EdgeInsets.all(0.0),
                   margin: EdgeInsets.only(bottom: curve/2, left: hSpace, right: hSpace),
                   decoration: BoxDecoration(
-                      color: MyColors.white,
+                      color: MyColors.topCon,
                       borderRadius: BorderRadius.all(Radius.circular(curve/1.5)),
                     border: Border.all(color: MyColors.qatarColor, width: 2),
                   ),
                   child: Row(
                     textDirection: TextDirection.ltr,
                     children: [
-                      Image.asset('assets/images/board_key.png', width: hSpace*3.5, height: MediaQuery.of(context).size.width/6, fit: BoxFit.cover,),
+                      Container(
+                        child: Image.asset('assets/images/board_key.png', width: hSpace*3.5, height: MediaQuery.of(context).size.width/6, fit: BoxFit.contain,),
+                        decoration: BoxDecoration(
+                          color: MyColors.topCon,
+                          borderRadius: BorderRadius.all(Radius.circular(curve/1.5)),
+                         // border: Border.all(color: MyColors.qatarColor, width: 2),
+                        ),
+                      ),
+                      Spacer(),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -2581,12 +2590,13 @@ class MyWidget{
                           headText(AppLocalizations.of(context)!.translate('Car Panel'), paddingH: hSpace/2, scale: scale*0.85, paddingV: vSpace/3, align: TextAlign.center),
                           headText(keyNum, scale: scale*0.85, align: TextAlign.center, paddingH: hSpace/2),
                         ],
-                      )
+                      ),
+                      Spacer(),
                     ],
                   ),
                 ),
                 SizedBox(height: vSpace/3,),
-                Expanded(child: headText(keyUser, scale: scale)),
+               // Expanded(child: headText(keyUser, scale: scale)),
                 Row(
                   children: [
                     iconText("assets/images/ic_price.svg", keyPrice, MyColors.gray, scale: scale, imageScale: 0.5, paddingH: 0.2),
@@ -2613,7 +2623,7 @@ class MyWidget{
                   blurRadius: 0.8,
                 ),
               ],
-              color: MyColors.red,
+              color: MyColors.qatarColor,
               borderRadius:lng != 2?
               BorderRadius.only(bottomRight: Radius.circular(curve), topLeft: Radius.circular(curve/2)):
               BorderRadius.only(bottomLeft: Radius.circular(curve), topRight: Radius.circular(curve/2)),

@@ -349,7 +349,7 @@ class _SelectScreenState extends State<SelectScreen> {
         pleaseWait = true;
       });
       //await MyAPI(context: context).getSupliers(0.1, getGategoryName(index), original: false, afterMarket: false, indexGarage: 0);
-      await MyAPI(context: context).getSupliers(0.1, 'garages', original: false, afterMarket: false, indexGarage: 3);
+      await MyAPI(context: context).getSupliers(0.1, 'GaragCustomization', original: false, afterMarket: false, indexGarage: 3);
       setState(() {
         pleaseWait = false;
       });
