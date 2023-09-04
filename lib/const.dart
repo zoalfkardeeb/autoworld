@@ -139,7 +139,9 @@ void launchWhatsApp({required var phone, required String message, context}) asyn
     }
   }
 
-  if (!await launchUrl(Uri.parse(url()))) {
+  if (await canLaunch(url())) {
+    await launch(url());
+  } else {
     throw 'Could not launch ${url()}';
   }
 }
