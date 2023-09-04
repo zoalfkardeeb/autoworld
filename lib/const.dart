@@ -135,13 +135,11 @@ void launchWhatsApp({required var phone, required String message, context}) asyn
       //return 'https://flutter.dev'; // new line
     } else {
       // add the [https]
-      return "https://api.whatsapp.com/send?phone=$phone1=${Uri.parse(message)}"; // new line
+      return "https://api.whatsapp.com/send?phone=$phone1";//=${Uri.parse(message)}"; // new line
     }
   }
 
-  if (await canLaunch(url())) {
-    await launch(url());
-  } else {
+  if (!await launchUrl(Uri.parse(url()))) {
     throw 'Could not launch ${url()}';
   }
 }
