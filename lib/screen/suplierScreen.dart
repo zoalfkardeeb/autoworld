@@ -359,10 +359,10 @@ class _SuplierScreenState extends State<SuplierScreen> {
       //_suplierDetails = _foundSupliers[index]['sub'];
       //_suplierImagePath = _foundSupliersindex]['image'];
     } catch (e) {
-      _starNum = 6;
+      _starNum = 0;
       _suplierDetails = 'New to the list';
     }
-    _starNum ??= 6;
+    _starNum ??= 0;
     _suplierDetails ??= _m!.getGategoryName(gategoryId) +
         ', ' +
         bbbb;

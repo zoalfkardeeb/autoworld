@@ -2006,7 +2006,6 @@ class MyWidget{
                             alignment: Alignment.center,
                             child: networkImage(mainImage, MediaQuery.of(context).size.height / 7.8),
                           ),
-
                           Align(
                             alignment: lng == 2? Alignment.topLeft:Alignment.topRight,
                             child: Container(
@@ -2100,40 +2099,7 @@ class MyWidget{
                           height: MediaQuery.of(context).size.width / 15 * 3 +hSpace*2,
                           width: MediaQuery.of(context).size.width / 5 * 2.8,
                         ),
-                        /*   Container(
-                    child: ListView(
-                      scrollDirection: Axis.horizontal,
-                      children: [
-                        iconText("assets/images/ic_km.svg", kelometrag, MyColors.red, scale: scale, imageScale: 0.5, paddingH: 0.2),
-                        SizedBox(width: MediaQuery.of(context).size.width/40,),
-                        iconText("assets/images/ic_price.svg", price, MyColors.gray, scale: scale, imageScale: 0.5, paddingH: 0.2),
-                      ],
-                    ),
-                    height: MediaQuery.of(context).size.width / 15,
-                    width: MediaQuery.of(context).size.width / 5 * 2.7,
-                  ),
-                  Container(
-                    child: ListView(
-                      scrollDirection: Axis.horizontal,
-                      children: [
-                        iconText("assets/images/gear_automatic.svg", gearBox, MyColors.red, scale: scale, imageScale: 0.5, paddingH: 0.2),
-                        iconText("assets/images/ic_price.svg", cylenders, MyColors.gray, scale: scale, imageScale: 0.5, paddingH: 0.2),
-                      ],
-                    ),
-                    height: MediaQuery.of(context).size.width/15,
-                    width: MediaQuery.of(context).size.width/5*2.7,
-                  ),
-                  Container(
-                    child: ListView(
-                      scrollDirection: Axis.horizontal,
-                      children: [
-                        iconText("assets/images/ic_pr_year.svg", productionYear, MyColors.gray, scale: scale, imageScale: 0.5, paddingH: 0.2),
-                      ],
-                    ),
-                    height: MediaQuery.of(context).size.width/15,
-                    width: MediaQuery.of(context).size.width/5*2,
-                  ),
-*/
+
                       ],
                     ),
                   ),
@@ -2142,7 +2108,7 @@ class MyWidget{
             ),
           ),
         ),
-        Align(
+       /* Align(
           alignment: lng == 2? Alignment.bottomLeft:Alignment.bottomRight,
           child: Container(
             padding: EdgeInsets.all(curve/4),
@@ -2164,7 +2130,7 @@ class MyWidget{
             child: Icon(Icons.open_with_outlined, color: MyColors.white),
 
           ),
-        ),
+        ),*/
       ],
     ) ;
   }
