@@ -220,6 +220,10 @@ class _AddSellCarPanleScreenState extends State<AddSellCarPanleScreen> {
   }
 
   _showDialogForSubmit(){
+    if(_numOfCarPanle.text.length<3||_numOfCarPanle.text.length>6){
+      MyWidget(context).showSDialog( AppLocalizations.of(context)!.translate('Please, input right number [3 -> 6] digits'), SizedBox(), SizedBox());
+      return;
+    }
     var curve = MediaQuery.of(context).size.height / 30;
     _undo(){
       Navigator.of(context).pop();
