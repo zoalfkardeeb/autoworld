@@ -1864,12 +1864,14 @@ class MyAPI{
       var  apiUrl =Uri.parse('$_baseUrl/CarSell/CarSellViewers_Create');
      print('t');
       Map mapDate = {
-          "carSellId": id,
+          "relatedId": id,
           "fbKey": deviceId,
       };
       print('Req: ------------------------');
       print(jsonEncode(mapDate));
-      http.Response response = await http.post(apiUrl,body:jsonEncode(mapDate),headers: {
+      http.Response response = await http.post(apiUrl,
+          body:jsonEncode(mapDate),
+          headers: {
         //"Accept-Language": LocalizationService.getCurrentLocale().languageCode,
         "Accept": "application/json",
         "content-type": "application/json",

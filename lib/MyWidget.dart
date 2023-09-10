@@ -1665,7 +1665,7 @@ class MyWidget{
       switch (type) {
         case _typeImage:{
           var src = Image.memory(base64Decode(base64String),fit: BoxFit.cover,);
-          return Container( width: double.infinity,child: src,);
+          return SizedBox( width: double.infinity,child: src,);
         }
         case _typePdf:{
           return Center(child: PDFViewer(document: doc));
@@ -1757,7 +1757,7 @@ class MyWidget{
       }
     }
     return GestureDetector(
-      child: Container(
+      child: SizedBox(
         width: MediaQuery.of(context).size.width/1.3,
         height: MediaQuery.of(context).size.width/2,
         child: widget(type),
@@ -2006,7 +2006,6 @@ class MyWidget{
                             alignment: Alignment.center,
                             child: networkImage(mainImage, MediaQuery.of(context).size.height / 7.8),
                           ),
-
                           Align(
                             alignment: lng == 2? Alignment.topLeft:Alignment.topRight,
                             child: Container(
@@ -2044,7 +2043,7 @@ class MyWidget{
                     ],
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: hSpace),
+                    padding: EdgeInsets.symmetric(horizontal: hSpace/2),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -2064,7 +2063,9 @@ class MyWidget{
                           ],
                         ),
                         SizedBox(height: hSpace/2,),
-                        Container(
+                        SizedBox(
+                          height: MediaQuery.of(context).size.width / 15 * 3 +hSpace*2,
+                          width: MediaQuery.of(context).size.width / 5 * 2.8,
                           child: Row(
                             children: [
                               Flexible(
@@ -2097,43 +2098,8 @@ class MyWidget{
 
                             ],
                           ),
-                          height: MediaQuery.of(context).size.width / 15 * 3 +hSpace*2,
-                          width: MediaQuery.of(context).size.width / 5 * 2.8,
                         ),
-                        /*   Container(
-                    child: ListView(
-                      scrollDirection: Axis.horizontal,
-                      children: [
-                        iconText("assets/images/ic_km.svg", kelometrag, MyColors.red, scale: scale, imageScale: 0.5, paddingH: 0.2),
-                        SizedBox(width: MediaQuery.of(context).size.width/40,),
-                        iconText("assets/images/ic_price.svg", price, MyColors.gray, scale: scale, imageScale: 0.5, paddingH: 0.2),
-                      ],
-                    ),
-                    height: MediaQuery.of(context).size.width / 15,
-                    width: MediaQuery.of(context).size.width / 5 * 2.7,
-                  ),
-                  Container(
-                    child: ListView(
-                      scrollDirection: Axis.horizontal,
-                      children: [
-                        iconText("assets/images/gear_automatic.svg", gearBox, MyColors.red, scale: scale, imageScale: 0.5, paddingH: 0.2),
-                        iconText("assets/images/ic_price.svg", cylenders, MyColors.gray, scale: scale, imageScale: 0.5, paddingH: 0.2),
-                      ],
-                    ),
-                    height: MediaQuery.of(context).size.width/15,
-                    width: MediaQuery.of(context).size.width/5*2.7,
-                  ),
-                  Container(
-                    child: ListView(
-                      scrollDirection: Axis.horizontal,
-                      children: [
-                        iconText("assets/images/ic_pr_year.svg", productionYear, MyColors.gray, scale: scale, imageScale: 0.5, paddingH: 0.2),
-                      ],
-                    ),
-                    height: MediaQuery.of(context).size.width/15,
-                    width: MediaQuery.of(context).size.width/5*2,
-                  ),
-*/
+
                       ],
                     ),
                   ),
@@ -2142,7 +2108,7 @@ class MyWidget{
             ),
           ),
         ),
-        Align(
+       /* Align(
           alignment: lng == 2? Alignment.bottomLeft:Alignment.bottomRight,
           child: Container(
             padding: EdgeInsets.all(curve/4),
@@ -2164,7 +2130,7 @@ class MyWidget{
             child: Icon(Icons.open_with_outlined, color: MyColors.white),
 
           ),
-        ),
+        ),*/
       ],
     ) ;
   }
@@ -2285,7 +2251,7 @@ class MyWidget{
                               ],
                             ),
                             SizedBox(height: hSpace/2,),
-                            Container(
+                            SizedBox(
                               child: Row(
                                 children: [
                                   Flexible(
@@ -2480,7 +2446,7 @@ class MyWidget{
                     networkImage(brandImage, hImages),
                     Column(
                       children: [
-                        Container(
+                        SizedBox(
                           width: MediaQuery.of(context).size.width/3.5,
                           child: headText(typeName + "  " + model, scale: scale*scale, maxLine: 2, align: TextAlign.start),
                         )
@@ -2563,7 +2529,7 @@ class MyWidget{
                 SizedBox(height: vSpace*1.5,),
                 Container(
                   width: double.infinity,
-                  height: MediaQuery.of(context).size.width/5.5,
+                  height: MediaQuery.of(context).size.width/5.7,
                   padding: EdgeInsets.all(0.0),
                   margin: EdgeInsets.only(bottom: curve/2, left: hSpace, right: hSpace),
                   decoration: BoxDecoration(
@@ -2575,12 +2541,12 @@ class MyWidget{
                     textDirection: TextDirection.ltr,
                     children: [
                       Container(
-                        child: Image.asset('assets/images/board_key.png', width: hSpace*3.5, height: MediaQuery.of(context).size.width/6, fit: BoxFit.contain,),
                         decoration: BoxDecoration(
                           color: MyColors.topCon,
                           borderRadius: BorderRadius.all(Radius.circular(curve/1.5)),
-                         // border: Border.all(color: MyColors.qatarColor, width: 2),
+                         //border: Border.all(color: MyColors.qatarColor, width: 2),
                         ),
+                        child: Image.asset('assets/images/board_key.png', width: hSpace*3.5, height: MediaQuery.of(context).size.width/6, fit: BoxFit.contain,),
                       ),
                       Spacer(),
                       Column(
@@ -2610,7 +2576,7 @@ class MyWidget{
             ),
           ),
         ),
-        Align(
+       /* Align(
           alignment: lng == 2? Alignment.bottomLeft:Alignment.bottomRight,
           child: Container(
             padding: EdgeInsets.all(curve/7),
@@ -2631,7 +2597,7 @@ class MyWidget{
             //child: bodyText1('text', color: MyColors.white, padding: 0.01),
             child: Icon(Icons.open_with_outlined, color: MyColors.white),
           ),
-        ),
+        ),*/
       ],
     )
     ;

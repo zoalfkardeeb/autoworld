@@ -191,17 +191,6 @@ class _CarBoardDetailsState extends State<CarBoardDetails> {
             ),
           ),
           Align(
-            alignment: Alignment.bottomCenter,
-            child: MediaQuery
-                .of(context)
-                .viewInsets
-                .bottom == 0 ?
-            _m!.bottomContainer(
-                _m!.mainChildrenBottomContainer(curve, () => _tap(1), () => _tap(2), () => _tap(3), _tapNum),
-                curve)
-                : const SizedBox(height: 0.1,),
-          ),
-          Align(
             alignment: Alignment.center,
             child: pleaseWait?
             _m!.progress()
@@ -215,7 +204,6 @@ class _CarBoardDetailsState extends State<CarBoardDetails> {
 
   _setState() {
     setState(() {
-
     });
   }
 
@@ -335,30 +323,27 @@ class _CarBoardDetailsState extends State<CarBoardDetails> {
         borderRadius: BorderRadius.all(Radius.circular(curve/2)),
         border: Border.all(color: color, width: 2),
       ),
-      child: Expanded(
-        child: Container(
-          decoration: BoxDecoration(
-            color: MyColors.white,
-            borderRadius: BorderRadius.all(Radius.circular(curve/1.2)),
-          ),
-          child: Row(
-            textDirection: TextDirection.ltr,
-            children: [
-              Image.asset('assets/images/board_key.png', width: (height-curve*2)/3, height: height-curve*2, fit: BoxFit.cover,),
-              Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      SizedBox(height: curve/2,),
-                      _m!.headText(AppLocalizations.of(context)!.translate('Car Panel'), paddingH: width/20, scale: scale*0.85, paddingV: curve/4, align: TextAlign.center),
-                      _m!.headText(keyNum, scale: scale*1, align: TextAlign.center, paddingH: width/20, paddingV: 0.0),
-                    ],
-                  )
-              )
-
-            ],
-          ),
+      child: Container(
+        decoration: BoxDecoration(
+          color: MyColors.white,
+          borderRadius: BorderRadius.all(Radius.circular(curve/1.2)),
+        ),
+        child: Row(
+          textDirection: TextDirection.ltr,
+          children: [
+            Image.asset('assets/images/board_key.png', width: (height-curve*2)/3, height: height-curve*2, fit: BoxFit.cover,),
+            Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    SizedBox(height: curve/2,),
+                    _m!.headText(AppLocalizations.of(context)!.translate('Car Panel'), paddingH: width/20, scale: scale*0.85, paddingV: curve/4, align: TextAlign.center),
+                    _m!.headText(keyNum, scale: scale*1, align: TextAlign.center, paddingH: width/20, paddingV: 0.0),
+                  ],
+                )
+            )
+          ],
         ),
       )
       ,

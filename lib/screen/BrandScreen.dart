@@ -325,7 +325,7 @@ class _BrandScreenState extends State<BrandScreen> {
     setState(() {
       pleaseWait = true;
     });
-    await MyAPI(context: context).getSupliers(brandList[index]['id'], mainPart, original: original, indexGarage: indexGarage, perBrand: true);
+    await MyAPI(context: context).getSupliers(brandList[index]['id'], mainPart, original: original, afterMarket: !original, indexGarage: indexGarage, perBrand: true);
     setState(() {
       pleaseWait = false;
       _selectedBrand =1000;
