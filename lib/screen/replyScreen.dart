@@ -17,8 +17,9 @@ import '../const.dart';
 import '../localizations.dart';
 class ReplyScreen extends StatefulWidget {
   var foundOrder;
+  final String barTitle;
 
-  ReplyScreen(this.foundOrder, {Key? key}) : super(key: key);
+  ReplyScreen(this.foundOrder, {Key? key, required this.barTitle}) : super(key: key);
 
   @override
   _ReplyScreenState createState() => _ReplyScreenState(this.foundOrder);
@@ -244,7 +245,7 @@ class _ReplyScreenState extends State<ReplyScreen> {
                 Expanded(
                   flex: 1,
                   child: _m!.titleText1(
-                      AppLocalizations.of(context)!.translate('name')),
+                      widget.barTitle),
                 ),
                 Expanded(
                   flex: 1,
@@ -334,7 +335,7 @@ class _ReplyScreenState extends State<ReplyScreen> {
       });
       if(add){
         Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => SupplierOrdesr(),),
+          MaterialPageRoute(builder: (context) => SupplierOrdesr(barTitle: AppLocalizations.of(context)!.translate('name'),),),
               (Route<dynamic> route) => false,
         );
       }

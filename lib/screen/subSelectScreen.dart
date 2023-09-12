@@ -12,7 +12,8 @@ class SubSelectScreen extends StatefulWidget {
   final _country;
   final _state;
   final _selectIndex;
-  const SubSelectScreen(this._state, this._country, this._selectIndex, {Key? key}) : super(key: key);
+  final String barTitle;
+  const SubSelectScreen(this._state, this._country, this._selectIndex, {Key? key, required this.barTitle}) : super(key: key);
 
   @override
   _SubSelectScreenState createState() => _SubSelectScreenState(_country, _state, _selectIndex);
@@ -173,7 +174,7 @@ class _SubSelectScreenState extends State<SubSelectScreen> {
                 Expanded(
                   flex: 1,
                   child: _m!.titleText1(
-                      AppLocalizations.of(context)!.translate('name')),
+                      widget.barTitle),
                 ),
                 Expanded(
                   flex: 1,

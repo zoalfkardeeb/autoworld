@@ -306,7 +306,7 @@ class _SelectScreenState extends State<SelectScreen> {
       Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) =>  BrandScreen(_state, _country, index, garageCountry: '', indexGarage: 0,),
+            builder: (context) =>  BrandScreen(_state, _country, index, garageCountry: '', indexGarage: 0, barTitle: imageList[index]['text'],),
           )
       );
 
@@ -357,7 +357,7 @@ class _SelectScreenState extends State<SelectScreen> {
           context,
           MaterialPageRoute(
             //builder: (context) =>  BrandScreen(_state, _country, 1, garageCountry: '', indexGarage: 0,),
-            builder: (context) =>  SuplierScreen(0.1, 1, false, indexGarage: 3,),
+            builder: (context) =>  SuplierScreen(0.1, 1, false, indexGarage: 3, barTitle: imageList[index]['text'],),
           )
       );
       /*setState(() {
@@ -385,7 +385,7 @@ class _SelectScreenState extends State<SelectScreen> {
       Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) =>  CarRentOffers(),
+            builder: (context) =>  CarRentOffers( barTitle: imageList[index]['text'],),
           )
       );
     }
@@ -400,7 +400,7 @@ class _SelectScreenState extends State<SelectScreen> {
       Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) =>  CarRentOffers(),
+            builder: (context) =>  CarRentOffers(barTitle: imageList[index]['text'],),
           )
       );
     }
@@ -416,7 +416,7 @@ class _SelectScreenState extends State<SelectScreen> {
           context,
           MaterialPageRoute(
             //builder: (context) =>  BrandScreen(_state, _country, 1, garageCountry: '', indexGarage: 0,),
-            builder: (context) =>  SuplierScreen(0.1, imageList[index]['id'], false, indexGarage: 0, withoutQutation: true,),
+            builder: (context) =>  SuplierScreen(0.1, imageList[index]['id'], false, indexGarage: 0, withoutQutation: true, barTitle: imageList[index]['text'],),
           )
       );
     }
@@ -425,7 +425,7 @@ class _SelectScreenState extends State<SelectScreen> {
       Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) =>  FeaturedBoards(),
+            builder: (context) =>  FeaturedBoards(barTitle: imageList[index]['text'],),
           ));
       return;
     }
@@ -441,7 +441,7 @@ class _SelectScreenState extends State<SelectScreen> {
           context,
           MaterialPageRoute(
             //builder: (context) =>  BrandScreen(_state, _country, 1, garageCountry: '', indexGarage: 0,),
-            builder: (context) =>  SuplierScreen(0.1, imageList[index]['id'], false, indexGarage: 0,),
+            builder: (context) =>  SuplierScreen(0.1, imageList[index]['id'], false, indexGarage: 0, barTitle: imageList[index]['text'],),
           )
       );
     }

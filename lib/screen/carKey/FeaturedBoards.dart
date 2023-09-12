@@ -15,6 +15,8 @@ import 'BoardSelect.dart';
 // ignore: camel_case_types
 
 class FeaturedBoards extends StatefulWidget {
+  final String barTitle;
+  FeaturedBoards({required this.barTitle});
   @override
   _FeaturedBoardsState createState() => _FeaturedBoardsState();
 }
@@ -277,7 +279,7 @@ class _FeaturedBoardsState extends State<FeaturedBoards> {
                 Expanded(
                   flex: 1,
                   child: _m!.titleText1(
-                      AppLocalizations.of(context)!.translate('name')),
+                      widget.barTitle),
                 ),
                 Expanded(
                   flex: 1,
@@ -314,7 +316,7 @@ class _FeaturedBoardsState extends State<FeaturedBoards> {
           context,
           MaterialPageRoute(
             //builder: (context) =>  BrandScreen(_state, _country, 1, garageCountry: '', indexGarage: 0,),
-            builder: (context) =>  SuplierScreen(0.1, 1, false, indexGarage: 0,),
+            builder: (context) =>  SuplierScreen(0.1, 1, false, indexGarage: 0, barTitle: widget.barTitle,),
           )
       );
     }
@@ -349,7 +351,7 @@ class _FeaturedBoardsState extends State<FeaturedBoards> {
     Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => AddSellCarPanleScreen(),
+          builder: (context) => AddSellCarPanleScreen(barTitle: widget.barTitle,),
         )
     );
   }

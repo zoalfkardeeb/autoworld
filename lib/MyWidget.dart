@@ -501,7 +501,7 @@ class MyWidget{
                   _iconText(()=>_info(), Icons.person_outline, AppLocalizations.of(context)!.translate('Personal info')),
                   driver(),
                   userInfo['type'] == 0 ? SizedBox()
-                  :_iconText(()=> Navigator.of(context).push(MaterialPageRoute(builder:(context)=> SupplierOrdesr())), Icons.local_offer_outlined, AppLocalizations.of(context)!.translate('SupplierOrders')),
+                  :_iconText(()=> Navigator.of(context).push(MaterialPageRoute(builder:(context)=> SupplierOrdesr(barTitle: AppLocalizations.of(context)!.translate('name'),))), Icons.local_offer_outlined, AppLocalizations.of(context)!.translate('SupplierOrders')),
                   _iconText(()=> guestType ? guestDialog() : Navigator.of(context).push(MaterialPageRoute(builder:(context)=> NotificationScreen())), Icons.bookmark_outline, AppLocalizations.of(context)!.translate('My Orders')),
                   driver(),
                   _iconText(()=>changePassword(()=> _resetPass(() => _setState(), _scaffoldKey)), Icons.password_outlined, AppLocalizations.of(context)!.translate('Change Password?')),

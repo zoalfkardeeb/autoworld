@@ -16,9 +16,10 @@ import '../localizations.dart';
 class SuplierScreen extends StatefulWidget {
   var brandId, gategoryId, originalOrNot, indexGarage;
   var withoutQutation;
+  final String barTitle;
 
   SuplierScreen(this.brandId, this.gategoryId, this.originalOrNot,
-      {Key? key, this.indexGarage, this.withoutQutation})
+      {Key? key, this.indexGarage, this.withoutQutation, required this.barTitle})
       : super(key: key);
 
   @override
@@ -292,7 +293,7 @@ class _SuplierScreenState extends State<SuplierScreen> {
                 Expanded(
                   flex: 1,
                   child: _m!.titleText1(
-                      AppLocalizations.of(context)!.translate('name')),
+                      widget.barTitle),
                 ),
                 Expanded(
                   flex: 1,
@@ -466,7 +467,7 @@ class _SuplierScreenState extends State<SuplierScreen> {
       Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => SuplierInfo(index),
+            builder: (context) => SuplierInfo(index, barTitle: widget.barTitle),
           ));
     }
   }
@@ -525,7 +526,7 @@ class _SuplierScreenState extends State<SuplierScreen> {
             gategoryId,
             originalOrNot,
             checkedSupplier,
-            indexGarage: indexGarage,
+            indexGarage: indexGarage, barTitle: widget.barTitle,
           ),
         ));
   }

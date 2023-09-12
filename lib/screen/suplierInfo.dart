@@ -9,7 +9,8 @@ import '../const.dart';
 import '../localizations.dart';
 class SuplierInfo extends StatefulWidget {
   var index;
-  SuplierInfo(this.index, {Key? key}) : super(key: key);
+  final String barTitle;
+  SuplierInfo(this.index, {Key? key, required this.barTitle}) : super(key: key);
 
   @override
   _SuplierInfoState createState() => _SuplierInfoState(index);
@@ -212,7 +213,7 @@ class _SuplierInfoState extends State<SuplierInfo> {
                 Expanded(
                   flex: 1,
                   child: _m!.titleText1(
-                      AppLocalizations.of(context)!.translate('name')),
+                      widget.barTitle),
                 ),
                 Expanded(
                   flex: 1,

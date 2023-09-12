@@ -19,8 +19,9 @@ class OfferScreen extends StatefulWidget {
   var foundOffer;
   var orderId , orderSerial;
   bool finished;
+  final String barTitle;
 
-  OfferScreen( {Key? key,this.foundOffer, this.orderId, this.orderSerial, required this.finished}) : super(key: key);
+  OfferScreen( {Key? key,this.foundOffer, this.orderId, this.orderSerial, required this.finished, required this.barTitle}) : super(key: key);
 
   @override
   _OfferScreenState createState() => _OfferScreenState(foundOffer, orderId, finished, orderSerial);
@@ -290,7 +291,7 @@ class _OfferScreenState extends State<OfferScreen> {
                 Expanded(
                   flex: 1,
                   child: _m!.titleText1(
-                      AppLocalizations.of(context)!.translate('name')),
+                      widget.barTitle),
                 ),
                 Expanded(
                   flex: 1,

@@ -209,7 +209,7 @@ class _GarageCountryState extends State<GarageCountry> {
           context,
           MaterialPageRoute(
             //builder: (context) =>  BrandScreen(_state, _country, 1, garageCountry: '', indexGarage: indexGarage,),
-            builder: (context) =>  SuplierScreen(0.1, 1, false, indexGarage: indexGarage,),
+            builder: (context) =>  SuplierScreen(0.1, 1, false, indexGarage: indexGarage, barTitle: imageList[index]['text'],),
           )
       );
   }

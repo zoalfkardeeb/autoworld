@@ -9,7 +9,7 @@ import 'package:automall/localizations.dart';
 import 'package:automall/screen/selectScreen.dart';
 import 'package:automall/screen/singnIn.dart';
 import 'package:automall/screen/termAndConitions.dart';
-import 'package:automall/screen/verification.dart';
+import 'package:automall/screen/verification/verification.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';

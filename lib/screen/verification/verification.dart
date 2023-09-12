@@ -1,7 +1,10 @@
 import 'package:automall/api.dart';
+import 'package:automall/constant/app_size.dart';
 import 'package:automall/constant/color/MyColors.dart';
+import 'package:automall/constant/font_size.dart';
 import 'package:automall/screen/singnIn.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
 import 'package:double_back_to_close_app/double_back_to_close_app.dart';
@@ -11,9 +14,10 @@ import 'package:form_field_validator/form_field_validator.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/otp_field_style.dart';
 import 'package:otp_text_field/style.dart';
+import 'package:pin_code_fields/pin_code_fields.dart';
 
-import '../MyWidget.dart';
-import '../localizations.dart';
+import '../../MyWidget.dart';
+import '../../localizations.dart';
 
 
 bool chVer = false;
@@ -220,6 +224,31 @@ class _VerificationState extends State<Verification> {
 
   Widget buildCodeBox({required bool first, last}) {
     return Center(
+      child: PinCodeTextField(
+        appContext: context,
+        textStyle: TextStyle(
+            fontSize: FontSize.s18,
+            color: MyColors.mainColor,
+            fontFamily: 'Gotham'
+        ),
+        pastedTextStyle: TextStyle(fontSize: FontSize.s16, color: Colors.green.shade600, fontWeight: FontWeight.bold, fontFamily: 'BCArabicB'),
+        length: 6,
+        blinkWhenObscuring: true,
+        animationType: AnimationType.fade,
+        pinTheme: PinTheme(shape: PinCodeFieldShape.box, borderRadius: BorderRadius.circular(AppWidth.w1), fieldHeight: AppWidth.w12, fieldWidth: AppWidth.w12, inactiveColor: MyColors.mainColor, selectedColor: MyColors.mainColor, selectedFillColor: MyColors.mainColor, inactiveFillColor: Colors.transparent, activeFillColor: MyColors.white, borderWidth: 12),
+        cursorColor: MyColors.black,
+        animationDuration: const Duration(milliseconds: 2),
+        enableActiveFill: true,
+        keyboardType: TextInputType.number,
+        inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+        onChanged: (pin) {
+          codeLength = pin.length;
+          code = pin;
+          },
+        onCompleted: (pin) {},
+      ),
+    );
+    /*return Center(
         child: OTPTextField(
           keyboardType: TextInputType.number,
           otpFieldStyle: OtpFieldStyle(
@@ -277,7 +306,7 @@ class _VerificationState extends State<Verification> {
           ),
         ),*/
 
-    );
+    );*/
   }
 
   Future ver() async {

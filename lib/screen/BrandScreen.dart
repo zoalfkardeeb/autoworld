@@ -15,8 +15,9 @@ class BrandScreen extends StatefulWidget {
   var _state = 'state';
   var index = 1;
   var indexGarage =1;
+  String barTitle= 'Auto World';
 
-  BrandScreen(this._state, this._country, this.index, {Key? key, required this.garageCountry, required this.indexGarage}) : super(key: key);
+  BrandScreen(this._state, this._country, this.index, {Key? key, required this.garageCountry, required this.indexGarage, required this.barTitle}) : super(key: key);
 
   @override
   _BrandScreenState createState() => _BrandScreenState(_state, _country, index, garageCountry, indexGarage);
@@ -134,7 +135,7 @@ class _BrandScreenState extends State<BrandScreen> {
                       ),
                       padding: EdgeInsets.symmetric(horizontal: curve),
                       child: GridView.builder(
-
+                        padding: EdgeInsets.symmetric(vertical: 0.0),
                         itemCount: brandList.length,
                         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                             childAspectRatio: 0.8,
@@ -287,8 +288,7 @@ class _BrandScreenState extends State<BrandScreen> {
                 ),
                 Expanded(
                   flex: 1,
-                  child: _m!.titleText1(
-                      AppLocalizations.of(context)!.translate('name')),
+                  child: _m!.titleText1(widget.barTitle),
                 ),
                 Expanded(
                   flex: 1,
@@ -333,7 +333,7 @@ class _BrandScreenState extends State<BrandScreen> {
     Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => SuplierScreen(brandList[index]['id'], this.index, original, indexGarage: indexGarage,),
+          builder: (context) => SuplierScreen(brandList[index]['id'], this.index, original, indexGarage: indexGarage, barTitle: widget.barTitle,),
         ));
   }
 

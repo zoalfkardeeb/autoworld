@@ -433,40 +433,6 @@ class _ExhibtionCarsState extends State<ExhibtionCars> {
 
   }
 
-  _selectCard(index) async{
-    setState(() {
-      pleaseWait = true;
-    });
-    if(index != 0) {
-      await MyAPI(context: context).getBrandsCountry();
-    } else {
-      //await MyAPI(context: context).getBrands();
-      await MyAPI(context: context).getSupliers(0.1, 'garages', original: false, afterMarket: false, indexGarage: 0);
-    }
-    setState(() {
-      pleaseWait = false;
-    });
-    if(index == 0) {
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-            //builder: (context) =>  BrandScreen(_state, _country, 1, garageCountry: '', indexGarage: 0,),
-            builder: (context) =>  SuplierScreen(0.1, 1, false, indexGarage: 0,),
-          )
-      );
-    }
-    else{
-      {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) =>  GarageCountry(index),
-            )
-        );
-      }
-    }
-  }
-
   _tap(num) async{
     if(num == _tapNum) return;
     setState(() {

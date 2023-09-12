@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:automall/constant/color/MyColors.dart';
+import 'package:automall/screen/verification/verification.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:automall/screen/SplachScreen.dart';
 import 'package:automall/screen/singnIn.dart';

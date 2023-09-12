@@ -312,12 +312,7 @@ class _Sign_inState extends State<Sign_in> {
             )
         );
       } else{
-        Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => SupplierOrdesr(),
-            )
-        );
+
       }
     }
   }
