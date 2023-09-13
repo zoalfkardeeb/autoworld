@@ -268,7 +268,7 @@ class _SelectScreenState extends State<SelectScreen> {
       Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) =>  GarageBody(),
+            builder: (context) =>  GarageBody(barTitle: imageList[index]['text'],),
           ));
       return;
 //      await MyAPI(context: context).getGarageBrands();

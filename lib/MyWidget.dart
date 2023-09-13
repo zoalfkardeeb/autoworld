@@ -239,6 +239,7 @@ class MyWidget{
         child:
         Text(
       text,
+      textAlign: TextAlign.center,
       style: TextStyle(
           fontSize: MediaQuery.of(context).size.width/23 * scale,
           color: MyColors.titleText,
@@ -300,7 +301,7 @@ class MyWidget{
       child: Text(
       text,
       style: TextStyle(
-          fontSize: FontSize.s18,
+          fontSize: FontSize.s16,
           fontWeight: FontWeight.bold,
           color: MyColors.red,
           fontFamily: lng==2?'GESS':'Gotham'),
@@ -1827,7 +1828,13 @@ class MyWidget{
         ),
         //color: MyColors.white,
         border: Border.all(color: MyColors.metal, width: width/50),
-        borderRadius: BorderRadius.all(Radius.circular(width/5)),
+        //borderRadius: BorderRadius.all(Radius.circular(width/5)),
+        shape: BoxShape.circle,
+        boxShadow: isSupp?[BoxShadow(
+        color: MyColors.black,
+        offset: Offset(1, 3),
+        blurRadius: 4,
+      )]:null,
       ),
       height: width,
       width: width,

@@ -1,5 +1,6 @@
 //import 'dart:html';
 
+import 'package:automall/constant/app_size.dart';
 import 'package:automall/screen/requestScreen.dart';
 import 'package:automall/screen/suplierInfo.dart';
 import 'package:flutter/material.dart';
@@ -191,7 +192,7 @@ class _SuplierScreenState extends State<SuplierScreen> {
                             itemCount: _foundSupliers.length,
                             itemBuilder: (BuildContext context, int index) {
                               return GestureDetector(
-                                child: _suplierListContainer(index, curve),
+                                child: _suplierContainerNew(index, curve),
                                 //color: MyColors.white,
                                 onTap: () => _selectCard(index),
                               );
@@ -343,6 +344,112 @@ class _SuplierScreenState extends State<SuplierScreen> {
     );
   }
 
+  _suplierContainerNew(index, curve){
+    var bbbb = '';
+    brandId == 0.1? bbbb = '' : bbbb = brands[brands.indexWhere((element) => element['id'] == brandId)]['name'];
+    var raduis = AppHeight.h8;
+    var _starNum, _suplierName, _suplierDetails, _suplierImagePath;
+    _suplierName = _foundSupliers[index]['fullName'];
+    _suplierImagePath = _foundSupliers[index]['user']['imagePath'];
+    if(_suplierImagePath.toString().endsWith(' ') || _suplierImagePath.toString()== '') {
+      _suplierImagePath = null;
+    }
+    try {
+      _starNum = _foundSupliers[index]['rating'];
+      //_suplierDetails = _foundSupliers[index]['sub'];
+      //_suplierImagePath = _foundSupliersindex]['image'];
+    } catch (e) {
+      _starNum = 0;
+      _suplierDetails = 'New to the list';
+    }
+    _starNum ??= 0;
+    _suplierDetails ??= _m!.getGategoryName(gategoryId) +
+        ', ' +
+        bbbb;
+    curve = MediaQuery.of(context).size.height / 30 / 2;
+    suplierName() {
+      return Container(
+        height: raduis,
+        margin: lng==2?EdgeInsets.only(right: 1.5):EdgeInsets.only(left: 1.5),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _m!.suplierNameText(_suplierName),
+            SizedBox(
+              height: raduis / 3,
+            ),
+            _m!.suplierDesText1(_suplierDetails, scale: 0.8),
+          ],
+        ),
+      );
+    }
+    return GestureDetector(
+      onTap: () => _explore(index),
+      child: Container(
+        margin: EdgeInsets.only(left: AppWidth.w4, right: AppWidth.w4, bottom: AppHeight.h4),
+        padding: EdgeInsets.symmetric(horizontal: AppWidth.w4, vertical: AppWidth.w1),
+        decoration: BoxDecoration(
+          color: MyColors.topCon,
+          borderRadius: BorderRadius.all(Radius.circular(AppWidth.w4)),
+          boxShadow: const [BoxShadow(
+            color: MyColors.black,
+            offset: Offset(1, 2),
+            blurRadius: 4,
+          )],
+        ),
+        child: Row(
+          children: [
+            Stack(
+              children: [
+                _m!.logoContainer(_suplierImagePath, raduis, isSupp: true),
+                Container(
+                  margin: EdgeInsets.only(top: raduis, left: lng==2? 0.0: raduis, right: lng==2? raduis:0.0),
+                  decoration: BoxDecoration(
+
+                  ),
+                )
+
+              ],
+            ),
+            SizedBox(width: AppWidth.w2,),
+            Expanded(child: suplierName()),
+            _withoutQutation == null?
+            GestureDetector(
+              onTap: () => _check(suplierList.indexOf(_foundSupliers[index])),
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: curve * 0, vertical: raduis / 6 * 0),
+                child: SvgPicture.asset(_suplierListCheck[suplierList.indexOf(_foundSupliers[index])]
+                    ? 'assets/images/check.svg'
+                    : 'assets/images/check-not.svg'),
+              ),
+            ):SizedBox(),
+            _withoutQutation != null?
+            Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: curve * 0, vertical: raduis / 6 * 0),
+              child: GestureDetector(
+                onTap: () => launchWhatsApp(phone: _foundSupliers[index]['whatsappNumber'].toString(), message: ' ', context: context),
+                child: SvgPicture.asset('assets/images/whatsapp.svg'),
+              ),
+            ):
+            SizedBox(),
+            _withoutQutation != null?
+            Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: curve * 0, vertical: raduis / 6 * 0),
+              child: GestureDetector(
+                onTap: () => launchPhone(phone: _foundSupliers[index]['whatsappNumber'].toString(), context: context),
+                child: SvgPicture.asset('assets/images/phone.svg', color: MyColors.bodyText1),
+              ),
+            ):
+            SizedBox(),
+          ],
+        ),
+      ),
+    );
+  }
   _suplierListContainer(index, curve) {
     var bbbb = '';
     brandId == 0.1? bbbb = ''
