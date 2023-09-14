@@ -34,7 +34,7 @@ class _ExhibtionScreenState extends State<ExhibtionScreen> {
   var _tapNum = 1;
 
   final TextEditingController _searchController = TextEditingController();
-  List _foundExhibtion = offers.where((element) => true).toList();
+  List _foundExhibtion = exhibtions.where((element) => true).toList();
 
   @override
   void initState() {

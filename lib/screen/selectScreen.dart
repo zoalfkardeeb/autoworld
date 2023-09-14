@@ -331,7 +331,7 @@ class _SelectScreenState extends State<SelectScreen> {
       setState(() {
         pleaseWait = true;
       });
-      await MyAPI(context: context).getOffers();
+    //  await MyAPI(context: context).getOffers();
       await MyAPI(context: context).getExhibtion();
       setState(() {
         pleaseWait = false;
