@@ -108,7 +108,7 @@ class _SuplierScreenState extends State<SuplierScreen> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         _topBar(curve),
-                        SizedBox(
+                        /*SizedBox(
                           height: hSpace / 2,
                         ),
                         _m!.bodyText1(
@@ -147,7 +147,7 @@ class _SuplierScreenState extends State<SuplierScreen> {
                                       MediaQuery.of(context).size.width / 10),
                             ],
                           ),
-                        ),
+                        ),*/
                         SizedBox(
                           height: hSpace / 10,
                         ),
@@ -370,15 +370,14 @@ class _SuplierScreenState extends State<SuplierScreen> {
     suplierName() {
       return Container(
         height: raduis,
+        padding: EdgeInsets.symmetric(vertical: raduis/10),
         margin: lng==2?EdgeInsets.only(right: 1.5):EdgeInsets.only(left: 1.5),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _m!.suplierNameText(_suplierName),
-            SizedBox(
-              height: raduis / 3,
-            ),
+
             _m!.suplierDesText1(_suplierDetails, scale: 0.8),
           ],
         ),
@@ -404,10 +403,11 @@ class _SuplierScreenState extends State<SuplierScreen> {
               children: [
                 _m!.logoContainer(_suplierImagePath, raduis, isSupp: true),
                 Container(
-                  margin: EdgeInsets.only(top: raduis, left: lng==2? 0.0: raduis, right: lng==2? raduis:0.0),
+                  margin: EdgeInsets.only(top: raduis*0.6, left: lng==2? 0.0: raduis*0.97, right: lng==2? raduis*0.97:0.0),
                   decoration: BoxDecoration(
 
                   ),
+                  child: MyWidget(context).headText(_starNum.toString(), color: MyColors.white, scale: 0.8),
                 )
 
               ],

@@ -11,6 +11,7 @@ import 'package:automall/helper/launchUrlHelper.dart';
 import 'package:automall/localization_service.dart';
 import 'package:automall/photoView.dart';
 import 'package:automall/screen/SupplierOrder.dart';
+import 'package:automall/screen/carSell/MyCars.dart';
 import 'package:automall/screen/notificationScreen.dart';
 import 'package:automall/screen/resetPassword.dart';
 import 'package:automall/screen/singnIn.dart';
@@ -401,30 +402,41 @@ class MyWidget{
   }
 
   drawer(Function() _setState, Function() _personal, Function() _home, _scaffoldKey) {
-    var height = MediaQuery.of(context).size.height/7;
-    var radius = MediaQuery.of(context).size.height / 80 * 3;
-    _iconText(click, icon, text){
+
+   _iconText(click, icon, text){
       return Padding(
         padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width/20, vertical: MediaQuery.of(context).size.height/100),
         child:
             GestureDetector(
               onTap: ()=> click!(),
               child: Row(
-                //mainAxisAlignment: MainAxisAlignment.center,
-                //textDirection: TextDirection.rtl,
-                //mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Icon(icon, size: MediaQuery.of(context).size.width/10, color: MyColors.mainColor,),
-                  SizedBox(width: MediaQuery.of(context).size.width/80,),
-                  bodyText1(text, scale: 1.1, padding: 0.0)
+                  Icon(icon, size:AppWidth.w8, color: MyColors.black,),
+                  SizedBox(width: AppWidth.w2,),
+                  bodyText1(text, scale: 1.1, padding: 0.0, color: MyColors.black)
                 ],
               ),
             )
         ,
       );
     }
-    _language(){
+   _yourAds() async{
+     Navigator.of(context).pop();
+     pleaseWait = true;
+     _setState();
+     await MyAPI(context: context).getCarSellByUserId();
+     pleaseWait = false;
+     _setState();
+     // ignore: use_build_context_synchronously
+     Navigator.push(
+       context,
+       MaterialPageRoute(
+         builder: (context) =>  MyCarsForSell(),
+       ),
+     );
+   }
+   _language(){
       Widget _no(){
         return IconButton(
             onPressed: ()=> Navigator.of(context).pop(), icon: const Icon(Icons.close_outlined, color: MyColors.mainColor,));
@@ -495,20 +507,20 @@ class MyWidget{
                       ],
                     ),
                   ),
-                  _iconText(()=>_terms(), Icons.menu_book_outlined, AppLocalizations.of(context)!.translate('Terms and conditions')),
-                  _iconText(()=>_language(), Icons.language, AppLocalizations.of(context)!.translate('Language')),
-                  driver(),
                   _iconText(()=>_hom(), Icons.home_outlined, AppLocalizations.of(context)!.translate('HOME')),
                   _iconText(()=>_info(), Icons.person_outline, AppLocalizations.of(context)!.translate('Personal info')),
+                  _iconText(()=>changePassword(()=> _resetPass(() => _setState(), _scaffoldKey)), Icons.password_outlined, AppLocalizations.of(context)!.translate('Change Password?')),
                   driver(),
                   userInfo['type'] == 0 ? SizedBox()
-                  :_iconText(()=> Navigator.of(context).push(MaterialPageRoute(builder:(context)=> SupplierOrdesr(barTitle: AppLocalizations.of(context)!.translate('name'),))), Icons.local_offer_outlined, AppLocalizations.of(context)!.translate('SupplierOrders')),
-                  _iconText(()=> guestType ? guestDialog() : Navigator.of(context).push(MaterialPageRoute(builder:(context)=> NotificationScreen())), Icons.bookmark_outline, AppLocalizations.of(context)!.translate('My Orders')),
+                      :_iconText(()=> Navigator.of(context).push(MaterialPageRoute(builder:(context)=> SupplierOrdesr(barTitle: AppLocalizations.of(context)!.translate('name'),))), Icons.local_offer_outlined, AppLocalizations.of(context)!.translate('SupplierOrders')),
+                  _iconText(()=> guestType ? guestDialog() : Navigator.of(context).push(MaterialPageRoute(builder:(context)=> NotificationScreen())), Icons.list_alt_outlined, AppLocalizations.of(context)!.translate('My Orders')),
+                  _iconText(()=> guestType ? guestDialog() : _yourAds(), Icons.list, AppLocalizations.of(context)!.translate('My Ads')),
                   driver(),
-                  _iconText(()=>changePassword(()=> _resetPass(() => _setState(), _scaffoldKey)), Icons.password_outlined, AppLocalizations.of(context)!.translate('Change Password?')),
+                  _iconText(()=>_language(), Icons.language, AppLocalizations.of(context)!.translate('Language')),
+                  driver(),
+                  _iconText(()=>_terms(), Icons.menu_book_outlined, AppLocalizations.of(context)!.translate('Terms and conditions')),
+                  _iconText(()=>LaunchUrlHelper.makePhoneCall(Strings.contactNum), Icons.contact_support_outlined, AppLocalizations.of(context)!.translate('Support')),
                   _iconText(()=>_logout(), Icons.logout_outlined, AppLocalizations.of(context)!.translate('Log out')),
-                  driver(),
-                  _iconText(()=>LaunchUrlHelper.makePhoneCall(Strings.contactNum), Icons.call_outlined, AppLocalizations.of(context)!.translate('Contact us')),
                   //raisedButton(1.0, AppLocalizations.of(context)!.translate('about'), () => Navigator.pushNamed(context, 'about')),
                   /*Expanded(
                   child: myFarms.isEmpty? Padding(
