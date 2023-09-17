@@ -1,3 +1,4 @@
+import 'package:automall/constant/app_size.dart';
 import 'package:automall/screen/suplierScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -125,17 +126,17 @@ class _BrandScreenState extends State<BrandScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   _topBar(curve),
-                  _m!.bodyText1(AppLocalizations.of(context)!.translate('Select Your Brand'), padding: 0.0, padV: hSpace / 2),
                   Expanded(
                     flex: 1,
                     child: Container(
+                      margin: EdgeInsets.only(top: 10),
                       decoration: BoxDecoration(
                         color: MyColors.topCon,
-                        borderRadius: BorderRadius.only(topLeft: Radius.circular(curve), topRight: Radius.circular(curve))
+                        //borderRadius: BorderRadius.only(topLeft: Radius.circular(curve), topRight: Radius.circular(curve))
                       ),
                       padding: EdgeInsets.symmetric(horizontal: curve),
                       child: GridView.builder(
-                        padding: EdgeInsets.symmetric(vertical: 0.0),
+                        padding: EdgeInsets.symmetric(vertical:1),
                         itemCount: brandList.length,
                         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                             childAspectRatio: 0.8,
@@ -288,7 +289,13 @@ class _BrandScreenState extends State<BrandScreen> {
                 ),
                 Expanded(
                   flex: 1,
-                  child: _m!.titleText1(widget.barTitle),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      _m!.titleText1(widget.barTitle),
+                      _m!.bodyText1(AppLocalizations.of(context)!.translate('Select Your Brand'), padding: 0.0, padV: AppHeight.h1/2, scale: 0.7),
+                    ],
+                  ),
                 ),
                 Expanded(
                   flex: 1,

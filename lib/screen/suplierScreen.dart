@@ -347,7 +347,7 @@ class _SuplierScreenState extends State<SuplierScreen> {
   _suplierContainerNew(index, curve){
     var bbbb = '';
     brandId == 0.1? bbbb = '' : bbbb = brands[brands.indexWhere((element) => element['id'] == brandId)]['name'];
-    var raduis = AppHeight.h8;
+    var raduis = AppHeight.h12;
     var _starNum, _suplierName, _suplierDetails, _suplierImagePath;
     _suplierName = _foundSupliers[index]['fullName'];
     _suplierImagePath = _foundSupliers[index]['user']['imagePath'];
@@ -376,9 +376,19 @@ class _SuplierScreenState extends State<SuplierScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _m!.suplierNameText(_suplierName),
-
-            _m!.suplierDesText1(_suplierDetails, scale: 0.8),
+            _m!.suplierNameText(_suplierName,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Stack(
+                  children: [
+                    Icon(Icons.star_border, color: MyColors.mainColor,size: AppWidth.w8,),
+                    //MyWidget(context).bodyText1(_starNum.toString(),padding: AppWidth.w10/3, padV: AppWidth.w10/6),
+                  ],
+                ),
+              ],
+            ),
+            _m!.suplierDesText1(_suplierDetails, scale: 0.8, padding: 0.0),
           ],
         ),
       );
@@ -386,7 +396,7 @@ class _SuplierScreenState extends State<SuplierScreen> {
     return GestureDetector(
       onTap: () => _explore(index),
       child: Container(
-        margin: EdgeInsets.only(left: AppWidth.w4, right: AppWidth.w4, bottom: AppHeight.h4),
+        margin: EdgeInsets.only(left: AppWidth.w4, right: AppWidth.w4, bottom: AppHeight.h2*1.5),
         padding: EdgeInsets.symmetric(horizontal: AppWidth.w4, vertical: AppWidth.w1),
         decoration: BoxDecoration(
           color: MyColors.topCon,
@@ -399,19 +409,7 @@ class _SuplierScreenState extends State<SuplierScreen> {
         ),
         child: Row(
           children: [
-            Stack(
-              children: [
-                _m!.logoContainer(_suplierImagePath, raduis, isSupp: true),
-                Container(
-                  margin: EdgeInsets.only(top: raduis*0.6, left: lng==2? 0.0: raduis*0.97, right: lng==2? raduis*0.97:0.0),
-                  decoration: BoxDecoration(
-
-                  ),
-                  child: MyWidget(context).headText(_starNum.toString(), color: MyColors.white, scale: 0.8),
-                )
-
-              ],
-            ),
+            _m!.logoContainer(_suplierImagePath, raduis, isSupp: true),
             SizedBox(width: AppWidth.w2,),
             Expanded(child: suplierName()),
             _withoutQutation == null?
