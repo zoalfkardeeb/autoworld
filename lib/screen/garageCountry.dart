@@ -36,7 +36,7 @@ class _GarageCountryState extends State<GarageCountry> {
     // TODO: implement initState
     super.initState();
     for(int i =0; i< brandsCountry.length; i++){
-      imageList.add({'image': brandsCountry[i]['image']??'https://flagsapi.com/AE/shiny/64.png', 'text': brandsCountry[i]['name'], 'id':brandsCountry[i]['id']});
+      imageList.add({'image': brandsCountry[i]['logo']??'https://flagsapi.com/AE/shiny/64.png', 'text': lng==2?brandsCountry[i]['arName']:brandsCountry[i]['name'], 'id':brandsCountry[i]['id']});
     }
     try{
       _state = cityController.text;
