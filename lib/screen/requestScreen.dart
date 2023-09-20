@@ -16,7 +16,8 @@ import '../localizations.dart';
 class RequestScreen extends StatefulWidget {
   var brandId, gategoryId, originalOrNot=true , indexGarage;
   List supplier = [];
-  RequestScreen(this.brandId, this.gategoryId, this.originalOrNot, this.supplier, {Key? key, this.indexGarage}) : super(key: key);
+  final String barTitle;
+  RequestScreen(this.brandId, this.gategoryId, this.originalOrNot, this.supplier, {Key? key, this.indexGarage, required this.barTitle}) : super(key: key);
 
   @override
   _RequestScreenState createState() => _RequestScreenState(brandId, gategoryId, originalOrNot, supplier, indexGarage);
@@ -256,7 +257,7 @@ class _RequestScreenState extends State<RequestScreen> {
                 Expanded(
                   flex: 1,
                   child: _m!.titleText1(
-                      AppLocalizations.of(context)!.translate('name')),
+                      widget.barTitle),
                 ),
                 Expanded(
                   flex: 1,

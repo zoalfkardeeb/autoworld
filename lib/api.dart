@@ -3,7 +3,7 @@
 import 'dart:convert';
 import 'package:another_flushbar/flushbar.dart';
 import 'package:automall/constant/string/Strings.dart';
-import 'package:automall/screen/verification.dart';
+import 'package:automall/screen/verification/verification.dart';
 import 'package:automall/target.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart'as http;

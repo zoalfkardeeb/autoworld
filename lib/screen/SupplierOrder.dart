@@ -15,6 +15,9 @@ import '../localizations.dart';
 import '../helper/boxes.dart';
 
 class SupplierOrdesr extends StatefulWidget {
+  final String barTitle;
+  const SupplierOrdesr({Key? key, required this.barTitle}) : super(key: key);
+
   @override
   _SupplierOrdesrState createState() => _SupplierOrdesrState();
 }
@@ -225,7 +228,7 @@ class _SupplierOrdesrState extends State<SupplierOrdesr> {
                 Expanded(
                   flex: 1,
                   child: _m!.titleText1(
-                      AppLocalizations.of(context)!.translate('name')),
+                      widget.barTitle),
                 ),
                 const Expanded(
                   flex: 1,
@@ -803,13 +806,7 @@ class _SupplierOrdesrState extends State<SupplierOrdesr> {
     );
   }
 
-  _explore(index) {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) =>  SuplierInfo(index),
-        ));
-  }
+
 
   selectAll() {
     for(int i = 0; i<_suplierListCheck.length; i++){
@@ -879,7 +876,7 @@ class _SupplierOrdesrState extends State<SupplierOrdesr> {
   }
 
   _reply(foundOrder) {
-    Navigator.of(context).push(MaterialPageRoute(builder: (context) => ReplyScreen(foundOrder)));
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) => ReplyScreen(foundOrder, barTitle: AppLocalizations.of(context)!.translate('name'),)));
   }
 }
 

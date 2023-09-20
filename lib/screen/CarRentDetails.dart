@@ -16,7 +16,8 @@ import 'dart:io';
 // ignore: camel_case_types
 class CarRentDetails extends StatefulWidget {
   var index;
-  CarRentDetails(this.index, {Key? key}) : super(key: key);
+  final String barTitle;
+  CarRentDetails(this.index, {Key? key, required this.barTitle}) : super(key: key);
   @override
   State<CarRentDetails> createState() => _CarRentDetailsState(index);
 }
@@ -148,7 +149,7 @@ class _CarRentDetailsState extends State<CarRentDetails> {
                 Expanded(
                   flex: 1,
                   child: _m!.titleText1(
-                      AppLocalizations.of(context)!.translate('name')),
+                      widget.barTitle),
                 ),
                 Expanded(
                   flex: 1,

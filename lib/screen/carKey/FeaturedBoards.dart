@@ -15,6 +15,8 @@ import 'BoardSelect.dart';
 // ignore: camel_case_types
 
 class FeaturedBoards extends StatefulWidget {
+  final String barTitle;
+  FeaturedBoards({required this.barTitle});
   @override
   _FeaturedBoardsState createState() => _FeaturedBoardsState();
 }
@@ -277,7 +279,7 @@ class _FeaturedBoardsState extends State<FeaturedBoards> {
                 Expanded(
                   flex: 1,
                   child: _m!.titleText1(
-                      AppLocalizations.of(context)!.translate('name')),
+                      widget.barTitle),
                 ),
                 Expanded(
                   flex: 1,
@@ -294,40 +296,6 @@ class _FeaturedBoardsState extends State<FeaturedBoards> {
           ],
         )
     );
-  }
-
-  _selectCard(index) async{
-    setState(() {
-      pleaseWait = true;
-    });
-    if(index != 0) {
-      await MyAPI(context: context).getBrandsCountry();
-    } else {
-      //await MyAPI(context: context).getBrands();
-      await MyAPI(context: context).getSupliers(0.1, 'garages', original: false, afterMarket: false, indexGarage: 0);
-    }
-    setState(() {
-      pleaseWait = false;
-    });
-    if(index == 0) {
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-            //builder: (context) =>  BrandScreen(_state, _country, 1, garageCountry: '', indexGarage: 0,),
-            builder: (context) =>  SuplierScreen(0.1, 1, false, indexGarage: 0,),
-          )
-      );
-    }
-    else{
-      {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) =>  GarageCountry(index),
-            )
-        );
-      }
-    }
   }
 
   _tap(num) async{
@@ -349,7 +317,7 @@ class _FeaturedBoardsState extends State<FeaturedBoards> {
     Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => AddSellCarPanleScreen(),
+          builder: (context) => AddSellCarPanleScreen(barTitle: widget.barTitle,),
         )
     );
   }

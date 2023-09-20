@@ -10,7 +10,8 @@ import '../MyWidget.dart';
 // ignore: camel_case_types
 
 class SelectRegionScreen extends StatefulWidget {
-  const SelectRegionScreen({Key? key}) : super(key: key);
+  final String barTitle;
+  const SelectRegionScreen({Key? key, required this.barTitle}) : super(key: key);
 
   @override
   _SelectRegionScreenState createState() => _SelectRegionScreenState();
@@ -180,7 +181,7 @@ class _SelectRegionScreenState extends State<SelectRegionScreen> {
           ),
           Expanded(
             flex: 1,
-            child: _m!.titleText1(AppLocalizations.of(context)!.translate('name')),
+            child: _m!.titleText1(widget.barTitle),
           ),
           Expanded(
             flex: 1,

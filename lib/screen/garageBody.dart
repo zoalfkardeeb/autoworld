@@ -13,6 +13,8 @@ import '../MyWidget.dart';
 // ignore: camel_case_types
 
 class GarageBody extends StatefulWidget {
+  final String barTitle;
+  const GarageBody({Key? key, required this.barTitle}) : super(key: key);
   @override
   _GarageBodyState createState() => _GarageBodyState();
 }
@@ -174,8 +176,7 @@ class _GarageBodyState extends State<GarageBody> {
                 ),
                 Expanded(
                   flex: 1,
-                  child: _m!.titleText1(
-                      AppLocalizations.of(context)!.translate('name')),
+                  child: _m!.titleText1(widget.barTitle),
                 ),
                 Expanded(
                   flex: 1,
@@ -216,7 +217,7 @@ class _GarageBodyState extends State<GarageBody> {
           context,
           MaterialPageRoute(
             //builder: (context) =>  BrandScreen(_state, _country, 1, garageCountry: '', indexGarage: 0,),
-            builder: (context) =>  SuplierScreen(0.1, 1, false, indexGarage: 0,),
+            builder: (context) =>  SuplierScreen(0.1, 1, false, indexGarage: 0, barTitle: imageList[index]['text'],),
           )
       );
     }
@@ -225,7 +226,7 @@ class _GarageBodyState extends State<GarageBody> {
         Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) =>  GarageCountry(index),
+              builder: (context) =>  GarageCountry(index, barTitle: imageList[index]['text'],),
             )
         );
       }

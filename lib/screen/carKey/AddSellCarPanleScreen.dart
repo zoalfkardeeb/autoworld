@@ -17,7 +17,8 @@ import '../../localizations.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 class AddSellCarPanleScreen extends StatefulWidget {
-  AddSellCarPanleScreen({Key? key, }) : super(key: key);
+  final String barTitle;
+  AddSellCarPanleScreen({Key? key, required this.barTitle}) : super(key: key);
 
   @override
   _AddSellCarPanleScreenState createState() => _AddSellCarPanleScreenState();
@@ -191,7 +192,7 @@ class _AddSellCarPanleScreenState extends State<AddSellCarPanleScreen> {
                 Expanded(
                   flex: 1,
                   child: _m!.titleText1(
-                      AppLocalizations.of(context)!.translate('name')),
+                      widget.barTitle),
                 ),
                 Expanded(
                   flex: 1,

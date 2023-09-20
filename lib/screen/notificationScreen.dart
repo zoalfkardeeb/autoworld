@@ -597,13 +597,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
     );
   }
 
-  _explore(index) {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) =>  SuplierInfo(index),
-        ));
-  }
 
   selectAll() {
     for(int i = 0; i<_suplierListCheck.length; i++){
@@ -817,7 +810,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
     setState((){
       pleaseWait = false;
     });
-    Navigator.push(context, MaterialPageRoute(builder: (context) => OfferScreen(foundOffer: order, orderId: orderId, finished: finished, orderSerial: serial,)));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => OfferScreen(foundOffer: order, orderId: orderId, finished: finished, orderSerial: serial, barTitle: order['name']??'',)));
   }
 
   _close(orderId) {

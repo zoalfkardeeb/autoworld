@@ -1,5 +1,7 @@
+import 'package:automall/constant/app_size.dart';
 import 'package:automall/screen/suplierScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../MyWidget.dart';
 import '../api.dart';
@@ -10,7 +12,8 @@ import '../localizations.dart';
 
 class GarageCountry extends StatefulWidget {
   var indexGarage =1;
-  GarageCountry(this.indexGarage, {Key? key}) : super(key: key);
+  final String barTitle;
+  GarageCountry(this.indexGarage, {Key? key, required this.barTitle}) : super(key: key);
 
   @override
   _GarageCountryState createState() => _GarageCountryState(indexGarage);
@@ -34,7 +37,7 @@ class _GarageCountryState extends State<GarageCountry> {
     // TODO: implement initState
     super.initState();
     for(int i =0; i< brandsCountry.length; i++){
-      imageList.add({'image': 'assets/images/bodyGarage.png', 'text': brandsCountry[i]['name']});
+      imageList.add({'image': brandsCountry[i]['logo']??'https://flagsapi.com/AE/shiny/64.png', 'text': lng==2?brandsCountry[i]['arName']:brandsCountry[i]['name'], 'id':brandsCountry[i]['id']});
     }
     try{
       _state = cityController.text;
@@ -71,29 +74,45 @@ class _GarageCountryState extends State<GarageCountry> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   _topBar(curve),
-                  SizedBox(height: hSpace/2,),
-                  _m!.bodyText1(AppLocalizations.of(context)!.translate('Select the Country'), padding: 0.0, padV: 0.0, scale: 1.2),
+                  _m!.bodyText1(AppLocalizations.of(context)!.translate('Select the Country'), padding: 0.0, padV: hSpace/2, scale: 1.2),
                   Expanded(
                     flex: 1,
                     child: ListView.builder(
+                      padding: EdgeInsets.all(0.0),
                       itemCount: imageList.length,
                       itemBuilder: (BuildContext context, int index) {
                         return GestureDetector(
-                          child: Padding(
-                            padding: EdgeInsets.only(left: MediaQuery.of(context).size.width/10, right: MediaQuery.of(context).size.width/10,
-                                bottom: MediaQuery.of(context).size.height/20),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: MyColors.topCon,
+                              borderRadius: BorderRadius.all(Radius.circular(AppWidth.w4)),
+                              boxShadow: const [BoxShadow(
+                                color: MyColors.black,
+                                offset: Offset(1, 2),
+                                blurRadius: 4,
+                              )],  ),
+                            margin: EdgeInsets.only(left: AppWidth.w4, right: AppWidth.w4, bottom: AppHeight.h4),
+                            padding: EdgeInsets.symmetric(horizontal: AppWidth.w4, vertical: AppWidth.w1),
                             child:  Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  /*Expanded(
-                                    flex: 1,
-                                    child: Image.asset(imageList[index]['image'], width: MediaQuery.of(context).size.width/3, height: MediaQuery.of(context).size.height/8, fit: BoxFit.contain,),
-                                  ),
-                                  SizedBox(width: MediaQuery.of(context).size.width/40,),*/
+                                  ClipRect(
+                                    child: imageList[index]['image'].toString().toLowerCase().contains('.svg')?
+                                    SvgPicture.network(imageList[index]['image'], fit: BoxFit.fill,
+                                      height: AppHeight.h8,
+                                      width: AppHeight.h8,
+                                    ):
+                                    Image.network(imageList[index]['image'], fit: BoxFit.fill,
+                                      height: AppHeight.h8,
+                                      width: AppHeight.h8,
+                                    ),
+                                  )
+                                  ,
+                                  SizedBox(width: AppWidth.w4,),
                                   Expanded(
                                     flex: 1,
-                                    child: _m!.headText(imageList[index]['text'], scale: 0.6, align: TextAlign.start, paddingV: MediaQuery.of(context).size.height/80),
+                                    child: _m!.headText(imageList[index]['text'], scale: 0.7, align: TextAlign.start, paddingV: MediaQuery.of(context).size.height/80),
                                   ),
                                 ]
                               //color: MyColors.white,
@@ -175,7 +194,7 @@ class _GarageCountryState extends State<GarageCountry> {
                 Expanded(
                   flex: 1,
                   child: _m!.titleText1(
-                      AppLocalizations.of(context)!.translate('name')),
+                      widget.barTitle),
                 ),
                 Expanded(
                   flex: 1,
@@ -209,7 +228,7 @@ class _GarageCountryState extends State<GarageCountry> {
           context,
           MaterialPageRoute(
             //builder: (context) =>  BrandScreen(_state, _country, 1, garageCountry: '', indexGarage: indexGarage,),
-            builder: (context) =>  SuplierScreen(0.1, 1, false, indexGarage: indexGarage,),
+            builder: (context) =>  SuplierScreen(0.1, 1, false, indexGarage: indexGarage, barTitle: '${widget.barTitle}, '+ imageList[index]['text'],),
           )
       );
   }
@@ -226,4 +245,28 @@ class _GarageCountryState extends State<GarageCountry> {
   }
 
   String? path ;
+}
+class MyClip extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    double y = size.height;
+    double x = size.width;
+    double w = 0.0;
+
+    var path = Path();
+    var rect = Rect.fromLTRB(0, 0, x, y);
+    path.addOval(rect);
+    var rect2 = Rect.fromLTRB(0 + w, 0 + w, x - w, y - w);
+    path.addOval(rect2);
+    //path.lineTo(0, height);
+   // path.quadraticBezierTo(width, height, width/2, height/2);
+   // path.lineTo(width, 0);
+    path.close();
+    return path;
+  }
+
+  @override
+  bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
+    return true;
+  }
 }

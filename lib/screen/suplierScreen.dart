@@ -1,5 +1,6 @@
 //import 'dart:html';
 
+import 'package:automall/constant/app_size.dart';
 import 'package:automall/screen/requestScreen.dart';
 import 'package:automall/screen/suplierInfo.dart';
 import 'package:flutter/material.dart';
@@ -16,9 +17,10 @@ import '../localizations.dart';
 class SuplierScreen extends StatefulWidget {
   var brandId, gategoryId, originalOrNot, indexGarage;
   var withoutQutation;
+  final String barTitle;
 
   SuplierScreen(this.brandId, this.gategoryId, this.originalOrNot,
-      {Key? key, this.indexGarage, this.withoutQutation})
+      {Key? key, this.indexGarage, this.withoutQutation, required this.barTitle})
       : super(key: key);
 
   @override
@@ -106,7 +108,7 @@ class _SuplierScreenState extends State<SuplierScreen> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         _topBar(curve),
-                        SizedBox(
+                        /*SizedBox(
                           height: hSpace / 2,
                         ),
                         _m!.bodyText1(
@@ -145,7 +147,7 @@ class _SuplierScreenState extends State<SuplierScreen> {
                                       MediaQuery.of(context).size.width / 10),
                             ],
                           ),
-                        ),
+                        ),*/
                         SizedBox(
                           height: hSpace / 10,
                         ),
@@ -190,7 +192,7 @@ class _SuplierScreenState extends State<SuplierScreen> {
                             itemCount: _foundSupliers.length,
                             itemBuilder: (BuildContext context, int index) {
                               return GestureDetector(
-                                child: _suplierListContainer(index, curve),
+                                child: _suplierContainerNew(index, curve),
                                 //color: MyColors.white,
                                 onTap: () => _selectCard(index),
                               );
@@ -292,7 +294,7 @@ class _SuplierScreenState extends State<SuplierScreen> {
                 Expanded(
                   flex: 1,
                   child: _m!.titleText1(
-                      AppLocalizations.of(context)!.translate('name')),
+                      widget.barTitle),
                 ),
                 Expanded(
                   flex: 1,
@@ -342,6 +344,106 @@ class _SuplierScreenState extends State<SuplierScreen> {
     );
   }
 
+  _suplierContainerNew(index, curve){
+    var bbbb = '';
+    brandId == 0.1? bbbb = '' : bbbb = brands[brands.indexWhere((element) => element['id'] == brandId)]['name'];
+    var raduis = AppHeight.h12;
+    var _starNum, _suplierName, _suplierDetails, _suplierImagePath;
+    _suplierName = _foundSupliers[index]['fullName'];
+    _suplierImagePath = _foundSupliers[index]['user']['imagePath'];
+    if(_suplierImagePath.toString().endsWith(' ') || _suplierImagePath.toString()== '') {
+      _suplierImagePath = null;
+    }
+    try {
+      _starNum = _foundSupliers[index]['rating'];
+      //_suplierDetails = _foundSupliers[index]['sub'];
+      //_suplierImagePath = _foundSupliersindex]['image'];
+    } catch (e) {
+      _starNum = 0;
+      _suplierDetails = 'New to the list';
+    }
+    _starNum ??= 0;
+    _suplierDetails ??= _m!.getGategoryName(gategoryId) +
+        ', ' +
+        bbbb;
+    curve = MediaQuery.of(context).size.height / 30 / 2;
+    suplierName() {
+      return Container(
+        height: raduis,
+        padding: EdgeInsets.symmetric(vertical: raduis/10),
+        margin: lng==2?EdgeInsets.only(right: 1.5):EdgeInsets.only(left: 1.5),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _m!.suplierNameText(_suplierName,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Stack(
+                  children: [
+                    Icon(Icons.star_border, color: MyColors.mainColor,size: AppWidth.w10,),
+                    //MyWidget(context).bodyText1(_starNum.toString(),padding: AppWidth.w10/3, padV: AppWidth.w10/6),
+                  ],
+                ),
+              ],
+            ),
+            _m!.suplierDesText1(_suplierDetails, scale: 0.8, padding: 0.0),
+          ],
+        ),
+      );
+    }
+    return GestureDetector(
+      onTap: () => _explore(index),
+      child: Container(
+        margin: EdgeInsets.only(left: AppWidth.w4, right: AppWidth.w4, bottom: AppHeight.h2*1.5),
+        padding: EdgeInsets.symmetric(horizontal: AppWidth.w4, vertical: AppWidth.w1),
+        decoration: BoxDecoration(
+          color: MyColors.topCon,
+          borderRadius: BorderRadius.all(Radius.circular(AppWidth.w4)),
+          boxShadow: const [BoxShadow(
+            color: MyColors.black,
+            offset: Offset(1, 2),
+            blurRadius: 4,
+          )],
+        ),
+        child: Row(
+          children: [
+            _m!.logoContainer(_suplierImagePath, raduis, isSupp: true),
+            SizedBox(width: AppWidth.w2,),
+            Expanded(child: suplierName()),
+            _withoutQutation == null?
+            GestureDetector(
+              onTap: () => _check(suplierList.indexOf(_foundSupliers[index])),
+              child: Image.asset(_suplierListCheck[suplierList.indexOf(_foundSupliers[index])]
+                  ? 'assets/images/check.png'
+                  : 'assets/images/check-not.png', width: AppWidth.w8,),
+            ):SizedBox(),
+            _withoutQutation != null?
+            Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: curve * 0, vertical: raduis / 6 * 0),
+              child: GestureDetector(
+                onTap: () => launchWhatsApp(phone: _foundSupliers[index]['whatsappNumber'].toString(), message: ' ', context: context),
+                child: SvgPicture.asset('assets/images/whatsapp.svg'),
+              ),
+            ):
+            SizedBox(),
+            _withoutQutation != null?
+            Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: curve * 0, vertical: raduis / 6 * 0),
+              child: GestureDetector(
+                onTap: () => launchPhone(phone: _foundSupliers[index]['whatsappNumber'].toString(), context: context),
+                child: SvgPicture.asset('assets/images/phone.svg', color: MyColors.bodyText1),
+              ),
+            ):
+            SizedBox(),
+          ],
+        ),
+      ),
+    );
+  }
   _suplierListContainer(index, curve) {
     var bbbb = '';
     brandId == 0.1? bbbb = ''
@@ -466,7 +568,7 @@ class _SuplierScreenState extends State<SuplierScreen> {
       Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => SuplierInfo(index),
+            builder: (context) => SuplierInfo(index, barTitle: widget.barTitle),
           ));
     }
   }
@@ -525,7 +627,7 @@ class _SuplierScreenState extends State<SuplierScreen> {
             gategoryId,
             originalOrNot,
             checkedSupplier,
-            indexGarage: indexGarage,
+            indexGarage: indexGarage, barTitle: widget.barTitle,
           ),
         ));
   }
