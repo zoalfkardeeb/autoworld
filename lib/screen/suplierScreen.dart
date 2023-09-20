@@ -382,7 +382,7 @@ class _SuplierScreenState extends State<SuplierScreen> {
               children: [
                 Stack(
                   children: [
-                    Icon(Icons.star_border, color: MyColors.mainColor,size: AppWidth.w8,),
+                    Icon(Icons.star_border, color: MyColors.mainColor,size: AppWidth.w10,),
                     //MyWidget(context).bodyText1(_starNum.toString(),padding: AppWidth.w10/3, padV: AppWidth.w10/6),
                   ],
                 ),
@@ -415,13 +415,9 @@ class _SuplierScreenState extends State<SuplierScreen> {
             _withoutQutation == null?
             GestureDetector(
               onTap: () => _check(suplierList.indexOf(_foundSupliers[index])),
-              child: Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: curve * 0, vertical: raduis / 6 * 0),
-                child: SvgPicture.asset(_suplierListCheck[suplierList.indexOf(_foundSupliers[index])]
-                    ? 'assets/images/check.svg'
-                    : 'assets/images/check-not.svg'),
-              ),
+              child: Image.asset(_suplierListCheck[suplierList.indexOf(_foundSupliers[index])]
+                  ? 'assets/images/check.png'
+                  : 'assets/images/check-not.png', width: AppWidth.w8,),
             ):SizedBox(),
             _withoutQutation != null?
             Padding(

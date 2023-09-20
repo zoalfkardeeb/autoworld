@@ -1,6 +1,7 @@
 import 'package:automall/constant/app_size.dart';
 import 'package:automall/screen/suplierScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../MyWidget.dart';
 import '../api.dart';
@@ -96,20 +97,18 @@ class _GarageCountryState extends State<GarageCountry> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  /*Expanded(
-                                    flex: 1,
-                                    child: Image.asset(imageList[index]['image'], width: MediaQuery.of(context).size.width/3, height: MediaQuery.of(context).size.height/8, fit: BoxFit.contain,),
-                                  ),
-                                  SizedBox(width: MediaQuery.of(context).size.width/40,),*/
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      image: DecorationImage(image:NetworkImage(
-                                          imageList[index]['image']), fit: BoxFit.cover,)
+                                  ClipRect(
+                                    child: imageList[index]['image'].toString().toLowerCase().contains('.svg')?
+                                    SvgPicture.network(imageList[index]['image'], fit: BoxFit.fill,
+                                      height: AppHeight.h8,
+                                      width: AppHeight.h8,
+                                    ):
+                                    Image.network(imageList[index]['image'], fit: BoxFit.fill,
+                                      height: AppHeight.h8,
+                                      width: AppHeight.h8,
                                     ),
-                                    width: AppHeight.h8,
-                                    height: AppHeight.h8,
-                                  ),
+                                  )
+                                  ,
                                   SizedBox(width: AppWidth.w4,),
                                   Expanded(
                                     flex: 1,
@@ -246,4 +245,28 @@ class _GarageCountryState extends State<GarageCountry> {
   }
 
   String? path ;
+}
+class MyClip extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    double y = size.height;
+    double x = size.width;
+    double w = 0.0;
+
+    var path = Path();
+    var rect = Rect.fromLTRB(0, 0, x, y);
+    path.addOval(rect);
+    var rect2 = Rect.fromLTRB(0 + w, 0 + w, x - w, y - w);
+    path.addOval(rect2);
+    //path.lineTo(0, height);
+   // path.quadraticBezierTo(width, height, width/2, height/2);
+   // path.lineTo(width, 0);
+    path.close();
+    return path;
+  }
+
+  @override
+  bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
+    return true;
+  }
 }
