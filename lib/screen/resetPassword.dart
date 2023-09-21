@@ -1,12 +1,13 @@
 import 'package:automall/api.dart';
+import 'package:automall/constant/app_size.dart';
+import 'package:automall/constant/font_size.dart';
 import 'package:flutter/material.dart';
 import 'package:double_back_to_close_app/double_back_to_close_app.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import 'package:form_field_validator/form_field_validator.dart';
-import 'package:otp_text_field/otp_field.dart';
-import 'package:otp_text_field/otp_field_style.dart';
-import 'package:otp_text_field/style.dart';
+import 'package:pin_code_fields/pin_code_fields.dart';
 
 import '../MyWidget.dart';
 import 'package:automall/constant/color/MyColors.dart';
@@ -78,18 +79,11 @@ class _ResetPasswordState extends State<ResetPassword> {
                       child: Container(
                         padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height/40, horizontal: MediaQuery.of(context).size.width/20),
                         child: ListView(
-                          //crossAxisAlignment: CrossAxisAlignment.center,
-                          //mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
+                         children: [
                             Container(
                               //height: MediaQuery.of(context).size.height/30,
                               child: Column(
                                 children: [
-                                  /*Image.asset(
-                                'assets/images/code.png',
-                                width: MediaQuery.of(context).size.width/5,
-                                height: MediaQuery.of(context).size.height/7,
-                              ),*/
                                   SizedBox(
                                     height: heightSpace*2,
                                   ),
@@ -98,9 +92,6 @@ class _ResetPasswordState extends State<ResetPassword> {
                                     child: buildContainerPassword(passwordController, AppLocalizations.of(context)!.translate('newPassword'),
                                         TextInputType.visiblePassword, requiredValidator),
                                   ),
-                                  // SizedBox(
-                                  //   height: 20.0,
-                                  // ),
                                   Padding(
                                     padding: EdgeInsets.all(MediaQuery.of(context).size.height/70),
                                     child: buildContainerConfirmPassword(
@@ -202,6 +193,31 @@ class _ResetPasswordState extends State<ResetPassword> {
 
   Widget buildCodeBox({required bool first, last}) {
     return Center(
+      child: PinCodeTextField(
+        appContext: context,
+        textStyle: TextStyle(
+            fontSize: FontSize.s18,
+            color: MyColors.mainColor,
+            fontFamily: 'Gotham'
+        ),
+        pastedTextStyle: TextStyle(fontSize: FontSize.s16, color: Colors.green.shade600, fontWeight: FontWeight.bold, fontFamily: 'BCArabicB'),
+        length: 6,
+        blinkWhenObscuring: true,
+        animationType: AnimationType.fade,
+        pinTheme: PinTheme(shape: PinCodeFieldShape.box, borderRadius: BorderRadius.circular(AppWidth.w1), fieldHeight: AppWidth.w12, fieldWidth: AppWidth.w12, inactiveColor: MyColors.mainColor, selectedColor: MyColors.mainColor, selectedFillColor: MyColors.mainColor, inactiveFillColor: Colors.transparent, activeFillColor: MyColors.white, borderWidth: 12),
+        cursorColor: MyColors.black,
+        animationDuration: const Duration(milliseconds: 2),
+        enableActiveFill: true,
+        keyboardType: TextInputType.number,
+        inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+        onChanged: (pin) {
+          codeLength = pin.length;
+          code = pin;
+        },
+        onCompleted: (pin) {},
+      ),
+    );
+    /*return Center(
         child: OTPTextField(
           keyboardType: TextInputType.number,
           otpFieldStyle: OtpFieldStyle(
@@ -214,13 +230,13 @@ class _ResetPasswordState extends State<ResetPassword> {
           width: MediaQuery.of(context).size.width,
           textFieldAlignment: MainAxisAlignment.center,
           fieldWidth:  MediaQuery.of(context).size.width/9,
+          spaceBetween: MediaQuery.of(context).size.width*((1-6/9)/10),
           fieldStyle: FieldStyle.box,
           outlineBorderRadius: MediaQuery.of(context).size.height/90,
-          spaceBetween: MediaQuery.of(context).size.width/60,
           style: TextStyle(
-              fontSize: MediaQuery.of(context).size.width/15,
-              color: MyColors.mainColor,
-              fontFamily: 'Gotham'
+            fontSize: MediaQuery.of(context).size.width/15,
+            color: MyColors.mainColor,
+            fontFamily: 'Gotham'
           ),
           onChanged: (pin) {
             codeLength = pin.length;
@@ -259,7 +275,7 @@ class _ResetPasswordState extends State<ResetPassword> {
           ),
         ),*/
 
-    );
+    );*/
   }
 
   Future ver() async {

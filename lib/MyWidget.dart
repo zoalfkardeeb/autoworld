@@ -593,7 +593,6 @@ class MyWidget{
   }
 
   _resetPass(Function() _setState, _scaffoldKey) async{
-
     _scaffoldKey.currentState!.closeDrawer();
     pleaseWait = true;
     _setState();
@@ -601,17 +600,12 @@ class MyWidget{
     if(response[0]){
       //var value = jsonDecode(x)["data"][0]["id"].toString();
       var verCode = response[1].toString();
-      // final SharedPreferences sharedPreferences =await SharedPreferences.getInstance();
-      // sharedPreferences.setString('Id',response.body[1].toString());
-      //
-      // if(sharedPreferences.getString('Id') != null){
       bool sent = await MyAPI(context: context).sendEmail(AppLocalizations.of(context)!.translate('Your activation code is :') +  '\n$verCode' , AppLocalizations.of(context)!.translate('Activation Code'),  userInfo['email']);
       pleaseWait = false;
       _setState();
       if(!sent){
         return;
       }
-      //_save();
       Navigator.of(context).push(MaterialPageRoute(builder:(context)=> ResetPassword(userInfo['email'], verCode: response[1].toString(),)));
     }else{
       pleaseWait = false;
@@ -620,7 +614,6 @@ class MyWidget{
     pleaseWait = false;
     _setState();
   }
-
   toast(String text) {
 
   }

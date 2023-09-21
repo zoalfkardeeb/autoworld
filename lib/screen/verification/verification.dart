@@ -11,9 +11,6 @@ import 'package:double_back_to_close_app/double_back_to_close_app.dart';
 import 'package:get/get.dart';
 
 import 'package:form_field_validator/form_field_validator.dart';
-import 'package:otp_text_field/otp_field.dart';
-import 'package:otp_text_field/otp_field_style.dart';
-import 'package:otp_text_field/style.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 import '../../MyWidget.dart';
