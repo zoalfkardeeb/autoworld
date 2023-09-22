@@ -60,7 +60,7 @@ class _ResetPasswordState extends State<ResetPassword> {
     } else {
       active = null;
     }
-    var heightSpace = MediaQuery.of(context).size.height/40;
+    var heightSpace = MediaQuery.of(context).size.height/50;
     return SafeArea(
       child: Container(
         decoration: const BoxDecoration(
