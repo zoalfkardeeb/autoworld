@@ -303,7 +303,7 @@ class MyAPI{
             "Accept-Language": LocalizationService.getCurrentLocale().languageCode,
             "Accept": "application/json",
             "content-type": "application/json",
-            "Authorization": token,
+            //"Authorization": token,
           });
       //await Hive.initFlutter();
       //Hive.registerAdapter(TransactionAdapter());
@@ -601,6 +601,9 @@ class MyAPI{
     perBrand ??= false;
     //var uri = Uri.parse("$_baseUrl/Suppliers/Suppliers_Read?");
     var uri = Uri.parse("$_baseUrl/Suppliers/Suppliers_Read?filter=$brabd~eq~true");
+    if(brabd=='garages'){
+      uri = Uri.parse("$_baseUrl/Suppliers/Suppliers_Read?");
+    }
     if(perBrand) uri = Uri.parse("$_baseUrl/Suppliers/SuppliersByBrands_Read?brandId='$id'filter=$brabd~eq~true");
     //if(perBrand) uri = Uri.parse("$_baseUrl/Suppliers/SuppliersByBrands_Read?brandid='$id'filter=$brabd~eq~true");
     if(perBrand) {

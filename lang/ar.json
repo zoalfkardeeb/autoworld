@@ -195,6 +195,7 @@
   "Gear": "الغيار",
   "Manual": "عادي",
   "Automatic": "أوتوماتيك",
+  "CVT": "سي في تي",
   "Engine": "محرك",
   "Cylinders": "سلندر",
   "Man. Date: ": "سنة الصنع: ",
@@ -240,6 +241,10 @@
   "Contact us": "تواصل معنا",
   "Please, input right number [3 -> 6] digits": "من فضلك أدخل رقم صحيح [3 -> 6] خانات",
   "Support": "دعم",
-  "My Ads": "إعلاناتي"
+  "My Ads": "إعلاناتي",
+  "Petrol": "بنزين",
+  "Diesel": "ديزل",
+  "Hybrid": "هايبرد",
+  "Electrical1": "كهربائي"
 
 }

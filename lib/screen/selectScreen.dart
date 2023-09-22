@@ -348,17 +348,11 @@ class _SelectScreenState extends State<SelectScreen> {
       setState(() {
         pleaseWait = true;
       });
-      //await MyAPI(context: context).getSupliers(0.1, getGategoryName(index), original: false, afterMarket: false, indexGarage: 0);
       await MyAPI(context: context).getSupliers(0.1, 'GaragCustomization', original: false, afterMarket: false, indexGarage: 3);
       setState(() {
         pleaseWait = false;
       });
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-            //builder: (context) =>  BrandScreen(_state, _country, 1, garageCountry: '', indexGarage: 0,),
-            builder: (context) =>  SuplierScreen(0.1, 1, false, indexGarage: 3, barTitle: imageList[index]['text'],),
-          )
+      Navigator.push(context, MaterialPageRoute(builder: (context) =>  SuplierScreen(0.1, 1, false, indexGarage: 3, barTitle: imageList[index]['text'], withoutQutation: true,),)
       );
       /*setState(() {
         pleaseWait = true;

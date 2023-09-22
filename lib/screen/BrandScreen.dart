@@ -222,6 +222,7 @@ class _BrandScreenState extends State<BrandScreen> {
           ballonPadding: EdgeInsets.symmetric(horizontal: hSpace/20,vertical: hSpace/20),
           animationDuration: const Duration(milliseconds: 500),
           show: show,
+          tooltipDirection:index<3?TooltipDirection.down:TooltipDirection.up,
           customShadows: const [BoxShadow(color: MyColors.white, blurRadius: 4, spreadRadius: 2)],
           backgroundColor: MyColors.black,
           borderColor: MyColors.black,
@@ -241,7 +242,6 @@ class _BrandScreenState extends State<BrandScreen> {
             ],
           ),
         )
-
       );
   }
 

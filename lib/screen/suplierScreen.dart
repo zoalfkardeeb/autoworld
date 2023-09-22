@@ -377,7 +377,7 @@ class _SuplierScreenState extends State<SuplierScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _m!.suplierNameText(_suplierName,),
-            Row(
+            _withoutQutation == null? Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Stack(
@@ -387,7 +387,7 @@ class _SuplierScreenState extends State<SuplierScreen> {
                   ],
                 ),
               ],
-            ),
+            ):SizedBox(),
             _m!.suplierDesText1(_suplierDetails, scale: 0.8, padding: 0.0),
           ],
         ),
@@ -429,6 +429,7 @@ class _SuplierScreenState extends State<SuplierScreen> {
               ),
             ):
             SizedBox(),
+            SizedBox(width: AppWidth.w2,),
             _withoutQutation != null?
             Padding(
               padding: EdgeInsets.symmetric(

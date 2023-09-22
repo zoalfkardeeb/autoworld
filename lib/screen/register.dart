@@ -460,7 +460,7 @@ class _RegisterState extends State<Register> {
   _dropDown(width, curve){
     List<String> citiesName = <String>[];
     for(int i = 0; i<cities.length; i++){
-      citiesName.add(cities[i]['name']);
+      citiesName.add(lng == 2?cities[i]['arName']??'':cities[i]['name']??'');
     }
     if(citiesName.isEmpty) {
       return;

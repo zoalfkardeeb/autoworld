@@ -444,7 +444,6 @@ class _AllBrandCarSellsState extends State<AllBrandCarSells> {
 
   _pressFilter() {
     setState(() {
-
        _typeController.text = "";
        _modelController.text = "";
        _brandController.text = "";

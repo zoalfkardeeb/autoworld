@@ -688,7 +688,7 @@ class _AddSellCarScreenState extends State<AddSellCarScreen> {
   _dropDownGearBoxType(width, curve){
     List<String> listType = [];
     for(int i=0; i<listGearBoxCarType.length; i++){
-      listType.add(listGearBoxCarType[i]['name']);
+      listType.add(AppLocalizations.of(context)!.translate(listGearBoxCarType[i]['name']));
     }if(listType.isEmpty) {
       return;
     } else{
@@ -727,7 +727,7 @@ class _AddSellCarScreenState extends State<AddSellCarScreen> {
   _dropDownMotorType(width, curve){
     List<String> listType = [];
     for(int i=0; i<listCarMotorType.length; i++){
-      listType.add(listCarMotorType[i]['name']);
+      listType.add(AppLocalizations.of(context)!.translate(listCarMotorType[i]['name']));
     }if(listType.isEmpty) {
       return;
     } else{

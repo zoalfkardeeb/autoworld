@@ -15,7 +15,7 @@ import 'model/transaction.dart';
 import 'helper/boxes.dart';
 
 List listCarType = [{'name':'Sedan' , 'id':1},{'name':'Suv(4x4)' , 'id':2},{'name':'coupe' , 'id':3},];
-List listCarMotorType = [{'name':'Petrol' , 'id':1},{'name':'Diesel' , 'id':2},{'name':'Hybrid' , 'id':3},{'name':'Electrical' , 'id':4},];
+List listCarMotorType = [{'name':'Petrol' , 'id':1},{'name':'Diesel' , 'id':2},{'name':'Hybrid' , 'id':3},{'name':'Electrical1' , 'id':4},];
 List listGearBoxCarType = [{'name':'Manual' , 'id':1},{'name':'Automatic' , 'id':2},{'name':'CVT' , 'id':3}];
 List cities = [];
 List offers = [];

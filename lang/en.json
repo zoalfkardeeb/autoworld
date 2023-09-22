@@ -77,7 +77,6 @@
   "You should to select at least one supplier before search": "You should to select at least one supplier before search",
   "Body": "Body (Painting & Denting)",
   "Mechanical": "Mechanical",
-  "Electrical": "Electrical",
   "Customisation": "Customisation",
   "Select Your Service": "Select Your Service",
   "Language": "Change language?",
@@ -195,6 +194,7 @@
   "Gear": "Gear",
   "Manual": "Manual",
   "Automatic": "Automatic",
+  "CVT": "CVT",
   "Engine": "Engine",
   "Cylinders": "Cylinders",
   "Man. Date: ": "Man. Date: ",
@@ -240,7 +240,11 @@
   "Contact us": "Contact us",
   "Please, input right number [3 -> 6] digits": "Please, input right number [3 -> 6] digits",
   "Support": "Support",
-  "My Ads": "My Ads"
-
+  "My Ads": "My Ads",
+  "Petrol": "Petrol",
+  "Diesel": "Diesel",
+  "Hybrid": "Hybrid",
+  "Electrical": "Electrical",
+  "Electrical1": "Electrical"
 }
 
