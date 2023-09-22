@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 import 'dart:convert';
+import 'package:automall/constant/app_size.dart';
 import 'package:automall/helper/launchUrlHelper.dart';
 import 'package:automall/api.dart';
 import 'package:automall/constant/color/MyColors.dart';
@@ -13,6 +14,7 @@ import 'package:automall/screen/verification/verification.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl_phone_field/countries.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'dart:async';
 
@@ -187,6 +189,7 @@ class _RegisterState extends State<Register> {
                                 Padding(
                                   padding: EdgeInsets.only(left: MediaQuery.of(context).size.width/10, right: MediaQuery.of(context).size.width/10, top:  MediaQuery.of(context).size.width/20),
                                   child: IntlPhoneField(
+                                    countries: ["QA",],
                                     //keyboardType: TextInputType.number,
                                     //validator: requiredValidator,
                                     invalidNumberMessage: '',
@@ -240,7 +243,6 @@ class _RegisterState extends State<Register> {
                                 SizedBox(height: hSpace/2,),
                                 _m!.iconText(termsAndConditions?'assets/images/check.svg':'assets/images/check-not.svg', AppLocalizations.of(context)!.translate("I've read and confirmed the terms and conditions"), MyColors.bodyText1, click: ()=> _acceptTerms()),
                                 SizedBox(height: hSpace,),
-
                               ],
                             ),
                           )
@@ -548,7 +550,7 @@ class _RegisterState extends State<Register> {
   }
 
   _selectFromTheList(text, curve, controller, Function() press){
-    var width = MediaQuery.of(context).size.width/1.2;
+    var width = AppWidth.w80;
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width/40*0),
       child: Stack(
@@ -565,7 +567,7 @@ class _RegisterState extends State<Register> {
                     Align(
                       alignment: Alignment.center,
                       child: Padding(
-                        padding: EdgeInsets.only(top: curve, right: MediaQuery.of(context).size.width/6.5 + MediaQuery.of(context).size.width/50,),
+                        padding: EdgeInsets.only(top: curve/2, right: AppWidth.w4, left: AppWidth.w4),
                         child: _dropDown(width, curve/2),
                       ),
 

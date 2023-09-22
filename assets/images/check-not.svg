@@ -1,14 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="46.52" height="46.52" viewBox="0 0 46.52 46.52">
-  <defs>
-    <style>
-      .cls-1 {
-        fill: url(#linear-gradient);
-      }
-    </style>
-    <linearGradient id="linear-gradient" x1="1.205" y1="1.273" x2="-0.236" y2="-0.307" gradientUnits="objectBoundingBox">
-      <stop offset="0" stop-color="#fff" stop-opacity="0"/>
-      <stop offset="1"/>
-    </linearGradient>
-  </defs>
-  <circle id="check-not" class="cls-1" cx="23.26" cy="23.26" r="23.26"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <g id="Group_13253" data-name="Group 13253" transform="translate(-39 -662)">
+    <g id="Group_13252" data-name="Group 13252">
+      <g id="Ellipse_3150" data-name="Ellipse 3150" transform="translate(39 662)" fill="none" stroke="#1d1d1d" stroke-width="1">
+        <circle cx="12" cy="12" r="12" stroke="none"/>
+        <circle cx="12" cy="12" r="11.5" fill="none"/>
+      </g>
+    </g>
+  </g>
 </svg>

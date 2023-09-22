@@ -1,21 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="46.52" height="46.52" viewBox="0 0 46.52 46.52">
-  <defs>
-    <style>
-      .cls-1 {
-        fill: url(#linear-gradient);
-      }
-
-      .cls-2 {
-        fill: #d22c29;
-      }
-    </style>
-    <linearGradient id="linear-gradient" x1="1.205" y1="1.273" x2="-0.236" y2="-0.307" gradientUnits="objectBoundingBox">
-      <stop offset="0" stop-color="#fff" stop-opacity="0"/>
-      <stop offset="1"/>
-    </linearGradient>
-  </defs>
-  <g id="check" transform="translate(-3.21 -4.09)">
-    <circle id="Ellipse_316" data-name="Ellipse 316" class="cls-1" cx="23.26" cy="23.26" r="23.26" transform="translate(3.21 4.09)"/>
-    <circle id="Ellipse_317" data-name="Ellipse 317" class="cls-2" cx="13.02" cy="13.02" r="13.02" transform="translate(13.45 14.33)"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <g id="Group_13253" data-name="Group 13253" transform="translate(-39 -662)">
+    <g id="Group_13252" data-name="Group 13252">
+      <g id="Ellipse_3150" data-name="Ellipse 3150" transform="translate(39 662)" fill="none" stroke="#1d1d1d" stroke-width="1">
+        <circle cx="12" cy="12" r="12" stroke="none"/>
+        <circle cx="12" cy="12" r="11.5" fill="none"/>
+      </g>
+      <path id="Icon_awesome-check" data-name="Icon awesome-check" d="M4.889,15.1.211,10.422a.72.72,0,0,1,0-1.018L1.229,8.387a.72.72,0,0,1,1.018,0L5.4,11.538l6.75-6.75a.72.72,0,0,1,1.018,0l1.018,1.018a.72.72,0,0,1,0,1.018L5.907,15.1A.72.72,0,0,1,4.889,15.1Z" transform="translate(43.803 664.056)" fill="#e50019"/>
+    </g>
   </g>
 </svg>
