@@ -202,7 +202,7 @@ class _CarSellDetailsState extends State<CarSellDetails> {
                                                 SizedBox(height: vSpace,),
                                                 _m!.iconText("assets/images/gear_automatic.svg",
                                                     AppLocalizations.of(context)!.translate('Gear') + ": " +
-                                                        listGearBoxCarType[listGearBoxCarType.indexWhere((element) => gearType == element['id'].toString())]['name'],
+                                                        AppLocalizations.of(context)!.translate(listGearBoxCarType[listGearBoxCarType.indexWhere((element) => gearType == element['id'].toString())]['name']),
                                                     MyColors.red, scale: scale, imageScale: 0.55, paddingH: 2),
                                                 SizedBox(height: vSpace,),
                                                 _m!.iconText("assets/images/ic_pr_year.svg", AppLocalizations.of(context)!.translate('Man. Date: ') + productionYear, MyColors.gray, scale: scale, imageScale: 0.5, paddingH: 0.2),
@@ -221,7 +221,7 @@ class _CarSellDetailsState extends State<CarSellDetails> {
                                                     +AppLocalizations.of(context)!.translate("Cylinders"), MyColors.gray, scale: scale, imageScale: 0.5, paddingH: 0.2),
                                                 SizedBox(height: vSpace,),
                                                 _m!.iconText("assets/images/ic_motor_type.svg", AppLocalizations.of(context)!.translate('Type') + ": " +
-                                                    listCarMotorType[listCarMotorType.indexWhere((element) => motorType == element['id'].toString())]['name'], MyColors.gray, scale: scale, imageScale: 0.5, paddingH: 0.2),
+                                                    AppLocalizations.of(context)!.translate(listCarMotorType[listCarMotorType.indexWhere((element) => motorType == element['id'].toString())]['name']), MyColors.gray, scale: scale, imageScale: 0.5, paddingH: 0.2),
                                               ],
                                             ),
                                           ),

@@ -83,6 +83,7 @@ class _SuplierScreenState extends State<SuplierScreen> {
     //_foundSupliers[3]['fullName'] = 'Samir';
     _m = MyWidget(context);
     var _bR = 0.1;
+    if(_withoutQutation !=null) _bR = 0;
     return Scaffold(
       resizeToAvoidBottomInset: true,
       backgroundColor: Colors.grey[100],
@@ -350,7 +351,7 @@ class _SuplierScreenState extends State<SuplierScreen> {
     var raduis = AppHeight.h12;
     var _starNum, _suplierName, _suplierDetails, _suplierImagePath;
     _suplierName = _foundSupliers[index]['fullName'];
-    _suplierImagePath = _foundSupliers[index]['user']['imagePath'];
+    _suplierImagePath = _foundSupliers[index]['user']['imagePath']??'';
     if(_suplierImagePath.toString().endsWith(' ') || _suplierImagePath.toString()== '') {
       _suplierImagePath = null;
     }

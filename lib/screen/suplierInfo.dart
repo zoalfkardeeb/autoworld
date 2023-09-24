@@ -102,6 +102,8 @@ class _SuplierInfoState extends State<SuplierInfo> {
                                   backgroundColor: Colors.transparent,
                                 ),*/
                           SizedBox(
+                            width: MediaQuery.of(context).size.width/2,
+                            height: MediaQuery.of(context).size.width/5*2,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -129,24 +131,22 @@ class _SuplierInfoState extends State<SuplierInfo> {
                                 _m!.starRow(MediaQuery.of(context).size.width/4, _suplierStarNum, marginLeft: MediaQuery.of(context).size.width/20)
                               ],
                             ),
-                            width: MediaQuery.of(context).size.width/2,
-                            height: MediaQuery.of(context).size.width/5*2,
                           )
                         ],
                       ),
                     ),
-                    _m!.bodyText1(AppLocalizations.of(context)!.translate('Personal information'), align: TextAlign.start, padV: hSpace/3, scale: 1.2),
+                    _m!.bodyText1(suplierList[index]['details']??'', align: TextAlign.start, padV: hSpace/10, scale: 1),
                     Expanded(
                       child: ListView(
                        children: [
                           _m!.bodyText1(AppLocalizations.of(context)!.translate('Full Name'), align: TextAlign.start, padding: MediaQuery.of(context).size.width/10,padV: hSpace/7),
                           _m!.ProfiletextFiled(curve, MyColors.white, MyColors.black, _nameController, readOnly: true),
-                          _m!.bodyText1(AppLocalizations.of(context)!.translate('Work Hour'), align: TextAlign.start, padding: MediaQuery.of(context).size.width/10,padV: hSpace/7),
-                          _m!.ProfiletextFiled(curve, MyColors.white, MyColors.black, _workHourController, readOnly: true),
+                         // _m!.bodyText1(AppLocalizations.of(context)!.translate('Work Hour'), align: TextAlign.start, padding: MediaQuery.of(context).size.width/10,padV: hSpace/7),
+                          //_m!.ProfiletextFiled(curve, MyColors.white, MyColors.black, _workHourController, readOnly: true),
                           _m!.bodyText1(AppLocalizations.of(context)!.translate('Contact Number'), align: TextAlign.start, padding: MediaQuery.of(context).size.width/10,padV: hSpace/7),
                           _m!.ProfiletextFiled(curve, MyColors.white, MyColors.black, _mobileController, readOnly: true),
-                          _m!.bodyText1(AppLocalizations.of(context)!.translate('City'), align: TextAlign.start, padding: MediaQuery.of(context).size.width/10,padV: hSpace/7),
-                          _m!.ProfiletextFiled(curve, MyColors.white, MyColors.black, _cityController, readOnly: true),
+                         // _m!.bodyText1(AppLocalizations.of(context)!.translate('City'), align: TextAlign.start, padding: MediaQuery.of(context).size.width/10,padV: hSpace/7),
+                        //  _m!.ProfiletextFiled(curve, MyColors.white, MyColors.black, _cityController, readOnly: true),
                         ],
                       ),),
                   ],
@@ -187,7 +187,7 @@ class _SuplierInfoState extends State<SuplierInfo> {
         decoration: BoxDecoration(
           color: MyColors.topCon,
           borderRadius: BorderRadius.only(bottomLeft: Radius.circular(curve), bottomRight: Radius.circular(curve)),
-          boxShadow: [BoxShadow(
+          boxShadow: const [BoxShadow(
             color: MyColors.black,
             offset: Offset(0, 1),
             blurRadius: 4,
@@ -222,11 +222,10 @@ class _SuplierInfoState extends State<SuplierInfo> {
               ],
             ),
             // SizedBox(height: MediaQuery.of(context).size.height/40,),
-            _tapNum==1?
-            _m!.headText('$_country, $_state', scale: 0.8, paddingV: MediaQuery.of(context).size.height/120)
-                :
-            const SizedBox()
-            ,
+            //_tapNum==1?
+            //_m!.headText('$_country, $_state', scale: 0.8, paddingV: MediaQuery.of(context).size.height/120)
+            //    :
+            //const SizedBox(),
           ],
         )
     );

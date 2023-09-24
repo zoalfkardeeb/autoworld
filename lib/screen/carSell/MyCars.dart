@@ -154,7 +154,7 @@ class _MyCarsForSellState extends State<MyCarsForSell> {
           AppLocalizations.of(context)!.translate('Engine') + ": " +  carSell['numberOfCylindes'] + AppLocalizations.of(context)!.translate("Cylinders"),
           AppLocalizations.of(context)!.translate('Price') + ": " + carSell['price'],
           AppLocalizations.of(context)!.translate('Gear') + ": " +
-              listGearBoxCarType[listGearBoxCarType.indexWhere((element) => carSell['gearBoxType'] == element['id'].toString())]['name'],
+    AppLocalizations.of(context)!.translate(listGearBoxCarType[listGearBoxCarType.indexWhere((element) => carSell['gearBoxType'] == element['id'].toString())]['name']),
           AppLocalizations.of(context)!.translate('Man. Date: ') + carSell['productionYear'],
           carSell['view'] + " " + AppLocalizations.of(context)!.translate('View'),
           carSell['fromUser'],

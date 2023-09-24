@@ -372,31 +372,35 @@ class _SelectScreenState extends State<SelectScreen> {
       setState(() {
         pleaseWait = true;
       });
-      await MyAPI(context: context).getOffers(num: 2);
+      await MyAPI(context: context).getSupliers(0.1, 'CarRents', original: false, afterMarket: false);
+      //await MyAPI(context: context).getOffers(num: 2);
       setState(() {
         pleaseWait = false;
       });
-      Navigator.push(
+      Navigator.push(context, MaterialPageRoute(builder: (context) =>  SuplierScreen(0.1, 6, false, barTitle: imageList[index]['text'], withoutQutation: true,),));
+      /*Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) =>  CarRentOffers( barTitle: imageList[index]['text'],),
           )
-      );
+      );*/
     }
     else if(imageList[index]['text'] == AppLocalizations.of(context)!.translate('Car Modifications')){
       setState(() {
         pleaseWait = true;
       });
-      await MyAPI(context: context).getOffers(num: 1);
+      //await MyAPI(context: context).getOffers(num: 1);
+      await MyAPI(context: context).getSupliers(0.1, 'CarCare', original: false, afterMarket: false);
       setState(() {
         pleaseWait = false;
       });
-      Navigator.push(
+      Navigator.push(context, MaterialPageRoute(builder: (context) =>  SuplierScreen(0.1, 8, false, barTitle: imageList[index]['text'], withoutQutation: true,),));
+      /*Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) =>  CarRentOffers(barTitle: imageList[index]['text'],),
           )
-      );
+      );*/
     }
     else if(imageList[index]['text'] == AppLocalizations.of(context)!.translate('Breakdown Service')){
       setState(() {

@@ -294,7 +294,7 @@ class _AllBrandCarSellsState extends State<AllBrandCarSells> {
         AppLocalizations.of(context)!.translate('Engine') + ": " +  _carSellList[index]['numberOfCylindes'] + AppLocalizations.of(context)!.translate("Cylinders"),
         AppLocalizations.of(context)!.translate('Price') + ": " + _carSellList[index]['price'],
         AppLocalizations.of(context)!.translate('Gear') + ": " +
-            listGearBoxCarType[listGearBoxCarType.indexWhere((element) => _carSellList[index]['gearBoxType'] == element['id'].toString())]['name'],
+    AppLocalizations.of(context)!.translate(listGearBoxCarType[listGearBoxCarType.indexWhere((element) => _carSellList[index]['gearBoxType'] == element['id'].toString())]['name']),
         AppLocalizations.of(context)!.translate('Man. Date: ') + _carSellList[index]['productionYear'],
         _carSellList[index]['view'] + " " + AppLocalizations.of(context)!.translate('View'),
         _carSellList[index]['fromUser'],
@@ -310,7 +310,7 @@ class _AllBrandCarSellsState extends State<AllBrandCarSells> {
         AppLocalizations.of(context)!.translate('Engine') + _carSellList[index]['numberOfCylindes'] + AppLocalizations.of(context)!.translate("Cylinders"),
         AppLocalizations.of(context)!.translate('Price') + ": " + _carSellList[index]['price'],
         AppLocalizations.of(context)!.translate('Gear') + ": " +
-            listGearBoxCarType[listGearBoxCarType.indexWhere((element) => _carSellList[index]['gearBoxType'] == element['id'].toString())]['name'],
+            AppLocalizations.of(context)!.translate( listGearBoxCarType[listGearBoxCarType.indexWhere((element) => _carSellList[index]['gearBoxType'] == element['id'].toString())]['name']),
         AppLocalizations.of(context)!.translate('Man. Date: ') + _carSellList[index]['productionYear'],
           _carSellList[index]['view'] + " " + AppLocalizations.of(context)!.translate('View'),
           _carSellList[index]['fromUser'],

@@ -379,10 +379,10 @@ class _AddSellCarScreenState extends State<AddSellCarScreen> {
           carModelList[carModelList.indexWhere((element) => element['name']==_modelController.text)]['id'],
           int.parse(_productionYearController.text), attach,
           int.parse(_numOfCylYearController.text),
-          listGearBoxCarType[listGearBoxCarType.indexWhere((element) => element['name']==_gearBoxTypeController.text)]['id'],
+          listGearBoxCarType[listGearBoxCarType.indexWhere((element) => AppLocalizations.of(context)!.translate(element['name'])==_gearBoxTypeController.text)]['id'],
           double.parse(_keloMetrageController.text),
           double.parse(_priceController.text), _descController.text, alaminumTires, roofWindow, leatherSeats, navigationSystem, rearScreen,cameras,
-        listCarMotorType[listCarMotorType.indexWhere((element) => element['name']==_motorTypeController.text)]['id'],
+        listCarMotorType[listCarMotorType.indexWhere((element) => AppLocalizations.of(context)!.translate(element['name'])==_motorTypeController.text)]['id'],
       );
       //var add = false;
       //if(add) await MyAPI(context: context).getCarSell();

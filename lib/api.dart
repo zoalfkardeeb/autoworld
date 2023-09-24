@@ -596,19 +596,20 @@ class MyAPI{
 
   }
 
-  getSupliers(id, brabd, {bool? original, bool? afterMarket, indexGarage, bool? perBrand}) async{
+  getSupliers(id, brabd, {bool? original, bool? afterMarket, indexGarage, bool? perBrand, bool? perCountry}) async{
     print(brabd+'   $id');
     perBrand ??= false;
+    perCountry ??= false;
     //var uri = Uri.parse("$_baseUrl/Suppliers/Suppliers_Read?");
     var uri = Uri.parse("$_baseUrl/Suppliers/Suppliers_Read?filter=$brabd~eq~true");
-    if(brabd=='garages'){
-      uri = Uri.parse("$_baseUrl/Suppliers/Suppliers_Read?");
-    }
     if(perBrand) uri = Uri.parse("$_baseUrl/Suppliers/SuppliersByBrands_Read?brandId='$id'filter=$brabd~eq~true");
     //if(perBrand) uri = Uri.parse("$_baseUrl/Suppliers/SuppliersByBrands_Read?brandid='$id'filter=$brabd~eq~true");
     if(perBrand) {
       var s = "$_baseUrl/Suppliers/SuppliersByBrands_Read?brandid=$id";
       uri = Uri.parse(s);
+    }
+    if(perCountry){
+        uri = Uri.parse('$_baseUrl/Suppliers/SuppliersByGarageBrandsCountry_Read?brandcountry=$id&garagtype=$indexGarage');
     }
     try{
       http.Response response = await http.get(
@@ -640,7 +641,14 @@ class MyAPI{
                 suplierList.add(jsonDecode(response.body)['data'][i]['suppliers']);
               }
             }
-          }else{
+          }else if(perCountry){
+            suplierList.clear();
+            var k = jsonDecode(response.body)['total'];
+            for(int i = 0; i< k; i++){
+                suplierList.add(jsonDecode(response.body)['data'][i]['suppliers']);
+            }
+          }
+          else{
             suplierList = jsonDecode(response.body)['data'];
           }
           if(original!) {
@@ -658,6 +666,11 @@ class MyAPI{
             }
           }
           suplierList.removeWhere((element) => element['user']['id']== userInfo['id']);
+          suplierList.sort((a, b) {
+            var aOrder = a['order']??1; //before -> var adate = a.expiry;
+            var bOrder = b['order']??1; //before -> var bdate = b.expiry;
+            return aOrder.compareTo(bOrder);
+          });
           editTransactionSuplierList();
           return true;
         }
