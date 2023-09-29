@@ -791,7 +791,6 @@ class MyAPI{
   getCarSellByUserId() async{
     print('Car sell');
     var url = "$_baseUrl/CarSell/CarSell_Read_Mine?filter=customerId~eq~'${userInfo['id']}'";
-    //if(_brandId.isNotEmpty) url = "$_baseUrl/CarSell/CarSell_Read?filter=brandId~eq~'$_brandId'";
     print(url.toString());
     try{
       http.Response response = await http.get(
@@ -874,6 +873,41 @@ class MyAPI{
         //Uri.parse("$_baseUrl/Suppliers/Suppliers_Read?filter=id~eq~'$id'~and~$brabd~eq~true"),
           Uri.parse(url),
           //Uri.parse("$_baseUrl/Orders/Orders_Read?"),
+          headers: {
+            "Accept-Language": LocalizationService.getCurrentLocale().languageCode,
+            "Accept": "application/json",
+            "content-type": "application/json",
+            "Authorization": token,
+          });
+      if(response.statusCode == 200){
+        print(jsonDecode(response.body));
+        if(jsonDecode(response.body)['errors'] == "" || jsonDecode(response.body)['errors'] == null){
+          carBroadKeyList = jsonDecode(response.body)['data'];
+          //editTransactionOrdersList();
+          return true;
+        }
+        else{
+          flushBar(jsonDecode(response.body)['Errors']);
+          return false;
+        }
+      }
+    }
+    catch(e){
+      flushBar(AppLocalizations.of(context!)!.translate('please! check your network connection'));
+      return false;
+      print(e);
+    }
+
+  }
+
+  getCarBroadKeyByUser() async{
+    //var url = "$_baseUrl/Orders/Orders_Read?";
+    print('Car sell');
+    var url = "$_baseUrl/CarKey/CarKey_Read?filter=customerId~eq~'${userInfo['id']}'";
+    print(url.toString());
+    try{
+      http.Response response = await http.get(
+          Uri.parse(url),
           headers: {
             "Accept-Language": LocalizationService.getCurrentLocale().languageCode,
             "Accept": "application/json",

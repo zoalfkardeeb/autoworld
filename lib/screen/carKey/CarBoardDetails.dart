@@ -317,34 +317,20 @@ class _CarBoardDetailsState extends State<CarBoardDetails> {
       width: width,
       height: height,
       margin: EdgeInsets.all(curve),
-      padding: EdgeInsets.all(curve * 1.5),
+      padding: EdgeInsets.only(left:curve ),
       decoration: BoxDecoration(
-        color: color,
+       //color: color,
         borderRadius: BorderRadius.all(Radius.circular(curve/2)),
-        border: Border.all(color: color, width: 2),
+        //border: Border.all(color: color, width: 2),
+        image: DecorationImage(image: AssetImage("assets/images/board.png"), fit: BoxFit.cover),
       ),
-      child: Container(
-        decoration: BoxDecoration(
-          color: MyColors.white,
-          borderRadius: BorderRadius.all(Radius.circular(curve/1.2)),
-        ),
-        child: Row(
-          textDirection: TextDirection.ltr,
-          children: [
-            Image.asset('assets/images/board_key.png', width: (height-curve*2)/3, height: height-curve*2, fit: BoxFit.cover,),
-            Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    SizedBox(height: curve/2,),
-                    _m!.headText(AppLocalizations.of(context)!.translate('Car Panel'), paddingH: width/20, scale: scale*0.85, paddingV: curve/4, align: TextAlign.center),
-                    _m!.headText(keyNum, scale: scale*1, align: TextAlign.center, paddingH: width/20, paddingV: 0.0),
-                  ],
-                )
-            )
-          ],
-        ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          _m!.headText(AppLocalizations.of(context)!.translate('Car Panel'), paddingH: width/20, scale: scale*1.4, paddingV: curve/4, align: TextAlign.center),
+          _m!.headText(keyNum, scale: scale*1.4, align: TextAlign.center, paddingH: width/20, paddingV: 0.0),
+        ],
       )
       ,
     );

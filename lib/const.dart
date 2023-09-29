@@ -52,7 +52,7 @@ var token = '';
 var lng = 0;
 var guestType = false;
 
-var formatter = NumberFormat('#,##,000');
+var formatter = NumberFormat('###,###,000');
 String deviceId = "";
 animateList(_scrollController) async {
   _scrolTo(){
@@ -135,7 +135,7 @@ void launchWhatsApp({required var phone, required String message, context}) asyn
       //return 'https://flutter.dev'; // new line
     } else {
       // add the [https]
-      return "https://api.whatsapp.com/send?phone=$phone1";//=${Uri.parse(message)}"; // new line
+      return "https://wa.me/$phone1";//=${Uri.parse(message)}"; // new line
     }
   }
 

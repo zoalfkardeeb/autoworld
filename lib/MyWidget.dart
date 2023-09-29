@@ -2525,7 +2525,7 @@ class MyWidget{
             padding: EdgeInsets.all(curve/2),
             margin: EdgeInsets.only(bottom: curve, left: MediaQuery.of(context).size.width/50, right: MediaQuery.of(context).size.width/50),
             decoration: BoxDecoration(
-                boxShadow: [
+                boxShadow: const [
                   BoxShadow(
                     color: MyColors.black,
                     offset: Offset(1, 2),
@@ -2542,34 +2542,20 @@ class MyWidget{
                 Container(
                   width: double.infinity,
                   height: MediaQuery.of(context).size.width/5.7,
-                  padding: EdgeInsets.all(0.0),
-                  margin: EdgeInsets.only(bottom: curve/2, left: hSpace, right: hSpace),
+                  padding: EdgeInsets.only( left: curve),
+                  //margin: EdgeInsets.only(bottom: curve/2, left: hSpace, right: hSpace),
                   decoration: BoxDecoration(
-                      color: MyColors.topCon,
+                    image: DecorationImage(image: AssetImage("assets/images/board.png"), fit: BoxFit.cover),
+                    color: MyColors.topCon,
                       borderRadius: BorderRadius.all(Radius.circular(curve/1.5)),
-                    border: Border.all(color: MyColors.qatarColor, width: 2),
+                    //border: Border.all(color: MyColors.qatarColor, width: 2),
                   ),
-                  child: Row(
-                    textDirection: TextDirection.ltr,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          color: MyColors.topCon,
-                          borderRadius: BorderRadius.all(Radius.circular(curve/1.5)),
-                         //border: Border.all(color: MyColors.qatarColor, width: 2),
-                        ),
-                        child: Image.asset('assets/images/board_key.png', width: hSpace*3.5, height: MediaQuery.of(context).size.width/6, fit: BoxFit.contain,),
-                      ),
-                      Spacer(),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          headText(AppLocalizations.of(context)!.translate('Car Panel'), paddingH: hSpace/2, scale: scale*0.85, paddingV: vSpace/3, align: TextAlign.center),
-                          headText(keyNum, scale: scale*0.85, align: TextAlign.center, paddingH: hSpace/2),
-                        ],
-                      ),
-                      Spacer(),
+                      headText(AppLocalizations.of(context)!.translate('Car Panel'), paddingH: hSpace/2, scale: scale*1, paddingV: vSpace/3, align: TextAlign.center),
+                      headText(keyNum, scale: scale*1, align: TextAlign.center, paddingH: hSpace/2),
                     ],
                   ),
                 ),

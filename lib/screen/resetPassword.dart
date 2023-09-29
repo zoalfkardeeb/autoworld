@@ -193,28 +193,31 @@ class _ResetPasswordState extends State<ResetPassword> {
 
   Widget buildCodeBox({required bool first, last}) {
     return Center(
-      child: PinCodeTextField(
-        appContext: context,
-        textStyle: TextStyle(
-            fontSize: FontSize.s18,
-            color: MyColors.mainColor,
-            fontFamily: 'Gotham'
+      child: Directionality(
+        textDirection: TextDirection.ltr,
+        child: PinCodeTextField(
+          appContext: context,
+          textStyle: TextStyle(
+              fontSize: FontSize.s18,
+              color: MyColors.mainColor,
+              fontFamily: 'Gotham'
+          ),
+          pastedTextStyle: TextStyle(fontSize: FontSize.s16, color: Colors.green.shade600, fontWeight: FontWeight.bold, fontFamily: 'BCArabicB'),
+          length: 6,
+          blinkWhenObscuring: true,
+          animationType: AnimationType.fade,
+          pinTheme: PinTheme(shape: PinCodeFieldShape.box, borderRadius: BorderRadius.circular(AppWidth.w1), fieldHeight: AppWidth.w12, fieldWidth: AppWidth.w12, inactiveColor: MyColors.mainColor, selectedColor: MyColors.mainColor, selectedFillColor: MyColors.mainColor, inactiveFillColor: Colors.transparent, activeFillColor: MyColors.white, borderWidth: 12),
+          cursorColor: MyColors.black,
+          animationDuration: const Duration(milliseconds: 2),
+          enableActiveFill: true,
+          keyboardType: TextInputType.number,
+          inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+          onChanged: (pin) {
+            codeLength = pin.length;
+            code = pin;
+          },
+          onCompleted: (pin) {},
         ),
-        pastedTextStyle: TextStyle(fontSize: FontSize.s16, color: Colors.green.shade600, fontWeight: FontWeight.bold, fontFamily: 'BCArabicB'),
-        length: 6,
-        blinkWhenObscuring: true,
-        animationType: AnimationType.fade,
-        pinTheme: PinTheme(shape: PinCodeFieldShape.box, borderRadius: BorderRadius.circular(AppWidth.w1), fieldHeight: AppWidth.w12, fieldWidth: AppWidth.w12, inactiveColor: MyColors.mainColor, selectedColor: MyColors.mainColor, selectedFillColor: MyColors.mainColor, inactiveFillColor: Colors.transparent, activeFillColor: MyColors.white, borderWidth: 12),
-        cursorColor: MyColors.black,
-        animationDuration: const Duration(milliseconds: 2),
-        enableActiveFill: true,
-        keyboardType: TextInputType.number,
-        inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-        onChanged: (pin) {
-          codeLength = pin.length;
-          code = pin;
-        },
-        onCompleted: (pin) {},
       ),
     );
     /*return Center(
