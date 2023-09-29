@@ -1836,6 +1836,7 @@ class MyAPI{
 
   Future sendSellCarPanle(id, price, carPanleNum) async{
     var type = 0;
+    print('t');
     switch (carPanleNum.toString().length.toString()){
       case '6':
         type = 0;

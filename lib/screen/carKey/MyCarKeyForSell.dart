@@ -3,6 +3,7 @@ import 'package:automall/api.dart';
 import 'package:automall/const.dart';
 import 'package:automall/constant/color/MyColors.dart';
 import 'package:automall/localizations.dart';
+import 'package:automall/screen/carKey/editCarPanle.dart';
 import 'package:flutter/material.dart';
 class MyCarKeyForSell extends StatefulWidget {
   const MyCarKeyForSell({Key? key}) : super(key: key);
@@ -80,6 +81,12 @@ class _MyCarKeyForSellState extends State<MyCarKeyForSell> {
                           return GestureDetector(
                               child: _carSellCard(index),
                               onTap: () => {
+                              Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                              builder: (context) => EditCarPanle(barTitle: _carBroadKeyList[index]['keyNum'],carPanel: _carBroadKeyList,),
+                              )
+                              ),
                               }
                           );
                         },
@@ -174,8 +181,6 @@ class _MyCarKeyForSellState extends State<MyCarKeyForSell> {
             ,*/
               ],
             ),
-
-
           ],
         )
     );
