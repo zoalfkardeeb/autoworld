@@ -934,6 +934,54 @@ class MyAPI{
     }
 
   }
+  Future carKey_Update(var carPanel) async{
+    //var url = "$_baseUrl/Orders/Orders_Read?";
+    print('Car model');
+    var url = "$_baseUrl/CarModels/CarModels_Read";
+    print(url.toString());
+    try{
+      var headers = {
+        'Authorization': token,
+        'Content-Type': 'application/json'
+      };
+      var request = http.Request('POST', Uri.parse('https://api.autoworldqa.com/CarKey/CarKey_Update'));
+      request.body = json.encode({
+        "Id": carPanel['id'],
+        "CustomerId": carPanel['user']['id'],
+        "IsSold": carPanel['isSold'],
+        "Price": carPanel['keyPrice'],
+        "CarKeyType": carPanel['type'],
+        //"Status": "",
+        //"CarKeyImg": "",
+        //"CarKeyImgFile": "",
+        "CarKeyNum": carPanel['keyNum']
+      });
+      request.headers.addAll(headers);
+
+      http.StreamedResponse response = await request.send();
+      if (response.statusCode == 200) {
+        var _body = await response.stream.bytesToString();
+        if(jsonDecode(_body)['errors'] == "" || jsonDecode(_body)['errors'] == null){
+          //editTransactionOrdersList();
+          return true;
+        }
+        else{
+          flushBar(jsonDecode(_body)['Errors']);
+          return false;
+        }
+      }
+      else {
+        return false;
+        print(response.reasonPhrase);
+      }
+    }
+    catch(e){
+      flushBar(AppLocalizations.of(context!)!.translate('please! check your network connection'));
+      return false;
+      print(e);
+    }
+
+  }
 
   Future getCarModel() async{
     //var url = "$_baseUrl/Orders/Orders_Read?";

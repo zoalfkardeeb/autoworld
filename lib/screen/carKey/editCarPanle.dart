@@ -25,6 +25,7 @@ class _EditCarPanleState extends State<EditCarPanle> {
   //List<ImageObject> _imgObjs = [];
   List attach = [];
 
+  bool _isSold = false;
   var _tapNum = 1;
   final ScrollController _scrollController = ScrollController();
 
@@ -34,6 +35,9 @@ class _EditCarPanleState extends State<EditCarPanle> {
     super.initState();
     _numOfCarPanle.addListener(() {setState(() {});});
     _priceController.addListener(() {setState(() {});});
+    _numOfCarPanle.text = widget.carPanel['keyNum'];
+    _priceController.text = widget.carPanel['keyPrice'];
+    _isSold = widget.carPanel['isSold'];
   }
 
 
@@ -85,6 +89,23 @@ class _EditCarPanleState extends State<EditCarPanle> {
                           padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width/10),
                           children: [
                             //SizedBox(height: hSpace/3,),
+                            GestureDetector(
+                              onTap: ()=>{
+                                _isSold = !_isSold,
+                                _setState(),
+                              },
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children:
+                                [
+                                  _m!.headText(AppLocalizations.of(context)!.translate('Mark as sell'), color: MyColors.black, paddingV: curve),
+
+                                  SvgPicture.asset(_isSold
+                                      ? 'assets/images/check.svg'
+                                      : 'assets/images/check-not.svg'),
+                                ]
+                              ),
+                            ),
                             _m!.textFiled(curve, Colors.white, MyColors.bodyText1, _numOfCarPanle, AppLocalizations.of(context)!.translate('Car Panel'), Icons.edit_outlined, withoutValidator: true, readOnly: true),
                             _m!.textFiled(curve, Colors.white, MyColors.bodyText1, _priceController, AppLocalizations.of(context)!.translate('Price'), Icons.edit_outlined, withoutValidator: true, number: true),
                           ],
@@ -206,16 +227,17 @@ class _EditCarPanleState extends State<EditCarPanle> {
       Navigator.of(context).pop();
       print('tttttt');
       setState(() {pleaseWait = true;});
-      var add = await MyAPI(context: context).sendSellCarPanle(userInfo['id'], int.parse(_priceController.text), _numOfCarPanle.text);
+      var carpanalNew = widget.carPanel;
+      carpanalNew['isSold'] = _isSold;
+      carpanalNew['keyPrice'] = int.parse(_priceController.text);
+      var add = await MyAPI(context: context).carKey_Update(carpanalNew);
       //var add = await MyAPI(context: context).sendSellCar(userInfo['id'], gategoryId, brandId, _vinNumberController.text, _carNameController.text, _modelController.text, _remarksController.text, attach, supplier, indexGarage);
       setState(() {
         pleaseWait = false;
       });
       if(add){
-        Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => SelectScreen(),),
-              (Route<dynamic> route) => false,
-        );
+        Navigator.of(context).pop();
+        Navigator.of(context).pop();
       }
     }
     Dialog errorDialog = Dialog(
