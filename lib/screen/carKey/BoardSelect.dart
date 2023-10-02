@@ -44,6 +44,7 @@ class _BoardSelectState extends State<BoardSelect> {
           'user': carBroadKeyList[i]['user'],
           'keyUser': carBroadKeyList[i]['user']['name'],
           'keyPrice': carBroadKeyList[i]['price'].toString() ,
+          'isSold': carBroadKeyList[i]['isSold'],
           'keyView': carBroadKeyList[i]['viewCount'].toString(),
         });
       }
@@ -154,7 +155,9 @@ class _BoardSelectState extends State<BoardSelect> {
         _carBroadKeyList[index]['keyNum'],
         _carBroadKeyList[index]['keyUser'],
         _carBroadKeyList[index]['keyPrice'],
-        _carBroadKeyList[index]['keyView']);
+        _carBroadKeyList[index]['keyView'],
+      state: _carBroadKeyList[index]['isSold']
+    );
   }
 
 

@@ -123,7 +123,9 @@ class _MyCarKeyForSellState extends State<MyCarKeyForSell> {
         _carBroadKeyList[index]['keyNum'],
         _carBroadKeyList[index]['keyUser'],
         _carBroadKeyList[index]['keyPrice'],
-        _carBroadKeyList[index]['keyView']);
+        _carBroadKeyList[index]['keyView'],
+        state: _carBroadKeyList[index]['isSold'],
+    );
   }
 
   _setState() {

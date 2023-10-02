@@ -929,7 +929,7 @@ class MyWidget{
               child: SvgPicture.asset(assets ,height: MediaQuery.of(context).size.width/13*scale* imageScale, fit: BoxFit.contain,),
             ),
             SizedBox(width: MediaQuery.of(context).size.width/40*scale*scale*scale*scale,),
-            headText(text, scale: 0.47*scale, /*padding: 0.0,*/ maxLine: 2, color: MyColors.black)
+            headText(text, scale: 0.5*scale, /*padding: 0.0,*/ maxLine: 2, color: MyColors.black,paddingH: 0.0)
           ],
         ):
         Row(
@@ -2299,40 +2299,6 @@ class MyWidget{
                               height: MediaQuery.of(context).size.width / 15 * 3 +hSpace*2,
                               width: MediaQuery.of(context).size.width / 5 * 2.8,
                             ),
-                            /*   Container(
-                        child: ListView(
-                          scrollDirection: Axis.horizontal,
-                          children: [
-                            iconText("assets/images/ic_km.svg", kelometrag, MyColors.red, scale: scale, imageScale: 0.5, paddingH: 0.2),
-                            SizedBox(width: MediaQuery.of(context).size.width/40,),
-                            iconText("assets/images/ic_price.svg", price, MyColors.gray, scale: scale, imageScale: 0.5, paddingH: 0.2),
-                          ],
-                        ),
-                        height: MediaQuery.of(context).size.width / 15,
-                        width: MediaQuery.of(context).size.width / 5 * 2.7,
-                      ),
-                      Container(
-                        child: ListView(
-                          scrollDirection: Axis.horizontal,
-                          children: [
-                            iconText("assets/images/gear_automatic.svg", gearBox, MyColors.red, scale: scale, imageScale: 0.5, paddingH: 0.2),
-                            iconText("assets/images/ic_price.svg", cylenders, MyColors.gray, scale: scale, imageScale: 0.5, paddingH: 0.2),
-                          ],
-                        ),
-                        height: MediaQuery.of(context).size.width/15,
-                        width: MediaQuery.of(context).size.width/5*2.7,
-                      ),
-                      Container(
-                        child: ListView(
-                          scrollDirection: Axis.horizontal,
-                          children: [
-                            iconText("assets/images/ic_pr_year.svg", productionYear, MyColors.gray, scale: scale, imageScale: 0.5, paddingH: 0.2),
-                          ],
-                        ),
-                        height: MediaQuery.of(context).size.width/15,
-                        width: MediaQuery.of(context).size.width/5*2,
-                      ),
-*/
                           ],
                         ),
                       ),
@@ -2511,7 +2477,8 @@ class MyWidget{
      ;
   }
 
-  carBroadKeyCard(keyNum, keyUser, keyPrice, keyView){
+  carBroadKeyCard(keyNum, keyUser, keyPrice, keyView, {isNew, state}){
+    isNew??= false;
     var vSpace = MediaQuery.of(context).size.height/100;
     var hSpace = MediaQuery.of(context).size.width/50;
     var curve = MediaQuery.of(context).size.width/20;
@@ -2562,11 +2529,14 @@ class MyWidget{
                 SizedBox(height: vSpace/3,),
                // Expanded(child: headText(keyUser, scale: scale)),
                 Row(
+                 // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    iconText("assets/images/ic_price.svg", keyPrice, MyColors.gray, scale: scale, imageScale: 0.5, paddingH: 0.2),
-                    SizedBox(width: hSpace/2,),
+                    SizedBox(width: hSpace,),
+                    iconText("assets/images/ic_price.svg", formatter.format(int.parse(keyPrice.toString())).toString(), MyColors.gray, scale: scale*1.2, imageScale: 0.5, paddingH: 0.1),
+                    Spacer(),
                     Icon(Icons.remove_red_eye_rounded, color: MyColors.gray,size: curve/1.3,),
                     bodyText1(keyView, color: MyColors.gray, padding: 0.2, scale: scale*0.9),
+                    SizedBox(width: hSpace,),
                   ],
                 ),
               ],
@@ -2574,7 +2544,32 @@ class MyWidget{
             ),
           ),
         ),
-       /* Align(
+        Align(
+          alignment: lng == 2? Alignment.topRight:Alignment.topLeft,
+          child: state!=null && state!=false?Container(
+            padding: EdgeInsets.all(curve/4),
+            margin: EdgeInsets.only(bottom: curve, left: curve/2, right: curve/2),
+            decoration: BoxDecoration(
+              boxShadow: [
+                BoxShadow(
+                  color: MyColors.black,
+                  offset: Offset(0, 0.8),
+                  blurRadius: 0.8,
+                ),
+              ],
+              color:  isNew? MyColors.red: MyColors.gray,
+              borderRadius:lng != 2?
+              BorderRadius.only(bottomRight: Radius.circular(MediaQuery.of(context).size.width/40), topLeft: Radius.circular(MediaQuery.of(context).size.width/20)):
+              BorderRadius.only(bottomLeft: Radius.circular(MediaQuery.of(context).size.width/40), topRight: Radius.circular(MediaQuery.of(context).size.width/20)),
+            ),
+            child: bodyText1(
+                isNew? state : AppLocalizations.of(context)!.translate('Sold'),
+                color: MyColors.white, padding: MediaQuery.of(context).size.width/80, scale: scale*1.2),
+            //child: Icon(Icons.open_with_outlined, color: MyColors.white),
+          ):SizedBox(),
+        ),
+
+        /* Align(
           alignment: lng == 2? Alignment.bottomLeft:Alignment.bottomRight,
           child: Container(
             padding: EdgeInsets.all(curve/7),
