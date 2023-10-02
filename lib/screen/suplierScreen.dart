@@ -350,7 +350,7 @@ class _SuplierScreenState extends State<SuplierScreen> {
     brandId == 0.1? bbbb = '' : bbbb = brands[brands.indexWhere((element) => element['id'] == brandId)]['name'];
     var raduis = AppHeight.h12;
     var _starNum, _suplierName, _suplierDetails, _suplierImagePath;
-    _suplierName = _foundSupliers[index]['fullName'];
+    _suplierName = _foundSupliers[index]['fullName']??'';
     _suplierImagePath = _foundSupliers[index]['user']['imagePath']??'';
     if(_suplierImagePath.toString().endsWith(' ') || _suplierImagePath.toString()== '') {
       _suplierImagePath = null;

@@ -68,6 +68,7 @@ class _AllBrandCarSellsState extends State<AllBrandCarSells> {
           'price': formatter.format(carSellsList[i]['price']).toString(),
           'productionYear': carSellsList[i]['productionYear'].toString(),
           'gearBoxType': carSellsList[i]['gearBoxType'].toString(),
+          'insertDate': carSellsList[i]['insertDate'].toString(),
           'view': carSellsList[i]['viewCount'].toString(),
           'numberOfCylindes': carSellsList[i]['numberOfCylindes'].toString(),
           'fromUser': carSellsList[i]['user']['type'] ==0 ? true : false,
@@ -164,47 +165,40 @@ class _AllBrandCarSellsState extends State<AllBrandCarSells> {
                             _m!.selectFromTheListDrop(curve, _modelController, () => _openList(_dropDownKeyModel), AppLocalizations.of(context)!.translate('Model'), true, _dropDownModel(width,curve)),
                             _m!.selectFromTheListDrop(curve, _numOfCylYearController, () => _openList(_dropDownKeyNumOfCyl), AppLocalizations.of(context)!.translate('Number of cylinders'), true, _dropDownNumOfSyl(width,curve)),
                             SizedBox(height: hSpace/2,),
-                            Stack(
+                            _m!.bodyText1(AppLocalizations.of(context)!.translate('Manufacture Year')),
+                            Row(
                               children: [
-                                _m!.bodyText1(AppLocalizations.of(context)!.translate('Manufacture Year')),
-                                Row(
-                                  children: [
-                                    Flexible(
-                                      flex : 1,
-                                      child: _m!.selectFromTheListDrop(curve, _dateFromController, () => _yearPicker(1), AppLocalizations.of(context)!.translate('From'), true, _dropDownDateFrom(width/2,curve/2)),
-                                    ),
-                                    SizedBox(width: MediaQuery.of(context).size.width/50,),
-                                    Flexible(
-                                      flex : 1,
-                                        child: _m!.textFiled(curve, MyColors.white, MyColors.black, _dateToController, AppLocalizations.of(context)!.translate('To'), Icons.keyboard_arrow_down_outlined, withoutValidator: true, readOnly: true, click: () => _yearPicker(2), fontSize: MediaQuery.of(context).size.width/25)
-                                     // child: _m!.selectFromTheListDrop(curve, _dateToController, () => _yearPicker(2), AppLocalizations.of(context)!.translate('To'), true, _dropDownDateTo(width/2,curve/2)),
-                                    ),
-                                  ],
+                                Flexible(
+                                  flex : 1,
+                                  child: Padding(
+                                    padding: EdgeInsets.only(top: curve/2),
+                                    child: _m!.selectFromTheListDrop(curve, _dateFromController, () => _yearPicker(1), AppLocalizations.of(context)!.translate('From'), true, _dropDownDateFrom(width/2,curve/2)),
+                                  )
                                 ),
-
+                                SizedBox(width: MediaQuery.of(context).size.width/50,),
+                                Flexible(
+                                    flex : 1,
+                                    child: _m!.textFiled(curve/2, MyColors.white, MyColors.black, _dateToController, AppLocalizations.of(context)!.translate('To'), Icons.keyboard_arrow_down_outlined, withoutValidator: true, readOnly: true, click: () => _yearPicker(2), fontSize: MediaQuery.of(context).size.width/25, height: MediaQuery.of(context).size.width/8,)
+                                  // child: _m!.selectFromTheListDrop(curve, _dateToController, () => _yearPicker(2), AppLocalizations.of(context)!.translate('To'), true, _dropDownDateTo(width/2,curve/2)),
+                                ),
                               ],
                             ),
                             SizedBox(height: hSpace/2,),
-                            Stack(
+                            _m!.bodyText1(AppLocalizations.of(context)!.translate('Price')),
+                            Row(
                               children: [
-                                _m!.bodyText1(AppLocalizations.of(context)!.translate('Price')),
-                                Row(
-                                  children: [
-                                    Flexible(
-                                      flex : 1,
-                                      child: _m!.textFiled(curve, MyColors.white, MyColors.bodyText1, _priceFromController,  AppLocalizations.of(context)!.translate('From'), null, withoutValidator: true, number: true),
+                                Flexible(
+                                  flex : 1,
+                                  child: _m!.textFiled(curve, MyColors.white, MyColors.bodyText1, _priceFromController,  AppLocalizations.of(context)!.translate('From'), null, withoutValidator: true, number: true),
 
 //                                    child: _m!.selectFromTheListDrop(curve, _priceFromController, () => _openList(_dropDownKeyPriceFrom), AppLocalizations.of(context)!.translate('From'), true, _dropDownPriceFrom(width/2,curve/2), fontSize: MediaQuery.of(context).size.width/35),
-                                    ),
-                                    SizedBox(width: MediaQuery.of(context).size.width/50,),
-                                    Flexible(
-                                      flex : 1,
-                                      child: _m!.textFiled(curve, MyColors.white, MyColors.bodyText1, _priceToController,  AppLocalizations.of(context)!.translate('To'), null, withoutValidator: true, number: true),
-                                      //child: _m!.selectFromTheListDrop(curve, _priceToController, () => _openList(_dropDownKeyPriceTo), AppLocalizations.of(context)!.translate('To'), true, _dropDownPriceTo(width/2,curve/2), fontSize: MediaQuery.of(context).size.width/35),
-                                    ),
-                                  ],
                                 ),
-
+                                SizedBox(width: MediaQuery.of(context).size.width/50,),
+                                Flexible(
+                                  flex : 1,
+                                  child: _m!.textFiled(curve, MyColors.white, MyColors.bodyText1, _priceToController,  AppLocalizations.of(context)!.translate('To'), null, withoutValidator: true, number: true),
+                                  //child: _m!.selectFromTheListDrop(curve, _priceToController, () => _openList(_dropDownKeyPriceTo), AppLocalizations.of(context)!.translate('To'), true, _dropDownPriceTo(width/2,curve/2), fontSize: MediaQuery.of(context).size.width/35),
+                                ),
                               ],
                             ),
                             Padding(
@@ -498,11 +492,11 @@ class _AllBrandCarSellsState extends State<AllBrandCarSells> {
             sortIncrease = true;
           }
           else if(newValue ==  dropDownListString[2]){
-            _carSellList.sort((a, b) => b['productionYear'].compareTo(a['productionYear']));
+            _carSellList.sort((a, b) => b['insertDate'].compareTo(a['insertDate']));
             sortIncrease = false;
           }
           else if(newValue ==  dropDownListString[3]){
-            _carSellList.sort((a, b) => a['productionYear'].compareTo(b['productionYear']));
+            _carSellList.sort((a, b) => a['insertDate'].compareTo(b['insertDate']));
             sortIncrease = true;
           }
           else if(newValue ==  dropDownListString[4]){

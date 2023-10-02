@@ -245,6 +245,8 @@
   "Petrol": "بنزين",
   "Diesel": "ديزل",
   "Hybrid": "هايبرد",
-  "Electrical1": "كهربائي"
+  "Electrical1": "كهربائي",
+  "Apply": "تطبيق",
+  "Cancel": "إلغاء"
 
 }
