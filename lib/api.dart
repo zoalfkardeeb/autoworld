@@ -951,7 +951,7 @@ class MyAPI{
         "IsSold": carPanel['isSold'],
         "Price": carPanel['keyPrice'],
         "CarKeyType": carPanel['type'],
-        //"Status": "",
+        "Status": carPanel['status'],
         //"CarKeyImg": "",
         //"CarKeyImgFile": "",
         "CarKeyNum": carPanel['keyNum']

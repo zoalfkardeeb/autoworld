@@ -1213,8 +1213,9 @@ class MyWidget{
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,
       decoration: const BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background.png"), fit: BoxFit.cover, opacity: 0.7)),
+      child: Image.asset("assets/images/loading.gif"),
       //color: MyColors.red,
-      child: GradientProgressIndicator(
+      /*child: GradientProgressIndicator(
         radius: MediaQuery.of(context).size.width/4,
         duration: 3,
         strokeWidth: 12,// MediaQuery.of(context).size.width/40,
@@ -1239,7 +1240,7 @@ class MyWidget{
             ),
           ],
         ),
-      ),
+      ),*/
     );
   }
 

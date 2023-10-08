@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 import 'package:automall/api.dart';
+import 'package:automall/constant/app_size.dart';
 import 'package:automall/constant/color/MyColors.dart';
 
 import 'package:automall/const.dart';
@@ -109,6 +110,15 @@ class _CarBoardDetailsState extends State<CarBoardDetails> {
 
                           ],
                         ),
+                        Spacer(),
+                        Row(
+                          children: [
+                            Icon(Icons.price_check_outlined, color: MyColors.mainColor,),
+                            SizedBox(width: AppWidth.w2,),
+                            _m!.headText(price, scale: 0.8, color: MyColors.mainColor),
+                          ],
+                        ),
+                        Spacer(),
                       ],
                     ),
                   ),

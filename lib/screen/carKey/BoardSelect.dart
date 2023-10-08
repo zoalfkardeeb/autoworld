@@ -24,9 +24,12 @@ class BoardSelect extends StatefulWidget {
 class _BoardSelectState extends State<BoardSelect> {
   MyWidget? _m;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+  final GlobalKey _dropDownKey = GlobalKey();
+  bool sortIncrease = false;
 
   List<String> imageList = [];
   ImageProvider? image;
+  List<String> dropDownListString = [];
 
   List _carBroadKeyList = [];
   List carBroadKeyListBase = [];
@@ -60,6 +63,14 @@ class _BoardSelectState extends State<BoardSelect> {
     var curve = MediaQuery.of(context).size.height / 30;
     var width = MediaQuery.of(context).size.width / 1.2;
     _m = MyWidget(context);
+    dropDownListString.clear();
+    dropDownListString.add(AppLocalizations.of(context)!.translate('Sort By Price From High to Low'));
+    dropDownListString.add(AppLocalizations.of(context)!.translate('Sort By Price From Low to High'));
+   /* dropDownListString.add(AppLocalizations.of(context)!.translate('Sort By Date From High to Low'));
+    dropDownListString.add(AppLocalizations.of(context)!.translate('Sort By Date From Low to High'));
+   */
+    dropDownListString.add(AppLocalizations.of(context)!.translate('Sort By Views From High to Low'));
+    dropDownListString.add(AppLocalizations.of(context)!.translate('Sort By Views From Low to High'));
 
     return Scaffold(
       resizeToAvoidBottomInset: true,
@@ -150,7 +161,6 @@ class _BoardSelectState extends State<BoardSelect> {
 
   _carSellCard(index){
     //index = 0;
-
     return MyWidget(context).carBroadKeyCard(
         _carBroadKeyList[index]['keyNum'],
         _carBroadKeyList[index]['keyUser'],
@@ -160,14 +170,20 @@ class _BoardSelectState extends State<BoardSelect> {
     );
   }
 
-
   _setState() {
     setState(() {
 
     });
   }
 
-
+  _iconCenter(svgImage, Function() onPressed){
+    return IconButton(
+      icon: Align(
+        alignment: Alignment.center,
+        child: SvgPicture.asset(svgImage, height: MediaQuery.of(context).size.width/20, fit: BoxFit.contain, color: MyColors.gray,),),
+      onPressed: () => onPressed(),
+    );
+  }
   _topBar(curve) {
     var padT = MediaQuery.of(context).size.height/30;
 
@@ -185,6 +201,10 @@ class _BoardSelectState extends State<BoardSelect> {
           )],    ),
         child: Stack(
           children: [
+            Align(alignment: Alignment.center,
+              child: Padding(padding: EdgeInsets.only(top: padT),
+                child: _dropDown(),),
+            ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -204,9 +224,13 @@ class _BoardSelectState extends State<BoardSelect> {
                     ),
                     Expanded(
                       flex: 1,
+                      child: _iconCenter(/*sortIncrease?"assets/images/ic_sort_increase.svg":"assets/images/ic_sort_less.svg"*/"assets/images/ic_sort1.svg", () => _pressSort()),
+                    ),
+                    /*Expanded(
+                      flex: 1,
                       child: _m!.titleText1(
                           AppLocalizations.of(context)!.translate('name')),
-                    ),
+                    ),*/
                     Expanded(
                       flex: 1,
                       child: _m!.notificationButton(),
@@ -221,7 +245,6 @@ class _BoardSelectState extends State<BoardSelect> {
             ,*/
               ],
             ),
-
 
           ],
         )
@@ -241,4 +264,76 @@ class _BoardSelectState extends State<BoardSelect> {
 
   String? path ;
 
+  _dropDown(){
+    return DropdownButton<String>(
+      key: _dropDownKey,
+      underline: DropdownButtonHideUnderline(child: Container(),),
+      icon:  SvgPicture.asset('assets/images/ic_sort_less.svg', height: 0.0000001, fit: BoxFit.contain,),
+      dropdownColor: MyColors.white.withOpacity(0.9),
+      //value: cityName,
+      style: TextStyle(
+          fontSize: MediaQuery.of(context).size.width/25,
+          color: MyColors.bodyText1,
+          fontFamily: 'Gotham'),
+      items: dropDownListString.map((e) => DropdownMenuItem(
+          value: e,
+          child: SizedBox(width: MediaQuery.of(context).size.width/1.2,
+            child: Text(e.toString(),
+              style: TextStyle(
+                  fontSize: MediaQuery.of(context).size.width/25,
+                  color: MyColors.bodyText1,
+                  fontFamily: 'Gotham'),
+            ),
+
+          )
+      )).toList(),
+      selectedItemBuilder: (BuildContext context){
+        return dropDownListString.map((e) => Text(e.toString())).toList();
+      },
+
+      onChanged: (String? newValue){
+        setState(() {
+          if(newValue ==  dropDownListString[0]){
+            _carBroadKeyList.sort((a, b) => b['keyPrice'].compareTo(a['keyPrice']));
+            sortIncrease = false;
+          }
+          else if(newValue ==  dropDownListString[1]){
+            _carBroadKeyList.sort((a, b) => a['keyPrice'].compareTo(b['keyPrice']));
+            sortIncrease = true;
+          }
+          /*else if(newValue ==  dropDownListString[2]){
+            _carBroadKeyList.sort((a, b) => b['insertDate'].compareTo(a['insertDate']));
+            sortIncrease = false;
+          }
+          else if(newValue ==  dropDownListString[3]){
+            _carBroadKeyList.sort((a, b) => a['insertDate'].compareTo(b['insertDate']));
+            sortIncrease = true;
+          }*/
+          else if(newValue ==  dropDownListString[2]){
+            _carBroadKeyList.sort((a, b) => b['keyView'].compareTo(a['keyView']));
+            sortIncrease = false;
+          }
+          else if(newValue ==  dropDownListString[3]){
+            _carBroadKeyList.sort((a, b) => a['keyView'].compareTo(b['keyView']));
+            sortIncrease = true;
+          }
+        });
+      },
+    );
+  }
+
+  _pressSort() {
+    _dropDownKey.currentContext?.visitChildElements((element) {
+      if (element.widget is Semantics) {
+        element.visitChildElements((element) {
+          if (element.widget is Actions) {
+            element.visitChildElements((element) {
+              Actions.invoke(element, const ActivateIntent());
+              //return false;
+            });
+          }
+        });
+      }
+    });
+  }
 }

@@ -161,8 +161,8 @@ class _MyCarsForSellState extends State<MyCarsForSell> {
           carSell['isNew'],
         status: carSell['status'],
         id: carSell['id'],
-        delete: ()=>_sellOrDellet(4),
-        markAsSell: ()=>_sellOrDellet(5),
+        delete: ()=> _sellOrDellet(4),
+        markAsSell: ()=> _sellOrDellet(5),
       );
 
   }

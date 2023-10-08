@@ -550,7 +550,7 @@ class _Sign_inState extends State<Sign_in> {
   }
 
   _read() async {
-    await rootBundle.loadString("pubspec.yaml").then((value) {
+    /*await rootBundle.loadString("pubspec.yaml").then((value) {
       Map yaml = loadYaml(value);
       yaml['version'].toString().split('+')[0] == Strings.version
           ? newVersion = false
@@ -561,7 +561,7 @@ class _Sign_inState extends State<Sign_in> {
       print(yaml['author']);
       print(yaml['homepage']);
       print(yaml['dependencies']);*/
-    });
+    });*/
 
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     _emailController.text = sharedPreferences.getString('email')??'';

@@ -165,27 +165,27 @@ flutter:
     - family: GESS
    # - family: SegoeUI
       fonts:
-        - asset: assets/fonts/segoeuisl.ttf
+        - asset: assets/fonts/alexandria-regular.ttf
           weight: 700
     - family: SegoeUI_Bold
       fonts:
-        - asset: assets/fonts/segoeuib.ttf
+        - asset: assets/fonts/Alexandria-SemiBold.ttf
     - family: SegoeUI_Bold_italic
       fonts:
-        - asset: assets/fonts/seguisbi.ttf
+        - asset: assets/fonts/alexandria-regular.ttf
     - family: SegoeUI_Italic
       fonts:
-        - asset: assets/fonts/segoeuii.ttf
+        - asset: assets/fonts/alexandria-regular.ttf
     - family: GESS_light
    # - family: SegoeUI_Light
       fonts:
-        - asset: assets/fonts/SegoeUI-Light.ttf
+        - asset: assets/fonts/alexandria-regular.ttf
     - family: Gotham
       fonts:
-        - asset: assets/fonts/segoeuisl.ttf
+        - asset: assets/fonts/alexandria-regular.ttf
     - family: Gotham_light
       fonts:
-        - asset: assets/fonts/SegoeUI-Light.ttf
+        - asset: assets/fonts/alexandria-regular.ttf
    # - family: GESS
    #   fonts:
    #     - asset: assets/fonts/GESSTEXTMEDIUM.OTF

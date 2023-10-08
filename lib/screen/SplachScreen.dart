@@ -51,32 +51,28 @@ class SplashState extends State<SplashScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    _read();
-    startTime();
     MyAPI().getCities();
     //MyAPI(context: context).getBrands();
     //MyAPI(context: context).getGarageBrands();
     //MyAPI(context: context).getSupliers(1, 'garage');
-    Timer(const Duration(seconds:2), ()=> navigate());
+    Timer(const Duration(milliseconds:2000), ()async=> await navigate());
     DateTime date = DateTime.now();
     var duration = date.timeZoneOffset;
     timeDiff = Duration(hours: -duration.inHours, minutes: -duration.inMinutes %60);
   }
   bool _welcom = false;
-
+  int getExtendedVersionNumber(String version) {
+    List versionCells = version.split('.');
+    versionCells = versionCells.map((i) => int.parse(i)).toList();
+    return versionCells[0] * 100000 + versionCells[1] * 1000 + versionCells[2];
+  }
   _read() async {
     await MyAPI(context: context).getVersion();
     await rootBundle.loadString("pubspec.yaml").then((value) {
       Map yaml = loadYaml(value);
-      yaml['version'].toString().split('+')[0] == Strings.version
+      getExtendedVersionNumber(yaml['version'].toString().split('+')[0]) >= getExtendedVersionNumber(Strings.version)
           ? newVersion = false
           : newVersion = true;
-      /*print(yaml['name']);
-      print(yaml['description']);
-      print(yaml['version']);
-      print(yaml['author']);
-      print(yaml['homepage']);
-      print(yaml['dependencies']);*/
     });
 
     var d = (await _getDeviceId());
@@ -117,32 +113,33 @@ class SplashState extends State<SplashScreen> {
     return Container(
       decoration: const BoxDecoration(
           image: DecorationImage(image: AssetImage("assets/images/background.png"), fit: BoxFit.cover)),
-      child: Scaffold(
+      child: Image.asset('assets/images/splash.gif', fit: BoxFit.cover,),
+      /*Scaffold(
         backgroundColor: Colors.transparent,
-        body: initScreen(context),
-      ),
+        body: Image.asset('assets/images/splash.gif', fit: BoxFit.cover,),//initScreen(context),
+      ),*/
     );
   }
 
   startTime() async {
     var duration = const Duration(seconds:1);
-    /*final _keyWelcome = 'welcome';
-    final prefs = await SharedPreferences.getInstance();
-    welcom = prefs.getBool(_keyWelcome) ?? true;*/
     return Timer(duration, ()=> setState(() {
       ani = true;
     }));
   }
 
-
-  navigate() {
+  navigate() async{
+    await _read();
     if(_welcom){
-      MyAPI(context: context).getOrders(userInfo['id']);
+      // ignore: use_build_context_synchronously
+      await MyAPI(context: context).getOrders(userInfo['id']);
     }
+    // ignore: use_build_context_synchronously
     Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => !_welcom ?  Sign_in(false) : userInfo['type'] == 0? SelectScreen() : SelectScreen(),
+          builder: (context) => Sign_in(false),
+ //         builder: (context) => !_welcom ?  Sign_in(false) : userInfo['type'] == 0? SelectScreen() : SelectScreen(),
         )
     );
   }
@@ -229,16 +226,6 @@ class SplashState extends State<SplashScreen> {
         ),
       ],
     );
-    /*Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              SizedBox(height: MediaQuery.of(context).size.height/20 + MediaQuery.of(context).size.width/12,),
-              _m!.headText(AppLocalizations.of(context)!.translate('name'), paddingV: MediaQuery.of(context).size.height/40),
-
-            ],
-          ),*/
-
   }
 
 }

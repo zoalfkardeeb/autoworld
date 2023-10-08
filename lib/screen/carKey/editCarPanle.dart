@@ -228,6 +228,7 @@ class _EditCarPanleState extends State<EditCarPanle> {
       print('tttttt');
       setState(() {pleaseWait = true;});
       var carpanalNew = widget.carPanel;
+      if(_isSold) carpanalNew['status'] = 5;
       carpanalNew['isSold'] = _isSold;
       carpanalNew['keyPrice'] = int.parse(_priceController.text);
       var add = await MyAPI(context: context).carKey_Update(carpanalNew);
