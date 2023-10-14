@@ -35,9 +35,21 @@ import 'localizations.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:easy_pdf_viewer/easy_pdf_viewer.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+
 class MyWidget{
   BuildContext context;
   MyWidget(this.context);
+
+  static myNetworkImage(String networkImage, width, hieght){
+    return CachedNetworkImage(
+      width: width,
+      height: hieght,
+      imageUrl: networkImage,
+      placeholder: (context, url) => CircularProgressIndicator(),
+      errorWidget: (context, url, error) => Icon(Icons.error),
+    );
+  }
 
   static elevatedButton(
       {required text,
@@ -1912,10 +1924,9 @@ class MyWidget{
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-                Image.network(image,
-                  width: MediaQuery.of(context).size.width / 5,
-                  height: MediaQuery.of(context).size.width / 5,
-                  fit: BoxFit.contain,
+                myNetworkImage(image,
+                  MediaQuery.of(context).size.width / 5,
+                  MediaQuery.of(context).size.width / 5,
                 ),
               SizedBox(height: hSpace / 3,),
               headText(text, scale: 0.5,),

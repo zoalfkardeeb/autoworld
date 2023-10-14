@@ -281,7 +281,7 @@ class _AddSellCarScreenState extends State<AddSellCarScreen> {
                 Expanded(
                   flex: 1,
                   child: _m!.titleText1(
-                      AppLocalizations.of(context)!.translate('name')),
+                      AppLocalizations.of(context)!.translate('Car for Sell')),
                 ),
                 Expanded(
                   flex: 1,

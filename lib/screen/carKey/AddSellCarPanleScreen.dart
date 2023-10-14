@@ -117,7 +117,7 @@ class _AddSellCarPanleScreenState extends State<AddSellCarPanleScreen> {
                           padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width/10),
                           children: [
                             //SizedBox(height: hSpace/3,),
-                            _m!.textFiled(curve, Colors.white, MyColors.bodyText1, _numOfCarPanle, AppLocalizations.of(context)!.translate('Car Panel'), Icons.edit_outlined, withoutValidator: true),
+                            _m!.textFiled(curve, Colors.white, MyColors.bodyText1, _numOfCarPanle, AppLocalizations.of(context)!.translate('Plate Number'), Icons.edit_outlined, withoutValidator: true),
                             _m!.textFiled(curve, Colors.white, MyColors.bodyText1, _priceController, AppLocalizations.of(context)!.translate('Price'), Icons.edit_outlined, withoutValidator: true, number: true),
                           ],
                     )

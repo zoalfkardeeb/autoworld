@@ -170,10 +170,11 @@ class _AllBrandCarSellsState extends State<AllBrandCarSells> {
                               children: [
                                 Flexible(
                                   flex : 1,
-                                  child: Padding(
+                                  child: _m!.textFiled(curve/2, MyColors.white, MyColors.black, _dateFromController, AppLocalizations.of(context)!.translate('From'), Icons.keyboard_arrow_down_outlined, withoutValidator: true, readOnly: true, click: () => _yearPicker(1), fontSize: MediaQuery.of(context).size.width/25, height: MediaQuery.of(context).size.width/8,),
+                                  /*Padding(
                                     padding: EdgeInsets.only(top: curve/2),
                                     child: _m!.selectFromTheListDrop(curve, _dateFromController, () => _yearPicker(1), AppLocalizations.of(context)!.translate('From'), true, _dropDownDateFrom(width/2,curve/2)),
-                                  )
+                                  )*/
                                 ),
                                 SizedBox(width: MediaQuery.of(context).size.width/50,),
                                 Flexible(

@@ -378,7 +378,7 @@ class _SuplierScreenState extends State<SuplierScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _m!.suplierNameText(_suplierName,),
-            _withoutQutation == null? Row(
+            /*_withoutQutation == null? Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Stack(
@@ -388,7 +388,7 @@ class _SuplierScreenState extends State<SuplierScreen> {
                   ],
                 ),
               ],
-            ):SizedBox(),
+            ):SizedBox(),*/
             _m!.suplierDesText1(_suplierDetails, scale: 0.8, padding: 0.0),
           ],
         ),
@@ -416,9 +416,9 @@ class _SuplierScreenState extends State<SuplierScreen> {
             _withoutQutation == null?
             GestureDetector(
               onTap: () => _check(suplierList.indexOf(_foundSupliers[index])),
-              child: Image.asset(_suplierListCheck[suplierList.indexOf(_foundSupliers[index])]
-                  ? 'assets/images/check.png'
-                  : 'assets/images/check-not.png', width: AppWidth.w8,),
+              child: SvgPicture.asset(_suplierListCheck[suplierList.indexOf(_foundSupliers[index])]
+                  ? 'assets/images/check.svg'
+                  : 'assets/images/check-not.svg', width: AppWidth.w8,),
             ):SizedBox(),
             _withoutQutation != null?
             Padding(

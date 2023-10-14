@@ -197,7 +197,7 @@
   "CVT": "CVT",
   "Engine": "Engine",
   "Cylinders": "Cylinders",
-  "Man. Date: ": "Man. Date: ",
+  "Man. Date: ": "Model: ",
   "Car Information": "Car Information",
   "Vendor Information": "Vendor Information",
   "View": "View",
@@ -247,6 +247,7 @@
   "Electrical": "Electrical",
   "Electrical1": "Electrical",
   "Apply": "Apply",
-  "Cancel": "Cancel"
+  "Cancel": "Cancel",
+  "Plate Number": "Plate Number"
 }
 

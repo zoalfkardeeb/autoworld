@@ -46,7 +46,8 @@ class _BoardSelectState extends State<BoardSelect> {
           'keyNum': carBroadKeyList[i]['carKeyNum'].toString(),
           'user': carBroadKeyList[i]['user'],
           'keyUser': carBroadKeyList[i]['user']['name'],
-          'keyPrice': carBroadKeyList[i]['price'].toString() ,
+          'price': carBroadKeyList[i]['price'],
+          'keyPrice': carBroadKeyList[i]['price'].toString(),
           'isSold': carBroadKeyList[i]['isSold'],
           'keyView': carBroadKeyList[i]['viewCount'].toString(),
         });
@@ -294,11 +295,11 @@ class _BoardSelectState extends State<BoardSelect> {
       onChanged: (String? newValue){
         setState(() {
           if(newValue ==  dropDownListString[0]){
-            _carBroadKeyList.sort((a, b) => b['keyPrice'].compareTo(a['keyPrice']));
+            _carBroadKeyList.sort((a, b) => b['price'].compareTo(a['price']));
             sortIncrease = false;
           }
           else if(newValue ==  dropDownListString[1]){
-            _carBroadKeyList.sort((a, b) => a['keyPrice'].compareTo(b['keyPrice']));
+            _carBroadKeyList.sort((a, b) => a['price'].compareTo(b['price']));
             sortIncrease = true;
           }
           /*else if(newValue ==  dropDownListString[2]){

@@ -189,10 +189,9 @@ class _BrandScreenState extends State<BrandScreen> {
               children: [
                 Container(
                     color: /*show? MyColors.white.withOpacity(0.5):*/ Colors.transparent,
-            child: Image.network(brandList[index]['image'],
-              width: MediaQuery.of(context).size.width / 5,
-              height: MediaQuery.of(context).size.width / 5,
-              fit: BoxFit.contain,
+            child: MyWidget.myNetworkImage(brandList[index]['image'],
+               MediaQuery.of(context).size.width / 5,
+              MediaQuery.of(context).size.width / 5,
             ),),
             /*brandList[index]['image'].toString().contains('https://automallonline.info')?
             Image.network(brandList[index]['image'], width: MediaQuery
@@ -319,7 +318,7 @@ class _BrandScreenState extends State<BrandScreen> {
 
   _selectBrand(index) async{
     setState(() {
-      _selectedBrand = index;
+      (_selectedBrand == index) ? _selectedBrand = 10000000000 : _selectedBrand = index;
     });
    /* Navigator.push(
         context,

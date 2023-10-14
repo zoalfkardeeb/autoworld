@@ -1,9 +1,12 @@
+import 'package:automall/constant/app_size.dart';
+import 'package:automall/constant/font_size.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../MyWidget.dart';
 import 'package:automall/constant/color/MyColors.dart';
+import 'package:html_unescape/html_unescape.dart';
 
 import '../const.dart';
 import '../localizations.dart';
@@ -32,7 +35,7 @@ class _SuplierInfoState extends State<SuplierInfo> {
   final List _suplierListCheck = [];
 
   ImageProvider? image;
-
+  var unescape = HtmlUnescape();
   final _nameController = TextEditingController();
   final _mobileController = TextEditingController();
   final _workHourController = TextEditingController();
@@ -62,7 +65,7 @@ class _SuplierInfoState extends State<SuplierInfo> {
     _m = MyWidget(context);
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      backgroundColor: Colors.grey[100],
+      backgroundColor: MyColors.topCon,
       key: _scaffoldKey,
       //appBar: _m!.appBar(barHight, _scaffoldKey),
       drawer: _m!.drawer(() => _setState(), ()=> _tap(2), ()=> _tap(1), _scaffoldKey),
@@ -82,73 +85,69 @@ class _SuplierInfoState extends State<SuplierInfo> {
               child: _tapNum == 1?
               Column(
                   //mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     _topBar(curve),
-                    Padding(padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width/20, vertical: MediaQuery.of(context).size.height/40),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          _m!.logoContainer(_suplierImagePath.toString().endsWith(' ')? null : _suplierImagePath, MediaQuery.of(context).size.width/2.5, isSupp: true),
-                          /*CircleAvatar(
-                                  backgroundImage: _suplierImagePath.toString().endsWith(' ') ?  const AssetImage('assets/images/Logo1.png') as ImageProvider
-                                      : NetworkImage(_suplierImagePath),
-                                  child: ClipOval(
-                                    child: _suplierImagePath.toString().endsWith(' ') ?  Image.asset('assets/images/Logo1.png')
-                                        : Image.network(_suplierImagePath, height: MediaQuery.of(context).size.width/5*2, width: MediaQuery.of(context).size.width/5*2, fit: BoxFit.cover,),
-                                  )
-                                  ,
-                                  radius: MediaQuery.of(context).size.width/5,
-                                  backgroundColor: Colors.transparent,
-                                ),*/
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width/2,
-                            height: MediaQuery.of(context).size.width/5*2,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                    SizedBox(height: AppHeight.h2,),
+                    Stack(
+                      children: [
+                        Align(
+                          alignment: Alignment.center,
+                          child: _m!.logoContainer(_suplierImagePath.toString().endsWith(' ')? null : _suplierImagePath, AppWidth.w40, isSupp: true),
+                        ),
+                        Align(
+                          alignment: Alignment.center,
+                          child: Padding(
+                            padding: EdgeInsets.only(top: AppWidth.w40-FontSize.s16*3.5/2, left: AppWidth.w40-FontSize.s16*3.5/2),
+                            child: Stack(
                               children: [
-                                _m!.headText(_suplierName, paddingV: MediaQuery.of(context).size.height/60*0, align: TextAlign.start, paddingH: MediaQuery.of(context).size.width/20),
-                                SizedBox(height: MediaQuery.of(context).size.height/60,),
-                                _m!.bodyText1(_suplierEmail, align: TextAlign.start),
-                                Expanded(child: Row(
-                                    children:[
-                                      GestureDetector(
-                                        onTap: () => launchWhatsApp(phone: suplierList[index]['whatsappNumber'].toString(), message: ' ', context: context),
-                                        child: Padding(
-                                      padding: EdgeInsets.symmetric(horizontal: curve, vertical: curve/3),
-                                      child: SvgPicture.asset('assets/images/whatsapp.svg'),
-                                    ),
-                                      ),
-                                      GestureDetector(
-                                        onTap: () => launchPhone(phone: suplierList[index]['whatsappNumber'].toString(), context: context),
-                                        child: Padding(
-                                      padding: EdgeInsets.symmetric(horizontal: curve, vertical: curve/3),
-                                      child: SvgPicture.asset('assets/images/phone.svg', color: MyColors.bodyText1,),
-                                    ),
-                                      ),
-                                  ]
-                                )),
-                                _m!.starRow(MediaQuery.of(context).size.width/4, _suplierStarNum, marginLeft: MediaQuery.of(context).size.width/20)
+                                Icon(Icons.star, color: MyColors.mainColor, size: FontSize.s16*3.5,),
+                                Padding(
+                                  padding: EdgeInsets.only(top: FontSize.s16*3.5/2 - FontSize.s16/2, left: FontSize.s16*3.5/2-FontSize.s16/3),
+                                  child: Text((_suplierStarNum/2).round().toString(), style: TextStyle(fontSize: FontSize.s16, color: MyColors.white), ),
+                                ),
                               ],
                             ),
-                          )
-                        ],
-                      ),
+                          ),
+                        )
+
+                      ],
                     ),
-                    _m!.bodyText1(suplierList[index]['details']??'', align: TextAlign.start, padV: hSpace/10, scale: 1),
-                    Expanded(
-                      child: ListView(
-                       children: [
-                          _m!.bodyText1(AppLocalizations.of(context)!.translate('Full Name'), align: TextAlign.start, padding: MediaQuery.of(context).size.width/10,padV: hSpace/7),
-                          _m!.ProfiletextFiled(curve, MyColors.white, MyColors.black, _nameController, readOnly: true),
-                         // _m!.bodyText1(AppLocalizations.of(context)!.translate('Work Hour'), align: TextAlign.start, padding: MediaQuery.of(context).size.width/10,padV: hSpace/7),
-                          //_m!.ProfiletextFiled(curve, MyColors.white, MyColors.black, _workHourController, readOnly: true),
-                          _m!.bodyText1(AppLocalizations.of(context)!.translate('Contact Number'), align: TextAlign.start, padding: MediaQuery.of(context).size.width/10,padV: hSpace/7),
-                          _m!.ProfiletextFiled(curve, MyColors.white, MyColors.black, _mobileController, readOnly: true),
-                         // _m!.bodyText1(AppLocalizations.of(context)!.translate('City'), align: TextAlign.start, padding: MediaQuery.of(context).size.width/10,padV: hSpace/7),
-                        //  _m!.ProfiletextFiled(curve, MyColors.white, MyColors.black, _cityController, readOnly: true),
-                        ],
-                      ),),
+                    SizedBox(height: AppHeight.h2,),
+                    _m!.headText(_suplierName, paddingV: MediaQuery.of(context).size.height/60*0, align: TextAlign.start, paddingH: MediaQuery.of(context).size.width/20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children:[
+                          GestureDetector(
+                            onTap: () => launchPhone(phone: suplierList[index]['whatsappNumber'].toString(), context: context),
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(horizontal: curve, vertical: curve/3),
+                              child: SvgPicture.asset('assets/images/phone.svg', color: MyColors.bodyText1, height: AppHeight.h6,),
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () => launchWhatsApp(phone: suplierList[index]['whatsappNumber'].toString(), message: ' ', context: context),
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(horizontal: curve, vertical: curve/3),
+                              child: SvgPicture.asset('assets/images/whatsapp.svg', height: AppHeight.h6,),
+                            ),
+                          ),
+                        ]
+                    ),
+                    Container(
+                      width: AppWidth.w100,
+                      margin: EdgeInsets.all(AppPadding.p20),
+                       decoration: BoxDecoration(
+                         color: MyColors.topCon,
+                         borderRadius: BorderRadius.all(Radius.circular(hSpace/3)),
+                         boxShadow: const [BoxShadow(
+                           color: MyColors.black,
+                           offset: Offset(2, 3),
+                           blurRadius: 3,
+                         )],
+                       ),
+                     child: _m!.bodyText1(unescape.convert(suplierList[index]['details']??''), align: TextAlign.start, padV: hSpace/3, scale: 1, maxLine: 100),
+                   ),
                   ],
                 )
                   :

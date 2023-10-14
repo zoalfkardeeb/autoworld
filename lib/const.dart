@@ -135,7 +135,7 @@ void launchWhatsApp({required var phone, required String message, context}) asyn
       //return 'https://flutter.dev'; // new line
     } else {
       // add the [https]
-      return "https://wa.me/$phone1";//=${Uri.parse(message)}"; // new line
+      return "https://wa.me/${phone1.toString().replaceAll('+', '')}";//=${Uri.parse(message)}"; // new line
     }
   }
 
