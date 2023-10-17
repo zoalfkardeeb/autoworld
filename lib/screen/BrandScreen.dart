@@ -21,7 +21,7 @@ class BrandScreen extends StatefulWidget {
   BrandScreen(this._state, this._country, this.index, {Key? key, required this.garageCountry, required this.indexGarage, required this.barTitle}) : super(key: key);
 
   @override
-  _BrandScreenState createState() => _BrandScreenState(_state, _country, index, garageCountry, indexGarage);
+  _BrandScreenState createState() => _BrandScreenState(index, garageCountry, indexGarage);
 }
 
 class _BrandScreenState extends State<BrandScreen> {
@@ -29,13 +29,11 @@ class _BrandScreenState extends State<BrandScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
   var indexGarage =1;
 
-  var _country = 'Qatar';
-  var _state = 'state';
   var index = 1;
   var mainPart='';
   var garageCountry = '1';
 
-  _BrandScreenState(this._state, this._country, this.index, this.garageCountry, this.indexGarage);
+  _BrandScreenState(this.index, this.garageCountry, this.indexGarage);
 
   List brandList = [];
   ImageProvider? image;
@@ -55,7 +53,6 @@ class _BrandScreenState extends State<BrandScreen> {
         'id': brands[i]['id']
       });
     }
-    _state = cityController.text;
     mainPart = getGategoryName(index);
   }
 
@@ -250,8 +247,6 @@ class _BrandScreenState extends State<BrandScreen> {
     });
   }
 
-  _search() {}
-
   _topBar(curve) {
     return Container(
       //centerTitle: true,
@@ -353,17 +348,5 @@ class _BrandScreenState extends State<BrandScreen> {
   }
 
   String? path;
-
-  _selectImageProfile() async {
-    final ImagePicker _picker = ImagePicker();
-    final XFile? xFile = await _picker.pickImage(source: ImageSource.gallery);
-    path = xFile!.path;
-    print(path);
-    setState(
-          () {
-        //  image = FileImage(File(path!));
-      },
-    );
-  }
 
 }

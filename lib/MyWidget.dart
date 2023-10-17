@@ -36,6 +36,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:easy_pdf_viewer/easy_pdf_viewer.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:automall/screen/support/support.dart';
 
 class MyWidget{
   BuildContext context;
@@ -531,7 +532,7 @@ class MyWidget{
                   _iconText(()=>_language(), Icons.language, AppLocalizations.of(context)!.translate('Language')),
                   driver(),
                   _iconText(()=>_terms(), Icons.menu_book_outlined, AppLocalizations.of(context)!.translate('Terms and conditions')),
-                  _iconText(()=>LaunchUrlHelper.makePhoneCall(Strings.contactNum), Icons.contact_support_outlined, AppLocalizations.of(context)!.translate('Support')),
+                  _iconText(()=>Navigator.of(context).push(MaterialPageRoute(builder:(context)=> SupportScreen())), Icons.contact_support_outlined, AppLocalizations.of(context)!.translate('Support')),
                   _iconText(()=>_logout(), Icons.logout_outlined, AppLocalizations.of(context)!.translate('Log out')),
                   //raisedButton(1.0, AppLocalizations.of(context)!.translate('about'), () => Navigator.pushNamed(context, 'about')),
                   /*Expanded(
