@@ -1,12 +1,12 @@
 import 'package:automall/constant/app_size.dart';
 import 'package:automall/constant/font_size.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart' as h;
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../MyWidget.dart';
 import 'package:automall/constant/color/MyColors.dart';
-import 'package:html_unescape/html_unescape.dart';
 
 import '../const.dart';
 import '../localizations.dart';
@@ -35,7 +35,6 @@ class _SuplierInfoState extends State<SuplierInfo> {
   final List _suplierListCheck = [];
 
   ImageProvider? image;
-  var unescape = HtmlUnescape();
   final _nameController = TextEditingController();
   final _mobileController = TextEditingController();
   final _workHourController = TextEditingController();
@@ -98,12 +97,12 @@ class _SuplierInfoState extends State<SuplierInfo> {
                         Align(
                           alignment: Alignment.center,
                           child: Padding(
-                            padding: EdgeInsets.only(top: AppWidth.w40-FontSize.s16*3.5/2, left: AppWidth.w40-FontSize.s16*3.5/2),
+                            padding: EdgeInsets.only(top: AppWidth.w40 - FontSize.s16*3.5/2, left: AppWidth.w40-FontSize.s16*3.5/2),
                             child: Stack(
                               children: [
                                 Icon(Icons.star, color: MyColors.mainColor, size: FontSize.s16*3.5,),
                                 Padding(
-                                  padding: EdgeInsets.only(top: FontSize.s16*3.5/2 - FontSize.s16/2, left: FontSize.s16*3.5/2-FontSize.s16/3),
+                                  padding: EdgeInsets.only(top: FontSize.s16*3.5/2 - FontSize.s16/2, left: lng == 2 ? 0 : FontSize.s16*3.5/2-FontSize.s16/3, right: lng != 2 ? 0 : FontSize.s16*3.5/2-FontSize.s16/3),
                                   child: Text((_suplierStarNum/2).round().toString(), style: TextStyle(fontSize: FontSize.s16, color: MyColors.white), ),
                                 ),
                               ],
@@ -134,7 +133,7 @@ class _SuplierInfoState extends State<SuplierInfo> {
                           ),
                         ]
                     ),
-                    Container(
+                    suplierList[index]['details'] != null ? Container(
                       width: AppWidth.w100,
                       margin: EdgeInsets.all(AppPadding.p20),
                        decoration: BoxDecoration(
@@ -146,8 +145,9 @@ class _SuplierInfoState extends State<SuplierInfo> {
                            blurRadius: 3,
                          )],
                        ),
-                     child: _m!.bodyText1(unescape.convert(suplierList[index]['details']??''), align: TextAlign.start, padV: hSpace/3, scale: 1, maxLine: 100),
-                   ),
+                     child: _htmlScreen(suplierList[index]['details']??''),
+                     //child: _m!.bodyText1(unescape.convert(suplierList[index]['details']??''), align: TextAlign.start, padV: hSpace/3, scale: 1, maxLine: 100),
+                   ):SizedBox(),
                   ],
                 )
                   :
@@ -175,8 +175,6 @@ class _SuplierInfoState extends State<SuplierInfo> {
 
     });
   }
-
-  _search() {}
 
   _topBar(curve) {
     return Container(
@@ -230,15 +228,6 @@ class _SuplierInfoState extends State<SuplierInfo> {
     );
   }
 
-  _selectCard(index) {
-/*    Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) =>  SubSelectScreen(_state, _country, index),
-        ));
-*/
-  }
-
   _tap(num){
     if(num==2){
       //MyAPI(context: context).updateUserInfo(userData['id']);
@@ -249,20 +238,6 @@ class _SuplierInfoState extends State<SuplierInfo> {
   }
 
   String? path ;
-
-  _selectImageProfile() async {
-    final ImagePicker _picker = ImagePicker();
-    final XFile? xFile = await _picker.pickImage(source: ImageSource.gallery);
-    path = xFile!.path;
-    print(path);
-    setState(
-          () {
-        //  image = FileImage(File(path!));
-      },
-    );
-  }
-
-  _explore(index) {}
 
   selectAll() {
     for(int i = 0; i<_suplierListCheck.length; i++){
@@ -278,10 +253,13 @@ class _SuplierInfoState extends State<SuplierInfo> {
     setState(() {});
   }
 
-  _check(index) {
-    _suplierListCheck[index] = !_suplierListCheck[index];
-    setState(() {});
+  _htmlScreen(htmlText){
+    return SingleChildScrollView(
+      child: h.Html(
+        data: """
+        $htmlText
+                """,
+      ),
+    );
   }
-
-
 }

@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 import 'package:automall/api.dart';
+import 'package:automall/constant/app_size.dart';
 import 'package:automall/constant/color/MyColors.dart';
 
 import 'package:automall/const.dart';
@@ -15,7 +16,7 @@ import '../../MyWidget.dart';
 import 'AllBrandCarSells.dart';
 import 'dart:ui' as ui;
 import 'dart:math' as math;
-
+import 'package:share_plus/share_plus.dart';
 // ignore: camel_case_types
 
 class CarSellDetails extends StatefulWidget {
@@ -136,8 +137,8 @@ class _CarSellDetailsState extends State<CarSellDetails> {
                     padding: EdgeInsets.symmetric(horizontal: curve),
                     child: Row(
                       children: [
-                        _m!.networkImage(brandLogo, MediaQuery.of(context).size.height/15),
-                        SizedBox(width: curve/2,),
+                        _m!.networkImage(brandLogo, AppHeight.h6),
+                        SizedBox(width: AppWidth.w2,),
                         Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -152,9 +153,10 @@ class _CarSellDetailsState extends State<CarSellDetails> {
                                 _m!.bodyText1(view + ' ' + AppLocalizations.of(context)!.translate('View'), scale: 0.9, padding: 0.5, padV: 2.0),
                               ],
                             ),
-
                           ],
                         ),
+                        const Spacer(),
+                        IconButton(onPressed: ()=>_share(), icon: const Icon(Icons.share, color: MyColors.mainColor,))
                       ],
                     ),
                   ),
@@ -377,7 +379,6 @@ class _CarSellDetailsState extends State<CarSellDetails> {
     if(_rearScreen) _carSellList.add({'image':'assets/images/ic_rear_screen.svg','name':AppLocalizations.of(context)!.translate('Rear screens')});
     if(_leatherSeats) _carSellList.add({'image':'assets/images/ic_leather_seat.svg','name':AppLocalizations.of(context)!.translate('Leather seats')});
     if(_cameras) _carSellList.add({'image':'assets/images/ic_camera.svg','name':AppLocalizations.of(context)!.translate('Cameras')});
-
     if(_aditionalFeatures){
       return Container(
       padding: EdgeInsets.all(curve/4),
@@ -524,6 +525,10 @@ class _CarSellDetailsState extends State<CarSellDetails> {
 
       ],
     );
+  }
+
+  _share() {
+    Share.share('check out my website https://example.com', subject: 'Look what I made!');
   }
 
 

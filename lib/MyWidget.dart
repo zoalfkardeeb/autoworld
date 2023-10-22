@@ -919,7 +919,7 @@ class MyWidget{
       ;
   }
 
-  iconText(assets, text, color, {double? scale,double? imageScale, bool? vertical, paddingH, revers, Function()? click}){
+  iconText(assets, text, color, {double? scale,double? imageScale, bool? vertical, paddingH, revers, Function()? click, space}){
     scale??=1;
     scale= scale*1.1;
     imageScale??=1;
@@ -941,7 +941,7 @@ class MyWidget{
               onTap: ()=> click!(),
               child: SvgPicture.asset(assets ,height: MediaQuery.of(context).size.width/13*scale* imageScale, fit: BoxFit.contain,),
             ),
-            SizedBox(width: MediaQuery.of(context).size.width/40*scale*scale*scale*scale,),
+            SizedBox(width: space == null ? MediaQuery.of(context).size.width/40*scale*scale*scale*scale : space,),
             headText(text, scale: 0.5*scale, /*padding: 0.0,*/ maxLine: 2, color: MyColors.black,paddingH: 0.0)
           ],
         ):
@@ -2525,7 +2525,7 @@ class MyWidget{
                   padding: EdgeInsets.only( left: curve),
                   //margin: EdgeInsets.only(bottom: curve/2, left: hSpace, right: hSpace),
                   decoration: BoxDecoration(
-                    image: DecorationImage(image: AssetImage("assets/images/board.png"), fit: BoxFit.cover),
+                    image: const DecorationImage(image: AssetImage("assets/images/board.png"), fit: BoxFit.cover),
                     color: MyColors.topCon,
                       borderRadius: BorderRadius.all(Radius.circular(curve/1.5)),
                     //border: Border.all(color: MyColors.qatarColor, width: 2),
@@ -2534,8 +2534,8 @@ class MyWidget{
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      headText(AppLocalizations.of(context)!.translate('Car Panel'), paddingH: hSpace/2, scale: scale*1, paddingV: vSpace/3, align: TextAlign.center),
-                      headText(keyNum, scale: scale*1, align: TextAlign.center, paddingH: hSpace/2),
+                      headText(AppLocalizations.of(context)!.translate('Car Panel'), paddingH: hSpace/2, scale: scale*1.2, paddingV: vSpace/3, align: TextAlign.center),
+                      headText(keyNum, scale: scale*1.2, align: TextAlign.center, paddingH: hSpace/2),
                     ],
                   ),
                 ),
@@ -2545,10 +2545,10 @@ class MyWidget{
                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     SizedBox(width: hSpace,),
-                    iconText("assets/images/ic_price.svg", formatter.format(int.parse(keyPrice.toString())).toString(), MyColors.gray, scale: scale*1.2, imageScale: 0.5, paddingH: 0.1),
+                    iconText("assets/images/ic_price.svg", formatter.format(int.parse(keyPrice.toString())).toString(), MyColors.gray, scale: scale*1.4, imageScale: 0.5, paddingH: 0.1, space: AppWidth.w1),
                     Spacer(),
                     Icon(Icons.remove_red_eye_rounded, color: MyColors.gray,size: curve/1.3,),
-                    bodyText1(keyView, color: MyColors.gray, padding: 0.2, scale: scale*0.9),
+                    bodyText1(keyView, color: MyColors.gray, padding: 0.2, scale: scale*1),
                     SizedBox(width: hSpace,),
                   ],
                 ),

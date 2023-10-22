@@ -379,6 +379,10 @@ class _RequestScreenState extends State<RequestScreen> {
 
 
   _showDialog(){
+    if(_remarksController.text.isEmpty && imageList.isEmpty){
+      MyAPI(context: context).flushBar(AppLocalizations.of(context)!.translate('Please fill the remark or add an image'));
+      return;
+    }
     var curve = MediaQuery.of(context).size.height / 30;
     _undo(){
       Navigator.of(context).pop();

@@ -238,7 +238,7 @@
   "New version!": "إصدار جديد!",
   "Update": "تحديث",
   "Later": "لاحقاً",
-  "Contact us": "تواصل معنا",
+  "Contact us": "تواصلوا معنا",
   "Please, input right number [3 -> 6] digits": "من فضلك أدخل رقم صحيح [3 -> 6] خانات",
   "Support": "دعم",
   "My Ads": "إعلاناتي",
@@ -249,7 +249,10 @@
   "Apply": "تطبيق",
   "Cancel": "إلغاء",
   "Plate Number": "رقم اللوحة",
-  "currency": "(رق) "
+  "currency": "(رق) ",
+  "suppportBottomText": "عالم السيارات كاملاً في تطبيق واحد",
+  "Please fill the remark or add an image": "املأ الملاحظات أو أضف صورة لتتمكن من تقديم الطلب!"
+
 
 
 }

@@ -2,9 +2,11 @@ import 'package:automall/MyWidget.dart';
 import 'package:automall/const.dart';
 import 'package:automall/constant/app_size.dart';
 import 'package:automall/constant/color/MyColors.dart';
+import 'package:automall/constant/string/Strings.dart';
 import 'package:automall/helper/launchUrlHelper.dart';
 import 'package:automall/localizations.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 class SupportScreen extends StatefulWidget {
   const SupportScreen({Key? key}) : super(key: key);
 
@@ -63,17 +65,23 @@ class _SupportScreenState extends State<SupportScreen> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           _topBar(curve),
+          SizedBox(height: AppHeight.h4,),
+          MyWidget(context).bodyText1(AppLocalizations.of(context)!.translate('Contact us'), color: MyColors.gray),
           Expanded(
             flex: 1,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                _container('image', AppLocalizations.of(context)!.translate('Instagram')),
-                _container('image', AppLocalizations.of(context)!.translate('Facebook')),
-                _container('image', AppLocalizations.of(context)!.translate('WhatsApp')),
+                _container('assets/images/instagram.svg', AppLocalizations.of(context)!.translate('Instagram'), url: Strings.instagram),
+                _container('assets/images/facebook.svg', AppLocalizations.of(context)!.translate('Facebook'), url: Strings.facebook),
+                _container('assets/images/whatsapp.svg', AppLocalizations.of(context)!.translate('WhatsApp'), url: Strings.whatsapp),
               ],
             ),
           ),
+          MyWidget(context).bodyText1(AppLocalizations.of(context)!.translate('suppportBottomText'), color: MyColors.gray, scale: 1.2, padding: AppWidth.w20),
+          SizedBox(height: AppHeight.h1,),
+          MyWidget(context).bodyText1("V: ${Strings.version}", color: MyColors.gray),
+          SizedBox(height: AppHeight.h4,),
         ],
       )
     );
@@ -133,7 +141,7 @@ class _SupportScreenState extends State<SupportScreen> {
     );
   }
 
-  _container(image, text, {url}){
+  _container(image, text, {required String url}){
     return Container(
       padding: EdgeInsets.all(AppWidth.w4),
       margin: EdgeInsets.all(AppWidth.w4),
@@ -147,10 +155,12 @@ class _SupportScreenState extends State<SupportScreen> {
         )],
       ),
       child: GestureDetector(
-        onTap: ()=> LaunchUrlHelper.launchInBrowser(url),
+        onTap: ()=> LaunchUrlHelper.launchInBrowser(Uri.parse(url)),
         child: Row(
+          textDirection: TextDirection.ltr,
           children: [
-            _m!.headText(text, scale: 0.8)
+            SvgPicture.asset(image, height: AppHeight.h4,),
+            _m!.headText(text, scale: 0.8, paddingH: AppWidth.w2)
           ],
         ),
       ),

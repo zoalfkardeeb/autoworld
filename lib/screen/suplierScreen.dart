@@ -13,6 +13,7 @@ import 'package:automall/constant/color/MyColors.dart';
 
 import '../const.dart';
 import '../localizations.dart';
+import 'package:flutter_html/flutter_html.dart';
 
 class SuplierScreen extends StatefulWidget {
   var brandId, gategoryId, originalOrNot, indexGarage;
@@ -633,4 +634,6 @@ class _SuplierScreenState extends State<SuplierScreen> {
           ),
         ));
   }
+
+
 }

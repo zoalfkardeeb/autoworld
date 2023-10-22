@@ -6,6 +6,7 @@ import 'dart:io';
 
 import 'package:automall/MyWidget.dart';
 import 'package:automall/api.dart';
+import 'package:automall/helper/launchUrlHelper.dart';
 import 'package:easy_pdf_viewer/easy_pdf_viewer.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -140,7 +141,7 @@ void launchWhatsApp({required var phone, required String message, context}) asyn
   }
 
   if (await canLaunch(url())) {
-    await launch(url());
+    await LaunchUrlHelper.launchInBrowser(Uri.parse(url()));
   } else {
     throw 'Could not launch ${url()}';
   }
