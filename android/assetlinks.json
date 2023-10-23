@@ -1,0 +1,29 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.AutoWorld.AutoWorldQa",
+      "sha256_cert_fingerprints":
+      ["08:98:E7:F8:51:CD:C9:6E:1D:63:07:A8:47:2C:6C:C3:02:E5:27:AD:98:5E:CE:8D:40:8A:2D:B7:F0:FF:41:E6"]
+    }
+  },
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.AutoWorld.AutoWorldQa",
+      "sha256_cert_fingerprints":
+      ["B0:52:F7:DB:A6:F6:E0:16:67:82:C2:E4:95:EF:70:82:39:ED:E7:5E:14:5E:BA:6B:37:E5:AF:AD:FF:8B:8A:1A"]
+    }
+  },
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.AutoWorld.AutoWorldQa",
+      "sha256_cert_fingerprints":
+      ["76:3C:A8:A3:67:FA:D9:66:3B:ED:19:1B:77:A4:C7:4A:DD:57:7F:A1:68:B6:73:E3:54:4C:25:06:0E:60:79:EC"]
+    }
+  }
+]

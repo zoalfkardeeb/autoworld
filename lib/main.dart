@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:automall/constant/color/MyColors.dart';
 import 'package:automall/screen/verification/verification.dart';
+import 'package:go_router/go_router.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:automall/screen/SplachScreen.dart';
 import 'package:automall/screen/singnIn.dart';
@@ -79,6 +80,25 @@ showNotificationDateTime(channelId, channelName, id, title, body, payload, Durat
       platform, payload: payload);
 }
 
+/// This handles '/' and '/details'.
+final router = GoRouter(
+  routes: [
+    GoRoute(
+      path: '/',
+      builder: (_, __) => Scaffold(
+        appBar: AppBar(title: const Text('Home Screen')),
+      ),
+      routes: [
+        GoRoute(
+          path: 'details',
+          builder: (_, __) => Scaffold(
+            appBar: AppBar(title: const Text('Details Screen')),
+          ),
+        ),
+      ],
+    ),
+  ],
+);
 
 
 Future<void> backgroundHandler(RemoteMessage message) async{
@@ -87,6 +107,7 @@ Future<void> backgroundHandler(RemoteMessage message) async{
 }
 
 void main() async {
+
   //essential for old Android versions
   HttpOverrides.global = MyHttpOverrides();
 
