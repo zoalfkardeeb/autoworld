@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:automall/constant/color/MyColors.dart';
+import 'package:automall/eShop/eShopMainScreen.dart';
 import 'package:automall/screen/verification/verification.dart';
 import 'package:go_router/go_router.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -183,7 +184,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             primarySwatch: Colors.red,
           ),
-          home: SplashScreen(),
+          home: EShopMainScreen(title: "Our E.shop",),//SplashScreen(),
           routes: const {
           },
         );

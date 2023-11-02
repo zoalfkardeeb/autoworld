@@ -52,7 +52,6 @@ class _SelectScreenState extends State<SelectScreen> {
       if (message.notification != null) {
         print(message.notification!.body);
         print(message.notification!.title);
-
         showDialog(
             context: context,
             builder: (context) => AlertDialog(
