@@ -2,8 +2,11 @@ import 'package:automall/MyWidget.dart';
 import 'package:automall/const.dart';
 import 'package:automall/constant/app_size.dart';
 import 'package:automall/constant/color/MyColors.dart';
+import 'package:automall/constant/font_size.dart';
 import 'package:automall/eShop/model/categoryModel.dart';
+import 'package:automall/eShop/model/itemModel.dart';
 import 'package:automall/localizations.dart';
+import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 class EShopMainScreen extends StatefulWidget {
   // ignore: prefer_typing_uninitialized_variables
@@ -22,6 +25,12 @@ class _EShopMainScreenState extends State<EShopMainScreen> {
     CategoryModel(id: 'id2', text: 'text'),
     CategoryModel(id: 'id3', text: 'text'),
   ];
+
+  List<ItemModel> _foundItems = [
+    ItemModel(id: 'id1', networkImage: 'https://miro.medium.com/v2/resize:fit:720/format:webp/1*5Y0m9U2bNNttP69AryJMvA.png', isFavorite: true, amount: 0, name: 'name', category: 'category', price: 'price'),
+    ItemModel(id: 'id1', networkImage: 'https://miro.medium.com/v2/resize:fit:720/format:webp/1*5Y0m9U2bNNttP69AryJMvA.png', isFavorite: false, amount: 0, name: 'name', category: 'category', price: 'price'),
+    ItemModel(id: 'id1', networkImage: 'https://miro.medium.com/v2/resize:fit:720/format:webp/1*5Y0m9U2bNNttP69AryJMvA.png', isFavorite: false, amount: 0, name: 'name', category: 'category', price: 'price'),
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,6 +43,19 @@ class _EShopMainScreenState extends State<EShopMainScreen> {
             _topBar(),
             _search(),
             _horizontalScrolCategory(),
+
+            Expanded(
+              child: GridView.extent(
+                childAspectRatio: AppWidth.w50/AppWidth.w70,
+                maxCrossAxisExtent: AppWidth.w70, // maximum item width
+                mainAxisSpacing: AppWidth.w4, // spacing between rows
+                crossAxisSpacing: AppWidth.w4, // spacing between columns
+                padding: EdgeInsets.symmetric(horizontal: AppWidth.w4),
+                children: _foundItems.map((item) {
+                  return _itemContainer(itemModel: item);
+                }).toList(),
+              ),
+            )
           ],
         ),
           Align(
@@ -165,11 +187,61 @@ class _EShopMainScreenState extends State<EShopMainScreen> {
     );
   }
 
-  Widget _itemContainer(){
+  Widget _itemContainer({
+   required ItemModel itemModel
+  }){
+    addtoFavorite(){
+      setState(() {
+        itemModel.isFavorite = !itemModel.isFavorite;
+      });
+    }
+    remove(){
+      setState(() {
+        if(itemModel.amount>0){
+          itemModel.amount -= 1;
+        }
+      });
+    }
+    add(){
+      setState(() {
+        itemModel.amount += 1;
+      });
+    }
     return Container(
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-
+          Stack(
+            children: [
+              Align(child: Image.network(itemModel.networkImage, fit: BoxFit.cover, height: AppWidth.w30,)),
+              Align(alignment: Alignment.topRight,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: AppWidth.w2),
+                    child: IconButton(onPressed: () => addtoFavorite(), icon: Icon(itemModel.isFavorite? Icons.favorite : Icons.favorite_border,color: MyColors.mainColor,)),
+                  )),
+            ],
+          ),
+          MyWidget(context).headText(itemModel.name),
+          MyWidget(context).bodyText1(itemModel.category, padding: 0.0),
+          Container(
+            height: AppHeight.h6,
+            padding: EdgeInsets.symmetric(horizontal: AppWidth.w1),
+            decoration: BoxDecoration(
+              border: Border.all(color: MyColors.black),
+              borderRadius: BorderRadius.all(Radius.circular(AppWidth.w1)),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                IconButton(onPressed: ()=> remove(), icon: Icon(Icons.remove), padding: EdgeInsets.all(0.1)),
+                const VerticalDivider(color: MyColors.black, thickness: 1,),
+                MyWidget(context).headText('${itemModel.amount}'),
+                const VerticalDivider(color: MyColors.black, thickness: 1,),
+                IconButton(onPressed: ()=> add(), icon: Icon(Icons.add), padding: EdgeInsets.all(0.1),),
+              ],
+            ),
+          ),
+          MyWidget(context).bodyText1('${AppLocalizations.of(context)!.translate('Price')}: ${itemModel.price} ${AppLocalizations.of(context)!.translate('currency')}', padding: 0.0 ),
         ],
       ),
     );
