@@ -27,7 +27,7 @@ class Verification extends StatefulWidget {
 
 //  Data":[{"Id":"ec9316ec-d4c7-478b-10f4-08da195f8290","Name":"omar hsn","LastName":"last name","Mobile":"+97493802534","Email":"omar.suhail.hasan@gmail.com","Password":"123456","VerificationCode":"241280","IsVerified":false,"Type":0,"Dob":null,"ImagePath":null,"File":null,"EventDate":null,"FBKey":null,"Lang":null,"GroupUsers":[]}],"Total":1,"AggregateResults":null,"Errors":null
 
-  Verification({required this.value, required this.email, required this.password, required this.verCode});
+  Verification({Key? key, required this.value, required this.email, required this.password, required this.verCode}) : super(key: key);
   @override
   _VerificationState createState() =>
       _VerificationState(value, email, password, verCode);
@@ -85,6 +85,9 @@ class _VerificationState extends State<Verification> {
           resizeToAvoidBottomInset: true,
           backgroundColor: Colors.transparent,
           body: DoubleBackToCloseApp(
+            snackBar:  SnackBar(
+            content: Text(AppLocalizations.of(context)!.translate('Tap back again to leave')),
+          ),
             child: Stack(
               children: [
                 Align(
@@ -210,9 +213,6 @@ class _VerificationState extends State<Verification> {
                 )
               ],
             ),
-            snackBar:  SnackBar(
-            content: Text(AppLocalizations.of(context)!.translate('Tap back again to leave')),
-          ),
         ),
       ),
     ),

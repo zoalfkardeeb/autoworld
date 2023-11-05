@@ -4,8 +4,6 @@ import 'package:automall/constant/color/MyColors.dart';
 
 import 'package:automall/const.dart';
 import 'package:automall/localizations.dart';
-import 'package:automall/screen/garageCountry.dart';
-import 'package:automall/screen/suplierScreen.dart';
 import 'package:automall/screen/carSell/AddSellCarScreen.dart';
 import 'package:flutter/material.dart';
 
@@ -14,6 +12,8 @@ import 'AllBrandCarSells.dart';
 // ignore: camel_case_types
 
 class CarForSeller extends StatefulWidget {
+  const CarForSeller({Key? key}) : super(key: key);
+
   @override
   _CarForSellerState createState() => _CarForSellerState();
 }
@@ -165,18 +165,18 @@ class _CarForSellerState extends State<CarForSeller> {
     );
   }
 
-  _goToOfferCarsBrand(_brandId) async{
+  _goToOfferCarsBrand(brandId) async{
     setState(() {
       pleaseWait = true;
     });
-    await MyAPI(context: context).getCarSell(_brandId.toString());
+    await MyAPI(context: context).getCarSell(brandId.toString());
     setState(() {
       pleaseWait = false;
     });
     Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) =>  AllBrandCarSells(),
+          builder: (context) =>  const AllBrandCarSells(),
         ));
   }
 
@@ -195,7 +195,7 @@ class _CarForSellerState extends State<CarForSeller> {
     Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => AddSellCarScreen(),
+          builder: (context) => const AddSellCarScreen(),
         )
     );
   }
@@ -215,7 +215,7 @@ class _CarForSellerState extends State<CarForSeller> {
         decoration: BoxDecoration(
           color: MyColors.topCon,
           borderRadius: BorderRadius.only(bottomLeft: Radius.circular(curve), bottomRight: Radius.circular(curve)),
-          boxShadow: [BoxShadow(
+          boxShadow: const [BoxShadow(
             color: MyColors.black,
             offset: Offset(0, 1),
             blurRadius: 4,
@@ -232,7 +232,7 @@ class _CarForSellerState extends State<CarForSeller> {
                   child: IconButton(
                     icon: Align(
                       alignment: lng==2?Alignment.centerRight:Alignment.centerLeft,
-                      child: Icon(Icons.arrow_back_ios),
+                      child: const Icon(Icons.arrow_back_ios),
                     ),
                     onPressed: ()=> Navigator.of(context).pop(),
                   ),

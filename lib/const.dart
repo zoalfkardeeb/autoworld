@@ -37,7 +37,7 @@ bool newVersion = false;
 ImageProvider? image;
 String? path;
 var bottomConRatio = 0.0;
-PDFDocument doc = new PDFDocument();
+PDFDocument doc = PDFDocument();
 bool pleaseWait = false;
 bool thereNotification = false;
 bool loading = false;
@@ -55,18 +55,17 @@ var guestType = false;
 
 var formatter = NumberFormat('###,###,000');
 String deviceId = "";
-animateList(_scrollController) async {
+animateList(scrollController) async {
   _scrolTo(){
-    return Timer(const Duration(milliseconds: 1000), ()=> { _scrollController.animateTo(
-        _scrollController.position.minScrollExtent,
+    return Timer(const Duration(milliseconds: 1000), ()=> scrollController.animateTo(
+        scrollController.position.minScrollExtent,
         duration: const Duration(milliseconds: 500),
-        curve: Curves.fastOutSlowIn),
-    });
+        curve: Curves.fastOutSlowIn),);
   }
   var duration = const Duration(milliseconds: 200);
   return Timer(duration, ()=> {
-    _scrollController.animateTo(
-        _scrollController.position.maxScrollExtent,
+    scrollController.animateTo(
+        scrollController.position.maxScrollExtent,
         duration: const Duration(milliseconds: 1000),
         curve: Curves.fastOutSlowIn),
     _scrolTo(),

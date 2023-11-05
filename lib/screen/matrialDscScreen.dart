@@ -9,6 +9,8 @@ import '../MyWidget.dart';
 // ignore: camel_case_types
 
 class MaterialDescriptionScreen extends StatefulWidget {
+  const MaterialDescriptionScreen({Key? key}) : super(key: key);
+
   @override
   _MaterialDescriptionScreenState createState() => _MaterialDescriptionScreenState();
 }
@@ -236,7 +238,7 @@ class _MaterialDescriptionScreenState extends State<MaterialDescriptionScreen> {
     );
   }
 
-  _miniContainer(_child, height){
+  _miniContainer(child, height){
     var curve = height / 4;
     return Container(
       height: height,
@@ -246,11 +248,11 @@ class _MaterialDescriptionScreenState extends State<MaterialDescriptionScreen> {
         color: MyColors.gray,
         borderRadius: BorderRadius.all(Radius.circular(curve)),
       ),
-      child: _child,
+      child: child,
     );
   }
 
-  _saleShow(_price,_priceSale){
+  _saleShow(price,priceSale){
     return Padding(
       padding: const EdgeInsets.symmetric(),
       child: Row(
@@ -263,9 +265,9 @@ class _MaterialDescriptionScreenState extends State<MaterialDescriptionScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _m!.bodyText1('\$ $_price', padding: 0.0, baseLine: true),
+                    _m!.bodyText1('\$ $price', padding: 0.0, baseLine: true),
 
-                    _m!.headText('\$ $_priceSale', paddingV: MediaQuery.of(context).size.height/80),
+                    _m!.headText('\$ $priceSale', paddingV: MediaQuery.of(context).size.height/80),
                   ],
                 ),
               ),
@@ -274,7 +276,7 @@ class _MaterialDescriptionScreenState extends State<MaterialDescriptionScreen> {
             flex: 1,
               child: Align(
                 alignment: Alignment.topRight,
-                child: _m!.miniContainer(_m!.headText(((_price - _priceSale)/_price * 100).round().toString()+'%', scale: 0.45, paddingV: 0.0, color: MyColors.mainColor), MediaQuery.of(context).size.height/25),
+                child: _m!.miniContainer(_m!.headText('${((price - priceSale)/price * 100).round()}%', scale: 0.45, paddingV: 0.0, color: MyColors.mainColor), MediaQuery.of(context).size.height/25),
               ),
           ),
         ],
@@ -282,13 +284,13 @@ class _MaterialDescriptionScreenState extends State<MaterialDescriptionScreen> {
     );
   }
 
-  _descriptionMaterial(_descHead, _descText){
+  _descriptionMaterial(descHead, descText){
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        _m!.bodyText1(_descHead, color: MyColors.mainColor, padding: 0.0),
-        _m!.bodyText1(_descText, scale: 0.9, padding: 0.0, align: TextAlign.start),
+        _m!.bodyText1(descHead, color: MyColors.mainColor, padding: 0.0),
+        _m!.bodyText1(descText, scale: 0.9, padding: 0.0, align: TextAlign.start),
       ],
     );
   }

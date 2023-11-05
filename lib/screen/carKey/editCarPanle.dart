@@ -1,11 +1,9 @@
-import 'dart:async';
 
 import 'package:automall/MyWidget.dart';
 import 'package:automall/api.dart';
 import 'package:automall/const.dart';
 import 'package:automall/constant/color/MyColors.dart';
 import 'package:automall/localizations.dart';
-import 'package:automall/screen/selectScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 class EditCarPanle extends StatefulWidget {
@@ -54,20 +52,20 @@ class _EditCarPanleState extends State<EditCarPanle> {
         _showDialogForSubmit();
       };
     }
-    var _br = 0.1;
+    var br = 0.1;
     return Scaffold(
       resizeToAvoidBottomInset: true,
       backgroundColor: Colors.grey[100],
       body: GestureDetector(
         onTap: () {
-          FocusScope.of(context).requestFocus(new FocusNode());
+          FocusScope.of(context).requestFocus(FocusNode());
         },
         child: Stack(
           children: [
             Align(
               alignment: Alignment.topCenter,
               child: Container(
-                height: MediaQuery.of(context).size.height*(1-_br),
+                height: MediaQuery.of(context).size.height*(1-br),
                 width: double.infinity,
                 alignment: Alignment.topCenter,
                 padding: EdgeInsets.only(
@@ -130,7 +128,7 @@ class _EditCarPanleState extends State<EditCarPanle> {
               _m!.bottomContainer(
                 //_m!.mainChildrenBottomContainer(curve, () => _tap(1), () => _tap(2), () => _tap(3), _tapNum),
                   _m!.raisedButton(curve, MediaQuery.of(context).size.width/1.2, AppLocalizations.of(context)!.translate('Submit'), 'assets/images/car.svg', active),
-                  curve, bottomConRati: _br)
+                  curve, bottomConRati: br)
                   : const SizedBox(height: 0.1,),
             ),
             Align(
@@ -160,7 +158,7 @@ class _EditCarPanleState extends State<EditCarPanle> {
         decoration: BoxDecoration(
           color: MyColors.topCon,
           borderRadius: BorderRadius.only(bottomLeft: Radius.circular(curve), bottomRight: Radius.circular(curve)),
-          boxShadow: [BoxShadow(
+          boxShadow: const [BoxShadow(
             color: MyColors.black,
             offset: Offset(0, 1),
             blurRadius: 4,
@@ -178,7 +176,7 @@ class _EditCarPanleState extends State<EditCarPanle> {
                   IconButton(
                     icon: Align(
                       alignment: lng==2? Alignment.centerRight:Alignment.centerLeft,
-                      child: Icon(Icons.arrow_back_ios),
+                      child: const Icon(Icons.arrow_back_ios),
                     ),
                     onPressed: ()=> Navigator.of(context).pop(),
                   ),
@@ -216,7 +214,7 @@ class _EditCarPanleState extends State<EditCarPanle> {
 
   _showDialogForSubmit(){
     if(_numOfCarPanle.text.length<3||_numOfCarPanle.text.length>6){
-      MyWidget(context).showSDialog( AppLocalizations.of(context)!.translate('Please, input right number [3 -> 6] digits'), SizedBox(), SizedBox());
+      MyWidget(context).showSDialog( AppLocalizations.of(context)!.translate('Please, input right number [3 -> 6] digits'), const SizedBox(), const SizedBox());
       return;
     }
     var curve = MediaQuery.of(context).size.height / 30;

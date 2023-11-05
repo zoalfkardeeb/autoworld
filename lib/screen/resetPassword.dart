@@ -70,6 +70,9 @@ class _ResetPasswordState extends State<ResetPassword> {
           resizeToAvoidBottomInset: true,
           backgroundColor: Colors.transparent,
           body: DoubleBackToCloseApp(
+            snackBar:  SnackBar(
+              content: Text(AppLocalizations.of(context)!.translate('Tap back again to leave')),
+            ),
             child: Stack(
               children: [
                 Align(
@@ -181,9 +184,6 @@ class _ResetPasswordState extends State<ResetPassword> {
                   const SizedBox(),
                 )
               ],
-            ),
-            snackBar:  SnackBar(
-              content: Text(AppLocalizations.of(context)!.translate('Tap back again to leave')),
             ),
           ),
         ),
@@ -373,18 +373,18 @@ class _ResetPasswordState extends State<ResetPassword> {
           ),
           enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(MediaQuery.of(context).size.height/12),
-              borderSide: BorderSide(color: Colors.grey, width: 2)),
+              borderSide: const BorderSide(color: Colors.grey, width: 2)),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(MediaQuery.of(context).size.height/12),
-            borderSide: BorderSide(color: Colors.grey, width: 2),
+            borderSide: const BorderSide(color: Colors.grey, width: 2),
           ),
           errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(MediaQuery.of(context).size.height/12),
-            borderSide: BorderSide(color: MyColors.red, width: 2),
+            borderSide: const BorderSide(color: MyColors.red, width: 2),
           ),
           focusedErrorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(MediaQuery.of(context).size.height/12),
-            borderSide: BorderSide(color: MyColors.red, width: 2),
+            borderSide: const BorderSide(color: MyColors.red, width: 2),
           ),
         ),
       ),
@@ -419,18 +419,18 @@ class _ResetPasswordState extends State<ResetPassword> {
           ),
           enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(MediaQuery.of(context).size.height/12),
-              borderSide: BorderSide(color: Colors.grey, width: 2)),
+              borderSide: const BorderSide(color: Colors.grey, width: 2)),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(MediaQuery.of(context).size.height/12),
-            borderSide: BorderSide(color: Colors.grey, width: 2),
+            borderSide: const BorderSide(color: Colors.grey, width: 2),
           ),
           errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(MediaQuery.of(context).size.height/12),
-            borderSide: BorderSide(color: MyColors.red, width: 2),
+            borderSide: const BorderSide(color: MyColors.red, width: 2),
           ),
           focusedErrorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(MediaQuery.of(context).size.height/12),
-            borderSide: BorderSide(color: MyColors.red, width: 2),
+            borderSide: const BorderSide(color: MyColors.red, width: 2),
           ),
         ),
       ),
@@ -439,7 +439,7 @@ class _ResetPasswordState extends State<ResetPassword> {
 
   void resend() async{
     setState(() => chVer = true);
-    bool sent = await myAPI!.sendEmail(AppLocalizations.of(context)!.translate('Your activation code is :') +  '\n$verCode' , AppLocalizations.of(context)!.translate('Activation Code'), email);
+    bool sent = await myAPI!.sendEmail('${AppLocalizations.of(context)!.translate('Your activation code is :')}\n$verCode' , AppLocalizations.of(context)!.translate('Activation Code'), email);
     setState(() => chVer = false);
   }
 }

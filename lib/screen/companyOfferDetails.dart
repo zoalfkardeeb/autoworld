@@ -4,10 +4,6 @@ import 'package:automall/constant/color/MyColors.dart';
 
 import 'package:automall/const.dart';
 import 'package:automall/localizations.dart';
-import 'package:automall/screen/BrandScreen.dart';
-import 'package:automall/screen/garageBody.dart';
-import 'package:automall/screen/suplierScreen.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -139,7 +135,7 @@ class _CompanyOfferDetailsState extends State<CompanyOfferDetails> {
         decoration: BoxDecoration(
           color: MyColors.topCon,
           borderRadius: BorderRadius.only(bottomLeft: Radius.circular(curve), bottomRight: Radius.circular(curve)),
-          boxShadow: [BoxShadow(
+          boxShadow: const [BoxShadow(
             color: MyColors.black,
             offset: Offset(0, 1),
             blurRadius: 4,
@@ -157,7 +153,7 @@ class _CompanyOfferDetailsState extends State<CompanyOfferDetails> {
                   child: IconButton(
                     icon: Align(
                       alignment: lng==2?Alignment.centerRight:Alignment.centerLeft,
-                      child: Icon(Icons.arrow_back_ios),
+                      child: const Icon(Icons.arrow_back_ios),
                     ),
                     onPressed: ()=> Navigator.of(context).pop(),
                   ),
@@ -242,8 +238,8 @@ class _CompanyOfferDetailsState extends State<CompanyOfferDetails> {
   String? path ;
 
   _selectImageProfile() async {
-    final ImagePicker _picker = ImagePicker();
-    final XFile? xFile = await _picker.pickImage(source: ImageSource.gallery);
+    final ImagePicker picker = ImagePicker();
+    final XFile? xFile = await picker.pickImage(source: ImageSource.gallery);
     path = xFile!.path;
     print(path);
     setState(

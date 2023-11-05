@@ -96,7 +96,7 @@ class _SupportScreenState extends State<SupportScreen> {
           color: MyColors.topCon,
           borderRadius: BorderRadius.only(bottomLeft: Radius.circular(curve),
               bottomRight: Radius.circular(curve)),
-          boxShadow: [BoxShadow(
+          boxShadow: const [BoxShadow(
             color: MyColors.black,
             offset: Offset(0, 1),
             blurRadius: 4,
@@ -116,7 +116,7 @@ class _SupportScreenState extends State<SupportScreen> {
                   child: IconButton(
                     icon: Align(
                       alignment: lng==2?Alignment.centerRight:Alignment.centerLeft,
-                      child: Icon(Icons.arrow_back_ios),
+                      child: const Icon(Icons.arrow_back_ios),
                     ),
                     onPressed: ()=> Navigator.of(context).pop(),
                   ),

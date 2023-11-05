@@ -59,12 +59,12 @@ class NotificationController extends GetxController {
   }
 
   getNotification(RemoteMessage message) {
-    var _lines = [''];
+    var lines = [''];
     try{
-      _lines = message.notification!.body.toString().split('\n');
+      lines = message.notification!.body.toString().split('\n');
 
     }catch(e){
-      _lines = [message.notification!.body.toString()];
+      lines = [message.notification!.body.toString()];
 
     }
     print('Message');
@@ -87,7 +87,7 @@ class NotificationController extends GetxController {
         title: message.notification!.title.toString(),
         summaryText: '',
         payload: payload,
-        lines: _lines,
+        lines: lines,
         id: notificationsNumber + messagesNumber,
       );
     }

@@ -1,8 +1,6 @@
 import 'package:automall/MyWidget.dart';
 import 'package:automall/constant/color/MyColors.dart';
 
-import 'package:automall/const.dart';
-import 'package:automall/localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart' as p;
 import 'package:photo_view/photo_view_gallery.dart';
@@ -62,7 +60,7 @@ class PhotoView extends StatelessWidget {
                   ),
                 ),
               */
-                backgroundDecoration: BoxDecoration(
+                backgroundDecoration: const BoxDecoration(
                   color: MyColors.white
                 ),
                 pageController: _pageController,
@@ -73,18 +71,18 @@ class PhotoView extends StatelessWidget {
         SizedBox(
           height: 120,
           child: ListView(
-            padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
             scrollDirection: Axis.horizontal,
             children: networkImageList!.map((e) =>
                 GestureDetector(
                   child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 4),
+                    padding: const EdgeInsets.symmetric(horizontal: 4),
                       /*decoration: imageIndex==networkImageList!.indexOf(e)? BoxDecoration(
                         border: Border.all(color: AppColors.card),
                       ): null,*/
                       child: MyWidget(context).networkImage(e.image, 100.0, crossAlign: CrossAxisAlignment.center, height: 75.0),
                   ),
-                  onTap: () => _pageController.animateToPage(networkImageList!.indexOf(e), duration: Duration(milliseconds: 100), curve: Curves.linear),
+                  onTap: () => _pageController.animateToPage(networkImageList!.indexOf(e), duration: const Duration(milliseconds: 100), curve: Curves.linear),
                 )
             ).toList(),
           ),
@@ -120,18 +118,18 @@ class PhotoView extends StatelessWidget {
                 Expanded(
                   flex: 1,
                   child: GestureDetector(child:
-                  Row(
+                  const Row(
                     children: [
                       Icon(Icons.close, color: MyColors.black,),
                     ],
                   ),
                       onTap: ()=>Navigator.pop(context)),
                 ),
-                Expanded(
+                const Expanded(
                   flex: 1,
                   child: SizedBox(),
                 ),
-                Expanded(
+                const Expanded(
                   flex: 1,
                   child: SizedBox(),
                 ),

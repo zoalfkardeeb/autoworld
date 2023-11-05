@@ -151,7 +151,7 @@ class _SelectRegionScreenState extends State<SelectRegionScreen> {
     Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) =>  SelectScreen(),
+          builder: (context) =>  const SelectScreen(),
         ));
 
   }
@@ -174,7 +174,7 @@ class _SelectRegionScreenState extends State<SelectRegionScreen> {
             child: IconButton(
               icon: Align(
                 alignment: lng==2?Alignment.centerRight:Alignment.centerLeft,
-                child: Icon(Icons.arrow_back_ios),
+                child: const Icon(Icons.arrow_back_ios),
               ),
               onPressed: ()=> Navigator.of(context).pop(),
             ),

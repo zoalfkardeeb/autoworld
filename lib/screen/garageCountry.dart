@@ -78,7 +78,7 @@ class _GarageCountryState extends State<GarageCountry> {
                   Expanded(
                     flex: 1,
                     child: ListView.builder(
-                      padding: EdgeInsets.all(0.0),
+                      padding: const EdgeInsets.all(0.0),
                       itemCount: imageList.length,
                       itemBuilder: (BuildContext context, int index) {
                         return GestureDetector(
@@ -168,7 +168,7 @@ class _GarageCountryState extends State<GarageCountry> {
         decoration: BoxDecoration(
           color: MyColors.topCon,
           borderRadius: BorderRadius.only(bottomLeft: Radius.circular(curve), bottomRight: Radius.circular(curve)),
-          boxShadow: [BoxShadow(
+          boxShadow: const [BoxShadow(
             color: MyColors.black,
             offset: Offset(0, 1),
             blurRadius: 4,
@@ -186,7 +186,7 @@ class _GarageCountryState extends State<GarageCountry> {
                   IconButton(
                     icon: Align(
                       alignment: lng==2?Alignment.centerRight:Alignment.centerLeft,
-                      child: Icon(Icons.arrow_back_ios),
+                      child: const Icon(Icons.arrow_back_ios),
                     ),
                     onPressed: ()=> Navigator.of(context).pop(),
                   ),

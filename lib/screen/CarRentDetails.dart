@@ -3,16 +3,9 @@ import 'package:automall/api.dart';
 import 'package:automall/constant/color/MyColors.dart';
 
 import 'package:automall/const.dart';
-import 'package:automall/localizations.dart';
-import 'package:automall/screen/BrandScreen.dart';
-import 'package:automall/screen/garageBody.dart';
-import 'package:automall/screen/suplierScreen.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 
 import '../MyWidget.dart';
-import 'dart:io';
 // ignore: camel_case_types
 class CarRentDetails extends StatefulWidget {
   var index;
@@ -124,7 +117,7 @@ class _CarRentDetailsState extends State<CarRentDetails> {
         decoration: BoxDecoration(
           color: MyColors.topCon,
           borderRadius: BorderRadius.only(bottomLeft: Radius.circular(curve), bottomRight: Radius.circular(curve)),
-          boxShadow: [BoxShadow(
+          boxShadow: const [BoxShadow(
             color: MyColors.black,
             offset: Offset(0, 1),
             blurRadius: 4,
@@ -141,7 +134,7 @@ class _CarRentDetailsState extends State<CarRentDetails> {
                   child: IconButton(
                     icon: Align(
                       alignment: lng==2?Alignment.centerRight:Alignment.centerLeft,
-                      child: Icon(Icons.arrow_back_ios),
+                      child: const Icon(Icons.arrow_back_ios),
                     ),
                     onPressed: ()=> Navigator.of(context).pop(),
                   ),

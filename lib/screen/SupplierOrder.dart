@@ -1,10 +1,7 @@
-import 'dart:convert';
 
 import 'package:automall/screen/replyScreen.dart';
-import 'package:automall/screen/suplierInfo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../MyWidget.dart';
 import '../api.dart';
@@ -36,7 +33,7 @@ class _SupplierOrdesrState extends State<SupplierOrdesr> {
   var _tapNum = 1;
   final TextEditingController _searchController = TextEditingController();
   final ScrollController _scrollController = ScrollController();
-  var _foundOrders = [];
+  final _foundOrders = [];
   bool _conect = false;
   var _offersIndexShow = 10000000000;
   var _detailsIndexShow = 10000000000;
@@ -132,7 +129,7 @@ class _SupplierOrdesrState extends State<SupplierOrdesr> {
                         )
                         ;
                       },
-                      separatorBuilder: (BuildContext context, int index) => SizedBox(),
+                      separatorBuilder: (BuildContext context, int index) => const SizedBox(),
                     ),
                   ),
                   //SizedBox(height: hSpace/3,),
@@ -198,7 +195,7 @@ class _SupplierOrdesrState extends State<SupplierOrdesr> {
         decoration: BoxDecoration(
           color: MyColors.topCon,
           borderRadius: BorderRadius.only(bottomLeft: Radius.circular(curve), bottomRight: Radius.circular(curve)),
-          boxShadow: [BoxShadow(
+          boxShadow: const [BoxShadow(
             color: MyColors.black,
             offset: Offset(0, 1),
             blurRadius: 4,
@@ -216,7 +213,7 @@ class _SupplierOrdesrState extends State<SupplierOrdesr> {
                   IconButton(
                     icon: Align(
                       alignment: lng==2? Alignment.centerRight:Alignment.centerLeft,
-                      child: Icon(Icons.arrow_back_ios),
+                      child: const Icon(Icons.arrow_back_ios),
                     ),
                     onPressed: ()=> Navigator.of(context).pop(),
                   ),
@@ -268,15 +265,15 @@ class _SupplierOrdesrState extends State<SupplierOrdesr> {
   String? path ;
 
   _orderListContainer(index, curve) {
-    var _vinNumberController = TextEditingController(text: 'dddd');
-    var _carNameController = TextEditingController(text: 'dddd');
-    var _modelController = TextEditingController(text: 'dddd');
-    var _remarksController = TextEditingController(text: 'dddd');
+    var vinNumberController = TextEditingController(text: 'dddd');
+    var carNameController = TextEditingController(text: 'dddd');
+    var modelController = TextEditingController(text: 'dddd');
+    var remarksController = TextEditingController(text: 'dddd');
     var status = _foundOrders[index]['status'];
-    _vinNumberController.text = _foundOrders[index]['orders']['vinNumber'];
-    _carNameController.text = _foundOrders[index]['orders']['carName'];
-    _modelController.text = _foundOrders[index]['orders']['carModel'];
-    _remarksController.text = _foundOrders[index]['orders']['remarks'];
+    vinNumberController.text = _foundOrders[index]['orders']['vinNumber'];
+    carNameController.text = _foundOrders[index]['orders']['carName'];
+    modelController.text = _foundOrders[index]['orders']['carModel'];
+    remarksController.text = _foundOrders[index]['orders']['remarks'];
     var imageList = [];
     imageList.clear();
     if(_foundOrders[index]['orders']['firstAttachment'].toString()!='') {
@@ -298,15 +295,15 @@ class _SupplierOrdesrState extends State<SupplierOrdesr> {
       imageList.add(_foundOrders[index]['orders']['fifthAttachment'].toString());
     }
     var raduis = MediaQuery.of(context).size.width/7;
-    var _subHeader = _m!.getGategoryName(_foundOrders[index]['orders']['categoryId']) + ', ' + _foundOrders[index]['orders']['user']['name'];
-    var _date =  _foundOrders[index]['orders']['insertDate'].toString().split('T')[0];
-    var _header = 'Num: ' + _foundOrders[index]['orders']['serial'].toString() + ',  ' + _date;
-    if(_foundOrders[index]['orders']['lastUpdateDate'].toString() != '0001-01-01T00:00:00') _date = _foundOrders[index]['lastUpdateDate'].toString().split('T')[0];
+    var subHeader = _m!.getGategoryName(_foundOrders[index]['orders']['categoryId']) + ', ' + _foundOrders[index]['orders']['user']['name'];
+    var date =  _foundOrders[index]['orders']['insertDate'].toString().split('T')[0];
+    var header = 'Num: ${_foundOrders[index]['orders']['serial']},  $date';
+    if(_foundOrders[index]['orders']['lastUpdateDate'].toString() != '0001-01-01T00:00:00') date = _foundOrders[index]['lastUpdateDate'].toString().split('T')[0];
     curve = MediaQuery.of(context).size.height / 30/2;
 
     String statue =  AppLocalizations.of(context)!.translate('NEW');
     var offerHieght = MediaQuery.of(context).size.width*0.4;
-    var _color = MyColors.mainColor;
+    var color = MyColors.mainColor;
     _openOffer() async{
       print(_foundOrders[index]['replyAttachment'].toString());
       if(_foundOrders[index]['replyAttachment'] == '') {
@@ -338,7 +335,9 @@ class _SupplierOrdesrState extends State<SupplierOrdesr> {
         ),
       );
       }
-      else return SizedBox();
+      else {
+        return const SizedBox();
+      }
     }
     var isWiner = false;
     try{
@@ -372,7 +371,7 @@ class _SupplierOrdesrState extends State<SupplierOrdesr> {
                       height: 1,
                       width: MediaQuery.of(context).size.width/2.7-2,
                       color: MyColors.white,
-                    ): SizedBox(),
+                    ): const SizedBox(),
                   ],
                 ),
                 SizedBox(width: MediaQuery.of(context).size.width/2.7,),
@@ -405,7 +404,7 @@ class _SupplierOrdesrState extends State<SupplierOrdesr> {
                   //height: offerHieght,
                   //margin: EdgeInsets.only(left: raduis),
                   decoration: BoxDecoration(
-                    border: Border.fromBorderSide(BorderSide(color: MyColors.card)),
+                    border: const Border.fromBorderSide(BorderSide(color: MyColors.card)),
                     borderRadius: BorderRadius.all(Radius.circular(curve)),
                   ),
                   padding: EdgeInsets.symmetric(horizontal: curve, vertical: curve),
@@ -416,18 +415,18 @@ class _SupplierOrdesrState extends State<SupplierOrdesr> {
                     children: [
                       //_m!.driver(color: MyColors.mainColor),
                       isWiner?_m!.lableValue(AppLocalizations.of(context)!.translate('Full Name'), _foundOrders[index]['orders']['user']['name'].toString())
-                          :SizedBox(height: 0.0,),
+                          :const SizedBox(height: 0.0,),
                       isWiner?_m!.lableValue(AppLocalizations.of(context)!.translate('Email'), _foundOrders[index]['orders']['user']['email'].toString())
-                          :SizedBox(height: 0.0,),
+                          :const SizedBox(height: 0.0,),
                       isWiner?_m!.lableValue(AppLocalizations.of(context)!.translate('Mobile Number'), _foundOrders[index]['orders']['user']['mobile'].toString())
-                          :SizedBox(height: 0.0,),
-                      categoryId==0?_m!.lableValue(AppLocalizations.of(context)!.translate('VIN Number'), _vinNumberController.text)
-                          :SizedBox(height: 0.0,),
-                      categoryId==0?_m!.lableValue(AppLocalizations.of(context)!.translate('Car Name'), _carNameController.text)
-                          :SizedBox(height: 0.0,),
-                      categoryId==0?_m!.lableValue(AppLocalizations.of(context)!.translate('Model'), _modelController.text)
-                          :SizedBox(height: 0.0,),
-                      _m!.lableValue(AppLocalizations.of(context)!.translate('Remarks'), _remarksController.text),
+                          :const SizedBox(height: 0.0,),
+                      categoryId==0?_m!.lableValue(AppLocalizations.of(context)!.translate('VIN Number'), vinNumberController.text)
+                          :const SizedBox(height: 0.0,),
+                      categoryId==0?_m!.lableValue(AppLocalizations.of(context)!.translate('Car Name'), carNameController.text)
+                          :const SizedBox(height: 0.0,),
+                      categoryId==0?_m!.lableValue(AppLocalizations.of(context)!.translate('Model'), modelController.text)
+                          :const SizedBox(height: 0.0,),
+                      _m!.lableValue(AppLocalizations.of(context)!.translate('Remarks'), remarksController.text),
                       imageList.isNotEmpty?
                       GridView.builder(
                         shrinkWrap: true,
@@ -572,7 +571,7 @@ class _SupplierOrdesrState extends State<SupplierOrdesr> {
                       height: 1,
                       width: MediaQuery.of(context).size.width/2.7-2,
                       color: MyColors.white,
-                    ): SizedBox(),
+                    ): const SizedBox(),
                   ],
                 ),
                 //SizedBox(width: MediaQuery.of(context).size.width/20,),
@@ -594,7 +593,7 @@ class _SupplierOrdesrState extends State<SupplierOrdesr> {
                       height: 1,
                       width: MediaQuery.of(context).size.width/2.7-2,
                       color: MyColors.white,
-                    ):SizedBox(),
+                    ):const SizedBox(),
                   ],
                 )
               ],
@@ -606,7 +605,7 @@ class _SupplierOrdesrState extends State<SupplierOrdesr> {
                   //height: offerHieght,
                   //margin: EdgeInsets.only(left: raduis),
                   decoration: BoxDecoration(
-                    border: Border.fromBorderSide(BorderSide(color: MyColors.card)),
+                    border: const Border.fromBorderSide(BorderSide(color: MyColors.card)),
                     borderRadius: BorderRadius.all(Radius.circular(curve)),
                   ),
                   padding: EdgeInsets.symmetric(horizontal: curve, vertical: curve),
@@ -617,18 +616,18 @@ class _SupplierOrdesrState extends State<SupplierOrdesr> {
                     children: [
                       //_m!.driver(color: MyColors.mainColor),
                       isWiner?_m!.lableValue(AppLocalizations.of(context)!.translate('Full Name'), _foundOrders[index]['orders']['user']['name'].toString())
-                          :SizedBox(height: 0.0,),
+                          :const SizedBox(height: 0.0,),
                       isWiner?_m!.lableValue(AppLocalizations.of(context)!.translate('Email'), _foundOrders[index]['orders']['user']['email'].toString())
-                          :SizedBox(height: 0.0,),
+                          :const SizedBox(height: 0.0,),
                       isWiner?_m!.lableValue(AppLocalizations.of(context)!.translate('Mobile Number'), _foundOrders[index]['orders']['user']['mobile'].toString())
-                          :SizedBox(height: 0.0,),
-                      categoryId==0?_m!.lableValue(AppLocalizations.of(context)!.translate('VIN Number'), _vinNumberController.text)
-                          :SizedBox(height: 0.0,),
-                      categoryId==0?_m!.lableValue(AppLocalizations.of(context)!.translate('Car Name'), _carNameController.text)
-                          :SizedBox(height: 0.0,),
-                      categoryId==0?_m!.lableValue(AppLocalizations.of(context)!.translate('Model'), _modelController.text)
-                          :SizedBox(height: 0.0,),
-                      _m!.lableValue(AppLocalizations.of(context)!.translate('Remarks'), _remarksController.text),
+                          :const SizedBox(height: 0.0,),
+                      categoryId==0?_m!.lableValue(AppLocalizations.of(context)!.translate('VIN Number'), vinNumberController.text)
+                          :const SizedBox(height: 0.0,),
+                      categoryId==0?_m!.lableValue(AppLocalizations.of(context)!.translate('Car Name'), carNameController.text)
+                          :const SizedBox(height: 0.0,),
+                      categoryId==0?_m!.lableValue(AppLocalizations.of(context)!.translate('Model'), modelController.text)
+                          :const SizedBox(height: 0.0,),
+                      _m!.lableValue(AppLocalizations.of(context)!.translate('Remarks'), remarksController.text),
                       imageList.isNotEmpty?
                       GridView.builder(
                         shrinkWrap: true,
@@ -691,7 +690,7 @@ class _SupplierOrdesrState extends State<SupplierOrdesr> {
                     //height: offerHieght,
                     //margin: EdgeInsets.only(left: raduis),
                     decoration: BoxDecoration(
-                      border: Border.fromBorderSide(BorderSide(color: MyColors.card)),
+                      border: const Border.fromBorderSide(BorderSide(color: MyColors.card)),
                       borderRadius: BorderRadius.all(Radius.circular(curve)),
                     ),
                     padding: EdgeInsets.symmetric(horizontal: curve, vertical: curve),
@@ -718,11 +717,11 @@ class _SupplierOrdesrState extends State<SupplierOrdesr> {
     }
     //var buttonText = AppLocalizations.of(context)!.translate('NEW');
     if(status == 1) {
-      _color = MyColors.gray;
+      color = MyColors.gray;
       statue = AppLocalizations.of(context)!.translate('REPLY');
     }
     if(status == 1 && _foundOrders[index]['isWinner']) {
-      _color = MyColors.green;
+      color = MyColors.green;
       statue = AppLocalizations.of(context)!.translate('WINNER');
     }
     return Container(
@@ -740,8 +739,8 @@ class _SupplierOrdesrState extends State<SupplierOrdesr> {
             Container(
               child: _m!.bodyText1(statue, color: MyColors.white),
               decoration: BoxDecoration(
-                color: _color,
-                border: Border.all(color: _color),
+                color: color,
+                border: Border.all(color: color),
                 borderRadius: lng==2?
                 BorderRadius.only(bottomLeft: Radius.circular(curve), topRight:  Radius.circular(curve))
                     :BorderRadius.only(bottomRight: Radius.circular(curve), topLeft:  Radius.circular(curve)),
@@ -757,14 +756,14 @@ class _SupplierOrdesrState extends State<SupplierOrdesr> {
                       children: [
                         GestureDetector(
                           onTap: ()=> _showOffers(index),
-                          child: SvgPicture.asset(/*index == _offersIndexShow?'assets/images/orderMarks.svg':*/'assets/images/orderMarks.svg', height: MediaQuery.of(context).size.width/15, color: _color,),
+                          child: SvgPicture.asset(/*index == _offersIndexShow?'assets/images/orderMarks.svg':*/'assets/images/orderMarks.svg', height: MediaQuery.of(context).size.width/15, color: color,),
                         ),
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              _m!.headText(_header,scale: 0.7, paddingH: MediaQuery.of(context).size.width/20, paddingV: 0.0, align: TextAlign.start, color: MyColors.bodyText1),
-                              _m!.headText(_subHeader,scale: 0.6, paddingH: MediaQuery.of(context).size.width/20, paddingV: MediaQuery.of(context).size.height/200, align: TextAlign.start, color: MyColors.bodyText1),
+                              _m!.headText(header,scale: 0.7, paddingH: MediaQuery.of(context).size.width/20, paddingV: 0.0, align: TextAlign.start, color: MyColors.bodyText1),
+                              _m!.headText(subHeader,scale: 0.6, paddingH: MediaQuery.of(context).size.width/20, paddingV: MediaQuery.of(context).size.height/200, align: TextAlign.start, color: MyColors.bodyText1),
                               //_m!.iconText(assets, text, color)
                               //_m!.bodyText1(_subHeader,scale: 1, padding: MediaQuery.of(context).size.width/20, padV: MediaQuery.of(context).size.height/200, align: TextAlign.start, color: MyColors.bodyText1),
                             ],
@@ -797,7 +796,7 @@ class _SupplierOrdesrState extends State<SupplierOrdesr> {
               )*/
                         : const SizedBox(),
                     status == 0? _m!.raisedButton(curve*2, MediaQuery.of(context).size.width/4, AppLocalizations.of(context)!.translate('Reply'), 'assets/images/reply.svg', status == 0? ()=>  _reply(_foundOrders[index]['orders']) : null, height: curve*3):
-                    SizedBox(),
+                    const SizedBox(),
                     //_m!.driver(),
                   ]
               ),),

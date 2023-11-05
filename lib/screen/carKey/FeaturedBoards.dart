@@ -5,9 +5,6 @@ import 'package:automall/constant/color/MyColors.dart';
 import 'package:automall/const.dart';
 import 'package:automall/localizations.dart';
 import 'package:automall/screen/carKey/AddSellCarPanleScreen.dart';
-import 'package:automall/screen/garageCountry.dart';
-import 'package:automall/screen/suplierScreen.dart';
-import 'package:automall/screen/carSell/AddSellCarScreen.dart';
 import 'package:flutter/material.dart';
 
 import '../../MyWidget.dart';
@@ -16,7 +13,7 @@ import 'BoardSelect.dart';
 
 class FeaturedBoards extends StatefulWidget {
   final String barTitle;
-  FeaturedBoards({required this.barTitle});
+  const FeaturedBoards({Key? key, required this.barTitle}) : super(key: key);
   @override
   _FeaturedBoardsState createState() => _FeaturedBoardsState();
 }
@@ -105,7 +102,7 @@ class _FeaturedBoardsState extends State<FeaturedBoards> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Image.asset(broadListImageType[index]['image'], fit: BoxFit.contain,),
-                                  MyWidget(context).headText('${broadListImageType[index]['num']} '+AppLocalizations.of(context)!.translate('Numbers') ,scale: 0.8)
+                                  MyWidget(context).headText('${broadListImageType[index]['num']} ${AppLocalizations.of(context)!.translate('Numbers')}' ,scale: 0.8)
                                 ],
                               ),
                             ),
@@ -161,6 +158,7 @@ class _FeaturedBoardsState extends State<FeaturedBoards> {
       ),
       child: Expanded(
         child: Container(
+          color: MyColors.white,
           child: Row(
             children: [
               Image.asset('assets/images/background.png', width: (height-curve*2)/4, height: height-curve*2, fit: BoxFit.cover,),
@@ -177,7 +175,6 @@ class _FeaturedBoardsState extends State<FeaturedBoards> {
               )
             ],
           ),
-          color: MyColors.white,
         ),
       )
       ,
@@ -222,18 +219,18 @@ class _FeaturedBoardsState extends State<FeaturedBoards> {
     );
   }
 
-  _goToOfferCarsBrand(_boardId) async{
+  _goToOfferCarsBrand(boardId) async{
     setState(() {
       pleaseWait = true;
     });
-    await MyAPI(context: context).getCarBroadKey(_boardId);
+    await MyAPI(context: context).getCarBroadKey(boardId);
     setState(() {
       pleaseWait = false;
     });
     Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) =>  BoardSelect(),
+          builder: (context) =>  const BoardSelect(),
         ));
   }
 
@@ -271,7 +268,7 @@ class _FeaturedBoardsState extends State<FeaturedBoards> {
                   child: IconButton(
                     icon: Align(
                       alignment: lng==2?Alignment.centerRight:Alignment.centerLeft,
-                      child: Icon(Icons.arrow_back_ios),
+                      child: const Icon(Icons.arrow_back_ios),
                     ),
                     onPressed: ()=> Navigator.of(context).pop(),
                   ),

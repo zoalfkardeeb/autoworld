@@ -1,7 +1,6 @@
 import 'package:automall/constant/app_size.dart';
 import 'package:automall/screen/suplierScreen.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:simple_tooltip/simple_tooltip.dart';
 
 import '../MyWidget.dart';
@@ -126,14 +125,14 @@ class _BrandScreenState extends State<BrandScreen> {
                   Expanded(
                     flex: 1,
                     child: Container(
-                      margin: EdgeInsets.only(top: 10),
-                      decoration: BoxDecoration(
+                      margin: const EdgeInsets.only(top: 10),
+                      decoration: const BoxDecoration(
                         color: MyColors.topCon,
                         //borderRadius: BorderRadius.only(topLeft: Radius.circular(curve), topRight: Radius.circular(curve))
                       ),
                       padding: EdgeInsets.symmetric(horizontal: curve),
                       child: GridView.builder(
-                        padding: EdgeInsets.symmetric(vertical:1),
+                        padding: const EdgeInsets.symmetric(vertical:1),
                         itemCount: brandList.length,
                         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                             childAspectRatio: 0.8,
@@ -222,8 +221,6 @@ class _BrandScreenState extends State<BrandScreen> {
           customShadows: const [BoxShadow(color: MyColors.white, blurRadius: 4, spreadRadius: 2)],
           backgroundColor: MyColors.black,
           borderColor: MyColors.black,
-        //tooltipDirection: TooltipDirection.up,
-          child: _child(),
           content: SizedBox(
             height: hSpace*1.35,
             child: Column(
@@ -237,7 +234,9 @@ class _BrandScreenState extends State<BrandScreen> {
                 _m!.tooltibText(AppLocalizations.of(context)!.translate('After Market'), ()=>_navigate(index, false))
             ],
           ),
-        )
+        ),
+        //tooltipDirection: TooltipDirection.up,
+          child: _child()
       );
   }
 
@@ -256,7 +255,7 @@ class _BrandScreenState extends State<BrandScreen> {
           color: MyColors.topCon,
           borderRadius: BorderRadius.only(bottomLeft: Radius.circular(curve),
               bottomRight: Radius.circular(curve)),
-          boxShadow: [BoxShadow(
+          boxShadow: const [BoxShadow(
             color: MyColors.black,
             offset: Offset(0, 1),
             blurRadius: 4,
@@ -276,7 +275,7 @@ class _BrandScreenState extends State<BrandScreen> {
                   child: IconButton(
                     icon: Align(
                       alignment: lng==2?Alignment.centerRight:Alignment.centerLeft,
-                      child: Icon(Icons.arrow_back_ios),
+                      child: const Icon(Icons.arrow_back_ios),
                     ),
                     onPressed: ()=> Navigator.of(context).pop(),
                   ),

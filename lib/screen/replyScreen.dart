@@ -3,9 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:automall/screen/SupplierOrder.dart';
-import 'package:automall/screen/selectScreen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import '../MyWidget.dart';
@@ -22,7 +20,7 @@ class ReplyScreen extends StatefulWidget {
   ReplyScreen(this.foundOrder, {Key? key, required this.barTitle}) : super(key: key);
 
   @override
-  _ReplyScreenState createState() => _ReplyScreenState(this.foundOrder);
+  _ReplyScreenState createState() => _ReplyScreenState(foundOrder);
 }
 
 class _ReplyScreenState extends State<ReplyScreen> {
@@ -41,7 +39,7 @@ class _ReplyScreenState extends State<ReplyScreen> {
   List<ImageProvider?> imageList = [];
   List attach = [];
 
-  var _customerImagePath = null;
+  var _customerImagePath;
   var _tapNum = 1;
   final ScrollController _scrollController = ScrollController();
 
@@ -85,7 +83,7 @@ class _ReplyScreenState extends State<ReplyScreen> {
     else {
       active = null;
     }
-    var _br = 0.1;
+    var br = 0.1;
     return Scaffold(
       resizeToAvoidBottomInset: true,
       backgroundColor: Colors.grey[100],
@@ -97,7 +95,7 @@ class _ReplyScreenState extends State<ReplyScreen> {
           Align(
             alignment: Alignment.topCenter,
             child: Container(
-              height: MediaQuery.of(context).size.height*(1-_br),
+              height: MediaQuery.of(context).size.height*(1-br),
               width: double.infinity,
               alignment: Alignment.topCenter,
               padding: EdgeInsets.only(
@@ -155,7 +153,7 @@ class _ReplyScreenState extends State<ReplyScreen> {
                                         ),
                                         child: Stack(
                                           children: [
-                                            attach.length > 0? _m!.viewFileBase64(attach[0]['base'].toString()) : SizedBox(),
+                                            attach.isNotEmpty? _m!.viewFileBase64(attach[0]['base'].toString()) : const SizedBox(),
                                             Align(
                                               alignment: Alignment.center,
                                               child: Icon(Icons.file_open, color: MyColors.bodyText1,size: MediaQuery.of(context).size.width/7,),
@@ -188,7 +186,7 @@ class _ReplyScreenState extends State<ReplyScreen> {
             _m!.bottomContainer(
               //_m!.mainChildrenBottomContainer(curve, () => _tap(1), () => _tap(2), () => _tap(3), _tapNum),
                 _m!.raisedButton(curve, MediaQuery.of(context).size.width/1.2, AppLocalizations.of(context)!.translate('Send Offer'), 'assets/images/car.svg', active),
-                curve, bottomConRati: _br)
+                curve, bottomConRati: br)
                 : const SizedBox(height: 0.1,),
           ),
           Align(
@@ -219,7 +217,7 @@ class _ReplyScreenState extends State<ReplyScreen> {
         decoration: BoxDecoration(
           color: MyColors.topCon,
           borderRadius: BorderRadius.only(bottomLeft: Radius.circular(curve), bottomRight: Radius.circular(curve)),
-          boxShadow: [BoxShadow(
+          boxShadow: const [BoxShadow(
             color: MyColors.black,
             offset: Offset(0, 1),
             blurRadius: 4,
@@ -237,7 +235,7 @@ class _ReplyScreenState extends State<ReplyScreen> {
                   IconButton(
                     icon: Align(
                       alignment: lng==2?Alignment.centerRight:Alignment.centerLeft,
-                      child: Icon(Icons.arrow_back_ios),
+                      child: const Icon(Icons.arrow_back_ios),
                     ),
                     onPressed: ()=> Navigator.of(context).pop(),
                   ),
@@ -247,7 +245,7 @@ class _ReplyScreenState extends State<ReplyScreen> {
                   child: _m!.titleText1(
                       widget.barTitle),
                 ),
-                Expanded(
+                const Expanded(
                   flex: 1,
                   child: SizedBox(),//_m!.notificationButton(),
                 ),
@@ -276,8 +274,8 @@ class _ReplyScreenState extends State<ReplyScreen> {
   String path = '' ;
 
   _selectImageProfile() async {
-    final ImagePicker _picker = ImagePicker();
-    final XFile? xFile = await _picker.pickImage(source: ImageSource.gallery);
+    final ImagePicker picker = ImagePicker();
+    final XFile? xFile = await picker.pickImage(source: ImageSource.gallery);
     path = xFile!.path;
     print(path);
     setState(
@@ -300,8 +298,8 @@ class _ReplyScreenState extends State<ReplyScreen> {
 
   _addImage(int index, source) async{
     Navigator.of(context).pop();
-    final ImagePicker _picker = ImagePicker();
-    final XFile? xFile = await _picker.pickImage(source: source, imageQuality: 50);
+    final ImagePicker picker = ImagePicker();
+    final XFile? xFile = await picker.pickImage(source: source, imageQuality: 50);
     path = xFile!.path;
     print(path);
     setState(

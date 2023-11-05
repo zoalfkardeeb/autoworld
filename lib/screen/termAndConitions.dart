@@ -7,7 +7,6 @@ import 'package:automall/const.dart';
 import 'package:automall/localizations.dart';
 import 'package:automall/screen/singnIn.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:async';
 
@@ -162,7 +161,7 @@ class _TermsAndConditionsState extends State<TermsAndConditions> {
                           padding: EdgeInsets.symmetric(horizontal: AppWidth.w8),
                         child: _m!.raisedButton(curve, MediaQuery.of(context).size.width/1.4, AppLocalizations.of(context)!.translate('DeActivate account'), null, ()=> _deActivate(), height: MediaQuery.of(context).size.height/15),
                       )
-                       :SizedBox(),
+                       :const SizedBox(),
                     ],
                   )
                 )

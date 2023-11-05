@@ -94,7 +94,7 @@ class _RequestScreenState extends State<RequestScreen> {
       };
     }
     */
-    var _br = 0.1;
+    var br = 0.1;
     return Scaffold(
       resizeToAvoidBottomInset: true,
       backgroundColor: Colors.grey[100],
@@ -106,7 +106,7 @@ class _RequestScreenState extends State<RequestScreen> {
           Align(
             alignment: Alignment.topCenter,
             child: Container(
-              height: MediaQuery.of(context).size.height*(1-_br),
+              height: MediaQuery.of(context).size.height*(1-br),
               width: double.infinity,
               alignment: Alignment.topCenter,
               padding: EdgeInsets.only(
@@ -129,16 +129,16 @@ class _RequestScreenState extends State<RequestScreen> {
                         children: [
                           //SizedBox(height: hSpace/3,),
                           gategoryId==0?_m!.textFiled(curve, Colors.white, MyColors.bodyText1, _vinNumberController, AppLocalizations.of(context)!.translate('Enter VIN Number'), Icons.edit_outlined,number: false, withoutValidator: true)
-                              : SizedBox(height: 0,),
+                              : const SizedBox(height: 0,),
                           gategoryId==0?_m!.textFiled(curve, Colors.white, MyColors.bodyText1, _carNameController, AppLocalizations.of(context)!.translate('Enter Car Name'), Icons.edit_outlined, withoutValidator: true)
-                              : SizedBox(height: 0,),
+                              : const SizedBox(height: 0,),
                           gategoryId==0?_m!.textFiled(curve, Colors.white, MyColors.bodyText1, _modelController, AppLocalizations.of(context)!.translate('Enter Model'), Icons.edit_outlined, withoutValidator: true)
-                              : SizedBox(height: 0,),
+                              : const SizedBox(height: 0,),
                           _m!.textFiled(curve, Colors.white, MyColors.bodyText1, _remarksController, AppLocalizations.of(context)!.translate('remarks'), Icons.edit_outlined, height: MediaQuery.of(context).size.width/6.5*2, withoutValidator: true, newLineAction: false),
                           SizedBox(height: hSpace/2,),
                           _m!.bodyText1(AppLocalizations.of(context)!.translate('upload files instead'), scale: 1, padding: MediaQuery.of(context).size.width/20, maxLine: 5),
                           GridView.builder(
-                            padding: EdgeInsets.symmetric(vertical: 5.0),
+                            padding: const EdgeInsets.symmetric(vertical: 5.0),
                                 shrinkWrap: true,
                                 physics: const ScrollPhysics(),
                                 itemCount: imageList.length == 6 ? imageList.length : imageList.length+1,
@@ -200,7 +200,7 @@ class _RequestScreenState extends State<RequestScreen> {
             _m!.bottomContainer(
                 //_m!.mainChildrenBottomContainer(curve, () => _tap(1), () => _tap(2), () => _tap(3), _tapNum),
                 _m!.raisedButton(curve, MediaQuery.of(context).size.width/1.2, AppLocalizations.of(context)!.translate('Submit'), 'assets/images/car.svg', active),
-                curve, bottomConRati: _br)
+                curve, bottomConRati: br)
                 : const SizedBox(height: 0.1,),
           ),
           Align(
@@ -231,7 +231,7 @@ class _RequestScreenState extends State<RequestScreen> {
         decoration: BoxDecoration(
           color: MyColors.topCon,
           borderRadius: BorderRadius.only(bottomLeft: Radius.circular(curve), bottomRight: Radius.circular(curve)),
-          boxShadow: [BoxShadow(
+          boxShadow: const [BoxShadow(
             color: MyColors.black,
             offset: Offset(0, 1),
             blurRadius: 4,
@@ -249,7 +249,7 @@ class _RequestScreenState extends State<RequestScreen> {
                   IconButton(
                     icon: Align(
                       alignment: lng==2? Alignment.centerRight:Alignment.centerLeft,
-                      child: Icon(Icons.arrow_back_ios),
+                      child: const Icon(Icons.arrow_back_ios),
                     ),
                     onPressed: ()=> Navigator.of(context).pop(),
                   ),
@@ -288,8 +288,8 @@ class _RequestScreenState extends State<RequestScreen> {
   String path = '' ;
 
   _selectImageProfile() async {
-    final ImagePicker _picker = ImagePicker();
-    final XFile? xFile = await _picker.pickImage(source: ImageSource.gallery);
+    final ImagePicker picker = ImagePicker();
+    final XFile? xFile = await picker.pickImage(source: ImageSource.gallery);
     path = xFile!.path;
     print(path);
     setState(
@@ -328,8 +328,8 @@ class _RequestScreenState extends State<RequestScreen> {
 
   _addImage(int index, source) async{
     Navigator.of(context).pop();
-    final ImagePicker _picker = ImagePicker();
-    XFile? xFile = await _picker.pickImage(source: source, imageQuality: 50, maxHeight: 2000,maxWidth: 2000);
+    final ImagePicker picker = ImagePicker();
+    XFile? xFile = await picker.pickImage(source: source, imageQuality: 50, maxHeight: 2000,maxWidth: 2000);
     /*for(int i =50; i>10; i-5){
      var kbite = await xFile!.length()/1042;
      if(kbite>200){
@@ -398,7 +398,7 @@ class _RequestScreenState extends State<RequestScreen> {
       });
       if(add){
         Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => SelectScreen(),),
+          MaterialPageRoute(builder: (context) => const SelectScreen(),),
               (Route<dynamic> route) => false,
         );
       }

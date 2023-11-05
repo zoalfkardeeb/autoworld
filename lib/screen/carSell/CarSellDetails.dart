@@ -6,16 +6,11 @@ import 'package:automall/constant/color/MyColors.dart';
 import 'package:automall/const.dart';
 import 'package:automall/localizations.dart';
 import 'package:automall/photoView.dart';
-import 'package:automall/screen/garageCountry.dart';
-import 'package:automall/screen/suplierScreen.dart';
-import 'package:automall/screen/carSell/AddSellCarScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 
 import '../../MyWidget.dart';
-import 'AllBrandCarSells.dart';
 import 'dart:ui' as ui;
-import 'dart:math' as math;
 import 'package:share_plus/share_plus.dart';
 // ignore: camel_case_types
 
@@ -63,7 +58,7 @@ class _CarSellDetailsState extends State<CarSellDetails> {
     price = formatter.format(carSellsList[_indexCarSell]['price']).toString();
     venName = carSellsList[_indexCarSell]['user']['name'].toString();
     venPhone = carSellsList[_indexCarSell]['user']['mobile'].toString();
-    venLocation = carSellsList[_indexCarSell]['user']['country']['name'].toString() + ', ' + carSellsList[_indexCarSell]['user']['city']['name'].toString();
+    venLocation = '${carSellsList[_indexCarSell]['user']['country']['name']}, ${carSellsList[_indexCarSell]['user']['city']['name']}';
     venNotes = carSellsList[_indexCarSell]['notes'];
     _alumunimTiers = carSellsList[_indexCarSell]['alloyWheels'];
     _roofWindow = carSellsList[_indexCarSell]['sunRoof'];
@@ -89,18 +84,18 @@ class _CarSellDetailsState extends State<CarSellDetails> {
   Widget build(BuildContext context) {
     var hSpace = MediaQuery.of(context).size.height / 17;
     var curve = MediaQuery.of(context).size.height / 30;
-    var _width = MediaQuery.of(context).size.width / 1.2;
-    var _height = MediaQuery.of(context).size.height / 5;
+    var width = MediaQuery.of(context).size.width / 1.2;
+    var height = MediaQuery.of(context).size.height / 5;
     var vSpace = MediaQuery.of(context).size.height/70;
     var scale =0.95;
     _m = MyWidget(context);
     print(_indexCarSell.toString());
     imageList.clear();
-    imageListGallery.forEach((element) {
+    for (var element in imageListGallery) {
      imageList.add(
-         _m!.networkImage(element.image, _width, crossAlign: CrossAxisAlignment.center, height: _height)
+         _m!.networkImage(element.image, width, crossAlign: CrossAxisAlignment.center, height: height)
      );
-   });
+   }
     return Scaffold(
       resizeToAvoidBottomInset: true,
       backgroundColor: Colors.grey[100],
@@ -150,7 +145,7 @@ class _CarSellDetailsState extends State<CarSellDetails> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Icon(Icons.remove_red_eye_rounded, color: MyColors.bodyText1, size: MediaQuery.of(context).size.height/50, ),
-                                _m!.bodyText1(view + ' ' + AppLocalizations.of(context)!.translate('View'), scale: 0.9, padding: 0.5, padV: 2.0),
+                                _m!.bodyText1('$view ${AppLocalizations.of(context)!.translate('View')}', scale: 0.9, padding: 0.5, padV: 2.0),
                               ],
                             ),
                           ],
@@ -173,7 +168,7 @@ class _CarSellDetailsState extends State<CarSellDetails> {
                               padding: EdgeInsets.all(curve/4),
                               margin: EdgeInsets.only(bottom: curve/2, left: 2, right: 2, top: 3),
                               decoration: BoxDecoration(
-                                  boxShadow: [
+                                  boxShadow: const [
                                     BoxShadow(
                                       color: MyColors.black,
                                       offset: Offset(0, 0.8),
@@ -189,7 +184,9 @@ class _CarSellDetailsState extends State<CarSellDetails> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     _m!.headText(AppLocalizations.of(context)!.translate('Car Information'),scale: 0.6, paddingV: curve/2),
-                                    Container(
+                                    SizedBox(
+                                      height: MediaQuery.of(context).size.width / 14 * 3,
+                                      width: MediaQuery.of(context).size.width / 1.2,
                                       child: Row(
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         mainAxisAlignment: MainAxisAlignment.start,
@@ -203,8 +200,7 @@ class _CarSellDetailsState extends State<CarSellDetails> {
                                                 _m!.iconText("assets/images/ic_km.svg", kelomtarge  +  AppLocalizations.of(context)!.translate('Km'), MyColors.red, scale: scale, imageScale: 0.33, paddingH: 0.0),
                                                 SizedBox(height: vSpace,),
                                                 _m!.iconText("assets/images/gear_automatic.svg",
-                                                    AppLocalizations.of(context)!.translate('Gear') + ": " +
-                                                        AppLocalizations.of(context)!.translate(listGearBoxCarType[listGearBoxCarType.indexWhere((element) => gearType == element['id'].toString())]['name']),
+                                                    "${AppLocalizations.of(context)!.translate('Gear')}: ${AppLocalizations.of(context)!.translate(listGearBoxCarType[listGearBoxCarType.indexWhere((element) => gearType == element['id'].toString())]['name'])}",
                                                     MyColors.red, scale: scale, imageScale: 0.55, paddingH: 2),
                                                 SizedBox(height: vSpace,),
                                                 _m!.iconText("assets/images/ic_pr_year.svg", AppLocalizations.of(context)!.translate('Man. Date: ') + productionYear, MyColors.gray, scale: scale, imageScale: 0.5, paddingH: 0.2),
@@ -217,31 +213,27 @@ class _CarSellDetailsState extends State<CarSellDetails> {
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               mainAxisAlignment: MainAxisAlignment.start,
                                               children: [
-                                                _m!.iconText("assets/images/ic_price.svg", AppLocalizations.of(context)!.translate('Price') + ": " + price, MyColors.gray, scale: scale, imageScale: 0.5, paddingH: 0.2,),
+                                                _m!.iconText("assets/images/ic_price.svg", "${AppLocalizations.of(context)!.translate('Price')}: $price", MyColors.gray, scale: scale, imageScale: 0.5, paddingH: 0.2,),
                                                 SizedBox(height: vSpace,),
-                                                _m!.iconText("assets/images/ic_engine.svg", AppLocalizations.of(context)!.translate('Engine') + ": " +cyl
-                                                    +AppLocalizations.of(context)!.translate("Cylinders"), MyColors.gray, scale: scale, imageScale: 0.5, paddingH: 0.2),
+                                                _m!.iconText("assets/images/ic_engine.svg", "${AppLocalizations.of(context)!.translate('Engine')}: $cyl${AppLocalizations.of(context)!.translate("Cylinders")}", MyColors.gray, scale: scale, imageScale: 0.5, paddingH: 0.2),
                                                 SizedBox(height: vSpace,),
-                                                _m!.iconText("assets/images/ic_motor_type.svg", AppLocalizations.of(context)!.translate('Type') + ": " +
-                                                    AppLocalizations.of(context)!.translate(listCarMotorType[listCarMotorType.indexWhere((element) => motorType == element['id'].toString())]['name']), MyColors.gray, scale: scale, imageScale: 0.5, paddingH: 0.2),
+                                                _m!.iconText("assets/images/ic_motor_type.svg", "${AppLocalizations.of(context)!.translate('Type')}: ${AppLocalizations.of(context)!.translate(listCarMotorType[listCarMotorType.indexWhere((element) => motorType == element['id'].toString())]['name'])}", MyColors.gray, scale: scale, imageScale: 0.5, paddingH: 0.2),
                                               ],
                                             ),
                                           ),
                                         ],
                                       ),
-                                      height: MediaQuery.of(context).size.width / 14 * 3,
-                                      width: MediaQuery.of(context).size.width / 1.2,
                                     ),
                                   ],
                                 ),
                               ),
                             ),
-                            _aditionalFeatures? _additionalFeatursCountainer(curve, scale): SizedBox(),
+                            _aditionalFeatures? _additionalFeatursCountainer(curve, scale): const SizedBox(),
                             !carSellsList[_indexCarSell]['isPaid']? Container(
                               padding: EdgeInsets.all(curve/4),
                               margin: EdgeInsets.only(bottom: curve/2, left: 2, right: 2),
                               decoration: BoxDecoration(
-                                  boxShadow: [
+                                  boxShadow: const [
                                     BoxShadow(
                                       color: MyColors.black,
                                       offset: Offset(0, 0.8),
@@ -270,7 +262,7 @@ class _CarSellDetailsState extends State<CarSellDetails> {
                                               children: [
                                                 _m!.iconText('assets/images/ic_red_user.svg', venName, MyColors.black, imageScale: 0.5, scale: scale, paddingH: 0.2),
                                                 SizedBox(height: hSpace/10,),
-                                                venNotes.isNotEmpty?_notes(venNotes, curve/2, scale):SizedBox(),
+                                                venNotes.isNotEmpty?_notes(venNotes, curve/2, scale):const SizedBox(),
                                                 SizedBox(height: hSpace/4,),
                                                 _m!.iconText('assets/images/ic_red_phone.svg', venPhone, MyColors.black, imageScale: 0.5, scale: scale, paddingH: 0.2),
                                                 SizedBox(height: hSpace/4,),
@@ -292,7 +284,7 @@ class _CarSellDetailsState extends State<CarSellDetails> {
                                   ],
                                 ),
                               ),
-                            ):SizedBox(),
+                            ):const SizedBox(),
                           ],
 
                         ),
@@ -372,19 +364,19 @@ class _CarSellDetailsState extends State<CarSellDetails> {
   }
 
   _additionalFeatursCountainer(curve, scale){
-    List _carSellList = [];
-    if(_alumunimTiers) _carSellList.add({'image':'assets/images/ic_tiers.svg','name':AppLocalizations.of(context)!.translate('Alluminium Tiers')});
-    if(_navigationSystem) _carSellList.add({'image':'assets/images/ic_navigation.svg','name':AppLocalizations.of(context)!.translate('Navigation system')});
-    if(_roofWindow) _carSellList.add({'image':'assets/images/ic_roof.svg','name':AppLocalizations.of(context)!.translate('Roof window')});
-    if(_rearScreen) _carSellList.add({'image':'assets/images/ic_rear_screen.svg','name':AppLocalizations.of(context)!.translate('Rear screens')});
-    if(_leatherSeats) _carSellList.add({'image':'assets/images/ic_leather_seat.svg','name':AppLocalizations.of(context)!.translate('Leather seats')});
-    if(_cameras) _carSellList.add({'image':'assets/images/ic_camera.svg','name':AppLocalizations.of(context)!.translate('Cameras')});
+    List carSellList = [];
+    if(_alumunimTiers) carSellList.add({'image':'assets/images/ic_tiers.svg','name':AppLocalizations.of(context)!.translate('Alluminium Tiers')});
+    if(_navigationSystem) carSellList.add({'image':'assets/images/ic_navigation.svg','name':AppLocalizations.of(context)!.translate('Navigation system')});
+    if(_roofWindow) carSellList.add({'image':'assets/images/ic_roof.svg','name':AppLocalizations.of(context)!.translate('Roof window')});
+    if(_rearScreen) carSellList.add({'image':'assets/images/ic_rear_screen.svg','name':AppLocalizations.of(context)!.translate('Rear screens')});
+    if(_leatherSeats) carSellList.add({'image':'assets/images/ic_leather_seat.svg','name':AppLocalizations.of(context)!.translate('Leather seats')});
+    if(_cameras) carSellList.add({'image':'assets/images/ic_camera.svg','name':AppLocalizations.of(context)!.translate('Cameras')});
     if(_aditionalFeatures){
       return Container(
       padding: EdgeInsets.all(curve/4),
       margin: EdgeInsets.only(bottom: curve/2, left: 2, right: 2),
       decoration: BoxDecoration(
-          boxShadow: [
+          boxShadow: const [
             BoxShadow(
               color: MyColors.black,
               offset: Offset(0, 0.8),
@@ -400,26 +392,28 @@ class _CarSellDetailsState extends State<CarSellDetails> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _m!.headText(AppLocalizations.of(context)!.translate('Additional features'),scale: 0.6, paddingV: curve/2),
-            Container(
+            SizedBox(
+              height: MediaQuery.of(context).size.width / 20 * carSellList.length/2.round() + MediaQuery.of(context).size.width / 14,
+              width: MediaQuery.of(context).size.width / 1.2,
               child: GridView.builder(
-                padding: EdgeInsets.all(0.0),
-                physics: NeverScrollableScrollPhysics(),
-                itemCount: _carSellList.length,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                padding: const EdgeInsets.all(0.0),
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: carSellList.length,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     childAspectRatio: 6,
                     crossAxisCount: 2),
                 itemBuilder: (BuildContext context, int index) {
-                  return _m!.iconText(_carSellList[index]['image'], _carSellList[index]['name'], MyColors.red, scale: scale, imageScale: 0.5, paddingH: 0.2);
+                  return _m!.iconText(carSellList[index]['image'], carSellList[index]['name'], MyColors.red, scale: scale, imageScale: 0.5, paddingH: 0.2);
                 },
               ),
-              height: MediaQuery.of(context).size.width / 20 * _carSellList.length/2.round() + MediaQuery.of(context).size.width / 14,
-              width: MediaQuery.of(context).size.width / 1.2,
             ),
           ],
         ),
       ),
     );
-    } else return SizedBox();
+    } else {
+      return const SizedBox();
+    }
   }
   _setState() {
     setState(() {
@@ -437,7 +431,7 @@ class _CarSellDetailsState extends State<CarSellDetails> {
         decoration: BoxDecoration(
           color: MyColors.topCon,
           borderRadius: BorderRadius.only(bottomLeft: Radius.circular(curve), bottomRight: Radius.circular(curve)),
-          boxShadow: [BoxShadow(
+          boxShadow: const [BoxShadow(
             color: MyColors.black,
             offset: Offset(0, 1),
             blurRadius: 4,
@@ -455,7 +449,7 @@ class _CarSellDetailsState extends State<CarSellDetails> {
                   child: IconButton(
                     icon: Align(
                       alignment: lng==2?Alignment.centerRight:Alignment.centerLeft,
-                      child: Icon(Icons.arrow_back_ios),
+                      child: const Icon(Icons.arrow_back_ios),
                     ),
                     onPressed: ()=> Navigator.of(context).pop(),
                   ),
@@ -537,10 +531,10 @@ class _CarSellDetailsState extends State<CarSellDetails> {
 class MyPainter extends CustomPainter { //         <-- CustomPainter class
   @override
   void paint(Canvas canvas, Size size) {
-    final pointMode = ui.PointMode.polygon;
+    const pointMode = ui.PointMode.polygon;
     final points = [
       Offset(curve, curve),
-      Offset(0, 0),
+      const Offset(0, 0),
       Offset(0, curve*2),
     ];
     final paint = Paint()
@@ -548,9 +542,9 @@ class MyPainter extends CustomPainter { //         <-- CustomPainter class
       ..strokeWidth = 1
       ..strokeCap = StrokeCap.round;
     final rect = Rect.fromLTRB(0, curve, curve*2, curve*3);
-    final startAngle = 3.14;
-    final sweepAngle = 3.14/2;
-    final useCenter = false;
+    const startAngle = 3.14;
+    const sweepAngle = 3.14/2;
+    const useCenter = false;
     final paintArc = Paint()
       ..color = MyColors.white
       ..style = PaintingStyle.stroke

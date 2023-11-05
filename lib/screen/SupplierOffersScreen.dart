@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 class SupplierOffersScreen extends StatefulWidget {
+  const SupplierOffersScreen({Key? key}) : super(key: key);
+
   @override
   _SupplierOffersScreenState createState() => _SupplierOffersScreenState();
 }

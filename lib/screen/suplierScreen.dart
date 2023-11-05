@@ -13,7 +13,6 @@ import 'package:automall/constant/color/MyColors.dart';
 
 import '../const.dart';
 import '../localizations.dart';
-import 'package:flutter_html/flutter_html.dart';
 
 class SuplierScreen extends StatefulWidget {
   var brandId, gategoryId, originalOrNot, indexGarage;
@@ -33,11 +32,9 @@ class _SuplierScreenState extends State<SuplierScreen> {
   MyWidget? _m;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
   var brandId, gategoryId, originalOrNot, indexGarage;
-  var _withoutQutation;
+  final _withoutQutation;
 
-  _SuplierScreenState(this.brandId, this.gategoryId, this.originalOrNot, this.indexGarage, this._withoutQutation){
-
-  }
+  _SuplierScreenState(this.brandId, this.gategoryId, this.originalOrNot, this.indexGarage, this._withoutQutation);
 
   final _country = 'Qatar';
   var _state = 'state';
@@ -83,8 +80,8 @@ class _SuplierScreenState extends State<SuplierScreen> {
     //_foundSupliers[1]['id'] = '4';
     //_foundSupliers[3]['fullName'] = 'Samir';
     _m = MyWidget(context);
-    var _bR = 0.1;
-    if(_withoutQutation !=null) _bR = 0;
+    var bR = 0.1;
+    if(_withoutQutation !=null) bR = 0;
     return Scaffold(
       resizeToAvoidBottomInset: true,
       backgroundColor: Colors.grey[100],
@@ -96,7 +93,7 @@ class _SuplierScreenState extends State<SuplierScreen> {
           Align(
             alignment: Alignment.topCenter,
             child: Container(
-              height: MediaQuery.of(context).size.height * (1-_bR),
+              height: MediaQuery.of(context).size.height * (1-bR),
               width: double.infinity,
               alignment: Alignment.topCenter,
               padding: EdgeInsets.only(
@@ -233,7 +230,7 @@ class _SuplierScreenState extends State<SuplierScreen> {
           )*/
           Align(
         alignment: Alignment.bottomCenter,
-        child: _withoutQutation!=null? SizedBox() : MediaQuery.of(context).viewInsets.bottom == 0
+        child: _withoutQutation!=null? const SizedBox() : MediaQuery.of(context).viewInsets.bottom == 0
             ? _m!.bottomContainer(
             _m!.raisedButton(
                 curve,
@@ -242,7 +239,7 @@ class _SuplierScreenState extends State<SuplierScreen> {
                     .translate('Quotation'),
                 'assets/images/car.svg',
                     () => search()),
-            curve, bottomConRati: _bR)
+            curve, bottomConRati: bR)
             : const SizedBox(
           height: 0.1,
         ),),
@@ -269,7 +266,7 @@ class _SuplierScreenState extends State<SuplierScreen> {
           borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(curve),
               bottomRight: Radius.circular(curve)),
-          boxShadow: [BoxShadow(
+          boxShadow: const [BoxShadow(
             color: MyColors.black,
             offset: Offset(0, 1),
             blurRadius: 4,
@@ -288,7 +285,7 @@ class _SuplierScreenState extends State<SuplierScreen> {
                   child: IconButton(
                     icon: Align(
                       alignment: lng==2?Alignment.centerRight:Alignment.centerLeft,
-                      child: Icon(Icons.arrow_back_ios),
+                      child: const Icon(Icons.arrow_back_ios),
                     ),
                     onPressed: () => Navigator.of(context).pop(),
                   ),
@@ -335,8 +332,8 @@ class _SuplierScreenState extends State<SuplierScreen> {
   String? path;
 
   _selectImageProfile() async {
-    final ImagePicker _picker = ImagePicker();
-    final XFile? xFile = await _picker.pickImage(source: ImageSource.gallery);
+    final ImagePicker picker = ImagePicker();
+    final XFile? xFile = await picker.pickImage(source: ImageSource.gallery);
     path = xFile!.path;
     print(path);
     setState(
@@ -350,35 +347,35 @@ class _SuplierScreenState extends State<SuplierScreen> {
     var bbbb = '';
     brandId == 0.1? bbbb = '' : bbbb = brands[brands.indexWhere((element) => element['id'] == brandId)]['name'];
     var raduis = AppHeight.h12;
-    var _starNum, _suplierName, _suplierDetails, _suplierImagePath;
-    _suplierName = _foundSupliers[index]['fullName']??'';
-    _suplierImagePath = _foundSupliers[index]['user']['imagePath']??'';
-    if(_suplierImagePath.toString().endsWith(' ') || _suplierImagePath.toString()== '') {
-      _suplierImagePath = null;
+    var starNum, suplierName, suplierDetails, suplierImagePath;
+    suplierName = _foundSupliers[index]['fullName']??'';
+    suplierImagePath = _foundSupliers[index]['user']['imagePath']??'';
+    if(suplierImagePath.toString().endsWith(' ') || suplierImagePath.toString()== '') {
+      suplierImagePath = null;
     }
     try {
-      _starNum = _foundSupliers[index]['rating'];
+      starNum = _foundSupliers[index]['rating'];
       //_suplierDetails = _foundSupliers[index]['sub'];
       //_suplierImagePath = _foundSupliersindex]['image'];
     } catch (e) {
-      _starNum = 0;
-      _suplierDetails = 'New to the list';
+      starNum = 0;
+      suplierDetails = 'New to the list';
     }
-    _starNum ??= 0;
-    _suplierDetails ??= _m!.getGategoryName(gategoryId) +
+    starNum ??= 0;
+    suplierDetails ??= _m!.getGategoryName(gategoryId) +
         ', ' +
         bbbb;
     curve = MediaQuery.of(context).size.height / 30 / 2;
-    suplierName() {
+    suplierNameCon() {
       return Container(
         height: raduis,
         padding: EdgeInsets.symmetric(vertical: raduis/10),
-        margin: lng==2?EdgeInsets.only(right: 1.5):EdgeInsets.only(left: 1.5),
+        margin: lng==2?const EdgeInsets.only(right: 1.5):const EdgeInsets.only(left: 1.5),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _m!.suplierNameText(_suplierName,),
+            _m!.suplierNameText(suplierName,),
             /*_withoutQutation == null? Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -390,7 +387,7 @@ class _SuplierScreenState extends State<SuplierScreen> {
                 ),
               ],
             ):SizedBox(),*/
-            _m!.suplierDesText1(_suplierDetails, scale: 0.8, padding: 0.0),
+            _m!.suplierDesText1(suplierDetails, scale: 0.8, padding: 0.0),
           ],
         ),
       );
@@ -411,16 +408,16 @@ class _SuplierScreenState extends State<SuplierScreen> {
         ),
         child: Row(
           children: [
-            _m!.logoContainer(_suplierImagePath, raduis, isSupp: true),
+            _m!.logoContainer(suplierImagePath, raduis, isSupp: true),
             SizedBox(width: AppWidth.w2,),
-            Expanded(child: suplierName()),
+            Expanded(child: suplierNameCon()),
             _withoutQutation == null?
             GestureDetector(
               onTap: () => _check(suplierList.indexOf(_foundSupliers[index])),
               child: SvgPicture.asset(_suplierListCheck[suplierList.indexOf(_foundSupliers[index])]
                   ? 'assets/images/check.svg'
                   : 'assets/images/check-not.svg', width: AppWidth.w8,),
-            ):SizedBox(),
+            ):const SizedBox(),
             _withoutQutation != null?
             Padding(
               padding: EdgeInsets.symmetric(
@@ -430,7 +427,7 @@ class _SuplierScreenState extends State<SuplierScreen> {
                 child: SvgPicture.asset('assets/images/whatsapp.svg'),
               ),
             ):
-            SizedBox(),
+            const SizedBox(),
             SizedBox(width: AppWidth.w2,),
             _withoutQutation != null?
             Padding(
@@ -441,120 +438,7 @@ class _SuplierScreenState extends State<SuplierScreen> {
                 child: SvgPicture.asset('assets/images/phone.svg', color: MyColors.bodyText1),
               ),
             ):
-            SizedBox(),
-          ],
-        ),
-      ),
-    );
-  }
-  _suplierListContainer(index, curve) {
-    var bbbb = '';
-    brandId == 0.1? bbbb = ''
-    : bbbb = brands[brands.indexWhere((element) => element['id'] == brandId)]['name'];
-
-    var raduis = MediaQuery.of(context).size.width / 7;
-    var _starNum, _suplierName, _suplierDetails, _suplierImagePath;
-    _suplierName = _foundSupliers[index]['fullName'];
-    _suplierImagePath = _foundSupliers[index]['user']['imagePath'];
-    if(_suplierImagePath.toString().endsWith(' ') || _suplierImagePath.toString()== '') {
-      _suplierImagePath = null;
-    }
-    try {
-      _starNum = _foundSupliers[index]['rating'];
-      //_suplierDetails = _foundSupliers[index]['sub'];
-      //_suplierImagePath = _foundSupliersindex]['image'];
-    } catch (e) {
-      _starNum = 0;
-      _suplierDetails = 'New to the list';
-    }
-    _starNum ??= 0;
-    _suplierDetails ??= _m!.getGategoryName(gategoryId) +
-        ', ' +
-        bbbb;
-    curve = MediaQuery.of(context).size.height / 30 / 2;
-    suplierName() {
-      return Container(
-        margin: lng==2?EdgeInsets.only(right: raduis * 1.5):EdgeInsets.only(left: raduis * 1.5),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _m!.suplierNameText(_suplierName),
-            SizedBox(
-              height: raduis / 20*0,
-            ),
-            _m!.suplierDesText1(_suplierDetails, scale: 0.8),
-          ],
-        ),
-      );
-    }
-
-    return GestureDetector(
-      onTap: () => _check(suplierList.indexOf(_foundSupliers[index])),
-      child: Container(
-        height: raduis * 7 / 5,
-        padding:
-            EdgeInsets.symmetric(horizontal: curve * 2, vertical: raduis / 6),
-        child: Row(
-          children: [
-            Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: curve * 0, vertical: raduis / 6 * 0),
-              child: SvgPicture.asset(_suplierListCheck[suplierList.indexOf(_foundSupliers[index])]
-                  ? 'assets/images/check.svg'
-                  : 'assets/images/check-not.svg'),
-            ),
-            Expanded(
-              child: Stack(
-                children: [
-                  Align(
-                    alignment: lng==2?Alignment.centerRight:Alignment.centerLeft,
-                    child: Padding(
-                      padding: lng==2?EdgeInsets.only(right: curve * 1.5):EdgeInsets.only(left: curve * 1.5),
-                      child: _m!.logoContainer(_suplierImagePath, raduis, isSupp: true),
-                    ),
-                  ),
-                  Align(
-                    alignment: lng==2?Alignment.bottomRight:Alignment.bottomLeft,
-                    child: Padding(
-                      padding: lng==2?EdgeInsets.only(right: curve * 1.5+raduis/2):EdgeInsets.only(left: 0.0 ),
-                      child: _m!.starRow(raduis, _starNum),
-                    ),
-                  ),
-                  Align(
-                    alignment: lng==2?Alignment.topRight:Alignment.topLeft,
-                    child: suplierName(),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: curve /2),
-              child: GestureDetector(
-                onTap: () => _explore(index),
-                child: SvgPicture.asset('assets/images/eyeCircle.svg'),
-              ),
-            ),
-            _withoutQutation != null?
-            Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: curve * 0, vertical: raduis / 6 * 0),
-              child: GestureDetector(
-                onTap: () => launchWhatsApp(phone: _foundSupliers[index]['whatsappNumber'].toString(), message: ' ', context: context),
-                child: SvgPicture.asset('assets/images/whatsapp.svg'),
-              ),
-            ):
-            SizedBox(),
-            _withoutQutation != null?
-            Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: curve * 0, vertical: raduis / 6 * 0),
-              child: GestureDetector(
-                onTap: () => launchPhone(phone: _foundSupliers[index]['whatsappNumber'].toString(), context: context),
-                child: SvgPicture.asset('assets/images/phone.svg', color: MyColors.bodyText1),
-              ),
-            ):
-            SizedBox(),
+            const SizedBox(),
           ],
         ),
       ),

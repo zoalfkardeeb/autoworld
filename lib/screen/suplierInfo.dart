@@ -3,13 +3,11 @@ import 'package:automall/constant/font_size.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart' as h;
 import 'package:flutter_svg/svg.dart';
-import 'package:image_picker/image_picker.dart';
 
 import '../MyWidget.dart';
 import 'package:automall/constant/color/MyColors.dart';
 
 import '../const.dart';
-import '../localizations.dart';
 class SuplierInfo extends StatefulWidget {
   var index;
   final String barTitle;
@@ -147,7 +145,7 @@ class _SuplierInfoState extends State<SuplierInfo> {
                        ),
                      child: _htmlScreen(suplierList[index]['details']??''),
                      //child: _m!.bodyText1(unescape.convert(suplierList[index]['details']??''), align: TextAlign.start, padV: hSpace/3, scale: 1, maxLine: 100),
-                   ):SizedBox(),
+                   ):const SizedBox(),
                   ],
                 )
                   :
@@ -202,7 +200,7 @@ class _SuplierInfoState extends State<SuplierInfo> {
                   IconButton(
                     icon: Align(
                       alignment: lng == 2 ? Alignment.centerRight : Alignment.centerLeft,
-                      child: Icon(Icons.arrow_back_ios),
+                      child: const Icon(Icons.arrow_back_ios),
                     ),
                     onPressed: ()=> Navigator.of(context).pop(),
                   ),

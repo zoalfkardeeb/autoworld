@@ -9,11 +9,11 @@ import 'dart:async';
 import '../MyWidget.dart';
 // ignore: camel_case_types
 class SubSelectScreen extends StatefulWidget {
-  final _country;
-  final _state;
+  var _country;
+  var _state;
   final _selectIndex;
   final String barTitle;
-  const SubSelectScreen(this._state, this._country, this._selectIndex, {Key? key, required this.barTitle}) : super(key: key);
+  SubSelectScreen(this._state, this._country, this._selectIndex, {Key? key, required this.barTitle}) : super(key: key);
 
   @override
   _SubSelectScreenState createState() => _SubSelectScreenState(_country, _state, _selectIndex);
@@ -42,18 +42,18 @@ class _SubSelectScreenState extends State<SubSelectScreen> {
 
   }
 
-  startTime(_scrollController) async {
+  startTime(scrollController) async {
     _scrolTo(){
-      return Timer(const Duration(milliseconds: 1000), ()=> setState(() { _scrollController.animateTo(
-          _scrollController.position.minScrollExtent,
+      return Timer(const Duration(milliseconds: 1000), ()=> setState(() { scrollController.animateTo(
+          scrollController.position.minScrollExtent,
           duration: const Duration(milliseconds: 500),
           curve: Curves.fastOutSlowIn);
       }));
     }
     var duration = const Duration(milliseconds: 200);
     return Timer(duration, ()=> setState(() {
-      _scrollController.animateTo(
-          _scrollController.position.maxScrollExtent,
+      scrollController.animateTo(
+          scrollController.position.maxScrollExtent,
           duration: const Duration(milliseconds: 1000),
           curve: Curves.fastOutSlowIn);
       _scrolTo();
@@ -113,7 +113,7 @@ class _SubSelectScreenState extends State<SubSelectScreen> {
                         itemBuilder: (BuildContext context, int index) {
                           return GestureDetector(
                             child: _m!.cardMaterial(curve, (MediaQuery.of(context).size.width-MediaQuery.of(context).size.width/8)/2/0.63-4,4.6.toString(), true, 'materialName materialName','materialType materialType materialType', 888, 900, () => _selectMaterial()),
-                            onTap: () => null,
+                            onTap: () {},
                           )
                           ;
                         },
@@ -155,7 +155,7 @@ class _SubSelectScreenState extends State<SubSelectScreen> {
         decoration: BoxDecoration(
           color: MyColors.topCon,
           borderRadius: BorderRadius.only(bottomLeft: Radius.circular(curve), bottomRight: Radius.circular(curve)),
-          boxShadow: [BoxShadow(
+          boxShadow: const [BoxShadow(
             color: MyColors.black,
             offset: Offset(0, 1),
             blurRadius: 4,
@@ -222,7 +222,7 @@ class _SubSelectScreenState extends State<SubSelectScreen> {
     Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) =>  MaterialDescriptionScreen(),
+          builder: (context) =>  const MaterialDescriptionScreen(),
         )
     );
   }

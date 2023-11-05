@@ -4,9 +4,6 @@ import 'package:automall/constant/color/MyColors.dart';
 
 import 'package:automall/const.dart';
 import 'package:automall/localizations.dart';
-import 'package:automall/screen/garageCountry.dart';
-import 'package:automall/screen/suplierScreen.dart';
-import 'package:automall/screen/carSell/AddSellCarScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
@@ -38,16 +35,16 @@ class _AllBrandCarSellsState extends State<AllBrandCarSells> {
   List<String> dropDownListString = [];
   ImageProvider? image;
 
-  List<String> _listNumOfCyl = <String>[];
-  List<String> _listCarType = <String>[];
-  List<String> _brands = <String>[];
-  List<String> _priceFrom = <String>[];
-  List<String> _priceTo = <String>[];
-  List<String> _dateFrom = <String>[];
-  List<String> _dateTo = <String>[];
-  List<String> _carModelList = <String>[];
+  final List<String> _listNumOfCyl = <String>[];
+  final List<String> _listCarType = <String>[];
+  final List<String> _brands = <String>[];
+  final List<String> _priceFrom = <String>[];
+  final List<String> _priceTo = <String>[];
+  final List<String> _dateFrom = <String>[];
+  final List<String> _dateTo = <String>[];
+  final List<String> _carModelList = <String>[];
 
-  List _carSellList = [];
+  final List _carSellList = [];
   List carSellListBase = [];
   var _tapNum = 1;
   @override
@@ -207,7 +204,7 @@ class _AllBrandCarSellsState extends State<AllBrandCarSells> {
                               child: Row(
                                 children: [
                                   _m!.raisedButton(curve, MediaQuery.of(context).size.width/3, AppLocalizations.of(context)!.translate('Apply'), null, ()=> applyFilter(),),
-                                  Expanded(child: SizedBox()),
+                                  const Expanded(child: SizedBox()),
                                   _m!.raisedButton(curve, MediaQuery.of(context).size.width/3, AppLocalizations.of(context)!.translate('Cancel'), null, ()=> cancleFilter(), color: MyColors.card),
 
                                 ],
@@ -286,10 +283,9 @@ class _AllBrandCarSellsState extends State<AllBrandCarSells> {
         listCarType[listCarType.indexWhere((element) => element['id'].toString()==_carSellList[index]['type'])]['name'],
         _carSellList[index]['carModel'],
         _carSellList[index]['kelometrage'] + AppLocalizations.of(context)!.translate('Km'),
-        AppLocalizations.of(context)!.translate('Engine') + ": " +  _carSellList[index]['numberOfCylindes'] + AppLocalizations.of(context)!.translate("Cylinders"),
-        AppLocalizations.of(context)!.translate('Price') + ": " + _carSellList[index]['price'],
-        AppLocalizations.of(context)!.translate('Gear') + ": " +
-    AppLocalizations.of(context)!.translate(listGearBoxCarType[listGearBoxCarType.indexWhere((element) => _carSellList[index]['gearBoxType'] == element['id'].toString())]['name']),
+        "${AppLocalizations.of(context)!.translate('Engine')}: " +  _carSellList[index]['numberOfCylindes'] + AppLocalizations.of(context)!.translate("Cylinders"),
+        "${AppLocalizations.of(context)!.translate('Price')}: " + _carSellList[index]['price'],
+        "${AppLocalizations.of(context)!.translate('Gear')}: ${AppLocalizations.of(context)!.translate(listGearBoxCarType[listGearBoxCarType.indexWhere((element) => _carSellList[index]['gearBoxType'] == element['id'].toString())]['name'])}",
         AppLocalizations.of(context)!.translate('Man. Date: ') + _carSellList[index]['productionYear'],
         _carSellList[index]['view'] + " " + AppLocalizations.of(context)!.translate('View'),
         _carSellList[index]['fromUser'],
@@ -303,9 +299,8 @@ class _AllBrandCarSellsState extends State<AllBrandCarSells> {
         _carSellList[index]['carModel'],
         _carSellList[index]['kelometrage']+  AppLocalizations.of(context)!.translate('Km'),
         AppLocalizations.of(context)!.translate('Engine') + _carSellList[index]['numberOfCylindes'] + AppLocalizations.of(context)!.translate("Cylinders"),
-        AppLocalizations.of(context)!.translate('Price') + ": " + _carSellList[index]['price'],
-        AppLocalizations.of(context)!.translate('Gear') + ": " +
-            AppLocalizations.of(context)!.translate( listGearBoxCarType[listGearBoxCarType.indexWhere((element) => _carSellList[index]['gearBoxType'] == element['id'].toString())]['name']),
+        "${AppLocalizations.of(context)!.translate('Price')}: " + _carSellList[index]['price'],
+        "${AppLocalizations.of(context)!.translate('Gear')}: ${AppLocalizations.of(context)!.translate( listGearBoxCarType[listGearBoxCarType.indexWhere((element) => _carSellList[index]['gearBoxType'] == element['id'].toString())]['name'])}",
         AppLocalizations.of(context)!.translate('Man. Date: ') + _carSellList[index]['productionYear'],
           _carSellList[index]['view'] + " " + AppLocalizations.of(context)!.translate('View'),
           _carSellList[index]['fromUser'],
@@ -332,7 +327,7 @@ class _AllBrandCarSellsState extends State<AllBrandCarSells> {
         decoration: BoxDecoration(
           color: MyColors.topCon,
           borderRadius: BorderRadius.only(bottomLeft: Radius.circular(curve), bottomRight: Radius.circular(curve)),
-          boxShadow: [BoxShadow(
+          boxShadow: const [BoxShadow(
             color: MyColors.black,
             offset: Offset(0, 1),
             blurRadius: 4,
@@ -355,7 +350,7 @@ class _AllBrandCarSellsState extends State<AllBrandCarSells> {
                       child: IconButton(
                         icon: Align(
                           alignment: lng==2?Alignment.centerRight:Alignment.centerLeft,
-                          child: Icon(Icons.arrow_back_ios),
+                          child: const Icon(Icons.arrow_back_ios),
                         ),
                         onPressed: ()=> Navigator.of(context).pop(),
                       ),
@@ -940,7 +935,7 @@ class _AllBrandCarSellsState extends State<AllBrandCarSells> {
         builder: (BuildContext context) {
           return AlertDialog(
         title: Text(AppLocalizations.of(context)!.translate('Select Year')),
-        content: Container( // Need to use container to add size constraint.
+        content: SizedBox( // Need to use container to add size constraint.
           width: MediaQuery.of(context).size.height/4,
           height: MediaQuery.of(context).size.width/1.2,
           child: YearPicker(
@@ -997,7 +992,7 @@ class _AllBrandCarSellsState extends State<AllBrandCarSells> {
     for(var item in carSellListBase){
       if(_typeController.text.isEmpty || listCarType[listCarType.indexWhere((element) => element['name'].toString() == _typeController.text)]['id'].toString() == item['type']){
         if(_modelController.text.isEmpty || _modelController.text == item['carModel']){
-          if(_numOfCylYearController.text.isEmpty || _numOfCylYearController.text + ' CD' == item['numberOfCylindes']){
+          if(_numOfCylYearController.text.isEmpty || '${_numOfCylYearController.text} CD' == item['numberOfCylindes']){
             if(_brandController.text.isEmpty || _brandController.text == item['brandName']){
               if(_priceFromController.text.isEmpty || _priceToController.text.isEmpty){
                 if(_dateFromController.text.isEmpty || _dateToController.text.isEmpty){

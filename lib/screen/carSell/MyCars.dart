@@ -12,7 +12,7 @@ class MyCarsForSell extends StatefulWidget {
 }
 
 class _MyCarsForSellState extends State<MyCarsForSell> {
-  List _carSellList = [];
+  final List _carSellList = [];
 
   @override
   void initState() {
@@ -93,7 +93,7 @@ class _MyCarsForSellState extends State<MyCarsForSell> {
         decoration: BoxDecoration(
           color: MyColors.topCon,
           borderRadius: BorderRadius.only(bottomLeft: Radius.circular(curve), bottomRight: Radius.circular(curve)),
-          boxShadow: [BoxShadow(
+          boxShadow: const [BoxShadow(
             color: MyColors.black,
             offset: Offset(0, 1),
             blurRadius: 4,
@@ -111,7 +111,7 @@ class _MyCarsForSellState extends State<MyCarsForSell> {
                   IconButton(
                     icon: Align(
                       alignment: lng==2? Alignment.centerRight:Alignment.centerLeft,
-                      child: Icon(Icons.arrow_back_ios),
+                      child: const Icon(Icons.arrow_back_ios),
                     ),
                     onPressed: ()=> Navigator.of(context).pop(),
                   ),
@@ -151,10 +151,9 @@ class _MyCarsForSellState extends State<MyCarsForSell> {
           listCarType[listCarType.indexWhere((element) => element['id'].toString()==carSell['type'])]['name'],
           carSell['carModel'],
           carSell['kelometrage']+  AppLocalizations.of(context)!.translate('Km'),
-          AppLocalizations.of(context)!.translate('Engine') + ": " +  carSell['numberOfCylindes'] + AppLocalizations.of(context)!.translate("Cylinders"),
-          AppLocalizations.of(context)!.translate('Price') + ": " + carSell['price'],
-          AppLocalizations.of(context)!.translate('Gear') + ": " +
-    AppLocalizations.of(context)!.translate(listGearBoxCarType[listGearBoxCarType.indexWhere((element) => carSell['gearBoxType'] == element['id'].toString())]['name']),
+          "${AppLocalizations.of(context)!.translate('Engine')}: " +  carSell['numberOfCylindes'] + AppLocalizations.of(context)!.translate("Cylinders"),
+          "${AppLocalizations.of(context)!.translate('Price')}: " + carSell['price'],
+          "${AppLocalizations.of(context)!.translate('Gear')}: ${AppLocalizations.of(context)!.translate(listGearBoxCarType[listGearBoxCarType.indexWhere((element) => carSell['gearBoxType'] == element['id'].toString())]['name'])}",
           AppLocalizations.of(context)!.translate('Man. Date: ') + carSell['productionYear'],
           carSell['view'] + " " + AppLocalizations.of(context)!.translate('View'),
           carSell['fromUser'],

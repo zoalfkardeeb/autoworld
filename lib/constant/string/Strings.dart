@@ -6,6 +6,7 @@ class Strings{
   static const String facebook = 'https://www.facebook.com/autoworldqa';
   static const String instagram = 'https://www.instagram.com/auto_world_qa/';
   static const String whatsapp = 'https://wa.me/message/PDNXQ5ODIEZNL1';
+  static const String mapKey = 'AIzaSyBboLHdgdUgoJO2KHbixuof6HZmJSNc16s';
 
 
 }

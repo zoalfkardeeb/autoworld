@@ -5,12 +5,8 @@ import 'package:automall/constant/color/MyColors.dart';
 import 'package:automall/const.dart';
 import 'package:automall/localizations.dart';
 import 'package:automall/screen/carKey/CarBoardDetails.dart';
-import 'package:automall/screen/garageCountry.dart';
-import 'package:automall/screen/suplierScreen.dart';
-import 'package:automall/screen/carSell/AddSellCarScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:intl/intl.dart';
 
 import '../../MyWidget.dart';
 // ignore: camel_case_types
@@ -31,7 +27,7 @@ class _BoardSelectState extends State<BoardSelect> {
   ImageProvider? image;
   List<String> dropDownListString = [];
 
-  List _carBroadKeyList = [];
+  final List _carBroadKeyList = [];
   List carBroadKeyListBase = [];
   var _tapNum = 1;
   @override
@@ -111,7 +107,7 @@ class _BoardSelectState extends State<BoardSelect> {
                       padding: EdgeInsets.symmetric(horizontal: curve/2),
                       child: GridView.builder(
                         itemCount: _carBroadKeyList.length,
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                             childAspectRatio: 1.2,
                             crossAxisCount: 2),
                         itemBuilder: (BuildContext context, int index) {
@@ -195,7 +191,7 @@ class _BoardSelectState extends State<BoardSelect> {
         decoration: BoxDecoration(
           color: MyColors.topCon,
           borderRadius: BorderRadius.only(bottomLeft: Radius.circular(curve), bottomRight: Radius.circular(curve)),
-          boxShadow: [BoxShadow(
+          boxShadow: const [BoxShadow(
             color: MyColors.black,
             offset: Offset(0, 1),
             blurRadius: 4,
@@ -218,7 +214,7 @@ class _BoardSelectState extends State<BoardSelect> {
                       child: IconButton(
                         icon: Align(
                           alignment: lng==2?Alignment.centerRight:Alignment.centerLeft,
-                          child: Icon(Icons.arrow_back_ios),
+                          child: const Icon(Icons.arrow_back_ios),
                         ),
                         onPressed: ()=> Navigator.of(context).pop(),
                       ),

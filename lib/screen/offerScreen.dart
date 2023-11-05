@@ -1,9 +1,6 @@
-import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:automall/screen/selectScreen.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
@@ -43,12 +40,12 @@ class _OfferScreenState extends State<OfferScreen> {
   var _state = 'state';
   var _supplierName = 'Oamr';
   var _suplierEmail = 'omar.suhail.hasan@gmail.com';
-  var _suplierMobile = '+963938025347';
+  final _suplierMobile = '+963938025347';
 
   List<ImageProvider?> imageList = [];
   List attach = [];
 
-  var _supluerImagePath = null;
+  var _supluerImagePath;
   int _tapNum = 1, _rating = 3;
   //final ScrollController _scrollController = ScrollController();
   bool finished = false, _scored = false, isWinner = false;
@@ -111,8 +108,8 @@ class _OfferScreenState extends State<OfferScreen> {
     else{
       active = null;
     }
-    var _br = 0.1,
-        _suplierStarNum=_rating.round();
+    var br = 0.1,
+        suplierStarNum=_rating.round();
     return Scaffold(
       resizeToAvoidBottomInset: true,
       backgroundColor: Colors.grey[100],
@@ -124,7 +121,7 @@ class _OfferScreenState extends State<OfferScreen> {
           Align(
             alignment: Alignment.topCenter,
             child: Container(
-              height: MediaQuery.of(context).size.height*(1-_br),
+              height: MediaQuery.of(context).size.height*(1-br),
               width: double.infinity,
               alignment: Alignment.topCenter,
               padding: EdgeInsets.only(
@@ -155,6 +152,8 @@ class _OfferScreenState extends State<OfferScreen> {
                           backgroundColor: Colors.transparent,
                         ),*/
                         SizedBox(
+                          width: MediaQuery.of(context).size.width/2,
+                          height: MediaQuery.of(context).size.width/5*2,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -162,11 +161,9 @@ class _OfferScreenState extends State<OfferScreen> {
                               SizedBox(height: MediaQuery.of(context).size.height/60,),
                               _m!.bodyText1(_suplierEmail, align: TextAlign.start),
                               const Expanded(child: SizedBox()),
-                              _m!.starRow(MediaQuery.of(context).size.width/4, _suplierStarNum*2, marginLeft: MediaQuery.of(context).size.width/20)
+                              _m!.starRow(MediaQuery.of(context).size.width/4, suplierStarNum*2, marginLeft: MediaQuery.of(context).size.width/20)
                             ],
                           ),
-                          width: MediaQuery.of(context).size.width/2,
-                          height: MediaQuery.of(context).size.width/5*2,
                         )
                       ],
                     ),
@@ -234,7 +231,7 @@ class _OfferScreenState extends State<OfferScreen> {
             _m!.bottomContainer(
               //_m!.mainChildrenBottomContainer(curve, () => _tap(1), () => _tap(2), () => _tap(3), _tapNum),
                 _m!.raisedButton(curve, MediaQuery.of(context).size.width/1.2, !finished? AppLocalizations.of(context)!.translate('Submit'): _scored? AppLocalizations.of(context)!.translate('Evaluated'): AppLocalizations.of(context)!.translate('Evaluate'), 'assets/images/car.svg', active),
-                curve, bottomConRati: _br)
+                curve, bottomConRati: br)
                 : const SizedBox(height: 0.1,),
           ),
           Align(
@@ -265,7 +262,7 @@ class _OfferScreenState extends State<OfferScreen> {
         decoration: BoxDecoration(
           color: MyColors.topCon,
           borderRadius: BorderRadius.only(bottomLeft: Radius.circular(curve), bottomRight: Radius.circular(curve)),
-          boxShadow: [BoxShadow(
+          boxShadow: const [BoxShadow(
             color: MyColors.black,
             offset: Offset(0, 1),
             blurRadius: 4,
@@ -283,7 +280,7 @@ class _OfferScreenState extends State<OfferScreen> {
                   IconButton(
                     icon: Align(
                       alignment: lng==2? Alignment.centerRight: Alignment.centerLeft,
-                      child: Icon(Icons.arrow_back_ios),
+                      child: const Icon(Icons.arrow_back_ios),
                     ),
                     onPressed: ()=> Navigator.of(context).pop(),
                   ),
@@ -293,7 +290,7 @@ class _OfferScreenState extends State<OfferScreen> {
                   child: _m!.titleText1(
                       widget.barTitle),
                 ),
-                Expanded(
+                const Expanded(
                   flex: 1,
                   child: SizedBox(),// _m!.notificationButton(),
                 ),
@@ -322,8 +319,8 @@ class _OfferScreenState extends State<OfferScreen> {
   String path = '' ;
 
   _selectImageProfile() async {
-    final ImagePicker _picker = ImagePicker();
-    final XFile? xFile = await _picker.pickImage(source: ImageSource.gallery);
+    final ImagePicker picker = ImagePicker();
+    final XFile? xFile = await picker.pickImage(source: ImageSource.gallery);
     path = xFile!.path;
     print(path);
     setState(
@@ -362,8 +359,8 @@ class _OfferScreenState extends State<OfferScreen> {
 
   _addImage(int index, source) async{
     Navigator.of(context).pop();
-    final ImagePicker _picker = ImagePicker();
-    final XFile? xFile = await _picker.pickImage(source: source, imageQuality: 50);
+    final ImagePicker picker = ImagePicker();
+    final XFile? xFile = await picker.pickImage(source: source, imageQuality: 50);
     path = xFile!.path;
     print(path);
     setState(
@@ -559,7 +556,7 @@ class _OfferScreenState extends State<OfferScreen> {
               starSpacing: 2,
               maxValueVisibility: false,
               valueLabelVisibility: false,
-              animationDuration: Duration(milliseconds: 500),
+              animationDuration: const Duration(milliseconds: 500),
               valueLabelPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
               valueLabelMargin: const EdgeInsets.only(right: 8),
               starOffColor: MyColors.white,

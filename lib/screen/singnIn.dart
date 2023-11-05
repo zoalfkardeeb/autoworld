@@ -5,15 +5,12 @@ import 'package:automall/constant/color/MyColors.dart';
 
 import 'package:automall/const.dart';
 import 'package:automall/constant/font_size.dart';
-import 'package:automall/constant/string/Strings.dart';
 import 'package:automall/localizations.dart';
-import 'package:automall/screen/SupplierOrder.dart';
 import 'package:automall/screen/register.dart';
 import 'package:automall/screen/selectScreen.dart';
 import 'package:automall/screen/sharedWidget/newVersionPop.dart';
 import 'package:automall/screen/termAndConitions.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -25,7 +22,6 @@ import 'dart:async';
 import '../MyWidget.dart';
 
 import 'resetPassword.dart';
-import 'package:yaml/yaml.dart';
 
 // ignore: camel_case_types
 class Sign_in extends StatefulWidget {
@@ -240,7 +236,7 @@ class _Sign_inState extends State<Sign_in> {
             child: NewVersionPopUp(later:() => setState(() {
               newVersion = false;
             }),),
-          ).animate().moveY(begin: AppHeight.h6):SizedBox(),
+          ).animate().moveY(begin: AppHeight.h6):const SizedBox(),
         ],
       ),
     ),
@@ -308,7 +304,7 @@ class _Sign_inState extends State<Sign_in> {
         Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => SelectScreen(),
+              builder: (context) => const SelectScreen(),
             )
         );
       } else{
@@ -334,7 +330,7 @@ class _Sign_inState extends State<Sign_in> {
     Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => SelectScreen(),
+          builder: (context) => const SelectScreen(),
         )
     );
   }
@@ -599,7 +595,7 @@ class _Sign_inState extends State<Sign_in> {
       // sharedPreferences.setString('Id',response.body[1].toString());
       //
       // if(sharedPreferences.getString('Id') != null){
-      bool sent = await myAPI!.sendEmail(AppLocalizations.of(context)!.translate('Your activation code is :') +  '\n$verCode' , AppLocalizations.of(context)!.translate('Activation Code'),  _emailController.text);
+      bool sent = await myAPI!.sendEmail('${AppLocalizations.of(context)!.translate('Your activation code is :')}\n$verCode' , AppLocalizations.of(context)!.translate('Activation Code'),  _emailController.text);
       setState(()=> chLogIn = false);
       if(!sent){
         return;

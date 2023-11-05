@@ -1,13 +1,9 @@
 import 'dart:async';
-import 'dart:convert';
-import 'dart:io';
 
 import 'package:automall/screen/carKey/MyCarKeyForSell.dart';
 import 'package:automall/screen/selectScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:intl/intl.dart';
 import '../../MyWidget.dart';
 import '../../api.dart';
 import 'package:automall/constant/color/MyColors.dart';
@@ -15,11 +11,9 @@ import 'package:automall/constant/color/MyColors.dart';
 //import '../const.dart';
 import '../../const.dart';
 import '../../localizations.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:device_info_plus/device_info_plus.dart';
 class AddSellCarPanleScreen extends StatefulWidget {
   final String barTitle;
-  AddSellCarPanleScreen({Key? key, required this.barTitle}) : super(key: key);
+  const AddSellCarPanleScreen({Key? key, required this.barTitle}) : super(key: key);
 
   @override
   _AddSellCarPanleScreenState createState() => _AddSellCarPanleScreenState();
@@ -75,7 +69,7 @@ class _AddSellCarPanleScreenState extends State<AddSellCarPanleScreen> {
       _showDialogForSubmit();
     };
     }
-    var _br = 0.1;
+    var br = 0.1;
     return Scaffold(
       resizeToAvoidBottomInset: true,
       backgroundColor: Colors.grey[100],
@@ -84,14 +78,14 @@ class _AddSellCarPanleScreenState extends State<AddSellCarPanleScreen> {
       drawer: _m!.drawer(() => _setState(), ()=> _tap(2), ()=> _tap(1), _scaffoldKey),
       body: GestureDetector(
         onTap: () {
-          FocusScope.of(context).requestFocus(new FocusNode());
+          FocusScope.of(context).requestFocus(FocusNode());
         },
         child: Stack(
           children: [
             Align(
               alignment: Alignment.topCenter,
               child: Container(
-                height: MediaQuery.of(context).size.height*(1-_br),
+                height: MediaQuery.of(context).size.height*(1-br),
                 width: double.infinity,
                 alignment: Alignment.topCenter,
                 padding: EdgeInsets.only(
@@ -141,7 +135,7 @@ class _AddSellCarPanleScreenState extends State<AddSellCarPanleScreen> {
               _m!.bottomContainer(
                   //_m!.mainChildrenBottomContainer(curve, () => _tap(1), () => _tap(2), () => _tap(3), _tapNum),
                   _m!.raisedButton(curve, MediaQuery.of(context).size.width/1.2, AppLocalizations.of(context)!.translate('Submit'), 'assets/images/car.svg', active),
-                  curve, bottomConRati: _br)
+                  curve, bottomConRati: br)
                   : const SizedBox(height: 0.1,),
             ),
             Align(
@@ -171,7 +165,7 @@ class _AddSellCarPanleScreenState extends State<AddSellCarPanleScreen> {
         decoration: BoxDecoration(
           color: MyColors.topCon,
           borderRadius: BorderRadius.only(bottomLeft: Radius.circular(curve), bottomRight: Radius.circular(curve)),
-          boxShadow: [BoxShadow(
+          boxShadow: const [BoxShadow(
             color: MyColors.black,
             offset: Offset(0, 1),
             blurRadius: 4,
@@ -189,7 +183,7 @@ class _AddSellCarPanleScreenState extends State<AddSellCarPanleScreen> {
                   IconButton(
                     icon: Align(
                       alignment: lng==2? Alignment.centerRight:Alignment.centerLeft,
-                      child: Icon(Icons.arrow_back_ios),
+                      child: const Icon(Icons.arrow_back_ios),
                     ),
                     onPressed: ()=> Navigator.of(context).pop(),
                   ),
@@ -227,7 +221,7 @@ class _AddSellCarPanleScreenState extends State<AddSellCarPanleScreen> {
 
   _showDialogForSubmit(){
     if(_numOfCarPanle.text.length<3||_numOfCarPanle.text.length>6){
-      MyWidget(context).showSDialog( AppLocalizations.of(context)!.translate('Please, input right number [3 -> 6] digits'), SizedBox(), SizedBox());
+      MyWidget(context).showSDialog( AppLocalizations.of(context)!.translate('Please, input right number [3 -> 6] digits'), const SizedBox(), const SizedBox());
       return;
     }
     var curve = MediaQuery.of(context).size.height / 30;
@@ -245,7 +239,7 @@ class _AddSellCarPanleScreenState extends State<AddSellCarPanleScreen> {
       });
       if(add){
         Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => SelectScreen(),),
+          MaterialPageRoute(builder: (context) => const SelectScreen(),),
               (Route<dynamic> route) => false,
         );
       }
@@ -300,7 +294,7 @@ class _AddSellCarPanleScreenState extends State<AddSellCarPanleScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) =>  MyCarKeyForSell(),
+        builder: (context) =>  const MyCarKeyForSell(),
       ),
     );
   }

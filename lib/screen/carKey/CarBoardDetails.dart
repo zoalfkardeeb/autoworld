@@ -1,18 +1,13 @@
 // ignore_for_file: file_names
 import 'package:automall/api.dart';
-import 'package:automall/constant/app_size.dart';
 import 'package:automall/constant/color/MyColors.dart';
 
 import 'package:automall/const.dart';
 import 'package:automall/localizations.dart';
-import 'package:automall/screen/garageCountry.dart';
-import 'package:automall/screen/suplierScreen.dart';
-import 'package:automall/screen/carSell/AddSellCarScreen.dart';
 import 'package:flutter/material.dart';
 
 import '../../MyWidget.dart';
 import 'dart:ui' as ui;
-import 'dart:math' as math;
 
 // ignore: camel_case_types
 
@@ -27,7 +22,7 @@ class CarBoardDetails extends StatefulWidget {
 class _CarBoardDetailsState extends State<CarBoardDetails> {
   MyWidget? _m;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
-  var _indexCarBoard = 0;
+  late var _indexCarBoard = 0;
 
   _CarBoardDetailsState(this._indexCarBoard);
   final _country = 'Qatar';
@@ -45,7 +40,7 @@ class _CarBoardDetailsState extends State<CarBoardDetails> {
     price = formatter.format(carBroadKeyList[_indexCarBoard]['price']).toString();
     venName = carBroadKeyList[_indexCarBoard]['user']['name'].toString();
     venPhone = carBroadKeyList[_indexCarBoard]['user']['mobile'].toString();
-    venLocation = carBroadKeyList[_indexCarBoard]['user']['country']['name'].toString() + ', ' + carBroadKeyList[_indexCarBoard]['user']['city']['name'].toString();
+    venLocation = '${carBroadKeyList[_indexCarBoard]['user']['country']['name']}, ${carBroadKeyList[_indexCarBoard]['user']['city']['name']}';
      try{
       _state = cityController.text;
     }catch(e){}
@@ -55,8 +50,8 @@ class _CarBoardDetailsState extends State<CarBoardDetails> {
   Widget build(BuildContext context) {
     var hSpace = MediaQuery.of(context).size.height / 17;
     var curve = MediaQuery.of(context).size.height / 30;
-    var _width = MediaQuery.of(context).size.width / 1.2;
-    var _height = MediaQuery.of(context).size.height / 5;
+    var width = MediaQuery.of(context).size.width / 1.2;
+    var height = MediaQuery.of(context).size.height / 5;
     var vSpace = MediaQuery.of(context).size.height/70;
     var scale =0.95;
     _m = MyWidget(context);
@@ -104,13 +99,13 @@ class _CarBoardDetailsState extends State<CarBoardDetails> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Icon(Icons.remove_red_eye_rounded, color: MyColors.bodyText1, size: MediaQuery.of(context).size.height/50, ),
-                                _m!.bodyText1(view + ' ' + AppLocalizations.of(context)!.translate('View'), scale: 0.9, padding: 0.5, padV: 2.0),
+                                _m!.bodyText1('$view ${AppLocalizations.of(context)!.translate('View')}', scale: 0.9, padding: 0.5, padV: 2.0),
                               ],
                             ),
 
                           ],
                         ),
-                        Spacer(),
+                        const Spacer(),
                         Row(
                           children: [
                             //Icon(Icons.price_check_outlined, color: MyColors.mainColor,),
@@ -119,7 +114,7 @@ class _CarBoardDetailsState extends State<CarBoardDetails> {
                             _m!.headText(AppLocalizations.of(context)!.translate("currency"), scale: 0.7, color: MyColors.mainColor),
                           ],
                         ),
-                        Spacer(),
+                        const Spacer(),
                       ],
                     ),
                   ),
@@ -136,7 +131,7 @@ class _CarBoardDetailsState extends State<CarBoardDetails> {
                               padding: EdgeInsets.all(curve/4),
                               margin: EdgeInsets.only(bottom: curve/2, left: 2, right: 2),
                               decoration: BoxDecoration(
-                                  boxShadow: [
+                                  boxShadow: const [
                                     BoxShadow(
                                       color: MyColors.black,
                                       offset: Offset(0, 0.8),
@@ -165,7 +160,7 @@ class _CarBoardDetailsState extends State<CarBoardDetails> {
                                               children: [
                                                 _m!.iconText('assets/images/ic_red_user.svg', venName, MyColors.black, imageScale: 0.5, scale: scale, paddingH: 0.2),
                                                 SizedBox(height: hSpace/10,),
-                                                venNotes.isNotEmpty?_notes(venNotes, curve/2, scale):SizedBox(),
+                                                venNotes.isNotEmpty?_notes(venNotes, curve/2, scale):const SizedBox(),
                                                 SizedBox(height: hSpace/4,),
                                                 _m!.iconText('assets/images/ic_red_phone.svg', venPhone, MyColors.black, imageScale: 0.5, scale: scale, paddingH: 0.2),
                                                 SizedBox(height: hSpace/4,),
@@ -228,7 +223,7 @@ class _CarBoardDetailsState extends State<CarBoardDetails> {
         decoration: BoxDecoration(
           color: MyColors.topCon,
           borderRadius: BorderRadius.only(bottomLeft: Radius.circular(curve), bottomRight: Radius.circular(curve)),
-          boxShadow: [BoxShadow(
+          boxShadow: const [BoxShadow(
             color: MyColors.black,
             offset: Offset(0, 1),
             blurRadius: 4,
@@ -245,7 +240,7 @@ class _CarBoardDetailsState extends State<CarBoardDetails> {
                   child: IconButton(
                     icon: Align(
                       alignment: lng==2?Alignment.centerRight:Alignment.centerLeft,
-                      child: Icon(Icons.arrow_back_ios),
+                      child: const Icon(Icons.arrow_back_ios),
                     ),
                     onPressed: ()=> Navigator.of(context).pop(),
                   ),
@@ -333,7 +328,7 @@ class _CarBoardDetailsState extends State<CarBoardDetails> {
        //color: color,
         borderRadius: BorderRadius.all(Radius.circular(curve/2)),
         //border: Border.all(color: color, width: 2),
-        image: DecorationImage(image: AssetImage("assets/images/board.png"), fit: BoxFit.cover),
+        image: const DecorationImage(image: AssetImage("assets/images/board.png"), fit: BoxFit.cover),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -352,10 +347,10 @@ class _CarBoardDetailsState extends State<CarBoardDetails> {
 class MyPainter extends CustomPainter { //         <-- CustomPainter class
   @override
   void paint(Canvas canvas, Size size) {
-    final pointMode = ui.PointMode.polygon;
+    const pointMode = ui.PointMode.polygon;
     final points = [
       Offset(curve, curve),
-      Offset(0, 0),
+      const Offset(0, 0),
       Offset(0, curve*2),
     ];
     final paint = Paint()
@@ -363,9 +358,9 @@ class MyPainter extends CustomPainter { //         <-- CustomPainter class
       ..strokeWidth = 1
       ..strokeCap = StrokeCap.round;
     final rect = Rect.fromLTRB(0, curve, curve*2, curve*3);
-    final startAngle = 3.14;
-    final sweepAngle = 3.14/2;
-    final useCenter = false;
+    const startAngle = 3.14;
+    const sweepAngle = 3.14/2;
+    const useCenter = false;
     final paintArc = Paint()
       ..color = MyColors.white
       ..style = PaintingStyle.stroke

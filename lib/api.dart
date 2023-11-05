@@ -72,11 +72,12 @@ class MyAPI{
 
   Future<String?> _getDeviceId() async {
     try{
-      String? _deviceId = await PlatformDeviceId.getDeviceId;
-      return _deviceId;
+      String? deviceId = await PlatformDeviceId.getDeviceId;
+      return deviceId;
     }catch(e){
 
     }
+    return null;
     /*var deviceInfo = DeviceInfoPlugin();
     if (Platform.isIOS) { // import 'dart:io'
       var iosDeviceInfo = await deviceInfo.iosInfo;
@@ -749,11 +750,11 @@ class MyAPI{
 
   }
 
-  getCarSell(String _brandId) async{
+  getCarSell(String brandId) async{
     //var url = "$_baseUrl/Orders/Orders_Read?";
     print('Car sell');
     var url = "$_baseUrl/CarSell/CarSell_Read";
-    if(_brandId.isNotEmpty) url = "$_baseUrl/CarSell/CarSell_Read?filter=brandId~eq~'$_brandId'";
+    if(brandId.isNotEmpty) url = "$_baseUrl/CarSell/CarSell_Read?filter=brandId~eq~'$brandId'";
     print(url.toString());
     //var url = "$_baseUrl/Orders/Orders_Read?";
     try{
@@ -861,11 +862,11 @@ class MyAPI{
 
   }
 
-  getCarBroadKey(String _brandId) async{
+  getCarBroadKey(String brandId) async{
     //var url = "$_baseUrl/Orders/Orders_Read?";
     print('Car sell');
     var url = "$_baseUrl/CarKey/CarKey_Read";
-    if(_brandId.isNotEmpty) url = "$_baseUrl/CarKey/CarKey_Read?filter=carKeyType~eq~'$_brandId'";
+    if(brandId.isNotEmpty) url = "$_baseUrl/CarKey/CarKey_Read?filter=carKeyType~eq~'$brandId'";
     print(url.toString());
     //var url = "$_baseUrl/Orders/Orders_Read?";
     try{
@@ -960,13 +961,13 @@ class MyAPI{
 
       http.StreamedResponse response = await request.send();
       if (response.statusCode == 200) {
-        var _body = await response.stream.bytesToString();
-        if(jsonDecode(_body)['errors'] == "" || jsonDecode(_body)['errors'] == null){
+        var body = await response.stream.bytesToString();
+        if(jsonDecode(body)['errors'] == "" || jsonDecode(body)['errors'] == null){
           //editTransactionOrdersList();
           return true;
         }
         else{
-          flushBar(jsonDecode(_body)['Errors']);
+          flushBar(jsonDecode(body)['Errors']);
           return false;
         }
       }
@@ -1051,7 +1052,7 @@ class MyAPI{
     }
   }
 
-  Future sendEmail(String _body, String _subject, String _recipient) async {
+  Future sendEmail(String body, String subject, String recipient) async {
     //String username = 'auto22mall20@gmail.com';
     String username = 'auto20mall22@gmail.com';
     String password = 'Am@123456';
@@ -1066,16 +1067,16 @@ class MyAPI{
 
     // Create our message.
     final message = Message()
-      ..from = Address(username, _subject)
-      ..recipients.add(_recipient)
+      ..from = Address(username, subject)
+      ..recipients.add(recipient)
       //..ccRecipients.addAll(['destCc1@example.com', 'destCc2@example.com'])
       //..bccRecipients.add(Address('bccAddress@example.com'))
       ..subject = AppLocalizations.of(context!)!.translate('name')
       //..text = 'This is the plain text.\n$_body.'
-      ..html = "<h1>${AppLocalizations.of(context!)!.translate('Congratulations')}</h1>\n<p>$_body</p>";
+      ..html = "<h1>${AppLocalizations.of(context!)!.translate('Congratulations')}</h1>\n<p>$body</p>";
     try {
       final sendReport = await send(message, smtpServer);
-      print('Message sent: ' + sendReport.toString());
+      print('Message sent: $sendReport');
       platformResponse = true;
     } on MailerException catch (e) {
       print('Message not sent.');
@@ -1115,12 +1116,12 @@ class MyAPI{
       platformResponse = false;
       //flushBar(e.toString());
     }
-    await _sendPushMessage(_body, _subject, fcmToken);
+    await _sendPushMessage(body, subject, fcmToken);
     return platformResponse;
   }
 
-  Future<void> _sendPushMessage(body, title, _token) async {
-    String constructFCMPayload(String? token, _title, _body) {
+  Future<void> _sendPushMessage(body, title, token) async {
+    String constructFCMPayload(String? token, title, body) {
       return jsonEncode({
         'to': token,
         'data': {
@@ -1132,27 +1133,27 @@ class MyAPI{
           //'count': _messageCount.toString(),
         },
         'notification': {
-          'title': _title,
-          'body': _body,
+          'title': title,
+          'body': body,
         },
       });
     }
-    if (_token == null || _token == 'lastName') {
+    if (token == null || token == 'lastName') {
       print('Unable to send FCM message, no token exists.');
       return;
     }
     try {
-      var _serverKey = 'AAAAPYGnfbY:APA91bE9bjmD44pSqtNgJJeQQAmUWboFPfYG2kaRkEUQv_xpPRrUdSohn7mTwtRriNUEwOAuR9tIyJhZypBYQLBpHuBTenxzc0sfRqW_zrP88nm5AQSSVX8D3zAcnLjVj9eKYZdRORKE';
+      var serverKey = 'AAAAPYGnfbY:APA91bE9bjmD44pSqtNgJJeQQAmUWboFPfYG2kaRkEUQv_xpPRrUdSohn7mTwtRriNUEwOAuR9tIyJhZypBYQLBpHuBTenxzc0sfRqW_zrP88nm5AQSSVX8D3zAcnLjVj9eKYZdRORKE';
       var response = await http.post(
         //Uri.parse('https://api.rnfirebase.io/messaging/send'),
         //Uri.parse('https://fcm.googleapis.com/v1/projects/mr-services-15410/messages:send'),
         Uri.parse('https://fcm.googleapis.com/fcm/send'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
-          'Authorization': 'key=$_serverKey',
+          'Authorization': 'key=$serverKey',
           'project_id':'264168242614',
         },
-        body: constructFCMPayload(_token, title, body),
+        body: constructFCMPayload(token, title, body),
       );
       print('FCM request for device sent!');
       print(jsonEncode(response.body));
@@ -1208,7 +1209,7 @@ class MyAPI{
       print("flag5");
       //await Future.delayed(Duration(seconds: 1));
     }catch(e){
-      print('check network connection\n' + e.toString());
+      print('check network connection\n$e');
     }
   }
 
@@ -1290,7 +1291,7 @@ class MyAPI{
       var  apiUrl =Uri.parse('$_baseUrl/Orders/Orders_Create');
       //var s = 1;
       print(supplier.toString());
-      String insertDateTime = DateFormat('yyyy-MM-dd hh:mm:ss.sss').format(DateTime.now().add(timeDiff)).replaceAll(" ", "T") + "Z";
+      String insertDateTime = "${DateFormat('yyyy-MM-dd hh:mm:ss.sss').format(DateTime.now().add(timeDiff)).replaceAll(" ", "T")}Z";
       List orderSuppliers=[];
       orderSuppliers.clear();
       for(int i = 0; i < supplier.length; i++){
@@ -1478,7 +1479,7 @@ class MyAPI{
     try{
       var  apiUrl =Uri.parse('$_baseUrl/Orders/Orders_Close');
       //var s = 1;
-      String insertDateTime = DateFormat('yyyy-MM-dd hh:mm:ss.sss').format(DateTime.now().add(timeDiff)).replaceAll(" ", "T") + "Z";
+      String insertDateTime = "${DateFormat('yyyy-MM-dd hh:mm:ss.sss').format(DateTime.now().add(timeDiff)).replaceAll(" ", "T")}Z";
       Map mapDate = {
         "id": id,
         "endDate": insertDateTime,
@@ -1533,7 +1534,7 @@ class MyAPI{
     try{
       var  apiUrl =Uri.parse('$_baseUrl/Orders/Orders_Suppliers_Win');
       //var s = 1;
-      String insertDateTime = DateFormat('yyyy-MM-dd hh:mm:ss.sss').format(DateTime.now().add(timeDiff)).replaceAll(" ", "T") + "Z";
+      String insertDateTime = "${DateFormat('yyyy-MM-dd hh:mm:ss.sss').format(DateTime.now().add(timeDiff)).replaceAll(" ", "T")}Z";
       Map mapDate = {
         "orderId": orderId,
         "supplierId": supplierId
@@ -1564,7 +1565,7 @@ class MyAPI{
           if (jsonDecode(response.body)['Errors'] == null || jsonDecode(response.body)['Errors'] == ''){
             print('success');
             flushBar(AppLocalizations.of(context!)!.translate('The Order is finished by selecting this supplier'));
-            await _sendPushMessage(AppLocalizations.of(context!)!.translate('the customer submitted your offer, email it'), AppLocalizations.of(context!)!.translate('Win offer') + ' $orderSerial', suppFBkey);
+            await _sendPushMessage(AppLocalizations.of(context!)!.translate('the customer submitted your offer, email it'), '${AppLocalizations.of(context!)!.translate('Win offer')} $orderSerial', suppFBkey);
             return true;
           }else{
             flushBar(jsonDecode(response.body)['Errors']);
@@ -1588,7 +1589,7 @@ class MyAPI{
     try{
       var  apiUrl =Uri.parse('$_baseUrl/Orders/Orders_Rate?');
       //var s = 1;
-      String insertDateTime = DateFormat('yyyy-MM-dd hh:mm:ss.sss').format(DateTime.now().add(timeDiff)).replaceAll(" ", "T") + "Z";
+      String insertDateTime = "${DateFormat('yyyy-MM-dd hh:mm:ss.sss').format(DateTime.now().add(timeDiff)).replaceAll(" ", "T")}Z";
       Map mapDate = {
         "orderId": orderId,
         "rateNote": "string",
@@ -1645,7 +1646,7 @@ class MyAPI{
      var  apiUrl =Uri.parse('$_baseUrl/Orders/Orders_Suppliers_Update');
      //if(statue == null) statue=1;
      //var s = 1;
-     String insertDateTime = DateFormat('yyyy-MM-dd hh:mm:ss.sss').format(DateTime.now().add(timeDiff)).replaceAll(" ", "T") + "Z";
+     String insertDateTime = "${DateFormat('yyyy-MM-dd hh:mm:ss.sss').format(DateTime.now().add(timeDiff)).replaceAll(" ", "T")}Z";
      Map mapDate = {
        "id": 0,//id,
        "supplierId": supplierId,

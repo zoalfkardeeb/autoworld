@@ -1,7 +1,5 @@
-import 'dart:convert';
 
 import 'package:automall/screen/offerScreen.dart';
-import 'package:automall/screen/suplierInfo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -13,6 +11,8 @@ import '../const.dart';
 import '../localizations.dart';
 
 class NotificationScreen extends StatefulWidget {
+  const NotificationScreen({Key? key}) : super(key: key);
+
   @override
   _NotificationScreenState createState() => _NotificationScreenState();
 }
@@ -32,7 +32,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
   final TextEditingController _searchController = TextEditingController();
   final ScrollController _scrollController = ScrollController();
   var _foundOrders = [];
-  bool _conect = false;
+  final bool _conect = false;
   var _offersIndexShow = 10000000000;
   var _detailsIndexShow = 10000000000;
   @override
@@ -122,7 +122,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                           onTap: () => _selectCard(index),
                         )
                         ;
-                      }, separatorBuilder: (BuildContext context, int index) => SizedBox(),
+                      }, separatorBuilder: (BuildContext context, int index) => const SizedBox(),
                     ),
                   ),
                   //SizedBox(height: hSpace/3,),
@@ -170,7 +170,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
         padding: EdgeInsets.symmetric(horizontal: curve, vertical: curve/2),
         decoration: BoxDecoration(
           color: MyColors.topCon,
-          boxShadow: [BoxShadow(
+          boxShadow: const [BoxShadow(
             color: MyColors.black,
             offset: Offset(0, 1),
             blurRadius: 4,
@@ -190,7 +190,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                   IconButton(
                     icon: Align(
                       alignment: lng==2? Alignment.centerRight:Alignment.centerLeft,
-                      child: Icon(Icons.arrow_back_ios),
+                      child: const Icon(Icons.arrow_back_ios),
                     ),
                     onPressed: ()=> Navigator.of(context).pop(),
                   ),
@@ -238,40 +238,52 @@ class _NotificationScreenState extends State<NotificationScreen> {
   String? path ;
 
   _orderListContainer(index, curve) {
-    var _vinNumberController = TextEditingController(text: 'dddd');
-    var _carNameController = TextEditingController(text: 'dddd');
-    var _modelController = TextEditingController(text: 'dddd');
-    var _remarksController = TextEditingController(text: 'dddd');
-    _vinNumberController.text = _foundOrders[index]['vinNumber'];
-    _carNameController.text = _foundOrders[index]['carName'];
-    _modelController.text = _foundOrders[index]['carModel'];
-    _remarksController.text = _foundOrders[index]['remarks'];
+    var vinNumberController = TextEditingController(text: 'dddd');
+    var carNameController = TextEditingController(text: 'dddd');
+    var modelController = TextEditingController(text: 'dddd');
+    var remarksController = TextEditingController(text: 'dddd');
+    vinNumberController.text = _foundOrders[index]['vinNumber'];
+    carNameController.text = _foundOrders[index]['carName'];
+    modelController.text = _foundOrders[index]['carModel'];
+    remarksController.text = _foundOrders[index]['remarks'];
     var imageList = [];
-    if(_foundOrders[index]['firstAttachment'].toString()==('')) {;}else imageList.add(_foundOrders[index]['firstAttachment']);
-    if(_foundOrders[index]['secondAttachment'].toString().endsWith('string') || _foundOrders[index]['secondAttachment'].toString().endsWith(' ') || _foundOrders[index]['secondAttachment'].toString()==('')){;}else  imageList.add(_foundOrders[index]['secondAttachment']);
-    if(_foundOrders[index]['thirdAttachment'].toString().endsWith('string') || _foundOrders[index]['thirdAttachment'].toString().endsWith(' ') || _foundOrders[index]['thirdAttachment'].toString()==('')) {;}else imageList.add(_foundOrders[index]['thirdAttachment']);
-    if(_foundOrders[index]['forthAttachment'].toString().endsWith('string') || _foundOrders[index]['forthAttachment'].toString().endsWith(' ') || _foundOrders[index]['forthAttachment'].toString()==('')) {;}else imageList.add(_foundOrders[index]['forthAttachment']);
-    if(_foundOrders[index]['fifthAttachment'].toString().endsWith('string') || _foundOrders[index]['fifthAttachment'].toString().endsWith(' ') || _foundOrders[index]['fifthAttachment'].toString()==('')) {;}else imageList.add(_foundOrders[index]['fifthAttachment']);
-    if(_foundOrders[index]['sixthAttachment'].toString().endsWith('string') || _foundOrders[index]['sixthAttachment'].toString().endsWith(' ') || _foundOrders[index]['sixthAttachment'].toString()==('')) {;}else imageList.add(_foundOrders[index]['sixthAttachment']);
+    if(_foundOrders[index]['firstAttachment'].toString()==('')) {}else {
+      imageList.add(_foundOrders[index]['firstAttachment']);
+    }
+    if(_foundOrders[index]['secondAttachment'].toString().endsWith('string') || _foundOrders[index]['secondAttachment'].toString().endsWith(' ') || _foundOrders[index]['secondAttachment'].toString()==('')){}else {
+      imageList.add(_foundOrders[index]['secondAttachment']);
+    }
+    if(_foundOrders[index]['thirdAttachment'].toString().endsWith('string') || _foundOrders[index]['thirdAttachment'].toString().endsWith(' ') || _foundOrders[index]['thirdAttachment'].toString()==('')) {}else {
+      imageList.add(_foundOrders[index]['thirdAttachment']);
+    }
+    if(_foundOrders[index]['forthAttachment'].toString().endsWith('string') || _foundOrders[index]['forthAttachment'].toString().endsWith(' ') || _foundOrders[index]['forthAttachment'].toString()==('')) {}else {
+      imageList.add(_foundOrders[index]['forthAttachment']);
+    }
+    if(_foundOrders[index]['fifthAttachment'].toString().endsWith('string') || _foundOrders[index]['fifthAttachment'].toString().endsWith(' ') || _foundOrders[index]['fifthAttachment'].toString()==('')) {}else {
+      imageList.add(_foundOrders[index]['fifthAttachment']);
+    }
+    if(_foundOrders[index]['sixthAttachment'].toString().endsWith('string') || _foundOrders[index]['sixthAttachment'].toString().endsWith(' ') || _foundOrders[index]['sixthAttachment'].toString()==('')) {}else {
+      imageList.add(_foundOrders[index]['sixthAttachment']);
+    }
     var raduis = MediaQuery.of(context).size.width/7;
-    var _subHeader = _foundOrders[index]['user']['name'] + ', '+_m!.getGategoryName(_foundOrders[index]['categoryId']);
-    var _date =  _foundOrders[index]['insertDate'].toString().split('T')[0];
-    var _header = AppLocalizations.of(context)!.translate('Num: ') + _foundOrders[index]['serial'].toString() + ',  ' + _date;
-    if(_foundOrders[index]['lastUpdateDate'].toString() != '0001-01-01T00:00:00') _date = _foundOrders[index]['lastUpdateDate'].toString().split('T')[0];
-    List _orderSuppliers = _foundOrders[index]['orderSuppliers'];
-    List _supplierSent = [{"id":"2" , "name":"Sup2", "city":"Doha", "date":"8/2/2020", "details":"dsbvb asf dgds dsf sd", "logo":null},
+    var subHeader = _foundOrders[index]['user']['name'] + ', '+_m!.getGategoryName(_foundOrders[index]['categoryId']);
+    var date =  _foundOrders[index]['insertDate'].toString().split('T')[0];
+    var header = '${AppLocalizations.of(context)!.translate('Num: ')}${_foundOrders[index]['serial']},  $date';
+    if(_foundOrders[index]['lastUpdateDate'].toString() != '0001-01-01T00:00:00') date = _foundOrders[index]['lastUpdateDate'].toString().split('T')[0];
+    List orderSuppliers = _foundOrders[index]['orderSuppliers'];
+    List supplierSent = [{"id":"2" , "name":"Sup2", "city":"Doha", "date":"8/2/2020", "details":"dsbvb asf dgds dsf sd", "logo":null},
       {"id":"1" , "name":"Sup1", "city":"Doha", "date":"8/2/2020", "details":"dsbvb asf dgds dsf sd lj; lkjkl kjlkj kjl", "logo":null}];
-    _supplierSent.clear();
+    supplierSent.clear();
     var replyNum = 0;
-    for(int i = 0; i<_orderSuppliers.length; i++){
-      Map suppleir = _orderSuppliers[i]['supplier'];
-      _supplierSent.add({'status':_orderSuppliers[i]['status'],'id': suppleir['id'], 'name': suppleir['fullName'], 'date': _orderSuppliers[i]['replyDate'].toString().split('T')[0], 'city':'Doha', 'logo': suppleir['user']['imagePath'].toString()==''? null : suppleir['user']['imagePath'], 'details':_orderSuppliers[i]['supplierNotes'].toString()});
-      if(_orderSuppliers[i]['status'] == 1) replyNum++;
+    for(int i = 0; i<orderSuppliers.length; i++){
+      Map suppleir = orderSuppliers[i]['supplier'];
+      supplierSent.add({'status':orderSuppliers[i]['status'],'id': suppleir['id'], 'name': suppleir['fullName'], 'date': orderSuppliers[i]['replyDate'].toString().split('T')[0], 'city':'Doha', 'logo': suppleir['user']['imagePath'].toString()==''? null : suppleir['user']['imagePath'], 'details':orderSuppliers[i]['supplierNotes'].toString()});
+      if(orderSuppliers[i]['status'] == 1) replyNum++;
     }
     curve = MediaQuery.of(context).size.width /30;
     var offerHieght = MediaQuery.of(context).size.width*0.2;
     suplierReply(i){
-      if(_supplierSent[i]['status'] == 1){
+      if(supplierSent[i]['status'] == 1){
         return Container(
           height: offerHieght + MediaQuery.of(context).size.width/9,
           margin: EdgeInsets.symmetric(horizontal: raduis/2),
@@ -281,21 +293,21 @@ class _NotificationScreenState extends State<NotificationScreen> {
               Row(
                 children: [
                   SizedBox(height: MediaQuery.of(context).size.width/100,),
-                  _m!.logoContainer(_supplierSent[i]['logo'], MediaQuery.of(context).size.width/7, isSupp: true),
+                  _m!.logoContainer(supplierSent[i]['logo'], MediaQuery.of(context).size.width/7, isSupp: true),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      _m!.bodyText1(_supplierSent[i]['name'], align: TextAlign.start, scale: 1.1, padding: MediaQuery.of(context).size.width/40),
+                      _m!.bodyText1(supplierSent[i]['name'], align: TextAlign.start, scale: 1.1, padding: MediaQuery.of(context).size.width/40),
                       SizedBox(height: MediaQuery.of(context).size.width/100,),
                       Container(
                         child:
-                        _m!.bodyText1(_supplierSent[i]['details'],scale: 0.8, maxLine: 2, padding: MediaQuery.of(context).size.width/40,align: TextAlign.start),
+                        _m!.bodyText1(supplierSent[i]['details'],scale: 0.8, maxLine: 2, padding: MediaQuery.of(context).size.width/40,align: TextAlign.start),
                         constraints: BoxConstraints(
                             maxWidth: MediaQuery.of(context).size.width / 2
                         ),
                       ),
                       SizedBox(height: MediaQuery.of(context).size.width/80,),
-                      _m!.bodyText1(_supplierSent[i]['city'].toString() + ' date: ' + _supplierSent[i]['date'].toString(), scale: 0.9, padding: MediaQuery.of(context).size.width/40, align: TextAlign.start),
+                      _m!.bodyText1('${supplierSent[i]['city']} date: ${supplierSent[i]['date']}', scale: 0.9, padding: MediaQuery.of(context).size.width/40, align: TextAlign.start),
                     ],
                   )
                 ],
@@ -323,11 +335,11 @@ class _NotificationScreenState extends State<NotificationScreen> {
               Row(
                 children: [
                   SizedBox(height: MediaQuery.of(context).size.width/100,),
-                  _m!.logoContainer(_supplierSent[i]['logo'], MediaQuery.of(context).size.width/7, isSupp: true),
+                  _m!.logoContainer(supplierSent[i]['logo'], MediaQuery.of(context).size.width/7, isSupp: true),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      _m!.bodyText1(_supplierSent[i]['name'], align: TextAlign.start, scale: 1.1, padding: MediaQuery.of(context).size.width/40),
+                      _m!.bodyText1(supplierSent[i]['name'], align: TextAlign.start, scale: 1.1, padding: MediaQuery.of(context).size.width/40),
                       SizedBox(height: MediaQuery.of(context).size.width/40,),
                       _m!.bodyText1(AppLocalizations.of(context)!.translate('No Offer Yet!'), scale: 0.9, padding: MediaQuery.of(context).size.width/40, align: TextAlign.start),
                     ],
@@ -348,7 +360,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
             //height: offerHieght,
             //margin: EdgeInsets.only(left: raduis),
             decoration: BoxDecoration(
-              border: Border.fromBorderSide(BorderSide(color: MyColors.card)),
+              border: const Border.fromBorderSide(BorderSide(color: MyColors.card)),
               borderRadius: BorderRadius.all(Radius.circular(curve)),
             ),
             padding: EdgeInsets.symmetric(horizontal: curve, vertical: curve),
@@ -357,13 +369,13 @@ class _NotificationScreenState extends State<NotificationScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 //_m!.driver(color: MyColors.mainColor, padH: MediaQuery.of(context).size.width/10),
-                categoryId==0?_m!.lableValue(AppLocalizations.of(context)!.translate('VIN Number'), _vinNumberController.text)
-                    :SizedBox(height: 0.0,),
-                categoryId==0?_m!.lableValue(AppLocalizations.of(context)!.translate('Car Name'), _carNameController.text)
-                    :SizedBox(height: 0.0,),
-                categoryId==0?_m!.lableValue(AppLocalizations.of(context)!.translate('Model'), _modelController.text)
-                    :SizedBox(height: 0.0,),
-                _m!.lableValue(AppLocalizations.of(context)!.translate('Remarks'), _remarksController.text),
+                categoryId==0?_m!.lableValue(AppLocalizations.of(context)!.translate('VIN Number'), vinNumberController.text)
+                    :const SizedBox(height: 0.0,),
+                categoryId==0?_m!.lableValue(AppLocalizations.of(context)!.translate('Car Name'), carNameController.text)
+                    :const SizedBox(height: 0.0,),
+                categoryId==0?_m!.lableValue(AppLocalizations.of(context)!.translate('Model'), modelController.text)
+                    :const SizedBox(height: 0.0,),
+                _m!.lableValue(AppLocalizations.of(context)!.translate('Remarks'), remarksController.text),
                 imageList.isNotEmpty?
                 GridView.builder(
                   shrinkWrap: true,
@@ -420,14 +432,14 @@ class _NotificationScreenState extends State<NotificationScreen> {
         ],
       );
     }
-    var _color = MyColors.mainColor;
+    var color = MyColors.mainColor;
     String statue =  AppLocalizations.of(context)!.translate('NEW');
     if(replyNum>0){
-      _color = MyColors.green;
+      color = MyColors.green;
       statue = AppLocalizations.of(context)!.translate('REPLY');
     }
     if(_foundOrders[index]['status'] == 2){
-      _color = MyColors.gray;
+      color = MyColors.gray;
       statue = AppLocalizations.of(context)!.translate('FINISH');
     }
     return Container(
@@ -446,8 +458,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
           Container(
             child: _m!.bodyText1(statue, color: MyColors.white),
             decoration: BoxDecoration(
-              color: _color,
-              border: Border.all(color: _color),
+              color: color,
+              border: Border.all(color: color),
               borderRadius: lng==2?
               BorderRadius.only(bottomLeft: Radius.circular(curve), topRight:  Radius.circular(curve))
                   :BorderRadius.only(bottomRight: Radius.circular(curve), topLeft:  Radius.circular(curve)),            ),
@@ -461,26 +473,26 @@ class _NotificationScreenState extends State<NotificationScreen> {
                   children: [
                     GestureDetector(
                       onTap: ()=> _showOffers(index),
-                      child: SvgPicture.asset(index == _offersIndexShow?'assets/images/orderMarks.svg':'assets/images/orderMarksFill.svg', height: MediaQuery.of(context).size.width/15, color: _color,),
+                      child: SvgPicture.asset(index == _offersIndexShow?'assets/images/orderMarks.svg':'assets/images/orderMarksFill.svg', height: MediaQuery.of(context).size.width/15, color: color,),
                     ),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          _m!.headText(_header,scale: 0.65, paddingH: MediaQuery.of(context).size.width/30, paddingV: 0.0, align: TextAlign.start, color: MyColors.bodyText1),
-                          _m!.headText(_subHeader,scale: 0.6, paddingH: MediaQuery.of(context).size.width/20, paddingV: MediaQuery.of(context).size.height/100, align: TextAlign.start, color: MyColors.bodyText1),
+                          _m!.headText(header,scale: 0.65, paddingH: MediaQuery.of(context).size.width/30, paddingV: 0.0, align: TextAlign.start, color: MyColors.bodyText1),
+                          _m!.headText(subHeader,scale: 0.6, paddingH: MediaQuery.of(context).size.width/20, paddingV: MediaQuery.of(context).size.height/100, align: TextAlign.start, color: MyColors.bodyText1),
                           GestureDetector(
                             onTap: ()=> _showOffers(index),
-                            child: _m!.bodyText1( AppLocalizations.of(context)!.translate('offers received') + ' ' + replyNum.toString() + AppLocalizations.of(context)!.translate(' of ')+ _orderSuppliers.length.toString(), color: _color),
+                            child: _m!.bodyText1( '${AppLocalizations.of(context)!.translate('offers received')} $replyNum${AppLocalizations.of(context)!.translate(' of ')}${orderSuppliers.length}', color: color),
                           ),
-                          _m!.bodyText1(AppLocalizations.of(context)!.translate('Last Update') + ' ' + _date, scale: 0.8, maxLine: 1, align: TextAlign.start),
+                          _m!.bodyText1('${AppLocalizations.of(context)!.translate('Last Update')} $date', scale: 0.8, maxLine: 1, align: TextAlign.start),
                         ],
                       ),
                     ),
                     _foundOrders[index]['status'] != 2?GestureDetector(
                       onTap: ()=> _close(_foundOrders[index]['id']),
                       child: SvgPicture.asset('assets/images/close.svg', height: MediaQuery.of(context).size.width/11,),
-                    ):SizedBox(),
+                    ):const SizedBox(),
                     SizedBox(width: MediaQuery.of(context).size.width/100,),
                     GestureDetector(
                       onTap: ()=> _showDetails(index),
@@ -513,7 +525,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                               height: 1,
                               width: MediaQuery.of(context).size.width/2.7-2,
                               color: MyColors.white,
-                            ): SizedBox(),
+                            ): const SizedBox(),
                           ],
                         ),
                         //SizedBox(width: MediaQuery.of(context).size.width/20,),
@@ -535,39 +547,39 @@ class _NotificationScreenState extends State<NotificationScreen> {
                               height: 1,
                               width: MediaQuery.of(context).size.width/2.7-2,
                               color: MyColors.white,
-                            ):SizedBox(),
+                            ):const SizedBox(),
                           ],
                         )
                        ],
                     ),
                     //_m!.driver(color: MyColors.mainColor, padH: MediaQuery.of(context).size.width/10),
                   ],
-                ) : SizedBox(),
+                ) : const SizedBox(),
                 index == _detailsIndexShow?
                 orderDetails():
                 index == _offersIndexShow?
                 SizedBox(
-                height: (offerHieght + MediaQuery.of(context).size.height/400) * _supplierSent.length + curve*2 + replyNum * (MediaQuery.of(context).size.width/9),
+                height: (offerHieght + MediaQuery.of(context).size.height/400) * supplierSent.length + curve*2 + replyNum * (MediaQuery.of(context).size.width/9),
                 child: Stack(
                   children: [
                     Container(
                       //height: offerHieght,
                       //margin: EdgeInsets.only(left: raduis),
                       decoration: BoxDecoration(
-                        border: Border.fromBorderSide(BorderSide(color: MyColors.card)),
+                        border: const Border.fromBorderSide(BorderSide(color: MyColors.card)),
                         borderRadius: BorderRadius.all(Radius.circular(curve)),
                       ),
                       padding: EdgeInsets.symmetric(horizontal: curve*0, vertical: curve),
                       //padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width/15, vertical: curve/3*0),
                       child: ListView.separated(
-                        padding: EdgeInsets.symmetric(vertical: 0.0),
+                        padding: const EdgeInsets.symmetric(vertical: 0.0),
                         controller: _scrollController,
-                        itemCount: _supplierSent.length,
+                        itemCount: supplierSent.length,
                         itemBuilder: (BuildContext context, int index) {
                           return GestureDetector(
                             child: suplierReply(index),
                             //color: MyColors.white,
-                            onTap: () => null,
+                            onTap: () {},
                           )
                           ;
                         }, separatorBuilder: (BuildContext context, int index) => _m!.driver(padH: 0.0, padV: 0.0) ,
@@ -703,7 +715,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
   }
 
   final GlobalKey _dropDownKey = GlobalKey();
-  var _filtterController= new TextEditingController();
+  final _filtterController= TextEditingController();
 
   List<String> filtersName = <String>[];
   _dropDown(width, curve){

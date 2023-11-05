@@ -2,11 +2,9 @@ import 'package:automall/MyWidget.dart';
 import 'package:automall/const.dart';
 import 'package:automall/constant/app_size.dart';
 import 'package:automall/constant/color/MyColors.dart';
-import 'package:automall/constant/font_size.dart';
 import 'package:automall/eShop/model/categoryModel.dart';
 import 'package:automall/eShop/model/itemModel.dart';
 import 'package:automall/localizations.dart';
-import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 class EShopMainScreen extends StatefulWidget {
   // ignore: prefer_typing_uninitialized_variables
@@ -20,13 +18,13 @@ class EShopMainScreen extends StatefulWidget {
 class _EShopMainScreenState extends State<EShopMainScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
   final TextEditingController _searchController = TextEditingController();
-  List<CategoryModel> _categoryList = [
+  final List<CategoryModel> _categoryList = [
     CategoryModel(id: 'id1', text: 'text'),
     CategoryModel(id: 'id2', text: 'text'),
     CategoryModel(id: 'id3', text: 'text'),
   ];
 
-  List<ItemModel> _foundItems = [
+  final List<ItemModel> _foundItems = [
     ItemModel(id: 'id1', networkImage: 'https://miro.medium.com/v2/resize:fit:720/format:webp/1*5Y0m9U2bNNttP69AryJMvA.png', isFavorite: true, amount: 0, name: 'name', category: 'category', price: 'price'),
     ItemModel(id: 'id1', networkImage: 'https://miro.medium.com/v2/resize:fit:720/format:webp/1*5Y0m9U2bNNttP69AryJMvA.png', isFavorite: false, amount: 0, name: 'name', category: 'category', price: 'price'),
     ItemModel(id: 'id1', networkImage: 'https://miro.medium.com/v2/resize:fit:720/format:webp/1*5Y0m9U2bNNttP69AryJMvA.png', isFavorite: false, amount: 0, name: 'name', category: 'category', price: 'price'),
@@ -102,7 +100,7 @@ class _EShopMainScreenState extends State<EShopMainScreen> {
   }
 
   Widget _cartIcon() {
-    return IconButton(onPressed: ()=>null, icon: Icon(Icons.shopping_cart_outlined));
+    return IconButton(onPressed: (){}, icon: const Icon(Icons.shopping_cart_outlined));
   }
 
   Widget _search() {
@@ -143,7 +141,7 @@ class _EShopMainScreenState extends State<EShopMainScreen> {
                     borderSide: const BorderSide(color: MyColors.mainColor)),
                 hintText: AppLocalizations.of(context)!.translate('Search'),
                 focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(AppWidth.w5)),
-                    borderSide: BorderSide(color: MyColors.mainColor)),
+                    borderSide: const BorderSide(color: MyColors.mainColor)),
               ),
             ),
           ),
@@ -258,21 +256,21 @@ class _EShopMainScreenState extends State<EShopMainScreen> {
                     SizedBox(
                         width: AppWidth.w5,
                         height: AppWidth.w5,
-                        child: IconButton(onPressed: ()=> remove(), icon: Icon(Icons.remove,size: AppWidth.w4,color: MyColors.mainColor), padding: EdgeInsets.all(0.1))),
+                        child: IconButton(onPressed: ()=> remove(), icon: Icon(Icons.remove,size: AppWidth.w4,color: MyColors.mainColor), padding: const EdgeInsets.all(0.1))),
                     const VerticalDivider(color: MyColors.mainColor, thickness: 1,),
                     MyWidget(context).headText('${itemModel.amount}', scale: 0.5, color: MyColors.mainColor),
                     const VerticalDivider(color: MyColors.mainColor, thickness: 1,),
                     SizedBox(
                         width: AppWidth.w5,
                         height: AppWidth.w5,
-                        child: IconButton(onPressed: ()=> add(), icon: Icon(Icons.add, size: AppWidth.w4,color: MyColors.mainColor), padding: EdgeInsets.all(0.1),)),
+                        child: IconButton(onPressed: ()=> add(), icon: Icon(Icons.add, size: AppWidth.w4,color: MyColors.mainColor), padding: const EdgeInsets.all(0.1),)),
                   ],
                 )
                     :
                 SizedBox(
                     width: AppWidth.w5,
                     height: AppWidth.w5,
-                    child: IconButton(onPressed: ()=> add(), icon: Icon(Icons.add, size: AppWidth.w4,color: MyColors.mainColor), padding: EdgeInsets.all(0.1),)),
+                    child: IconButton(onPressed: ()=> add(), icon: Icon(Icons.add, size: AppWidth.w4,color: MyColors.mainColor), padding: const EdgeInsets.all(0.1),)),
 
               ),
             ],

@@ -1,9 +1,7 @@
 // ignore_for_file: file_names
-import 'dart:io';
 
 import 'package:automall/api.dart';
 import 'package:automall/constant/string/Strings.dart';
-import 'package:automall/screen/selectScreen.dart';
 import 'package:automall/screen/singnIn.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -16,11 +14,12 @@ import '../MyWidget.dart';
 import '../const.dart';
 import '../localization_service.dart';
 import '../localizations.dart';
-import 'SupplierOrder.dart';
 import '../helper/boxes.dart';
 import 'package:platform_device_id/platform_device_id.dart';
 import 'package:yaml/yaml.dart';
 class SplashScreen extends StatefulWidget {
+  const SplashScreen({Key? key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() {
     return SplashState();
@@ -31,12 +30,13 @@ class SplashState extends State<SplashScreen> {
 
   Future<String?> _getDeviceId() async {
     try{
-      String? _deviceId = await PlatformDeviceId.getDeviceId;
-      return _deviceId;
+      String? deviceId = await PlatformDeviceId.getDeviceId;
+      return deviceId;
 
     }catch(e){
 
     }
+    return null;
     /*var deviceInfo = DeviceInfoPlugin();
     if (Platform.isIOS) { // import 'dart:io'
       var iosDeviceInfo = await deviceInfo.iosInfo;

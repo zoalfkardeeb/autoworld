@@ -1,5 +1,4 @@
 import 'package:automall/MyWidget.dart';
-import 'package:automall/api.dart';
 import 'package:automall/const.dart';
 import 'package:automall/constant/color/MyColors.dart';
 import 'package:automall/localizations.dart';
@@ -14,7 +13,7 @@ class MyCarKeyForSell extends StatefulWidget {
 }
 
 class _MyCarKeyForSellState extends State<MyCarKeyForSell> {
-  List _carBroadKeyList = [];
+  final List _carBroadKeyList = [];
 
   @override
   void initState() {
@@ -144,7 +143,7 @@ class _MyCarKeyForSellState extends State<MyCarKeyForSell> {
           borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(curve),
               bottomRight: Radius.circular(curve)),
-          boxShadow: [
+          boxShadow: const [
             BoxShadow(
               color: MyColors.black,
               offset: Offset(0, 1),
@@ -170,7 +169,7 @@ class _MyCarKeyForSellState extends State<MyCarKeyForSell> {
                           alignment: lng == 2
                               ? Alignment.centerRight
                               : Alignment.centerLeft,
-                          child: Icon(Icons.arrow_back_ios),
+                          child: const Icon(Icons.arrow_back_ios),
                         ),
                         onPressed: () => Navigator.of(context).pop(),
                       ),

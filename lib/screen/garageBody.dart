@@ -152,7 +152,7 @@ class _GarageBodyState extends State<GarageBody> {
         decoration: BoxDecoration(
           color: MyColors.topCon,
           borderRadius: BorderRadius.only(bottomLeft: Radius.circular(curve), bottomRight: Radius.circular(curve)),
-          boxShadow: [BoxShadow(
+          boxShadow: const [BoxShadow(
             color: MyColors.black,
             offset: Offset(0, 1),
             blurRadius: 4,
@@ -169,7 +169,7 @@ class _GarageBodyState extends State<GarageBody> {
                   child: IconButton(
                     icon: Align(
                       alignment: lng==2?Alignment.centerRight:Alignment.centerLeft,
-                      child: Icon(Icons.arrow_back_ios),
+                      child: const Icon(Icons.arrow_back_ios),
                     ),
                     onPressed: ()=> Navigator.of(context).pop(),
                   ),
@@ -200,8 +200,9 @@ class _GarageBodyState extends State<GarageBody> {
       pleaseWait = true;
     });
     var garageFilter = 'garages';
-    if(index == 0)garageFilter = 'GaragBody';
-    else if(index == 1)garageFilter = 'GaragMechanical';
+    if(index == 0) {
+      garageFilter = 'GaragBody';
+    } else if(index == 1)garageFilter = 'GaragMechanical';
     else if(index == 2)garageFilter = 'GaragElectrical';
     if(index != 0) {
       await MyAPI(context: context).getBrandsCountry();

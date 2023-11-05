@@ -5,8 +5,6 @@ import 'dart:io';
 import 'dart:math';
 import 'package:automall/constant/font_size.dart';
 import 'package:automall/constant/app_size.dart';
-import 'package:automall/constant/string/Strings.dart';
-import 'package:automall/helper/launchUrlHelper.dart';
 
 import 'package:automall/localization_service.dart';
 import 'package:automall/photoView.dart';
@@ -17,13 +15,9 @@ import 'package:automall/screen/resetPassword.dart';
 import 'package:automall/screen/singnIn.dart';
 import 'package:automall/screen/termAndConitions.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:form_field_validator/form_field_validator.dart';
-import 'package:gradient_progress_indicator/widget/gradient_progress_indicator_widget.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:progress_indicators/progress_indicators.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
@@ -47,8 +41,8 @@ class MyWidget{
       width: width,
       height: hieght,
       imageUrl: networkImage,
-      placeholder: (context, url) => CircularProgressIndicator(),
-      errorWidget: (context, url, error) => Icon(Icons.error),
+      placeholder: (context, url) => const CircularProgressIndicator(),
+      errorWidget: (context, url, error) => const Icon(Icons.error),
     );
   }
 
@@ -68,7 +62,7 @@ class MyWidget{
       width: width,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          shape: StadiumBorder(),
+          shape: const StadiumBorder(),
           backgroundColor: backcolor,
           textStyle: TextStyle(
               color: Colors.white,
@@ -125,7 +119,7 @@ class MyWidget{
                   Navigator.of(context).pop();
                 },
                     child: bodyText1(AppLocalizations.of(context)!.translate('Later!'),  color: MyColors.white)),
-                Expanded(child: SizedBox()),
+                const Expanded(child: SizedBox()),
                 TextButton(onPressed: () {
                   guestType = true;
                   //editTransactionGuestType();
@@ -348,7 +342,7 @@ class MyWidget{
     );
   }
 
-  appBar(barHight, _scaffoldKey){
+  appBar(barHight, scaffoldKey){
     return AppBar(
       centerTitle: true,
       toolbarHeight: barHight,
@@ -359,7 +353,7 @@ class MyWidget{
       ),*/
       leading: IconButton(
         icon: Padding(padding: EdgeInsets.symmetric(horizontal: barHight/10), child: Image.asset('assets/images/drawer.png', height: barHight/4, fit: BoxFit.contain,),),
-        onPressed: () => _scaffoldKey.currentState!.openDrawer(),
+        onPressed: () => scaffoldKey.currentState!.openDrawer(),
       ),
       //backgroundColor: MyColors.backGround,
       title: Padding(
@@ -376,12 +370,12 @@ class MyWidget{
     );
   }
 
-  drawerButton(_scaffoldKey){
+  drawerButton(scaffoldKey){
     return IconButton(
       icon: Align(
         alignment: lng==2?Alignment.centerRight:Alignment.centerLeft,
         child: SvgPicture.asset('assets/images/drawer.svg', height: MediaQuery.of(context).size.width/30, fit: BoxFit.contain,),),
-      onPressed: () => _scaffoldKey.currentState!.openDrawer(),
+      onPressed: () => scaffoldKey.currentState!.openDrawer(),
     );
   }
 
@@ -391,7 +385,7 @@ class MyWidget{
         guestDialog();
         return;
       }
-      Navigator.of(context).push(MaterialPageRoute(builder:(context)=> NotificationScreen()));
+      Navigator.of(context).push(MaterialPageRoute(builder:(context)=> const NotificationScreen()));
     }
     return Align(
         alignment: lng==2?Alignment.centerLeft:Alignment.centerRight,
@@ -414,7 +408,7 @@ class MyWidget{
 
   }
 
-  drawer(Function() _setState, Function() _personal, Function() _home, _scaffoldKey) {
+  drawer(Function() setState, Function() personal, Function() home, scaffoldKey) {
 
    _iconText(click, icon, text){
       return Padding(
@@ -437,15 +431,15 @@ class MyWidget{
    _yourAds() async{
      Navigator.of(context).pop();
      pleaseWait = true;
-     _setState();
+     setState();
      await MyAPI(context: context).getCarSellByUserId();
      pleaseWait = false;
-     _setState();
+     setState();
      // ignore: use_build_context_synchronously
      Navigator.push(
        context,
        MaterialPageRoute(
-         builder: (context) =>  MyCarsForSell(),
+         builder: (context) =>  const MyCarsForSell(),
        ),
      );
    }
@@ -458,12 +452,12 @@ class MyWidget{
         return IconButton(
           onPressed: ()=> {
             Navigator.of(context).pop(),
-            changeLang(() => _setState(), lng == 0?2:0),
+            changeLang(() => setState(), lng == 0?2:0),
             pleaseWait == true,
-            _setState(),
+            setState(),
             MyAPI(context: context).userLang(lng == 0?2:0, userInfo['id']),
             pleaseWait == false,
-            _setState(),
+            setState(),
           }, icon: const Icon(Icons.check, color: MyColors.mainColor,),
         );
       }
@@ -476,11 +470,11 @@ class MyWidget{
         return;
       }
       Navigator.of(context).pop();
-      _personal();
+      personal();
     }
     _hom(){
       Navigator.of(context).pop();
-      _home();
+      home();
     }
     return Drawer(
       width: MediaQuery.of(context).size.width/5*4,
@@ -522,17 +516,17 @@ class MyWidget{
                   ),
                   _iconText(()=>_hom(), Icons.home_outlined, AppLocalizations.of(context)!.translate('HOME')),
                   _iconText(()=>_info(), Icons.person_outline, AppLocalizations.of(context)!.translate('Personal info')),
-                  _iconText(()=>changePassword(()=> _resetPass(() => _setState(), _scaffoldKey)), Icons.password_outlined, AppLocalizations.of(context)!.translate('Change Password?')),
+                  _iconText(()=>changePassword(()=> _resetPass(() => setState(), scaffoldKey)), Icons.password_outlined, AppLocalizations.of(context)!.translate('Change Password?')),
                   driver(),
-                  userInfo['type'] == 0 ? SizedBox()
+                  userInfo['type'] == 0 ? const SizedBox()
                       :_iconText(()=> Navigator.of(context).push(MaterialPageRoute(builder:(context)=> SupplierOrdesr(barTitle: AppLocalizations.of(context)!.translate('name'),))), Icons.local_offer_outlined, AppLocalizations.of(context)!.translate('SupplierOrders')),
-                  _iconText(()=> guestType ? guestDialog() : Navigator.of(context).push(MaterialPageRoute(builder:(context)=> NotificationScreen())), Icons.list_alt_outlined, AppLocalizations.of(context)!.translate('My Orders')),
+                  _iconText(()=> guestType ? guestDialog() : Navigator.of(context).push(MaterialPageRoute(builder:(context)=> const NotificationScreen())), Icons.list_alt_outlined, AppLocalizations.of(context)!.translate('My Orders')),
                   _iconText(()=> guestType ? guestDialog() : _yourAds(), Icons.list, AppLocalizations.of(context)!.translate('My Ads')),
                   driver(),
                   _iconText(()=>_language(), Icons.language, AppLocalizations.of(context)!.translate('Language')),
                   driver(),
                   _iconText(()=>_terms(), Icons.menu_book_outlined, AppLocalizations.of(context)!.translate('Terms and conditions')),
-                  _iconText(()=>Navigator.of(context).push(MaterialPageRoute(builder:(context)=> SupportScreen())), Icons.contact_support_outlined, AppLocalizations.of(context)!.translate('Support')),
+                  _iconText(()=>Navigator.of(context).push(MaterialPageRoute(builder:(context)=> const SupportScreen())), Icons.contact_support_outlined, AppLocalizations.of(context)!.translate('Support')),
                   _iconText(()=>_logout(), Icons.logout_outlined, AppLocalizations.of(context)!.translate('Log out')),
                   //raisedButton(1.0, AppLocalizations.of(context)!.translate('about'), () => Navigator.pushNamed(context, 'about')),
                   /*Expanded(
@@ -574,12 +568,12 @@ class MyWidget{
     );
   }
 
-  changeLang(Function() _setState, int _lng) async {
+  changeLang(Function() setState, int lng) async {
     pleaseWait = true;
-    _setState;
-    await LocalizationService().changeLocale(_lng, context);
+    setState;
+    await LocalizationService().changeLocale(lng, context);
     pleaseWait = false;
-    _setState;
+    setState;
   }
 
   changePassword(Function() restPassword) {
@@ -605,27 +599,27 @@ class MyWidget{
     }
   }
 
-  _resetPass(Function() _setState, _scaffoldKey) async{
-    _scaffoldKey.currentState!.closeDrawer();
+  _resetPass(Function() setState, scaffoldKey) async{
+    scaffoldKey.currentState!.closeDrawer();
     pleaseWait = true;
-    _setState();
+    setState();
     var response = await MyAPI(context: context).requestResetPassword(userInfo['email']);
     if(response[0]){
       //var value = jsonDecode(x)["data"][0]["id"].toString();
       var verCode = response[1].toString();
-      bool sent = await MyAPI(context: context).sendEmail(AppLocalizations.of(context)!.translate('Your activation code is :') +  '\n$verCode' , AppLocalizations.of(context)!.translate('Activation Code'),  userInfo['email']);
+      bool sent = await MyAPI(context: context).sendEmail('${AppLocalizations.of(context)!.translate('Your activation code is :')}\n$verCode' , AppLocalizations.of(context)!.translate('Activation Code'),  userInfo['email']);
       pleaseWait = false;
-      _setState();
+      setState();
       if(!sent){
         return;
       }
       Navigator.of(context).push(MaterialPageRoute(builder:(context)=> ResetPassword(userInfo['email'], verCode: response[1].toString(),)));
     }else{
       pleaseWait = false;
-      _setState();
+      setState();
     }
     pleaseWait = false;
-    _setState();
+    setState();
   }
   toast(String text) {
 
@@ -714,7 +708,7 @@ class MyWidget{
                     IconButton(
                       icon: Icon(icon, color: textColor,),
                       onPressed: ()=> click(),
-                    ): SizedBox(),
+                    ): const SizedBox(),
                   ],
                 ),
                 onTap: ()=>{
@@ -822,14 +816,14 @@ class MyWidget{
     return ElevatedButton(
             style: ElevatedButton.styleFrom(
               //color: MyColors.yellow,
-                minimumSize: Size(width, height),
+                minimumSize: Size(width, height), backgroundColor: color,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(curve/2),
                 side: BorderSide(color: borderSide),
               ),
               padding: EdgeInsets.symmetric(vertical: curve/3*0, horizontal: curve/2),
-              primary: color,
             ),
+            onPressed: click,
             child: Row(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -844,11 +838,10 @@ class MyWidget{
                 )),
               ],
             ),
-            onPressed: click,
           );
   }
 
-  copyLangButton(double curve, double width, String text, Function() _setState,{double? iconHight, height, color, borderSide, container}) {
+  copyLangButton(double curve, double width, String text, Function() setState,{double? iconHight, height, color, borderSide, container}) {
     height??= MediaQuery.of(context).size.width/9;
     iconHight??=height/1.9;
     color??= MyColors.mainColor;
@@ -857,7 +850,7 @@ class MyWidget{
 
     return
        ButtonTheme(
-         padding: EdgeInsets.all(0.0),
+         padding: const EdgeInsets.all(0.0),
         minWidth: width,
         height: height,
           child: ElevatedButton(
@@ -865,9 +858,8 @@ class MyWidget{
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(curve/2),
                 side: BorderSide(color: borderSide),
-              ),
+              ), backgroundColor: color,
               padding: EdgeInsets.symmetric(vertical: curve/3*0, horizontal: curve/2),
-              primary: color,
             ),
             child: Row(
               mainAxisSize: MainAxisSize.min,
@@ -883,7 +875,7 @@ class MyWidget{
                 )),
               ],
             ),
-            onPressed: ()=> changeLang(() => _setState, lng == 0?2:0),
+            onPressed: ()=> changeLang(() => setState, lng == 0?2:0),
           ),
       )
       ;
@@ -902,11 +894,10 @@ class MyWidget{
         height: MediaQuery.of(context).size.width/6.5,
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-            minimumSize: Size(MediaQuery.of(context).size.width/6.5, MediaQuery.of(context).size.width/6.7),
+            minimumSize: Size(MediaQuery.of(context).size.width/6.5, MediaQuery.of(context).size.width/6.7), backgroundColor: color,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(height/2)
             ),
-            primary: color,
           ),
         child: ispng? Image.asset(icon, height: height, width: height, fit: BoxFit.contain):
         SvgPicture.asset(icon, height: height, width: height, fit: BoxFit.contain, color: iconColor,),
@@ -941,7 +932,7 @@ class MyWidget{
               onTap: ()=> click!(),
               child: SvgPicture.asset(assets ,height: MediaQuery.of(context).size.width/13*scale* imageScale, fit: BoxFit.contain,),
             ),
-            SizedBox(width: space == null ? MediaQuery.of(context).size.width/40*scale*scale*scale*scale : space,),
+            SizedBox(width: space ?? MediaQuery.of(context).size.width/40*scale*scale*scale*scale,),
             headText(text, scale: 0.5*scale, /*padding: 0.0,*/ maxLine: 2, color: MyColors.black,paddingH: 0.0)
           ],
         ):
@@ -1013,7 +1004,7 @@ class MyWidget{
       return value == true;
   }
 
-  bottomContainer(_child, curve, {bottomConRati,}){
+  bottomContainer(child, curve, {bottomConRati,}){
     bottomConRati??= bottomConRatio;
     if(bottomConRati == 0.0) {
       return const SizedBox(height: 0,);
@@ -1028,7 +1019,7 @@ class MyWidget{
           color: MyColors.bottomCon,
           borderRadius: BorderRadius.only(topLeft: Radius.circular(curve), topRight: Radius.circular(curve)),
          ),
-      child: _child,
+      child: child,
 
     );
     }
@@ -1103,7 +1094,7 @@ class MyWidget{
     );
   }
 
-  cardMaterial(curve, height, _starRate, bool favorait, materialName, materialType, _salePrice, price, Function() _select){
+  cardMaterial(curve, height, starRate, bool favorait, materialName, materialType, salePrice, price, Function() select){
     var width = height*0.63-4;
     return Container(
       decoration: BoxDecoration(
@@ -1142,7 +1133,7 @@ class MyWidget{
                     children: [
                       Row(
                         children: [
-                          miniContainer(iconText('assets/images/star.svg', _starRate, MyColors.white, revers: true, paddingH: 0.0, scale: 0.8), MediaQuery.of(context).size.height/35),
+                          miniContainer(iconText('assets/images/star.svg', starRate, MyColors.white, revers: true, paddingH: 0.0, scale: 0.8), MediaQuery.of(context).size.height/35),
                           const Expanded(
                             child: Align(
 
@@ -1181,8 +1172,8 @@ class MyWidget{
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
-                                headText('\$' + _salePrice.toString(),scale: 0.5),
-                                bodyText1('\$' + price.toString(),scale: 0.6, padding: MediaQuery.of(context).size.width/60, align: TextAlign.start, baseLine: true),
+                                headText('\$$salePrice',scale: 0.5),
+                                bodyText1('\$$price',scale: 0.6, padding: MediaQuery.of(context).size.width/60, align: TextAlign.start, baseLine: true),
                               ],
                             ),
                           )
@@ -1199,7 +1190,7 @@ class MyWidget{
            alignment: Alignment.centerRight,
            child: Padding(
              padding: EdgeInsets.symmetric(horizontal: curve/2),
-             child: iconButton(curve, 'assets/images/shopping_cart_add.svg', () => _select(), curve: height/5, color: MyColors.mainColor,),
+             child: iconButton(curve, 'assets/images/shopping_cart_add.svg', () => select(), curve: height/5, color: MyColors.mainColor,),
            )
          ),
         ],
@@ -1207,7 +1198,7 @@ class MyWidget{
     );
   }
 
-  miniContainer(_child, height){
+  miniContainer(child, height){
     var curve = height / 4;
     return Container(
       height: height,
@@ -1217,7 +1208,7 @@ class MyWidget{
         color: MyColors.gray,
         borderRadius: BorderRadius.all(Radius.circular(curve)),
       ),
-      child: _child,
+      child: child,
     );
   }
 
@@ -1257,37 +1248,37 @@ class MyWidget{
     );
   }
 
-  starRow(raduis, _starNum, {marginLeft}){
+  starRow(raduis, starNum, {marginLeft}){
     marginLeft??=raduis*1.1;
     return Container(
       margin: EdgeInsets.only(left: marginLeft),
       padding: EdgeInsets.symmetric(horizontal: raduis/16*0, vertical: raduis/30),
       width: raduis/5*5.7,
-      //alignment: Alignment.center,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(_starNum < 1 ? Icons.star_outline : _starNum >= 2  ? Icons.star: Icons.star_half,color:  MyColors.white,/*: MyColors.gray,*/ size: raduis/5,),
-          Icon(_starNum < 3 ? Icons.star_outline : _starNum >= 4  ? Icons.star: Icons.star_half,color:  MyColors.white,/*: MyColors.gray,*/ size: raduis/5,),
-          Icon(_starNum < 5 ? Icons.star_outline : _starNum >= 6  ? Icons.star: Icons.star_half,color:  MyColors.white,/*: MyColors.gray,*/ size: raduis/5,),
-          Icon(_starNum < 7 ? Icons.star_outline : _starNum >= 8  ? Icons.star: Icons.star_half,color:  MyColors.white,/*: MyColors.gray,*/ size: raduis/5,),
-          Icon(_starNum < 9 ? Icons.star_outline : _starNum >= 10 ? Icons.star: Icons.star_half,color:  MyColors.white,/*: MyColors.gray,*/ size: raduis/5,),
-        ],
-      ),
       decoration: BoxDecoration(
         color: MyColors.mainColor,
         borderRadius: BorderRadius.circular(raduis/7),
       ),
+      //alignment: Alignment.center,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(starNum < 1 ? Icons.star_outline : starNum >= 2  ? Icons.star: Icons.star_half,color:  MyColors.white,/*: MyColors.gray,*/ size: raduis/5,),
+          Icon(starNum < 3 ? Icons.star_outline : starNum >= 4  ? Icons.star: Icons.star_half,color:  MyColors.white,/*: MyColors.gray,*/ size: raduis/5,),
+          Icon(starNum < 5 ? Icons.star_outline : starNum >= 6  ? Icons.star: Icons.star_half,color:  MyColors.white,/*: MyColors.gray,*/ size: raduis/5,),
+          Icon(starNum < 7 ? Icons.star_outline : starNum >= 8  ? Icons.star: Icons.star_half,color:  MyColors.white,/*: MyColors.gray,*/ size: raduis/5,),
+          Icon(starNum < 9 ? Icons.star_outline : starNum >= 10 ? Icons.star: Icons.star_half,color:  MyColors.white,/*: MyColors.gray,*/ size: raduis/5,),
+        ],
+      ),
     );
   }
 
-  userInfoProfile(_topBar, hSpace, curve, Function() setState){
+  userInfoProfile(topBar, hSpace, curve, Function() setState){
     nameController.text = userInfo['name'];
     mobileController.text = userInfo['mobile']; //userInfo['mobile'];
     cityController.text = userInfo['city']['name']; //userInfo['city'];
     _selectImageProfile() async {
-      final ImagePicker _picker = ImagePicker();
-      final XFile? xFile = await _picker.pickImage(source: ImageSource.gallery, imageQuality: 30, maxWidth: 2000, maxHeight: 2000);
+      final ImagePicker picker = ImagePicker();
+      final XFile? xFile = await picker.pickImage(source: ImageSource.gallery, imageQuality: 30, maxWidth: 2000, maxHeight: 2000);
       path = xFile!.path;
       print(path);
       image = FileImage(File(path!));
@@ -1309,8 +1300,8 @@ class MyWidget{
         //mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _topBar,
-          SizedBox(height: 3,),
+          topBar,
+          const SizedBox(height: 3,),
           Expanded(
             child: ListView(
             children: [
@@ -1325,6 +1316,8 @@ class MyWidget{
                       radius: MediaQuery.of(context).size.width/5,
                     ),*/
                     SizedBox(
+                      width: MediaQuery.of(context).size.width/2,
+                      height: MediaQuery.of(context).size.width/5*2,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -1345,8 +1338,6 @@ class MyWidget{
                           //iconButton(hSpace, 'assets/images/user.svg', () => _selectImageProfile())
                         ],
                       ),
-                      width: MediaQuery.of(context).size.width/2,
-                      height: MediaQuery.of(context).size.width/5*2,
                     )
                   ],
                 ),
@@ -1386,8 +1377,8 @@ class MyWidget{
     );
     if (result != null) {
       PlatformFile file = result.files.first;
-      final bytes = await File(file.path!).readAsBytesSync();
-      String vbase= await base64Encode(bytes);
+      final bytes = File(file.path!).readAsBytesSync();
+      String vbase= base64Encode(bytes);
       print(file.name);
       print(file.bytes);
       print(file.size);
@@ -1423,7 +1414,7 @@ class MyWidget{
                   backgroundColor: MyColors.mainColor,
                 ),*/
                 decoration: BoxDecoration(
-                    image: DecorationImage(image: toolImage == null || toolImage == ''? AssetImage("assets/images/background.png") : NetworkImage(toolImage) as ImageProvider, fit: BoxFit.contain),
+                    image: DecorationImage(image: toolImage == null || toolImage == ''? const AssetImage("assets/images/background.png") : NetworkImage(toolImage) as ImageProvider, fit: BoxFit.contain),
                   //color: containerColor.withOpacity(0.8),
                   /*boxShadow: [
             BoxShadow(
@@ -1447,13 +1438,13 @@ class MyWidget{
                 backgroundImage: logo.toString().endsWith(' ')
                     ? const AssetImage('assets/images/Logo1.png') as ImageProvider
                     : NetworkImage(logo),
+                radius: raduis,
+                backgroundColor: Colors.transparent,
                 child: ClipOval(
                   child: logo == null
                       ? Image.asset('assets/images/Logo1.png')
                       : Image.network(logo, width: raduis*2, height: raduis*2, fit: BoxFit.cover,),
                 ),
-                radius: raduis,
-                backgroundColor: Colors.transparent,
               ),
             ),
           ],
@@ -1483,29 +1474,6 @@ class MyWidget{
                 //alignment: Alignment.bottomRight,
                 margin: EdgeInsets.only(top: raduis/3,left: raduis/4, right: raduis/4),
                 padding: EdgeInsets.only(top:curve/2),
-                child: Column(
-                  children: [
-                    CircleAvatar(
-                      backgroundImage: exhibtionLogo.toString().endsWith(' ')
-                          ? const AssetImage('assets/images/Logo1.png') as ImageProvider
-                          : NetworkImage(exhibtionLogo),
-                      child: ClipOval(
-                        child: exhibtionLogo == null
-                            ? Image.asset('assets/images/Logo1.png')
-                            : Image.network(exhibtionLogo, width: raduis*2, height: raduis*2, fit: BoxFit.cover,),
-                      ),
-                      radius: raduis,
-                      backgroundColor: Colors.transparent,
-                    ),
-                    headText(companyName.toString(),color: MyColors.black, scale: scale*0.6, maxLine: 2, paddingV: MediaQuery.of(context).size.height/80,),
-                    headText(toolName /*+ AppLocalizations.of(context)!.translate(' Kit ') + disacount.toString() + ' % ' + AppLocalizations.of(context)!.translate('OFF')*/,scale: 0.45*scale, maxLine: 2,  paddingH: raduis/4, color: MyColors.bodyText1),
-                    SizedBox(height: curve/4,),
-                    SizedBox(width: MediaQuery.of(context).size.width/4,
-                    child: raisedButton(curve, MediaQuery.of(context).size.width/4.5, AppLocalizations.of(context)!.translate('Visit'), 'assets/images/ic_street_view.svg', ()=>click(), iconHight: curve/1.4 ,height: MediaQuery.of(context).size.height/16),
-                    ),
-                    SizedBox(height: curve/4,),
-                  ],
-                ),
                 decoration: BoxDecoration(
                   /*image: DecorationImage(image: toolImage == null || toolImage == ''? AssetImage("assets/images/background.png") : NetworkImage(toolImage) as ImageProvider, fit: BoxFit.contain),*/
                   color: MyColors.white,
@@ -1523,6 +1491,29 @@ class MyWidget{
                     style: BorderStyle.solid,
                   ),
                   borderRadius: BorderRadius.circular(curve*scale),
+                ),
+                child: Column(
+                  children: [
+                    CircleAvatar(
+                      backgroundImage: exhibtionLogo.toString().endsWith(' ')
+                          ? const AssetImage('assets/images/Logo1.png') as ImageProvider
+                          : NetworkImage(exhibtionLogo),
+                      radius: raduis,
+                      backgroundColor: Colors.transparent,
+                      child: ClipOval(
+                        child: exhibtionLogo == null
+                            ? Image.asset('assets/images/Logo1.png')
+                            : Image.network(exhibtionLogo, width: raduis*2, height: raduis*2, fit: BoxFit.cover,),
+                      ),
+                    ),
+                    headText(companyName.toString(),color: MyColors.black, scale: scale*0.6, maxLine: 2, paddingV: MediaQuery.of(context).size.height/80,),
+                    headText(toolName /*+ AppLocalizations.of(context)!.translate(' Kit ') + disacount.toString() + ' % ' + AppLocalizations.of(context)!.translate('OFF')*/,scale: 0.45*scale, maxLine: 2,  paddingH: raduis/4, color: MyColors.bodyText1),
+                    SizedBox(height: curve/4,),
+                    SizedBox(width: MediaQuery.of(context).size.width/4,
+                    child: raisedButton(curve, MediaQuery.of(context).size.width/4.5, AppLocalizations.of(context)!.translate('Visit'), 'assets/images/ic_street_view.svg', ()=>click(), iconHight: curve/1.4 ,height: MediaQuery.of(context).size.height/16),
+                    ),
+                    SizedBox(height: curve/4,),
+                  ],
                 ),
               ),
             ),
@@ -1563,7 +1554,7 @@ class MyWidget{
                   backgroundColor: MyColors.mainColor,
                 ),*/
               decoration: BoxDecoration(
-                image: DecorationImage(image: toolImage == null || toolImage == ''? AssetImage("assets/images/background.png") : NetworkImage(toolImage) as ImageProvider, fit: BoxFit.cover),
+                image: DecorationImage(image: toolImage == null || toolImage == ''? const AssetImage("assets/images/background.png") : NetworkImage(toolImage) as ImageProvider, fit: BoxFit.cover),
               ),
             ),
           Padding(
@@ -1571,7 +1562,7 @@ class MyWidget{
             child: Row(
               children: [
                 headText(companyName ,scale: 0.7*scale, maxLine: 2, paddingV: MediaQuery.of(context).size.height/100, paddingH: raduis/4),
-                Expanded(child: Center()),
+                const Expanded(child: Center()),
                 IconButton(
                     onPressed: ()=> launchWhatsApp(phone: phone, message: message, context: context),
                     icon: SvgPicture.asset('assets/images/whatsapp.svg'),
@@ -1623,7 +1614,7 @@ class MyWidget{
                   backgroundColor: MyColors.mainColor,
                 ),*/
               decoration: BoxDecoration(
-                image: DecorationImage(image: toolImage == null || toolImage == ''? AssetImage("assets/images/background.png") : NetworkImage(toolImage) as ImageProvider, fit: BoxFit.contain),
+                image: DecorationImage(image: toolImage == null || toolImage == ''? const AssetImage("assets/images/background.png") : NetworkImage(toolImage) as ImageProvider, fit: BoxFit.contain),
               ),
             ),
           SizedBox(height: curve/2,),
@@ -1725,7 +1716,7 @@ class MyWidget{
     }
   }
   viewFile(httpString){
-    if(httpString == 'null'|| httpString == '') return SizedBox();
+    if(httpString == 'null'|| httpString == '') return const SizedBox();
     var type = _typeImage;
     switch (httpString.toString().split('.').last) {
       case 'jpeg':
@@ -1771,7 +1762,7 @@ class MyWidget{
             if(httpString.toString().toLowerCase().contains('http')) return Center(child: PDFViewer(document: doc));
           }catch(e){
             print(e.toString());
-            return SizedBox();
+            return const SizedBox();
           }
         }
       }
@@ -1842,14 +1833,14 @@ class MyWidget{
       decoration: BoxDecoration(
         image: DecorationImage(
           fit: BoxFit.contain,
-          image: image == null || !isPicker? (logo == null ? (!isSupp ? AssetImage('assets/images/profile.png') : AssetImage('assets/images/Logo1.png')) as ImageProvider
+          image: image == null || !isPicker? (logo == null ? (!isSupp ? const AssetImage('assets/images/profile.png') : const AssetImage('assets/images/Logo1.png')) as ImageProvider
               : NetworkImage(logo)) : image as ImageProvider,
         ),
         //color: MyColors.white,
         border: Border.all(color: MyColors.metal, width: width/50),
         //borderRadius: BorderRadius.all(Radius.circular(width/5)),
         shape: BoxShape.circle,
-        boxShadow: isSupp?[BoxShadow(
+        boxShadow: isSupp?[const BoxShadow(
         color: MyColors.black,
         offset: Offset(1, 3),
         blurRadius: 4,
@@ -1860,7 +1851,7 @@ class MyWidget{
     );
   }
 
-  lableValue(_lable, _value){
+  lableValue(lable, value){
     return Padding(
         padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width/40),
       child: Column(
@@ -1873,11 +1864,11 @@ class MyWidget{
             children: [
               Expanded(
                 flex: 3,
-                child: headText(_lable, scale: 0.45, align: TextAlign.start),
+                child: headText(lable, scale: 0.45, align: TextAlign.start),
               ),
               Flexible(
                 flex: 7,
-                child: bodyText1(_value, scale: 1, maxLine: 111, padding: 0.0),
+                child: bodyText1(value, scale: 1, maxLine: 111, padding: 0.0),
               ),
             ],
           ),
@@ -1937,7 +1928,7 @@ class MyWidget{
         );
   }
 
-  selectFromTheListDrop(/*text,*/ curve, controller, Function() press, hintText, firstOpen, _dropDown,{fontSize}){
+  selectFromTheListDrop(/*text,*/ curve, controller, Function() press, hintText, firstOpen, dropDown,{fontSize}){
     var width = MediaQuery.of(context).size.width/1.2;
     fontSize??= MediaQuery.of(context).size.width/25;
     return Stack(
@@ -1950,7 +1941,7 @@ class MyWidget{
                       child: Padding(
                         padding: EdgeInsets.only(top: curve/2, right: curve /*MediaQuery.of(context).size.width/6.5 + MediaQuery.of(context).size.width/50*/, left: curve,),
                         //padding: EdgeInsets.all(0.0),
-                        child: _dropDown,
+                        child: dropDown,
                       ),
                     )
                   ],
@@ -2008,7 +1999,7 @@ class MyWidget{
             padding: EdgeInsets.all(curve/2),
             margin: EdgeInsets.only(bottom: curve, left: 2, right: 2),
             decoration: BoxDecoration(
-                boxShadow: [
+                boxShadow: const [
                   BoxShadow(
                     color: MyColors.black,
                     offset: Offset(0, 0.8),
@@ -2037,7 +2028,7 @@ class MyWidget{
                               padding: EdgeInsets.all(curve/4),
                               //margin: EdgeInsets.only(bottom: curve, left: 2, right: 2),
                               decoration: BoxDecoration(
-                                boxShadow: [
+                                boxShadow: const [
                                   BoxShadow(
                                     color: MyColors.black,
                                     offset: Offset(0, 0.8),
@@ -2192,7 +2183,7 @@ class MyWidget{
             padding: EdgeInsets.all(curve/2),
             margin: EdgeInsets.only(bottom: curve, left: 2, right: 2),
             decoration: BoxDecoration(
-                boxShadow: [
+                boxShadow: const [
                   BoxShadow(
                     color: MyColors.black,
                     offset: Offset(0, 0.8),
@@ -2224,7 +2215,7 @@ class MyWidget{
                                   padding: EdgeInsets.all(curve/4),
                                   //margin: EdgeInsets.only(bottom: curve, left: 2, right: 2),
                                   decoration: BoxDecoration(
-                                    boxShadow: [
+                                    boxShadow: const [
                                       BoxShadow(
                                         color: MyColors.black,
                                         offset: Offset(0, 0.8),
@@ -2277,6 +2268,8 @@ class MyWidget{
                             ),
                             SizedBox(height: hSpace/2,),
                             SizedBox(
+                              height: MediaQuery.of(context).size.width / 15 * 3 +hSpace*2,
+                              width: MediaQuery.of(context).size.width / 5 * 2.8,
                               child: Row(
                                 children: [
                                   Flexible(
@@ -2309,8 +2302,6 @@ class MyWidget{
 
                                 ],
                               ),
-                              height: MediaQuery.of(context).size.width / 15 * 3 +hSpace*2,
-                              width: MediaQuery.of(context).size.width / 5 * 2.8,
                             ),
                           ],
                         ),
@@ -2333,7 +2324,7 @@ class MyWidget{
               padding: EdgeInsets.all(curve/4),
               margin: EdgeInsets.only(bottom: curve, left: 2, right: 2),
               decoration: BoxDecoration(
-                boxShadow: [
+                boxShadow: const [
                   BoxShadow(
                     color: MyColors.black,
                     offset: Offset(0, 0.8),
@@ -2346,7 +2337,7 @@ class MyWidget{
                 BorderRadius.only(bottomLeft: Radius.circular(curve), topRight: Radius.circular(curve/2)),
               ),
               //child: bodyText1('text', color: MyColors.white, padding: 0.01),
-              child: Icon(Icons.delete_forever_outlined, color: MyColors.white),
+              child: const Icon(Icons.delete_forever_outlined, color: MyColors.white),
 
             ),
           ),
@@ -2372,7 +2363,7 @@ class MyWidget{
             padding: EdgeInsets.all(curve/2),
             margin: EdgeInsets.only(bottom: curve, left: MediaQuery.of(context).size.width/50, right: MediaQuery.of(context).size.width/50),
             decoration: BoxDecoration(
-                boxShadow: [
+                boxShadow: const [
                   BoxShadow(
                     color: MyColors.black,
                     offset: Offset(0, 0.8),
@@ -2397,9 +2388,9 @@ class MyWidget{
                           padding: EdgeInsets.only(top: MediaQuery.of(context).size.width / 4.6, right: MediaQuery.of(context).size.width / 47, left: MediaQuery.of(context).size.width / 47),
                           child: Row(
                             children: [
-                              Icon(Icons.person, color: MyColors.white,),
-                              Expanded(child: SizedBox()),
-                              Icon(Icons.remove_red_eye_rounded, color: MyColors.white,),
+                              const Icon(Icons.person, color: MyColors.white,),
+                              const Expanded(child: SizedBox()),
+                              const Icon(Icons.remove_red_eye_rounded, color: MyColors.white,),
                               bodyText1(view, color: MyColors.white, padding: 0.2),
                             ],
                           )
@@ -2412,7 +2403,7 @@ class MyWidget{
                         padding: EdgeInsets.all(curve/4),
                         margin: EdgeInsets.only(bottom: curve*0, left: 2, right: 2),
                         decoration: BoxDecoration(
-                          boxShadow: [
+                          boxShadow: const [
                             BoxShadow(
                               color: MyColors.black,
                               offset: Offset(0, 0.8),
@@ -2427,7 +2418,7 @@ class MyWidget{
                         child: bodyText1(AppLocalizations.of(context)!.translate('New'), color: MyColors.white, padding: MediaQuery.of(context).size.width/80, scale: scale),
                         //child: Icon(Icons.open_with_outlined, color: MyColors.white),
                       ),
-                    ):SizedBox()
+                    ):const SizedBox()
                   ],
                 ),
                 SizedBox(height: vSpace/3,),
@@ -2469,7 +2460,7 @@ class MyWidget{
             padding: EdgeInsets.all(curve/4),
             margin: EdgeInsets.only(bottom: curve, left: MediaQuery.of(context).size.width/50, right: MediaQuery.of(context).size.width/50),
             decoration: BoxDecoration(
-              boxShadow: [
+              boxShadow: const [
                 BoxShadow(
                   color: MyColors.black,
                   offset: Offset(0, 0.8),
@@ -2482,7 +2473,7 @@ class MyWidget{
               BorderRadius.only(bottomLeft: Radius.circular(curve), topRight: Radius.circular(curve/2)),
             ),
             //child: bodyText1('text', color: MyColors.white, padding: 0.01),
-            child: Icon(Icons.open_with_outlined, color: MyColors.white),
+            child: const Icon(Icons.open_with_outlined, color: MyColors.white),
           ),
         ),
       ],
@@ -2546,7 +2537,7 @@ class MyWidget{
                   children: [
                     SizedBox(width: hSpace,),
                     iconText("assets/images/ic_price.svg", formatter.format(int.parse(keyPrice.toString())).toString(), MyColors.gray, scale: scale*1.4, imageScale: 0.5, paddingH: 0.1, space: AppWidth.w1),
-                    Spacer(),
+                    const Spacer(),
                     Icon(Icons.remove_red_eye_rounded, color: MyColors.gray,size: curve/1.3,),
                     bodyText1(keyView, color: MyColors.gray, padding: 0.2, scale: scale*1),
                     SizedBox(width: hSpace,),
@@ -2563,7 +2554,7 @@ class MyWidget{
             padding: EdgeInsets.all(curve/4),
             margin: EdgeInsets.only(bottom: curve, left: curve/2, right: curve/2),
             decoration: BoxDecoration(
-              boxShadow: [
+              boxShadow: const [
                 BoxShadow(
                   color: MyColors.black,
                   offset: Offset(0, 0.8),
@@ -2579,7 +2570,7 @@ class MyWidget{
                 isNew? state : AppLocalizations.of(context)!.translate('Sold'),
                 color: MyColors.white, padding: MediaQuery.of(context).size.width/80, scale: scale*1.2),
             //child: Icon(Icons.open_with_outlined, color: MyColors.white),
-          ):SizedBox(),
+          ):const SizedBox(),
         ),
 
         /* Align(

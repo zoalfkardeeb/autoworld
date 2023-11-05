@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 class ImagePath{
   static String accessories = 'assets/images/selectScreen/Accessories.png';
   static String spareParts = 'assets/images/selectScreen/Spare-parts.png';

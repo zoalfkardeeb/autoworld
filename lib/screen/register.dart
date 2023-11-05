@@ -14,7 +14,6 @@ import 'package:automall/screen/verification/verification.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:intl_phone_field/countries.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'dart:async';
 
@@ -189,7 +188,7 @@ class _RegisterState extends State<Register> {
                                 Padding(
                                   padding: EdgeInsets.only(left: MediaQuery.of(context).size.width/10, right: MediaQuery.of(context).size.width/10, top:  MediaQuery.of(context).size.width/20),
                                   child: IntlPhoneField(
-                                    countries: ["QA",],
+                                    countries: const ["QA",],
                                     //keyboardType: TextInputType.number,
                                     //validator: requiredValidator,
                                     invalidNumberMessage: '',
@@ -352,7 +351,7 @@ class _RegisterState extends State<Register> {
           setState(()=> chLogIn = true);
           var res = await myAPI!.login(_emailController.text, _passwordController.text);
           setState(()=> chLogIn = false);
-          if(res){Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SelectScreen(),));
+          if(res){Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const SelectScreen(),));
           }
         }
       }
@@ -620,7 +619,7 @@ class _RegisterState extends State<Register> {
   }
 
   _selectType(){
-    _type(_type, text){
+    _type(type, text){
       return Row(
         mainAxisAlignment: MainAxisAlignment.center,
         //textDirection: TextDirection.rtl,
@@ -629,10 +628,10 @@ class _RegisterState extends State<Register> {
         children: [
           GestureDetector(
             onTap: ()=> setState(() {
-              type = _type;
-              print(_type.toString());
+              type = type;
+              print(type.toString());
             }),
-            child: SvgPicture.asset(type == _type?'assets/images/check.svg':'assets/images/check-not.svg' ,height: MediaQuery.of(context).size.width/13, fit: BoxFit.contain,),
+            child: SvgPicture.asset(type == type?'assets/images/check.svg':'assets/images/check-not.svg' ,height: MediaQuery.of(context).size.width/13, fit: BoxFit.contain,),
           ),
           SizedBox(width: MediaQuery.of(context).size.width/40,),
           Column(
@@ -667,12 +666,12 @@ class _RegisterState extends State<Register> {
     return Row(
       children: [
         Expanded(
-          child: _type(0, AppLocalizations.of(context)!.translate("Customer")),
           flex: 1,
+          child: _type(0, AppLocalizations.of(context)!.translate("Customer")),
         ),
         Expanded(
-          child: _type(1, AppLocalizations.of(context)!.translate("Supplier")),
           flex: 1,
+          child: _type(1, AppLocalizations.of(context)!.translate("Supplier")),
         ),
       ],
     );

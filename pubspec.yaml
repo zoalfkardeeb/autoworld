@@ -57,18 +57,18 @@ dependencies:
   #firebase_phone_auth_handler: ^1.0.1
   shared_preferences: ^2.0.13
   form_field_validator: ^1.1.0
-  http: ^0.13.4
+  http: ^1.1.0
   double_back_to_close_app: ^2.1.0
   dio: ^5.1.2
   another_flushbar: ^1.10.29
-  flutter_facebook_auth: ^5.0.11
+  flutter_facebook_auth: ^6.0.2
   toggle_switch: ^2.0.1
   google_sign_in: ^6.1.2
   progress_indicators: ^1.0.0
   gradient_progress_indicator: ^1.0.0+5
   #flutter_email_sender: ^5.1.0
   mailer: ^6.0.1
-  enhanced_drop_down: ^0.2.0+2
+  #enhanced_drop_down: ^0.2.0+2
   image_picker: ^0.8.7+5
   simple_tooltip: ^1.0.0
   date_format: ^2.0.6

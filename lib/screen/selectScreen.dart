@@ -1,33 +1,30 @@
 // ignore_for_file: file_names
 import 'package:automall/api.dart';
-import 'package:automall/constant/app_size.dart';
 import 'package:automall/constant/color/MyColors.dart';
 
 import 'package:automall/const.dart';
 import 'package:automall/constant/images/imagePath.dart';
 import 'package:automall/localizations.dart';
 import 'package:automall/screen/BrandScreen.dart';
-import 'package:automall/screen/CarRentOffers.dart';
 import 'package:automall/screen/companyOffersScreen.dart';
 import 'package:automall/screen/garageBody.dart';
 import 'package:automall/screen/suplierScreen.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../MyWidget.dart';
 import 'dart:io';
 
-import 'carKey/BoardSelect.dart';
 import 'carKey/FeaturedBoards.dart';
 import 'carSell/CarForSeller.dart';
 import '../helper/boxes.dart';
 import 'exhibtion/ExhibtionScreen.dart';
-import 'garageCountry.dart';
 // ignore: camel_case_types
 
 class SelectScreen extends StatefulWidget {
+  const SelectScreen({Key? key}) : super(key: key);
+
   @override
   _SelectScreenState createState() => _SelectScreenState();
 }
@@ -69,7 +66,7 @@ class _SelectScreenState extends State<SelectScreen> {
                         Navigator.pop(context);
                       }),
                     },
-                    child: Icon(
+                    child: const Icon(
                       Icons.check,
                       color: MyColors.mainColor,
                     ))
@@ -138,7 +135,7 @@ class _SelectScreenState extends State<SelectScreen> {
               height: MediaQuery.of(context).size.height*(1-bottomConRatio),
               width: double.infinity,
               alignment: Alignment.topCenter,
-              padding: EdgeInsets.only(
+              padding: const EdgeInsets.only(
                 //left: MediaQuery.of(context).size.width/20,
                 //right: MediaQuery.of(context).size.width/20,
                 //top: MediaQuery.of(context).size.height / 40,
@@ -149,7 +146,7 @@ class _SelectScreenState extends State<SelectScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   _topBar(curve),
-                  SizedBox(height: 3,),
+                  const SizedBox(height: 3,),
                   Expanded(
                     flex: 1,
                       child: GridView.builder(
@@ -222,7 +219,7 @@ class _SelectScreenState extends State<SelectScreen> {
       decoration: BoxDecoration(
         color: MyColors.topCon,
         borderRadius: BorderRadius.only(bottomLeft: Radius.circular(curve), bottomRight: Radius.circular(curve)),
-        boxShadow: [BoxShadow(
+        boxShadow: const [BoxShadow(
           color: MyColors.black,
           offset: Offset(0, 1),
           blurRadius: 4,
@@ -289,7 +286,7 @@ class _SelectScreenState extends State<SelectScreen> {
       Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) =>  CarForSeller(),
+            builder: (context) =>  const CarForSeller(),
           ));
       return;
 //      await MyAPI(context: context).getGarageBrands();
@@ -321,7 +318,7 @@ class _SelectScreenState extends State<SelectScreen> {
       Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) =>  CompanyOffersScreen(),
+            builder: (context) =>  const CompanyOffersScreen(),
           )
       );
 
@@ -338,7 +335,7 @@ class _SelectScreenState extends State<SelectScreen> {
       Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) =>  ExhibtionScreen(),
+            builder: (context) =>  const ExhibtionScreen(),
           )
       );
 
@@ -458,8 +455,8 @@ class _SelectScreenState extends State<SelectScreen> {
   String? path ;
 
   _selectImageProfile() async {
-    final ImagePicker _picker = ImagePicker();
-    final XFile? xFile = await _picker.pickImage(source: ImageSource.gallery);
+    final ImagePicker picker = ImagePicker();
+    final XFile? xFile = await picker.pickImage(source: ImageSource.gallery);
     path = xFile!.path;
     print(path);
     setState(

@@ -1,12 +1,8 @@
 import 'dart:io';
 
-import 'package:automall/constant/color/MyColors.dart';
-import 'package:automall/eShop/eShopMainScreen.dart';
-import 'package:automall/screen/verification/verification.dart';
 import 'package:go_router/go_router.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:automall/screen/SplachScreen.dart';
-import 'package:automall/screen/singnIn.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -15,11 +11,8 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:intl/intl.dart';
 //import 'boxes.dart';
-import 'const.dart';
 import 'localizations.dart';
 //import 'model/transaction.dart';
 
@@ -58,7 +51,7 @@ showNotification(channelId, channelName, id, title, body, payload) async{
 
 showNotificationDateTime(channelId, channelName, id, title, body, payload, Duration duration) async{
   var initializationSettingsAndroid = const AndroidInitializationSettings('flutter_devs');
-  var initializationSettingsIOs = DarwinInitializationSettings();
+  var initializationSettingsIOs = const DarwinInitializationSettings();
   var initSetttings = InitializationSettings(
       android: initializationSettingsAndroid, iOS: initializationSettingsIOs);
   flutterLocalNotificationsPlugin.initialize(initSetttings);
@@ -184,7 +177,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             primarySwatch: Colors.red,
           ),
-          home: EShopMainScreen(title: "Our E.shop",),//SplashScreen(),
+          home: /*EShopMainScreen(title: "Our E.shop",),*/const SplashScreen(),
           routes: const {
           },
         );

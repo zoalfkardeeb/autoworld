@@ -15,10 +15,8 @@ import 'package:automall/constant/color/MyColors.dart';
 //import '../const.dart';
 import '../../const.dart';
 import '../../localizations.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:device_info_plus/device_info_plus.dart';
 class AddSellCarScreen extends StatefulWidget {
-  AddSellCarScreen({Key? key, }) : super(key: key);
+  const AddSellCarScreen({Key? key, }) : super(key: key);
 
   @override
   _AddSellCarScreenState createState() => _AddSellCarScreenState();
@@ -98,7 +96,7 @@ class _AddSellCarScreenState extends State<AddSellCarScreen> {
       _showDialogForSubmit();
     };
     }
-    var _br = 0.1;
+    var br = 0.1;
     return Scaffold(
       resizeToAvoidBottomInset: true,
       backgroundColor: Colors.grey[100],
@@ -110,7 +108,7 @@ class _AddSellCarScreenState extends State<AddSellCarScreen> {
           Align(
             alignment: Alignment.topCenter,
             child: Container(
-              height: MediaQuery.of(context).size.height*(1-_br),
+              height: MediaQuery.of(context).size.height*(1-br),
               width: double.infinity,
               alignment: Alignment.topCenter,
               padding: EdgeInsets.only(
@@ -226,7 +224,7 @@ class _AddSellCarScreenState extends State<AddSellCarScreen> {
             _m!.bottomContainer(
                 //_m!.mainChildrenBottomContainer(curve, () => _tap(1), () => _tap(2), () => _tap(3), _tapNum),
                 _m!.raisedButton(curve, MediaQuery.of(context).size.width/1.2, AppLocalizations.of(context)!.translate('Submit'), 'assets/images/car.svg', active),
-                curve, bottomConRati: _br)
+                curve, bottomConRati: br)
                 : const SizedBox(height: 0.1,),
           ),
           Align(
@@ -255,7 +253,7 @@ class _AddSellCarScreenState extends State<AddSellCarScreen> {
         decoration: BoxDecoration(
           color: MyColors.topCon,
           borderRadius: BorderRadius.only(bottomLeft: Radius.circular(curve), bottomRight: Radius.circular(curve)),
-          boxShadow: [BoxShadow(
+          boxShadow: const [BoxShadow(
             color: MyColors.black,
             offset: Offset(0, 1),
             blurRadius: 4,
@@ -273,7 +271,7 @@ class _AddSellCarScreenState extends State<AddSellCarScreen> {
                   IconButton(
                     icon: Align(
                       alignment: lng==2? Alignment.centerRight:Alignment.centerLeft,
-                      child: Icon(Icons.arrow_back_ios),
+                      child: const Icon(Icons.arrow_back_ios),
                     ),
                     onPressed: ()=> Navigator.of(context).pop(),
                   ),
@@ -341,8 +339,8 @@ class _AddSellCarScreenState extends State<AddSellCarScreen> {
   _addImage(int index, source) async{
 
     Navigator.of(context).pop();
-    final ImagePicker _picker = ImagePicker();
-    XFile? xFile = await _picker.pickImage(source: source, imageQuality: 50, maxHeight: 1000,maxWidth: 1000);
+    final ImagePicker picker = ImagePicker();
+    XFile? xFile = await picker.pickImage(source: source, imageQuality: 50, maxHeight: 1000,maxWidth: 1000);
 
     path = xFile!.path;
     print(path);
@@ -391,7 +389,7 @@ class _AddSellCarScreenState extends State<AddSellCarScreen> {
       });
       if(add){
         Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => SelectScreen(),),
+          MaterialPageRoute(builder: (context) => const SelectScreen(),),
               (Route<dynamic> route) => false,
         );
       }
@@ -641,7 +639,7 @@ class _AddSellCarScreenState extends State<AddSellCarScreen> {
     }
   }
   _dropDownProductionYear(width, curve){
-    List<String> listType = this.listProductionYear;
+    List<String> listType = listProductionYear;
     for(int i = 1990; i<DateTime.now().year; i++){
       listType.add(i.toString());
     }
@@ -794,7 +792,7 @@ class _AddSellCarScreenState extends State<AddSellCarScreen> {
       title: _m!.bodyText1(title, padding: 0.1, align: TextAlign.start),
       value: alaminumTires,
       shape: const CircleBorder(),
-      checkboxShape: CircleBorder(),
+      checkboxShape: const CircleBorder(),
       onChanged: (newValue) {
         setState(() {
           alaminumTires = newValue!;
@@ -808,7 +806,7 @@ class _AddSellCarScreenState extends State<AddSellCarScreen> {
       title: _m!.bodyText1(title, padding: 0.1, align: TextAlign.start),
       value: roofWindow,
       shape: const CircleBorder(),
-      checkboxShape: CircleBorder(),
+      checkboxShape: const CircleBorder(),
       onChanged: (newValue) {
         setState(() {
           roofWindow = newValue!;
@@ -822,7 +820,7 @@ class _AddSellCarScreenState extends State<AddSellCarScreen> {
       title: _m!.bodyText1(title, padding: 0.1, align: TextAlign.start),
       value: leatherSeats,
       shape: const CircleBorder(),
-      checkboxShape: CircleBorder(),
+      checkboxShape: const CircleBorder(),
       onChanged: (newValue) {
         setState(() {
           leatherSeats = newValue!;
@@ -836,7 +834,7 @@ class _AddSellCarScreenState extends State<AddSellCarScreen> {
       title: _m!.bodyText1(title, padding: 0.1, align: TextAlign.start),
       value: navigationSystem,
       shape: const CircleBorder(),
-      checkboxShape: CircleBorder(),
+      checkboxShape: const CircleBorder(),
       onChanged: (newValue) {
         setState(() {
           navigationSystem = newValue!;
@@ -850,7 +848,7 @@ class _AddSellCarScreenState extends State<AddSellCarScreen> {
       title: _m!.bodyText1(title, padding: 0.1, align: TextAlign.start),
       value: rearScreen,
       shape: const CircleBorder(),
-      checkboxShape: CircleBorder(),
+      checkboxShape: const CircleBorder(),
       onChanged: (newValue) {
         setState(() {
           rearScreen = newValue!;
@@ -864,7 +862,7 @@ class _AddSellCarScreenState extends State<AddSellCarScreen> {
       title: _m!.bodyText1(title, padding: 0.1, align: TextAlign.start),
       value: cameras,
       shape: const CircleBorder(),
-      checkboxShape: CircleBorder(),
+      checkboxShape: const CircleBorder(),
       onChanged: (newValue) {
         setState(() {
           cameras = newValue!;
@@ -882,7 +880,7 @@ class _AddSellCarScreenState extends State<AddSellCarScreen> {
         builder: (BuildContext context) {
           return AlertDialog(
             title: Text(AppLocalizations.of(context)!.translate('Select Year')),
-            content: Container( // Need to use container to add size constraint.
+            content: SizedBox( // Need to use container to add size constraint.
               width: MediaQuery.of(context).size.height/4,
               height: MediaQuery.of(context).size.width/1.2,
               child: YearPicker(
@@ -921,7 +919,7 @@ class _AddSellCarScreenState extends State<AddSellCarScreen> {
     Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) =>  MyCarsForSell(),
+          builder: (context) =>  const MyCarsForSell(),
         ),
     );
   }
