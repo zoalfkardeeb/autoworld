@@ -50,7 +50,7 @@ class _EShopMainScreenState extends State<EShopMainScreen> {
                 maxCrossAxisExtent: AppWidth.w70, // maximum item width
                 mainAxisSpacing: AppWidth.w4, // spacing between rows
                 crossAxisSpacing: AppWidth.w4, // spacing between columns
-                padding: EdgeInsets.symmetric(horizontal: AppWidth.w4),
+                padding: EdgeInsets.symmetric(horizontal: AppWidth.w4, vertical: AppHeight.h2),
                 children: _foundItems.map((item) {
                   return _itemContainer(itemModel: item);
                 }).toList(),
@@ -208,40 +208,77 @@ class _EShopMainScreenState extends State<EShopMainScreen> {
       });
     }
     return Container(
+
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Stack(
             children: [
-              Align(child: Image.network(itemModel.networkImage, fit: BoxFit.cover, height: AppWidth.w30,)),
+              Align(child:
+              Container(
+                  decoration: BoxDecoration(
+                    boxShadow: const [BoxShadow(
+                      color: MyColors.black,
+                      offset: Offset(1, 2),
+                      blurRadius: 4,
+                    )],
+                    color: MyColors.white,
+                    borderRadius: BorderRadius.all(Radius.circular(AppWidth.w2)),
+                    image: DecorationImage(image: NetworkImage(itemModel.networkImage), fit: BoxFit.contain,)
+                  ),
+                  height: AppWidth.w40,
+              ),
+              ),
               Align(alignment: Alignment.topRight,
                   child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: AppWidth.w2),
+                    padding: EdgeInsets.symmetric(horizontal: AppWidth.w2*0),
                     child: IconButton(onPressed: () => addtoFavorite(), icon: Icon(itemModel.isFavorite? Icons.favorite : Icons.favorite_border,color: MyColors.mainColor,)),
-                  )),
+                  ),
+              ),
             ],
           ),
-          MyWidget(context).headText(itemModel.name),
-          MyWidget(context).bodyText1(itemModel.category, padding: 0.0),
-          Container(
-            height: AppHeight.h6,
-            padding: EdgeInsets.symmetric(horizontal: AppWidth.w1),
-            decoration: BoxDecoration(
-              border: Border.all(color: MyColors.black),
-              borderRadius: BorderRadius.all(Radius.circular(AppWidth.w1)),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                IconButton(onPressed: ()=> remove(), icon: Icon(Icons.remove), padding: EdgeInsets.all(0.1)),
-                const VerticalDivider(color: MyColors.black, thickness: 1,),
-                MyWidget(context).headText('${itemModel.amount}'),
-                const VerticalDivider(color: MyColors.black, thickness: 1,),
-                IconButton(onPressed: ()=> add(), icon: Icon(Icons.add), padding: EdgeInsets.all(0.1),),
-              ],
-            ),
+          SizedBox(height: AppWidth.w1,),
+          MyWidget(context).headText(itemModel.name, scale: 0.6),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              MyWidget(context).bodyText1(itemModel.category, padding: 0.0, scale: 0.8),
+              Container(
+                height: AppWidth.w4*1.5,
+                width: AppWidth.w20*1.3,
+                padding: EdgeInsets.symmetric(horizontal: AppWidth.w1),
+                decoration: BoxDecoration(
+                  border: Border.all(color: MyColors.mainColor, width: 1),
+                  borderRadius: BorderRadius.all(Radius.circular(AppWidth.w1)),
+                ),
+                child: itemModel.amount != 0?
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    SizedBox(
+                        width: AppWidth.w5,
+                        height: AppWidth.w5,
+                        child: IconButton(onPressed: ()=> remove(), icon: Icon(Icons.remove,size: AppWidth.w4,color: MyColors.mainColor), padding: EdgeInsets.all(0.1))),
+                    const VerticalDivider(color: MyColors.mainColor, thickness: 1,),
+                    MyWidget(context).headText('${itemModel.amount}', scale: 0.5, color: MyColors.mainColor),
+                    const VerticalDivider(color: MyColors.mainColor, thickness: 1,),
+                    SizedBox(
+                        width: AppWidth.w5,
+                        height: AppWidth.w5,
+                        child: IconButton(onPressed: ()=> add(), icon: Icon(Icons.add, size: AppWidth.w4,color: MyColors.mainColor), padding: EdgeInsets.all(0.1),)),
+                  ],
+                )
+                    :
+                SizedBox(
+                    width: AppWidth.w5,
+                    height: AppWidth.w5,
+                    child: IconButton(onPressed: ()=> add(), icon: Icon(Icons.add, size: AppWidth.w4,color: MyColors.mainColor), padding: EdgeInsets.all(0.1),)),
+
+              ),
+            ],
           ),
-          MyWidget(context).bodyText1('${AppLocalizations.of(context)!.translate('Price')}: ${itemModel.price} ${AppLocalizations.of(context)!.translate('currency')}', padding: 0.0 ),
+          SizedBox(height: AppWidth.w1,),
+          MyWidget(context).headText('${AppLocalizations.of(context)!.translate('Price')}: ${itemModel.price} ${AppLocalizations.of(context)!.translate('currency')}', scale: 0.55, color: MyColors.mainColor),
         ],
       ),
     );

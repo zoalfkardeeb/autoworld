@@ -253,7 +253,7 @@ class _FeaturedBoardsState extends State<FeaturedBoards> {
         decoration: BoxDecoration(
           color: MyColors.topCon,
           borderRadius: BorderRadius.only(bottomLeft: Radius.circular(curve), bottomRight: Radius.circular(curve)),
-            boxShadow: [BoxShadow(
+            boxShadow: const [BoxShadow(
               color: MyColors.black,
               offset: Offset(0, 1),
               blurRadius: 4,
