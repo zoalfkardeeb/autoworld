@@ -131,7 +131,6 @@ void main() async {
     if (message.notification != null) {
       print(message.notification!.body);
       print(message.notification!.title);
-
     }
 
   });
