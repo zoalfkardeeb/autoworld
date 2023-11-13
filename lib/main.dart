@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:go_router/go_router.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:automall/screen/SplachScreen.dart';
 import 'package:flutter/material.dart';
@@ -73,26 +72,6 @@ showNotificationDateTime(channelId, channelName, id, title, body, payload, Durat
       scheduleNotificationDateTime,
       platform, payload: payload);
 }
-
-/// This handles '/' and '/details'.
-final router = GoRouter(
-  routes: [
-    GoRoute(
-      path: '/',
-      builder: (_, __) => Scaffold(
-        appBar: AppBar(title: const Text('Home Screen')),
-      ),
-      routes: [
-        GoRoute(
-          path: 'details',
-          builder: (_, __) => Scaffold(
-            appBar: AppBar(title: const Text('Details Screen')),
-          ),
-        ),
-      ],
-    ),
-  ],
-);
 
 
 Future<void> backgroundHandler(RemoteMessage message) async{

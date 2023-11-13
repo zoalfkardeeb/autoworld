@@ -1,11 +1,16 @@
 // ignore_for_file: file_names
+import 'dart:async';
+
+import 'package:app_links/app_links.dart';
 import 'package:automall/api.dart';
 import 'package:automall/constant/color/MyColors.dart';
 
 import 'package:automall/const.dart';
 import 'package:automall/constant/images/imagePath.dart';
+import 'package:automall/helper/functions.dart';
 import 'package:automall/localizations.dart';
 import 'package:automall/screen/BrandScreen.dart';
+import 'package:automall/screen/carSell/CarSellDetails.dart';
 import 'package:automall/screen/companyOffersScreen.dart';
 import 'package:automall/screen/garageBody.dart';
 import 'package:automall/screen/suplierScreen.dart';
@@ -30,6 +35,8 @@ class SelectScreen extends StatefulWidget {
 }
 
 class _SelectScreenState extends State<SelectScreen> {
+  late AppLinks _appLinks;
+  StreamSubscription<Uri>? _linkSubscription;
   MyWidget? _m;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
 
@@ -40,6 +47,14 @@ class _SelectScreenState extends State<SelectScreen> {
   ImageProvider? image;
 
   var _tapNum = 1;
+
+  @override
+  void dispose() {
+    if(_linkSubscription!=null)_linkSubscription?.cancel();
+    // TODO: implement dispose
+    super.dispose();
+  }
+
   @override
   void initState() {
     // TODO: implement initState
@@ -76,14 +91,46 @@ class _SelectScreenState extends State<SelectScreen> {
 
       //LocalNotificationService.display(message);
     });
-
     _read();
     try{
      _state = cityController.text;
     }catch(e){}
   }
 
+  _launchCarDetailsScreen(String url) async{
+    var id = url.split('/').last;
+    setState(() {
+      pleaseWait = true;
+    });
+    await MyAPI(context: context).getCarSell('');
+    // ignore: use_build_context_synchronously
+    await MyAPI(context: context).getCarModel();
+    await MyAPI(context: context).getBrands();
+    setState(() {
+      pleaseWait = false;
+    });
+    if(carSellsList.isNotEmpty) MyApplication.navigateTo(context, CarSellDetails(indexCarSell: carSellsList.indexWhere((element) => element['id'] == id)));
+  }
+
+  Future<void> _initDeepLinks() async {
+    _appLinks = AppLinks();
+
+    // Check initial link if app was in cold state (terminated)
+    final appLink = await _appLinks.getInitialAppLink();
+    if (appLink != null) {
+      _launchCarDetailsScreen('$appLink');
+      //openAppLink(appLink);
+    }
+
+    // Handle link when app is in warm state (front or background)
+    _linkSubscription = _appLinks.uriLinkStream.listen((uri) {
+      print('onAppLink: $uri');
+      _launchCarDetailsScreen('$uri');
+      //openAppLink(uri);
+    });
+  }
   _read() async {
+    await _initDeepLinks();
     var box = Boxes.getTransactions();
     transactions = box.values.toList();
     if(transactions!.isEmpty) {
