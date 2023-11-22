@@ -7,7 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-
+import 'package:automall/eShop/eShopMainScreen.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hive_flutter/adapters.dart';
@@ -130,6 +130,7 @@ class MyApp extends StatelessWidget {
     ]);
     return ResponsiveSizer(
       builder: (context, orientation, screenType) {
+
         return GetMaterialApp(
           debugShowCheckedModeBanner: false,
           localizationsDelegates: const [
@@ -155,7 +156,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             primarySwatch: Colors.red,
           ),
-          home: /*EShopMainScreen(title: "Our E.shop",),*/const SplashScreen(),
+          home: EShopMainScreen(title: "Our E.shop",),//const SplashScreen(),
           routes: const {
           },
         );

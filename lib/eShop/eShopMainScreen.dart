@@ -4,7 +4,12 @@ import 'package:automall/constant/app_size.dart';
 import 'package:automall/constant/color/MyColors.dart';
 import 'package:automall/eShop/model/categoryModel.dart';
 import 'package:automall/eShop/model/itemModel.dart';
+import 'package:automall/eShop/productDetails.dart';
+import 'package:automall/eShop/shopHelper.dart';
+import 'package:automall/eShop/topBar.dart';
+import 'package:automall/helper/functions.dart';
 import 'package:automall/localizations.dart';
+import 'package:automall/photoView.dart';
 import 'package:flutter/material.dart';
 class EShopMainScreen extends StatefulWidget {
   // ignore: prefer_typing_uninitialized_variables
@@ -25,9 +30,9 @@ class _EShopMainScreenState extends State<EShopMainScreen> {
   ];
 
   final List<ItemModel> _foundItems = [
-    ItemModel(id: 'id1', networkImage: 'https://miro.medium.com/v2/resize:fit:720/format:webp/1*5Y0m9U2bNNttP69AryJMvA.png', isFavorite: true, amount: 0, name: 'name', category: 'category', price: 'price'),
-    ItemModel(id: 'id1', networkImage: 'https://miro.medium.com/v2/resize:fit:720/format:webp/1*5Y0m9U2bNNttP69AryJMvA.png', isFavorite: false, amount: 0, name: 'name', category: 'category', price: 'price'),
-    ItemModel(id: 'id1', networkImage: 'https://miro.medium.com/v2/resize:fit:720/format:webp/1*5Y0m9U2bNNttP69AryJMvA.png', isFavorite: false, amount: 0, name: 'name', category: 'category', price: 'price'),
+    ItemModel(id: 'id1', networkImage: 'https://miro.medium.com/v2/resize:fit:720/format:webp/1*5Y0m9U2bNNttP69AryJMvA.png', isFavorite: true, amount: 0, name: 'name', category: 'category', price: 'price', imageListGallery: [GalarryItems(image: 'https://miro.medium.com/v2/resize:fit:720/format:webp/1*5Y0m9U2bNNttP69AryJMvA.png', id: 0)], model: 'Model', brand: 'Brand', year: 'Year'),
+    ItemModel(id: 'id1', networkImage: 'https://miro.medium.com/v2/resize:fit:720/format:webp/1*5Y0m9U2bNNttP69AryJMvA.png', isFavorite: false, amount: 0, name: 'name', category: 'category', price: 'price', imageListGallery: [GalarryItems(image: 'https://miro.medium.com/v2/resize:fit:720/format:webp/1*5Y0m9U2bNNttP69AryJMvA.png', id: 0)], model: 'Model', brand: 'Brand', year: 'Year'),
+    ItemModel(id: 'id1', networkImage: 'https://miro.medium.com/v2/resize:fit:720/format:webp/1*5Y0m9U2bNNttP69AryJMvA.png', isFavorite: false, amount: 0, name: 'name', category: 'category', price: 'price', imageListGallery: [GalarryItems(image: 'https://miro.medium.com/v2/resize:fit:720/format:webp/1*5Y0m9U2bNNttP69AryJMvA.png', id: 0)], model: 'Model', brand: 'Brand', year: 'Year'),
   ];
   @override
   Widget build(BuildContext context) {
@@ -38,7 +43,7 @@ class _EShopMainScreenState extends State<EShopMainScreen> {
         children:[
           Column(
           children: [
-            _topBar(),
+            TopBarEShop(title: widget.title),
             _search(),
             _horizontalScrolCategory(),
 
@@ -68,40 +73,7 @@ class _EShopMainScreenState extends State<EShopMainScreen> {
     );
   }
 
-  Widget _topBar() {
-    var curve = AppWidth.w4*1.5;
-    return Container(
-        padding: EdgeInsets.symmetric(horizontal: curve, vertical: curve/2),
-        decoration: BoxDecoration(
-          color: MyColors.topCon,
-          borderRadius: BorderRadius.only(bottomLeft: Radius.circular(curve), bottomRight: Radius.circular(curve)),
-          boxShadow: const [BoxShadow(
-            color: MyColors.black,
-            offset: Offset(0, 1),
-            blurRadius: 4,
-          )],
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(height: AppHeight.h4,),
-            Row(
-              children: [
-                MyWidget(context).drawerButton(_scaffoldKey),
-                Expanded(
-                  child: MyWidget(context).titleText1(widget.title),
-                ),
-                _cartIcon(),
-              ],
-            ),
-          ],
-        )
-    );
-  }
 
-  Widget _cartIcon() {
-    return IconButton(onPressed: (){}, icon: const Icon(Icons.shopping_cart_outlined));
-  }
 
   Widget _search() {
     search() async{
@@ -188,49 +160,38 @@ class _EShopMainScreenState extends State<EShopMainScreen> {
   Widget _itemContainer({
    required ItemModel itemModel
   }){
-    addtoFavorite(){
-      setState(() {
-        itemModel.isFavorite = !itemModel.isFavorite;
-      });
-    }
-    remove(){
-      setState(() {
-        if(itemModel.amount>0){
-          itemModel.amount -= 1;
-        }
-      });
-    }
-    add(){
-      setState(() {
-        itemModel.amount += 1;
-      });
-    }
-    return Container(
+    ShopHelper shopHelper = ShopHelper(notify: ()=>setState(() {}), itemModel: itemModel);
 
+
+
+    return Container(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Stack(
             children: [
               Align(child:
-              Container(
-                  decoration: BoxDecoration(
-                    boxShadow: const [BoxShadow(
-                      color: MyColors.black,
-                      offset: Offset(1, 2),
-                      blurRadius: 4,
-                    )],
-                    color: MyColors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(AppWidth.w2)),
-                    image: DecorationImage(image: NetworkImage(itemModel.networkImage), fit: BoxFit.contain,)
-                  ),
-                  height: AppWidth.w40,
+              GestureDetector(
+                onTap:()=>MyApplication.navigateTo(context, ProductDetails(item: itemModel)),
+                child: Container(
+                    decoration: BoxDecoration(
+                      boxShadow: const [BoxShadow(
+                        color: MyColors.black,
+                        offset: Offset(1, 2),
+                        blurRadius: 4,
+                      )],
+                      color: MyColors.white,
+                      borderRadius: BorderRadius.all(Radius.circular(AppWidth.w2)),
+                      image: DecorationImage(image: NetworkImage(itemModel.networkImage), fit: BoxFit.cover,)
+                    ),
+                    height: AppWidth.w40,
+                ),
               ),
               ),
               Align(alignment: Alignment.topRight,
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: AppWidth.w2*0),
-                    child: IconButton(onPressed: () => addtoFavorite(), icon: Icon(itemModel.isFavorite? Icons.favorite : Icons.favorite_border,color: MyColors.mainColor,)),
+                    child: IconButton(onPressed: () =>shopHelper.addToFavorite(), icon: Icon(itemModel.isFavorite? Icons.favorite : Icons.favorite_border,color: MyColors.mainColor,)),
                   ),
               ),
             ],
@@ -256,21 +217,21 @@ class _EShopMainScreenState extends State<EShopMainScreen> {
                     SizedBox(
                         width: AppWidth.w5,
                         height: AppWidth.w5,
-                        child: IconButton(onPressed: ()=> remove(), icon: Icon(Icons.remove,size: AppWidth.w4,color: MyColors.mainColor), padding: const EdgeInsets.all(0.1))),
+                        child: IconButton(onPressed: ()=> shopHelper.removeItem(), icon: Icon(Icons.remove,size: AppWidth.w4,color: MyColors.mainColor), padding: const EdgeInsets.all(0.1))),
                     const VerticalDivider(color: MyColors.mainColor, thickness: 1,),
                     MyWidget(context).headText('${itemModel.amount}', scale: 0.5, color: MyColors.mainColor),
                     const VerticalDivider(color: MyColors.mainColor, thickness: 1,),
                     SizedBox(
                         width: AppWidth.w5,
                         height: AppWidth.w5,
-                        child: IconButton(onPressed: ()=> add(), icon: Icon(Icons.add, size: AppWidth.w4,color: MyColors.mainColor), padding: const EdgeInsets.all(0.1),)),
+                        child: IconButton(onPressed: ()=> shopHelper.addItem(), icon: Icon(Icons.add, size: AppWidth.w4,color: MyColors.mainColor), padding: const EdgeInsets.all(0.1),)),
                   ],
                 )
                     :
                 SizedBox(
                     width: AppWidth.w5,
                     height: AppWidth.w5,
-                    child: IconButton(onPressed: ()=> add(), icon: Icon(Icons.add, size: AppWidth.w4,color: MyColors.mainColor), padding: const EdgeInsets.all(0.1),)),
+                    child: IconButton(onPressed: ()=> shopHelper.addItem(), icon: Icon(Icons.add, size: AppWidth.w4,color: MyColors.mainColor), padding: const EdgeInsets.all(0.1),)),
 
               ),
             ],

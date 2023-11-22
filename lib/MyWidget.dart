@@ -36,6 +36,26 @@ class MyWidget{
   BuildContext context;
   MyWidget(this.context);
 
+  static Widget shadowContainer({required child, width, margin}){
+    margin ??= 0.0;
+    width ??= double.infinity;
+    return Container(
+      width: width,
+      margin: EdgeInsets.symmetric(vertical: AppHeight.h1, horizontal: margin),
+      padding: EdgeInsets.all(AppWidth.w2),
+      decoration:  BoxDecoration(
+        color: MyColors.topCon,
+        boxShadow:const [BoxShadow(
+          color: MyColors.black,
+          offset: Offset(1, 2),
+          blurRadius: 2,
+        )],
+        borderRadius: BorderRadius.all(Radius.circular(AppWidth.w2)),
+      ),
+      child: child,
+    );
+  }
+
   static myNetworkImage(String networkImage, width, hieght){
     return CachedNetworkImage(
       width: width,
@@ -1958,6 +1978,7 @@ class MyWidget{
           crossAxisAlignment: crossAlign,
           children: [
       ClipRRect(
+
       borderRadius: BorderRadius.circular(MediaQuery.of(context).size.width/20),
     child:
     Image.network(netImage,
