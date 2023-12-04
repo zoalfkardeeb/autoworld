@@ -2,6 +2,7 @@ import 'package:automall/MyWidget.dart';
 import 'package:automall/const.dart';
 import 'package:automall/constant/app_size.dart';
 import 'package:automall/constant/color/MyColors.dart';
+import 'package:automall/eShop/filter.dart';
 import 'package:automall/eShop/model/categoryModel.dart';
 import 'package:automall/eShop/model/itemModel.dart';
 import 'package:automall/eShop/productDetails.dart';
@@ -11,6 +12,7 @@ import 'package:automall/helper/functions.dart';
 import 'package:automall/localizations.dart';
 import 'package:automall/photoView.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 class EShopMainScreen extends StatefulWidget {
   // ignore: prefer_typing_uninitialized_variables
   final title;
@@ -19,6 +21,8 @@ class EShopMainScreen extends StatefulWidget {
   @override
   State<EShopMainScreen> createState() => _EShopMainScreenState();
 }
+
+bool showFilter = false, applyFilter = false;
 
 class _EShopMainScreenState extends State<EShopMainScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
@@ -34,6 +38,7 @@ class _EShopMainScreenState extends State<EShopMainScreen> {
     ItemModel(id: 'id1', networkImage: 'https://miro.medium.com/v2/resize:fit:720/format:webp/1*5Y0m9U2bNNttP69AryJMvA.png', isFavorite: false, amount: 0, name: 'name', category: 'category', price: 'price', imageListGallery: [GalarryItems(image: 'https://miro.medium.com/v2/resize:fit:720/format:webp/1*5Y0m9U2bNNttP69AryJMvA.png', id: 0)], model: 'Model', brand: 'Brand', year: 'Year'),
     ItemModel(id: 'id1', networkImage: 'https://miro.medium.com/v2/resize:fit:720/format:webp/1*5Y0m9U2bNNttP69AryJMvA.png', isFavorite: false, amount: 0, name: 'name', category: 'category', price: 'price', imageListGallery: [GalarryItems(image: 'https://miro.medium.com/v2/resize:fit:720/format:webp/1*5Y0m9U2bNNttP69AryJMvA.png', id: 0)], model: 'Model', brand: 'Brand', year: 'Year'),
   ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,19 +49,31 @@ class _EShopMainScreenState extends State<EShopMainScreen> {
           Column(
           children: [
             TopBarEShop(title: widget.title),
-            _search(),
-            _horizontalScrolCategory(),
-
             Expanded(
-              child: GridView.extent(
-                childAspectRatio: AppWidth.w50/AppWidth.w70,
-                maxCrossAxisExtent: AppWidth.w70, // maximum item width
-                mainAxisSpacing: AppWidth.w4, // spacing between rows
-                crossAxisSpacing: AppWidth.w4, // spacing between columns
-                padding: EdgeInsets.symmetric(horizontal: AppWidth.w4, vertical: AppHeight.h2),
-                children: _foundItems.map((item) {
-                  return _itemContainer(itemModel: item);
-                }).toList(),
+              child: Stack(
+                children: [
+                  Column(
+                    children:[
+                      _search(),
+                      _horizontalScrolCategory(),
+                      Flexible(
+                        child: GridView.count(
+                          childAspectRatio: AppWidth.w50/AppWidth.w70,
+                          //maxCrossAxisExtent: AppWidth.w70, // maximum item width
+                          mainAxisSpacing: AppWidth.w4, // spacing between rows
+                          crossAxisSpacing: AppWidth.w4, // spacing between columns
+                          padding: EdgeInsets.symmetric(horizontal: AppWidth.w4, vertical: AppHeight.h2),
+                          crossAxisCount: 2,
+                          children: _foundItems.map((item) {
+                            return _itemContainer(itemModel: item);
+                          }).toList(),
+                        ),
+                      ),
+                    ]
+                  ),
+                  showFilter?
+                  FilterE_shop(notify: () => setState(() {}),).animate().fadeIn(duration: 300.ms):const SizedBox(),
+                ],
               ),
             )
           ],
@@ -73,8 +90,6 @@ class _EShopMainScreenState extends State<EShopMainScreen> {
     );
   }
 
-
-
   Widget _search() {
     search() async{
       if(_searchController.text.length<2){
@@ -86,6 +101,15 @@ class _EShopMainScreenState extends State<EShopMainScreen> {
       _searchController.text = '';
       setState(() {
         pleaseWait = false;
+      });
+    }
+    filter() async{
+      setState(() {
+        if(applyFilter) {
+          applyFilter = false;
+        }else{
+          showFilter = true;
+        }
       });
     }
     return Container(
@@ -103,8 +127,8 @@ class _EShopMainScreenState extends State<EShopMainScreen> {
                 contentPadding: const EdgeInsets.symmetric(vertical: 0.01),
                 suffixIconColor: MyColors.black,
                 prefixIconColor: MyColors.black,
-                prefixIcon: const Icon(Icons.search),
-                suffixIcon: IconButton(onPressed: ()=> search(), icon: const Icon(Icons.list)),
+                prefixIcon:  IconButton(onPressed: ()=> search(), icon: const Icon(Icons.search)),
+                suffixIcon: IconButton(onPressed: ()=> filter(), icon: Icon(applyFilter? Icons.filter_alt_off_outlined : Icons.list)),
                 enabledBorder: OutlineInputBorder(
                   borderRadius:  BorderRadius.all(Radius.circular(AppWidth.w2 * 1.5)),
                   borderSide: const BorderSide(color: MyColors.black),

@@ -121,7 +121,13 @@ class _ProductDetailsState extends State<ProductDetails> {
                   ),
                 ),
               )
-          )
+          ),
+          MyWidget(context).bottomContainer(
+              GestureDetector(
+                   onTap:() => _addToCart(),
+                child: MyWidget(context).bodyText1(AppLocalizations.of(context)!.translate('Add to basket'), color: MyColors.black, scale: 1.4),
+              ),
+              AppWidth.w8, bottomConRati: 0.08, color: MyColors.mainColor)
         ],
       ),
     );
@@ -184,7 +190,7 @@ class _ProductDetailsState extends State<ProductDetails> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(height: AppHeight.h2,),
+        SizedBox(height: AppHeight.h2,width: AppWidth.w4,),
         MyWidget(context).headText(AppLocalizations.of(context)!.translate('Suggestion:'), scale: 0.6),
         Row(
           children: suggestionList.map((e) => MyWidget.shadowContainer(child: Image.network(e.image, height: AppHeight.h10, fit: BoxFit.cover,), width: AppWidth.w24, margin: AppWidth.w2,)).toList(),
@@ -193,4 +199,6 @@ class _ProductDetailsState extends State<ProductDetails> {
     );
 
   }
+
+  _addToCart() {}
 }

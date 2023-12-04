@@ -187,44 +187,47 @@ class _RegisterState extends State<Register> {
                                 _m!.textFiled(curve, MyColors.black, MyColors.white, _fullNameController, AppLocalizations.of(context)!.translate('Full Name'), Icons.person_outline, requiredValidator: requiredValidator, withoutValidator: _firstOpen),
                                 Padding(
                                   padding: EdgeInsets.only(left: MediaQuery.of(context).size.width/10, right: MediaQuery.of(context).size.width/10, top:  MediaQuery.of(context).size.width/20),
-                                  child: IntlPhoneField(
-                                    countries: const ["QA",],
-                                    //keyboardType: TextInputType.number,
-                                    //validator: requiredValidator,
-                                    invalidNumberMessage: '',
-                                    //autovalidateMode: AutovalidateMode.onUserInteraction,
-                                    //controller: phoneController,
-                                    style: TextStyle(color: MyColors.black, fontSize: MediaQuery.of(context).size.width/20),
-                                    decoration: InputDecoration(
-                                      hintText: AppLocalizations.of(context)!.translate('Mobile Number'),
-                                      hintStyle: TextStyle(
-                                        fontSize: MediaQuery.of(context).size.width/25,
-                                        color: MyColors.gray,
-                                      ),
-                                      errorStyle: TextStyle(
-                                          fontSize:MediaQuery.of(context).size.width/24
-                                      ),
-                                      enabledBorder: OutlineInputBorder(
+                                  child: Directionality(
+                                    textDirection: TextDirection.ltr,
+                                    child: IntlPhoneField(
+                                      countries: const ["QA",],
+                                      //keyboardType: TextInputType.number,
+                                      //validator: requiredValidator,
+                                      invalidNumberMessage: '',
+                                      //autovalidateMode: AutovalidateMode.onUserInteraction,
+                                      //controller: phoneController,
+                                      style: TextStyle(color: MyColors.black, fontSize: MediaQuery.of(context).size.width/20),
+                                      decoration: InputDecoration(
+                                        hintText: AppLocalizations.of(context)!.translate('Mobile Number'),
+                                        hintStyle: TextStyle(
+                                          fontSize: MediaQuery.of(context).size.width/25,
+                                          color: MyColors.gray,
+                                        ),
+                                        errorStyle: TextStyle(
+                                            fontSize:MediaQuery.of(context).size.width/24
+                                        ),
+                                        enabledBorder: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(curve/2),
+                                            borderSide: const BorderSide(color: Colors.grey, width: 2)),
+                                        focusedBorder: OutlineInputBorder(
                                           borderRadius: BorderRadius.circular(curve/2),
-                                          borderSide: const BorderSide(color: Colors.grey, width: 2)),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(curve/2),
-                                        borderSide: const BorderSide(color: Colors.grey, width: 2),
+                                          borderSide: const BorderSide(color: Colors.grey, width: 2),
+                                        ),
+                                        errorBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(curve/2),
+                                          borderSide: const BorderSide(color: Colors.red, width: 2),
+                                        ),
+                                        focusedErrorBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(curve/2),
+                                          borderSide: const BorderSide(color: MyColors.red, width: 2),
+                                        ),
                                       ),
-                                      errorBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(curve/2),
-                                        borderSide: const BorderSide(color: Colors.red, width: 2),
-                                      ),
-                                      focusedErrorBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(curve/2),
-                                        borderSide: const BorderSide(color: MyColors.red, width: 2),
-                                      ),
+                                      initialCountryCode: "QA",
+                                      onChanged: (phone) {
+                                        _mobileController.text =  phone.completeNumber;
+                                        print(phone.completeNumber);
+                                      },
                                     ),
-                                    initialCountryCode: "QA",
-                                    onChanged: (phone) {
-                                      _mobileController.text =  phone.completeNumber;
-                                      print(phone.completeNumber);
-                                    },
                                   ),
                                   /* buildContainer(phoneController, AppLocalizations.of(context)!.translate('Phone Number'),
                                       TextInputType.number, requiredValidator,false),*/

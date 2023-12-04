@@ -14,6 +14,7 @@ import 'package:automall/screen/notificationScreen.dart';
 import 'package:automall/screen/resetPassword.dart';
 import 'package:automall/screen/singnIn.dart';
 import 'package:automall/screen/termAndConitions.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:form_field_validator/form_field_validator.dart';
@@ -35,6 +36,8 @@ import 'package:automall/screen/support/support.dart';
 class MyWidget{
   BuildContext context;
   MyWidget(this.context);
+
+
 
   static Widget shadowContainer({required child, width, margin}){
     margin ??= 0.0;
@@ -1024,8 +1027,9 @@ class MyWidget{
       return value == true;
   }
 
-  bottomContainer(child, curve, {bottomConRati,}){
+  bottomContainer(child, curve, {bottomConRati, color}){
     bottomConRati??= bottomConRatio;
+    color??=MyColors.bottomCon;
     if(bottomConRati == 0.0) {
       return const SizedBox(height: 0,);
     } else {
@@ -1036,7 +1040,7 @@ class MyWidget{
       width: double.infinity,
       //padding: EdgeInsets.only(left: MediaQuery.of(context).size.width/20),
       decoration: BoxDecoration(
-          color: MyColors.bottomCon,
+          color: color,
           borderRadius: BorderRadius.only(topLeft: Radius.circular(curve), topRight: Radius.circular(curve)),
          ),
       child: child,
