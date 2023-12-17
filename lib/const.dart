@@ -6,7 +6,10 @@ import 'dart:io';
 
 import 'package:automall/MyWidget.dart';
 import 'package:automall/api.dart';
+import 'package:automall/eShop/model/response/category.dart';
+import 'package:automall/eShop/model/response/productRead.dart';
 import 'package:automall/helper/launchUrlHelper.dart';
+import 'package:automall/model/response/addressRead.dart';
 import 'package:easy_pdf_viewer/easy_pdf_viewer.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -14,7 +17,9 @@ import 'package:url_launcher/url_launcher.dart';
 
 import 'model/transaction.dart';
 import 'helper/boxes.dart';
-
+AddressRead? addressList;
+ProductRead? productList;
+Category? categoryList;
 List listCarType = [{'name':'Sedan' , 'id':1},{'name':'Suv(4x4)' , 'id':2},{'name':'coupe' , 'id':3},];
 List listCarMotorType = [{'name':'Petrol' , 'id':1},{'name':'Diesel' , 'id':2},{'name':'Hybrid' , 'id':3},{'name':'Electrical1' , 'id':4},];
 List listGearBoxCarType = [{'name':'Manual' , 'id':1},{'name':'Automatic' , 'id':2},{'name':'CVT' , 'id':3}];

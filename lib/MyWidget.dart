@@ -9,6 +9,7 @@ import 'package:automall/constant/app_size.dart';
 import 'package:automall/localization_service.dart';
 import 'package:automall/photoView.dart';
 import 'package:automall/screen/SupplierOrder.dart';
+import 'package:automall/screen/address/manageAddress.dart';
 import 'package:automall/screen/carSell/MyCars.dart';
 import 'package:automall/screen/notificationScreen.dart';
 import 'package:automall/screen/resetPassword.dart';
@@ -466,6 +467,21 @@ class MyWidget{
        ),
      );
    }
+   _manageAddress() async{
+     Navigator.of(context).pop();
+     pleaseWait = true;
+     setState();
+     await MyAPI.addressRead();
+     pleaseWait = false;
+     setState();
+     // ignore: use_build_context_synchronously
+     Navigator.push(
+       context,
+       MaterialPageRoute(
+         builder: (context) =>  const ManageAddress(),
+       ),
+     );
+   }
    _language(){
       Widget _no(){
         return IconButton(
@@ -539,6 +555,7 @@ class MyWidget{
                   ),
                   _iconText(()=>_hom(), Icons.home_outlined, AppLocalizations.of(context)!.translate('HOME')),
                   _iconText(()=>_info(), Icons.person_outline, AppLocalizations.of(context)!.translate('Personal info')),
+                  _iconText(()=>_manageAddress(), Icons.location_on_outlined, AppLocalizations.of(context)!.translate('Manage Address')),
                   _iconText(()=>changePassword(()=> _resetPass(() => setState(), scaffoldKey)), Icons.password_outlined, AppLocalizations.of(context)!.translate('Change Password?')),
                   driver(),
                   userInfo['type'] == 0 ? const SizedBox()
@@ -1050,7 +1067,6 @@ class MyWidget{
   }
 
   mainChildrenBottomContainer(curve, Function() clickT1, Function() clickT2, Function() clickT3, tapNumber){
-
     return ToggleSwitch(
       radiusStyle: true,
       animate: true,

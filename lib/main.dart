@@ -78,6 +78,7 @@ Future<void> backgroundHandler(RemoteMessage message) async{
   print(message.data.toString());
   print(message.notification!.title);
 }
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 void main() async {
 
@@ -113,6 +114,7 @@ void main() async {
     }
 
   });
+
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding, );
   runApp(const MyApp());
@@ -130,8 +132,8 @@ class MyApp extends StatelessWidget {
     ]);
     return ResponsiveSizer(
       builder: (context, orientation, screenType) {
-
         return GetMaterialApp(
+          navigatorKey: navigatorKey,
           debugShowCheckedModeBanner: false,
           localizationsDelegates: const [
             AppLocalizations.delegate,
@@ -156,7 +158,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             primarySwatch: Colors.red,
           ),
-          home: EShopMainScreen(title: "Our E.shop",),//const SplashScreen(),
+          home: const SplashScreen(),
           routes: const {
           },
         );

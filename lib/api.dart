@@ -3,6 +3,9 @@
 import 'dart:convert';
 import 'package:another_flushbar/flushbar.dart';
 import 'package:automall/constant/string/Strings.dart';
+import 'package:automall/eShop/model/request/addProduct.dart';
+import 'package:automall/eShop/model/response/category.dart';
+import 'package:automall/model/response/addressRead.dart';
 import 'package:automall/screen/verification/verification.dart';
 import 'package:automall/target.dart';
 import 'package:flutter/material.dart';
@@ -20,9 +23,93 @@ import 'localizations.dart';
 import 'package:mailer/mailer.dart';
 
 import 'screen/singnIn.dart';
+import 'package:automall/eShop/model/response/productRead.dart';
 class MyAPI{
   final _baseUrl = 'https://api.autoworldqa.com';
+  static final baseUrl = 'https://api.autoworldqa.com';
   //final _baseUrl = 'https://automallonline.info';
+
+  static Future<ProductRead?> productRead() async{
+    try{
+      var request = http.Request('GET', Uri.parse('$baseUrl/Products/Products_Read'));
+      http.StreamedResponse response = await request.send();
+      if (response.statusCode == 200) {
+        var r = await response.stream.bytesToString();
+        var _model = productReadFromJson(r);
+        productList = _model;
+        return _model;
+    }
+    else {
+    print(response.reasonPhrase);
+    }
+    }catch(e){
+    }
+    return null;
+  }
+  static Future<AddressRead?> addressRead() async{
+    try{
+      var request = http.Request('GET', Uri.parse('$baseUrl/ProfileAddress/ProfileAddress_Read'));
+      http.StreamedResponse response = await request.send();
+      if (response.statusCode == 200) {
+        var r = await response.stream.bytesToString();
+        var _model = addressReadFromJson(r);
+        addressList = _model;
+        return _model;
+    }
+    else {
+    print(response.reasonPhrase);
+    }
+    }catch(e){
+    }
+    return null;
+  }
+
+  static Future<Category?> categoryRead() async{
+    try{
+      var headers = {
+        'accept': '*/*'
+      };
+      var request = http.Request('GET', Uri.parse('$baseUrl/ProductCategory/ProductCategory_Read'));
+      request.headers.addAll(headers);
+      http.StreamedResponse response = await request.send();
+      if (response.statusCode == 200) {
+        var r = await response.stream.bytesToString();
+        var _model = categoryFromJson(r);
+        categoryList = _model;
+        return _model;
+      }
+      else {
+        print(response.reasonPhrase);
+      }
+    }catch(e){
+      print(e.toString());
+    }
+    return null;
+  }
+
+  static Future<bool> addProduct({required AddProduct product}) async{
+    try{
+      var headers = {
+        'accept': '*/*',
+        'Content-Type': 'application/json'
+      };
+      var request = http.Request('POST', Uri.parse('$baseUrl/PurchaseOrders/PurchaseOrdersProducts_Create'));
+      request.body = json.encode(addProductToJson(product));
+      request.headers.addAll(headers);
+      http.StreamedResponse response = await request.send();
+      if (response.statusCode == 200) {
+        print(await response.stream.bytesToString());
+        return true;
+      }
+      else {
+        print(response.reasonPhrase);
+      }
+
+    }catch(e){
+    }
+    return false;
+  }
+
 
   Future register(name, phone, email, password, cityId, type) async{
     var fcmToken;

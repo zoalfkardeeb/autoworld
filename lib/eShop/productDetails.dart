@@ -74,9 +74,8 @@ class _ProductDetailsState extends State<ProductDetails> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              MyWidget(context).bodyText1(widget.item.category, padding: 0.0, scale: 0.8),
-                              MyWidget(context).bodyText1(widget.item.brand, padding: 0.0, scale: 0.8),
-                              MyWidget(context).bodyText1('${widget.item.model}, ${widget.item.year}', padding: 0.0, scale: 0.8),
+                              MyWidget(context).bodyText1(widget.item.category.text, padding: 0.0, scale: 0.8),
+                              MyWidget(context).bodyText1(widget.item.attributeValues, padding: 0.0, scale: 0.8),
                             ],
                           ),
                           Container(

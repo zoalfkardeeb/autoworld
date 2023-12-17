@@ -18,45 +18,53 @@ class _FilterE_shopState extends State<FilterE_shop> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: MyColors.topCon.withOpacity(0.5),
-      body: Container(
+        backgroundColor: MyColors.topCon.withOpacity(0.6),
+      body: Padding(
         padding: EdgeInsets.only(top: AppHeight.h1),
-        margin: EdgeInsets.only(top: AppHeight.h1, bottom: AppHeight.h50),
-        decoration: BoxDecoration(
-          color: MyColors.topCon,
-        ),
+      //  margin: EdgeInsets.only(top: AppHeight.h1, bottom: AppHeight.h50*0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            MyWidget(context).bodyText1(AppLocalizations.of(context)!.translate('Filter your research to find immediately what you need'), color: MyColors.black, scale: 1.2),
-            SizedBox(height: AppHeight.h1,),
-            dropDown2(['items1', 'items2'], null, "select"),
-            SizedBox(height: AppHeight.h1,),
-            dropDown2(['items1', 'items2'], null, "select"),
-            SizedBox(height: AppHeight.h1,),
-            Padding(
-                padding: EdgeInsets.symmetric(horizontal: AppWidth.w10),
+            Container(
+              padding: EdgeInsets.only(top: AppHeight.h1),
+              decoration: const BoxDecoration(
+                color: MyColors.topCon,
+              ),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  MyWidget(context).bodyText1(AppLocalizations.of(context)!.translate('production Year'), padding: 0.1, color: MyColors.black, scale: 0.85),
-                  Row(
-                    children: [
-                      Flexible(child: dropDown2(['items1', 'items2'], null, "select")),
-                      SizedBox(width: AppWidth.w2,),
-                      Flexible(child: dropDown2(['items1', 'items2'], null, "select")),
-                    ],
+                  MyWidget(context).bodyText1(AppLocalizations.of(context)!.translate('Filter your research to find immediately what you need'), color: MyColors.black, scale: 1.2),
+                  SizedBox(height: AppHeight.h1,),
+                  dropDown2(['items1', 'items2'], null, "select"),
+                  SizedBox(height: AppHeight.h1,),
+                  dropDown2(['items1', 'items2'], null, "select"),
+                  SizedBox(height: AppHeight.h1,),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: AppWidth.w10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        MyWidget(context).bodyText1(AppLocalizations.of(context)!.translate('production Year'), padding: 0.1, color: MyColors.black, scale: 0.85),
+                        Row(
+                          children: [
+                            Flexible(child: dropDown2(['items1', 'items2'], null, "select")),
+                            SizedBox(width: AppWidth.w2,),
+                            Flexible(child: dropDown2(['items1', 'items2'], null, "select")),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
+                  SizedBox(height: AppHeight.h2*1.5,),
+                  MyWidget(context).bottomContainer(
+                      GestureDetector(
+                        onTap:() => _filter(),
+                        child: MyWidget(context).bodyText1(AppLocalizations.of(context)!.translate('Filter My Research'), color: MyColors.black, scale: 1.4),
+                      ),
+                      AppWidth.w8, bottomConRati: 0.07, color: MyColors.mainColor),
                 ],
               ),
             ),
-            SizedBox(height: AppHeight.h2*1.5,),
-            MyWidget(context).bottomContainer(
-                GestureDetector(
-                  onTap:() => _filter(),
-                  child: MyWidget(context).bodyText1(AppLocalizations.of(context)!.translate('Filter My Research'), color: MyColors.black, scale: 1.4),
-                ),
-                AppWidth.w8, bottomConRati: 0.07, color: MyColors.mainColor)
+            SizedBox(height: AppHeight.h50, width: AppWidth.w100, child: GestureDetector(onTap: ()=> _filter(applyfilter: false),),)
           ],
         ),
       ),
@@ -155,9 +163,9 @@ class _FilterE_shopState extends State<FilterE_shop> {
     );
   }
 
-  _filter() {
+  _filter({applyfilter}) {
     showFilter = false;
-    applyFilter = true;
+    applyFilter = applyfilter??true;
     widget.notify();
   }
 }

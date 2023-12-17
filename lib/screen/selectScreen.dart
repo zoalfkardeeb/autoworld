@@ -7,6 +7,7 @@ import 'package:automall/constant/color/MyColors.dart';
 
 import 'package:automall/const.dart';
 import 'package:automall/constant/images/imagePath.dart';
+import 'package:automall/eShop/eShopMainScreen.dart';
 import 'package:automall/helper/functions.dart';
 import 'package:automall/localizations.dart';
 import 'package:automall/screen/BrandScreen.dart';
@@ -51,8 +52,10 @@ class _SelectScreenState extends State<SelectScreen> {
   @override
   void dispose() {
     if(_linkSubscription!=null)_linkSubscription?.cancel();
+
     // TODO: implement dispose
     super.dispose();
+
   }
 
   @override
@@ -155,6 +158,7 @@ class _SelectScreenState extends State<SelectScreen> {
     _m = MyWidget(context);
     imageList.clear();
     imageList.add({'image': ImagePath.spareParts, 'text': AppLocalizations.of(context)!.translate('Spare Parts'), 'id':0});
+    imageList.add({'image': ImagePath.carForSell, 'text': AppLocalizations.of(context)!.translate('E-Shop'), 'id':30});
     imageList.add({'image': ImagePath.carForSell, 'text': AppLocalizations.of(context)!.translate('Car for Sell'), 'id':20});
     imageList.add({'image': ImagePath.garages, 'text': AppLocalizations.of(context)!.translate('Garages'), 'id':1});
     imageList.add({'image': ImagePath.batteriesAndTyres, 'text': AppLocalizations.of(context)!.translate('Batteries & tyres'), 'id':2});
@@ -168,84 +172,87 @@ class _SelectScreenState extends State<SelectScreen> {
     imageList.add({'image': ImagePath.customisation, 'text': AppLocalizations.of(context)!.translate('Customisation'), 'id':10});
     imageList.add({'image': ImagePath.featuredBoards, 'text': AppLocalizations.of(context)!.translate('Featured boards'), 'id':11});
     imageList.add({'image': ImagePath.exhibition, 'text': AppLocalizations.of(context)!.translate('exhibition'), 'id':12});
-    return Scaffold(
-      resizeToAvoidBottomInset: true,
-      backgroundColor: MyColors.topCon,
-      key: _scaffoldKey,
-      //appBar: _m!.appBar(barHight, _scaffoldKey),
-      drawer: _m!.drawer(() => _setState(), ()=> _tap(2), ()=> _tap(1), _scaffoldKey),
-      body: Stack(
-        children: [
-          Align(
-            alignment: Alignment.topCenter,
-            child: Container(
-              height: MediaQuery.of(context).size.height*(1-bottomConRatio),
-              width: double.infinity,
+    return WillPopScope(
+      onWillPop: ()=>_willPop(),
+      child: Scaffold(
+        resizeToAvoidBottomInset: true,
+        backgroundColor: MyColors.topCon,
+        key: _scaffoldKey,
+        //appBar: _m!.appBar(barHight, _scaffoldKey),
+        drawer: _m!.drawer(() => _setState(), ()=> _tap(2), ()=> _tap(1), _scaffoldKey),
+        body: Stack(
+          children: [
+            Align(
               alignment: Alignment.topCenter,
-              padding: const EdgeInsets.only(
-                //left: MediaQuery.of(context).size.width/20,
-                //right: MediaQuery.of(context).size.width/20,
-                //top: MediaQuery.of(context).size.height / 40,
+              child: Container(
+                height: MediaQuery.of(context).size.height*(1-bottomConRatio),
+                width: double.infinity,
+                alignment: Alignment.topCenter,
+                padding: const EdgeInsets.only(
+                  //left: MediaQuery.of(context).size.width/20,
+                  //right: MediaQuery.of(context).size.width/20,
+                  //top: MediaQuery.of(context).size.height / 40,
+                ),
+                child: _tapNum == 1?
+                Column(
+                  //mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    _topBar(curve),
+                    const SizedBox(height: 3,),
+                    Expanded(
+                      flex: 1,
+                        child: GridView.builder(
+                          padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.width/40),
+                          itemCount: imageList.length,
+                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                              childAspectRatio: 0.9,
+                              crossAxisCount: 2),
+                          itemBuilder: (BuildContext context, int index) {
+                            return GestureDetector(
+                              child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Image.asset(imageList[index]['image'], width: MediaQuery.of(context).size.width/2.5, fit: BoxFit.contain,),
+                                    SizedBox(height: hSpace/3,),
+                                    _m!.headText(imageList[index]['text'], scale: 0.5, ),
+                                    SizedBox(height: hSpace/3,),
+                                  ]
+                                //color: MyColors.white,
+                              ),
+                              onTap: () => _selectCard(index),
+                            )
+                              ;
+                          },
+                        ),
+                    ),
+                  ],
+                )
+                    :
+                    _m!.userInfoProfile(_topBar(curve), hSpace, curve, () => _setState()),
               ),
-              child: _tapNum == 1?
-              Column(
-                //mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  _topBar(curve),
-                  const SizedBox(height: 3,),
-                  Expanded(
-                    flex: 1,
-                      child: GridView.builder(
-                        padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.width/40),
-                        itemCount: imageList.length,
-                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                            childAspectRatio: 0.9,
-                            crossAxisCount: 2),
-                        itemBuilder: (BuildContext context, int index) {
-                          return GestureDetector(
-                            child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Image.asset(imageList[index]['image'], width: MediaQuery.of(context).size.width/2.5, fit: BoxFit.contain,),
-                                  SizedBox(height: hSpace/3,),
-                                  _m!.headText(imageList[index]['text'], scale: 0.5, ),
-                                  SizedBox(height: hSpace/3,),
-                                ]
-                              //color: MyColors.white,
-                            ),
-                            onTap: () => _selectCard(index),
-                          )
-                            ;
-                        },
-                      ),
-                  ),
-                ],
-              )
-                  :
-                  _m!.userInfoProfile(_topBar(curve), hSpace, curve, () => _setState()),
             ),
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: MediaQuery
-                .of(context)
-                .viewInsets
-                .bottom == 0 ?
-            _m!.bottomContainer(
-               _m!.mainChildrenBottomContainer(curve, () => _tap(1), () => _tap(2), () => _tap(3), _tapNum),
-                curve)
-                : const SizedBox(height: 0.1,),
-          ),
-          Align(
-            alignment: Alignment.center,
-            child: pleaseWait?
-            _m!.progress()
-                :
-            const SizedBox(),
-          )
-        ],
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: MediaQuery
+                  .of(context)
+                  .viewInsets
+                  .bottom == 0 ?
+              _m!.bottomContainer(
+                 _m!.mainChildrenBottomContainer(curve, () => _tap(1), () => _tap(2), () => _tap(3), _tapNum),
+                  curve)
+                  : const SizedBox(height: 0.1,),
+            ),
+            Align(
+              alignment: Alignment.center,
+              child: pleaseWait?
+              _m!.progress()
+                  :
+              const SizedBox(),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -307,6 +314,20 @@ class _SelectScreenState extends State<SelectScreen> {
 
   _selectCard(index) async{
      //await MyAPI(context: context).getBrandsCountry();
+    if(imageList[index]['text'] == AppLocalizations.of(context)!.translate('E-Shop')) {
+      setState(() {
+        pleaseWait = true;
+      });
+      await Future.wait([
+        MyAPI.productRead(),
+        MyAPI.categoryRead(),
+      ]);
+      setState(() {
+        pleaseWait = false;
+      });
+      MyApplication.navigateTo(context, EShopMainScreen(title: imageList[index]['text'] ));
+      return;
+    }
     if(imageList[index]['text'] == AppLocalizations.of(context)!.translate('Garages')) {
       Navigator.push(
           context,
@@ -470,6 +491,7 @@ class _SelectScreenState extends State<SelectScreen> {
           ));
       return;
     }
+
     else {
       setState(() {
         pleaseWait = true;
@@ -511,6 +533,16 @@ class _SelectScreenState extends State<SelectScreen> {
        image = FileImage(File(path!));
       },
     );
+  }
+
+  _willPop() {
+    if(_tapNum != 1){
+      setState(() {
+        _tapNum = 1;
+      });
+      return;
+    }
+    Navigator.of(context).pop(true);
   }
 
 }

@@ -1,15 +1,18 @@
 import 'package:automall/MyWidget.dart';
+import 'package:automall/api.dart';
 import 'package:automall/const.dart';
 import 'package:automall/constant/app_size.dart';
 import 'package:automall/constant/color/MyColors.dart';
 import 'package:automall/eShop/filter.dart';
 import 'package:automall/eShop/model/categoryModel.dart';
 import 'package:automall/eShop/model/itemModel.dart';
+import 'package:automall/eShop/model/response/productRead.dart';
 import 'package:automall/eShop/productDetails.dart';
 import 'package:automall/eShop/shopHelper.dart';
 import 'package:automall/eShop/topBar.dart';
 import 'package:automall/helper/functions.dart';
 import 'package:automall/localizations.dart';
+import 'package:automall/main.dart';
 import 'package:automall/photoView.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -33,12 +36,17 @@ class _EShopMainScreenState extends State<EShopMainScreen> {
     CategoryModel(id: 'id3', text: 'text'),
   ];
 
-  final List<ItemModel> _foundItems = [
-    ItemModel(id: 'id1', networkImage: 'https://miro.medium.com/v2/resize:fit:720/format:webp/1*5Y0m9U2bNNttP69AryJMvA.png', isFavorite: true, amount: 0, name: 'name', category: 'category', price: 'price', imageListGallery: [GalarryItems(image: 'https://miro.medium.com/v2/resize:fit:720/format:webp/1*5Y0m9U2bNNttP69AryJMvA.png', id: 0)], model: 'Model', brand: 'Brand', year: 'Year'),
-    ItemModel(id: 'id1', networkImage: 'https://miro.medium.com/v2/resize:fit:720/format:webp/1*5Y0m9U2bNNttP69AryJMvA.png', isFavorite: false, amount: 0, name: 'name', category: 'category', price: 'price', imageListGallery: [GalarryItems(image: 'https://miro.medium.com/v2/resize:fit:720/format:webp/1*5Y0m9U2bNNttP69AryJMvA.png', id: 0)], model: 'Model', brand: 'Brand', year: 'Year'),
-    ItemModel(id: 'id1', networkImage: 'https://miro.medium.com/v2/resize:fit:720/format:webp/1*5Y0m9U2bNNttP69AryJMvA.png', isFavorite: false, amount: 0, name: 'name', category: 'category', price: 'price', imageListGallery: [GalarryItems(image: 'https://miro.medium.com/v2/resize:fit:720/format:webp/1*5Y0m9U2bNNttP69AryJMvA.png', id: 0)], model: 'Model', brand: 'Brand', year: 'Year'),
-  ];
+  late List<ItemModel> _foundItems = [
+     ];
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _fillFoundItem();
+    _fillCategory();
+    _searchController.addListener(() {search(); });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,16 +65,19 @@ class _EShopMainScreenState extends State<EShopMainScreen> {
                       _search(),
                       _horizontalScrolCategory(),
                       Flexible(
-                        child: GridView.count(
-                          childAspectRatio: AppWidth.w50/AppWidth.w70,
-                          //maxCrossAxisExtent: AppWidth.w70, // maximum item width
-                          mainAxisSpacing: AppWidth.w4, // spacing between rows
-                          crossAxisSpacing: AppWidth.w4, // spacing between columns
-                          padding: EdgeInsets.symmetric(horizontal: AppWidth.w4, vertical: AppHeight.h2),
-                          crossAxisCount: 2,
-                          children: _foundItems.map((item) {
-                            return _itemContainer(itemModel: item);
-                          }).toList(),
+                        child: RefreshIndicator(
+                          onRefresh: ()=> _pullRefresh(),
+                          child: GridView.count(
+                            childAspectRatio: AppWidth.w50/AppWidth.w80,
+                            //maxCrossAxisExtent: AppWidth.w70, // maximum item width
+                            mainAxisSpacing: AppWidth.w4, // spacing between rows
+                            crossAxisSpacing: AppWidth.w4, // spacing between columns
+                            padding: EdgeInsets.symmetric(horizontal: AppWidth.w4, vertical: AppHeight.h2),
+                            crossAxisCount: 2,
+                            children: _foundItems.map((item) {
+                              return _itemContainer(itemModel: item);
+                            }).toList(),
+                          ),
                         ),
                       ),
                     ]
@@ -89,20 +100,23 @@ class _EShopMainScreenState extends State<EShopMainScreen> {
       ),
     );
   }
-
-  Widget _search() {
-    search() async{
-      if(_searchController.text.length<2){
+  search() async{
+    setState(() {
+      _fillFoundItem();
+      _filterCategory();
+      if(_searchController.text.length<3){
         return;
       }
-      setState(() {
-        pleaseWait = true;
-      });
-      _searchController.text = '';
-      setState(() {
-        pleaseWait = false;
-      });
-    }
+      _foundItems = _foundItems.where((element) =>
+      element.name.toString().toLowerCase().contains(_searchController.text) ||
+          element.attributeValues.toString().toLowerCase().contains(_searchController.text) ||
+          element.category.text.toString().toLowerCase().contains(_searchController.text)
+      ).toList();
+
+    });
+  }
+  Widget _search() {
+
     filter() async{
       setState(() {
         if(applyFilter) {
@@ -134,10 +148,12 @@ class _EShopMainScreenState extends State<EShopMainScreen> {
                   borderSide: const BorderSide(color: MyColors.black),
                 ),
                 border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(AppWidth.w5)),
-                    borderSide: const BorderSide(color: MyColors.mainColor)),
+                    //borderSide: const BorderSide(color: MyColors.mainColor)
+                ),
                 hintText: AppLocalizations.of(context)!.translate('Search'),
                 focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(AppWidth.w5)),
-                    borderSide: const BorderSide(color: MyColors.mainColor)),
+                   // borderSide: const BorderSide(color: MyColors.mainColor)
+                ),
               ),
             ),
           ),
@@ -154,6 +170,7 @@ class _EShopMainScreenState extends State<EShopMainScreen> {
         c.select = false;
       }
       _categoryList.where((element) => element.id == categoryId).first.select = true;
+      _filterCategory();
       setState(() {});
     }
     Widget text({required text, required select, required categoyId}){
@@ -185,9 +202,6 @@ class _EShopMainScreenState extends State<EShopMainScreen> {
    required ItemModel itemModel
   }){
     ShopHelper shopHelper = ShopHelper(notify: ()=>setState(() {}), itemModel: itemModel);
-
-
-
     return Container(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -221,42 +235,45 @@ class _EShopMainScreenState extends State<EShopMainScreen> {
             ],
           ),
           SizedBox(height: AppWidth.w1,),
-          MyWidget(context).headText(itemModel.name, scale: 0.6),
+          MyWidget(context).headText(itemModel.name, scale: 0.55, maxLine: 2, align: TextAlign.start, paddingV: AppHeight.h1/2),
+          MyWidget(context).bodyText1(itemModel.category.text, padding: 0.0, scale: 0.8, maxLine: 2),
+          SizedBox(height: AppHeight.h1,),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              MyWidget(context).bodyText1(itemModel.category, padding: 0.0, scale: 0.8),
-              Container(
-                height: AppWidth.w4*1.5,
-                width: AppWidth.w20*1.3,
-                padding: EdgeInsets.symmetric(horizontal: AppWidth.w1),
-                decoration: BoxDecoration(
-                  border: Border.all(color: MyColors.mainColor, width: 1),
-                  borderRadius: BorderRadius.all(Radius.circular(AppWidth.w1)),
-                ),
-                child: itemModel.amount != 0?
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    SizedBox(
-                        width: AppWidth.w5,
-                        height: AppWidth.w5,
-                        child: IconButton(onPressed: ()=> shopHelper.removeItem(), icon: Icon(Icons.remove,size: AppWidth.w4,color: MyColors.mainColor), padding: const EdgeInsets.all(0.1))),
-                    const VerticalDivider(color: MyColors.mainColor, thickness: 1,),
-                    MyWidget(context).headText('${itemModel.amount}', scale: 0.5, color: MyColors.mainColor),
-                    const VerticalDivider(color: MyColors.mainColor, thickness: 1,),
-                    SizedBox(
-                        width: AppWidth.w5,
-                        height: AppWidth.w5,
-                        child: IconButton(onPressed: ()=> shopHelper.addItem(), icon: Icon(Icons.add, size: AppWidth.w4,color: MyColors.mainColor), padding: const EdgeInsets.all(0.1),)),
-                  ],
-                )
-                    :
-                SizedBox(
-                    width: AppWidth.w5,
-                    height: AppWidth.w5,
-                    child: IconButton(onPressed: ()=> shopHelper.addItem(), icon: Icon(Icons.add, size: AppWidth.w4,color: MyColors.mainColor), padding: const EdgeInsets.all(0.1),)),
+              Expanded(
+                child: Container(
+                  height: AppWidth.w4*1.5,
+                  width: AppWidth.w20*1.3,
+                  padding: EdgeInsets.symmetric(horizontal: AppWidth.w1),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: MyColors.mainColor, width: 1),
+                    borderRadius: BorderRadius.all(Radius.circular(AppWidth.w1)),
+                  ),
+                  child: itemModel.amount != 0?
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      SizedBox(
+                          width: AppWidth.w5,
+                          height: AppWidth.w5,
+                          child: IconButton(onPressed: ()=> shopHelper.removeItem(), icon: Icon(Icons.remove,size: AppWidth.w4,color: MyColors.mainColor), padding: const EdgeInsets.all(0.1))),
+                      const VerticalDivider(color: MyColors.mainColor, thickness: 1,),
+                      MyWidget(context).headText('${itemModel.amount}', scale: 0.5, color: MyColors.mainColor),
+                      const VerticalDivider(color: MyColors.mainColor, thickness: 1,),
+                      SizedBox(
+                          width: AppWidth.w5,
+                          height: AppWidth.w5,
+                          child: IconButton(onPressed: ()=> shopHelper.addItem(), icon: Icon(Icons.add, size: AppWidth.w4,color: MyColors.mainColor), padding: const EdgeInsets.all(0.1),)),
+                    ],
+                  )
+                      :
+                  SizedBox(
+                      width: AppWidth.w5,
+                      height: AppWidth.w5,
+                      child: IconButton(onPressed: ()=> shopHelper.addItem(), icon: Icon(Icons.add, size: AppWidth.w4,color: MyColors.mainColor), padding: const EdgeInsets.all(0.1),)),
 
+                ),
               ),
             ],
           ),
@@ -267,5 +284,68 @@ class _EShopMainScreenState extends State<EShopMainScreen> {
     );
   }
 
+  _pullRefresh() async{
+    await Future.wait([
+      MyAPI.productRead(),
+      MyAPI.categoryRead(),
+    ]);
+    setState(() {
+      pleaseWait = false;
+      _fillCategory();
+      _fillFoundItem();
+    });
+  }
 
+  _fillFoundItem(){
+    checkIsFafourite(productId){
+      return false;
+    }
+    checkAmount(productId){
+      return 0;
+    }
+    getGalaryImages(List<ProductDetailsPic> productDetailsPics){
+      List<GalarryItems> pics = [];
+      for(var picture in productDetailsPics){
+        pics.add(GalarryItems(image: picture.attachment.toString(), id: picture.id!));
+      }
+      return pics;
+
+    }
+    _foundItems.clear();
+    if(productList != null && productList!.data != null){
+      for(var product in productList!.data!){
+        _foundItems.add(ItemModel(
+                id: product.id.toString(),
+                networkImage: product.productDetailsPics![0].attachment!,
+                isFavorite: checkIsFafourite(product.id.toString()),
+                amount: checkAmount(product.id.toString()),
+                name: product.products!.name.toString(),
+                category: CategoryModel(id: product.products!.productCategory!.id.toString(), text: product.products!.productCategory!.name!) ,
+                price: product.price.toString(),
+                imageListGallery: getGalaryImages(product.productDetailsPics!),
+                attributeValues: product.attributeValues,
+              description: product.products!.description,
+            ));
+      }
+    }
+  }
+
+  _fillCategory(){
+    _categoryList.clear();
+    _categoryList.add(CategoryModel(id: '00', text: AppLocalizations.of(navigatorKey.currentContext!)!.translate('All'), select: true));
+    if(categoryList != null && categoryList!.data != null){
+      for( var c in categoryList!.data!){
+        _categoryList.add(CategoryModel(id: c.id.toString(), text: c.name!));
+      }
+    }
+  }
+
+  _filterCategory(){
+    var categoryId = _categoryList.where((element) => element.select).toList()[0].id.toString();
+    if(categoryId != "00"){
+      _foundItems = _foundItems.where((element) => element.category.id == categoryId).toList();
+    }else{
+      _fillFoundItem();
+    }
+  }
 }
