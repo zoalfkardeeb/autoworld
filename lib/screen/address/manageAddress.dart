@@ -2,7 +2,10 @@ import 'package:automall/MyWidget.dart';
 import 'package:automall/const.dart';
 import 'package:automall/constant/app_size.dart';
 import 'package:automall/constant/color/MyColors.dart';
+import 'package:automall/helper/functions.dart';
 import 'package:automall/localizations.dart';
+import 'package:automall/model/request/address.dart';
+import 'package:automall/screen/address/addAddress.dart';
 import 'package:flutter/material.dart';
 class ManageAddress extends StatefulWidget {
   const ManageAddress({Key? key}) : super(key: key);
@@ -122,15 +125,12 @@ class _ManageAddressState extends State<ManageAddress> {
             Row(
               //mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Expanded(
-                  flex: 1,
-                  child: IconButton(
-                    icon: Align(
-                      alignment: lng==2?Alignment.centerRight:Alignment.centerLeft,
-                      child: const Icon(Icons.arrow_back_ios),
-                    ),
-                    onPressed: ()=> Navigator.of(context).pop(),
+                IconButton(
+                  icon: Align(
+                    alignment: lng==2?Alignment.centerRight:Alignment.centerLeft,
+                    child: const Icon(Icons.arrow_back_ios),
                   ),
+                  onPressed: ()=> Navigator.of(context).pop(),
                 ),
                 Expanded(
                   flex: 1,
@@ -142,10 +142,7 @@ class _ManageAddressState extends State<ManageAddress> {
                     ],
                   ),
                 ),
-                Expanded(
-                  flex: 1,
-                  child: _m.notificationButton(),
-                ),
+                _m.notificationButton(),
               ],
             ),
             // SizedBox(height: MediaQuery.of(context).size.height/40,),
@@ -171,14 +168,16 @@ class _ManageAddressState extends State<ManageAddress> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 _m.bodyText1(title, padV: AppHeight.h1/2, padding: AppWidth.w2),
-                IconButton(onPressed: ()=> _editAddress(), icon: const Icon(Icons.edit_outlined, color: MyColors.mainColor,)),
+                IconButton(onPressed: ()=> _editAddress(id), icon: const Icon(Icons.edit_outlined, color: MyColors.mainColor,)),
               ],
             ),
             const Divider(height: 2,),
             Row(
               children: [
                 const Icon(Icons.location_on_outlined, color: MyColors.bottomCon,),
-                _m.bodyText1(notes, scale: 0.8, color: MyColors.bottomCon, align: TextAlign.start, padV: AppHeight.h1/2, padding: 0.1),
+                Expanded(
+                  child: _m.bodyText1(notes, scale: 0.8, color: MyColors.bottomCon, align: TextAlign.start, padV: AppHeight.h1/2, padding: 0.1),
+                ),
               ],
             )
           ],
@@ -186,8 +185,27 @@ class _ManageAddressState extends State<ManageAddress> {
     );
   }
 
-  _editAddress() {}
+  _editAddress(String id) {
+    var address = addressList!.data!.where((element) => element.id == id).toList()[0];
+    MyApplication.navigateToReplace(context,
+        AddAddress(
+            address: AddressRequest(
+                userId: address.userId,
+                id: address.id,
+              appartment: address.appartment,
+              floor: address.floor,
+              building: address.building,
+              title: address.title,
+              notes: address.notes,
+              lat: address.lat.toString(),
+              lng: address.lng.toString(),
+            )
+        )
+    );
+  }
 
-  _addAddress() {}
+  _addAddress() {
+    MyApplication.navigateToReplace(context, AddAddress(address: AddressRequest(userId: userInfo['id'])));
+  }
 
 }

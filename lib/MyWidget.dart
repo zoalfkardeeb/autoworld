@@ -7,8 +7,10 @@ import 'package:automall/constant/font_size.dart';
 import 'package:automall/constant/app_size.dart';
 
 import 'package:automall/localization_service.dart';
+import 'package:automall/model/request/address.dart';
 import 'package:automall/photoView.dart';
 import 'package:automall/screen/SupplierOrder.dart';
+import 'package:automall/screen/address/addAddress.dart';
 import 'package:automall/screen/address/manageAddress.dart';
 import 'package:automall/screen/carSell/MyCars.dart';
 import 'package:automall/screen/notificationScreen.dart';
@@ -108,6 +110,64 @@ class MyWidget{
         ),
       ),
     );
+  }
+
+  textFiledAddress(textController, hintText){
+    return Padding(
+      padding: EdgeInsets.symmetric(
+          vertical:
+          AppHeight.h1,
+          horizontal:
+          AppWidth.w4*1.5),
+      child: Container(
+        // height: FontSize.s18*2.5,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius:
+          BorderRadius.all(Radius.circular(AppWidth.w4/2)),
+        ),
+        child: TextFormField(
+          textAlign: TextAlign.start,
+          obscureText: false,
+          keyboardType: TextInputType.text,
+          controller: textController,
+          autovalidateMode:
+          AutovalidateMode.onUserInteraction,
+          style: TextStyle(
+              fontFamily: 'GESS',
+              color: Colors.black,
+              fontSize: FontSize.s18
+          ),
+          decoration: InputDecoration(
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(
+                  MediaQuery.of(context).size.height / 5),
+              borderSide: const BorderSide(
+                color: Colors.white,
+                width: 2,
+              ),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(
+                  MediaQuery.of(context).size.height / 5),
+              borderSide: const BorderSide(
+                color: Colors.white,
+                width: 2,
+              ),
+            ),
+            filled: true,
+            fillColor: Colors.white,
+            border: InputBorder.none,
+            hintText: hintText,
+            hintStyle: TextStyle(
+              fontFamily: 'GESS',
+              fontSize: FontSize.s16,
+            ),
+          ),
+        ),
+      ),
+    );
+
   }
 
   guestDialog() {
@@ -454,6 +514,10 @@ class MyWidget{
     }
    _yourAds() async{
      Navigator.of(context).pop();
+     if(guestType){
+       guestDialog();
+       return;
+     }
      pleaseWait = true;
      setState();
      await MyAPI(context: context).getCarSellByUserId();
@@ -469,6 +533,10 @@ class MyWidget{
    }
    _manageAddress() async{
      Navigator.of(context).pop();
+     if(guestType){
+       guestDialog();
+       return;
+     }
      pleaseWait = true;
      setState();
      await MyAPI.addressRead();
@@ -478,7 +546,7 @@ class MyWidget{
      Navigator.push(
        context,
        MaterialPageRoute(
-         builder: (context) =>  const ManageAddress(),
+         builder: (context) => (addressList!=null && addressList!.total!>0) ? ManageAddress() : AddAddress(address: AddressRequest(userId: userInfo['id'])),
        ),
      );
    }

@@ -5,6 +5,7 @@ import 'package:another_flushbar/flushbar.dart';
 import 'package:automall/constant/string/Strings.dart';
 import 'package:automall/eShop/model/request/addProduct.dart';
 import 'package:automall/eShop/model/response/category.dart';
+import 'package:automall/model/request/address.dart';
 import 'package:automall/model/response/addressRead.dart';
 import 'package:automall/screen/verification/verification.dart';
 import 'package:automall/target.dart';
@@ -28,6 +29,51 @@ class MyAPI{
   final _baseUrl = 'https://api.autoworldqa.com';
   static final baseUrl = 'https://api.autoworldqa.com';
   //final _baseUrl = 'https://automallonline.info';
+
+  static Future<bool> addAdreess(AddressRequest address) async {
+   try{
+     var headers = {
+       'accept': '*/*',
+       'Content-Type': 'application/json'
+     };
+     var request = http.Request('POST', Uri.parse('$baseUrl/ProfileAddress/ProfileAddress_Create'));
+     request.body = addressRequestToJson(address);
+     request.headers.addAll(headers);
+     http.StreamedResponse response = await request.send();
+     if (response.statusCode == 200) {
+       print(await response.stream.bytesToString());
+       return true;
+     } else {
+       var r = await response.stream.bytesToString();
+       return false;
+     }
+   }catch(e){
+   }
+   return false;
+
+  }
+
+  static Future<bool> updateAddreess(AddressRequest address) async {
+    try{
+      var headers = {
+        'accept': '*/*',
+        'Content-Type': 'application/json'
+      };
+      var request = http.Request('POST', Uri.parse('$baseUrl/ProfileAddress/ProfileAddress_Update'));
+      request.body = addressRequestToJson(address);
+      request.headers.addAll(headers);
+      http.StreamedResponse response = await request.send();
+      if (response.statusCode == 200) {
+        return true;
+      } else {
+        var r = await response.stream.bytesToString();
+        return false;
+      }
+    }catch(e){
+
+    }
+    return false;
+  }
 
   static Future<ProductRead?> productRead() async{
     try{
@@ -60,6 +106,7 @@ class MyAPI{
     print(response.reasonPhrase);
     }
     }catch(e){
+      print(e.toString());
     }
     return null;
   }

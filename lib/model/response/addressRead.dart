@@ -44,8 +44,8 @@ class Datum {
   String? building;
   String? floor;
   String? appartment;
-  int? lat;
-  int? lng;
+  double? lat;
+  double? lng;
   String? title;
 
   Datum({
@@ -69,8 +69,8 @@ class Datum {
     building: json["building"],
     floor: json["floor"],
     appartment: json["appartment"],
-    lat: json["lat"],
-    lng: json["lng"],
+    lat: json["lat"]?.toDouble(),
+    lng: json["lng"]?.toDouble(),
     title: json["title"],
   );
 
@@ -99,7 +99,7 @@ class Users {
   bool? isVerified;
   int? type;
   dynamic dob;
-  dynamic imagePath;
+  String? imagePath;
   dynamic file;
   dynamic eventDate;
   dynamic fbKey;
