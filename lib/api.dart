@@ -5,6 +5,7 @@ import 'package:another_flushbar/flushbar.dart';
 import 'package:automall/constant/string/Strings.dart';
 import 'package:automall/eShop/model/request/addProduct.dart';
 import 'package:automall/eShop/model/response/category.dart';
+import 'package:automall/eShop/model/response/orderRead.dart';
 import 'package:automall/model/request/address.dart';
 import 'package:automall/model/response/addressRead.dart';
 import 'package:automall/screen/verification/verification.dart';
@@ -75,26 +76,10 @@ class MyAPI{
     return false;
   }
 
-  static Future<ProductRead?> productRead() async{
-    try{
-      var request = http.Request('GET', Uri.parse('$baseUrl/Products/Products_Read'));
-      http.StreamedResponse response = await request.send();
-      if (response.statusCode == 200) {
-        var r = await response.stream.bytesToString();
-        var _model = productReadFromJson(r);
-        productList = _model;
-        return _model;
-    }
-    else {
-    print(response.reasonPhrase);
-    }
-    }catch(e){
-    }
-    return null;
-  }
   static Future<AddressRead?> addressRead() async{
     try{
-      var request = http.Request('GET', Uri.parse('$baseUrl/ProfileAddress/ProfileAddress_Read'));
+      var id = userInfo['id'];
+      var request = http.Request('GET', Uri.parse("$baseUrl/ProfileAddress/ProfileAddress_Read?filter=userId~eq~'$id'"));
       http.StreamedResponse response = await request.send();
       if (response.statusCode == 200) {
         var r = await response.stream.bytesToString();
@@ -134,6 +119,24 @@ class MyAPI{
     return null;
   }
 
+  static Future<ProductRead?> productRead() async{
+    try{
+      var request = http.Request('GET', Uri.parse('$baseUrl/Products/Products_Read'));
+      http.StreamedResponse response = await request.send();
+      if (response.statusCode == 200) {
+        var r = await response.stream.bytesToString();
+        var _model = productReadFromJson(r);
+        productList = _model;
+        return _model;
+      }
+      else {
+        print(response.reasonPhrase);
+      }
+    }catch(e){
+    }
+    return null;
+  }
+
   static Future<bool> addProduct({required AddProduct product}) async{
     try{
       var headers = {
@@ -141,7 +144,7 @@ class MyAPI{
         'Content-Type': 'application/json'
       };
       var request = http.Request('POST', Uri.parse('$baseUrl/PurchaseOrders/PurchaseOrdersProducts_Create'));
-      request.body = json.encode(addProductToJson(product));
+      request.body = addProductToJson(product);
       request.headers.addAll(headers);
       http.StreamedResponse response = await request.send();
       if (response.statusCode == 200) {
@@ -151,12 +154,52 @@ class MyAPI{
       else {
         print(response.reasonPhrase);
       }
-
     }catch(e){
     }
     return false;
   }
 
+  static Future<bool> createProduct({required CreateProduct product}) async{
+    try{
+      var headers = {
+        'accept': '*/*',
+        'Content-Type': 'application/json'
+      };
+      var request = http.Request('POST', Uri.parse('$baseUrl/PurchaseOrders/PurchaseOrdersProducts_Create'));
+      request.body = createProductToJson(product);
+      request.headers.addAll(headers);
+      http.StreamedResponse response = await request.send();
+      if (response.statusCode == 200) {
+        print(await response.stream.bytesToString());
+        return true;
+      }
+      else {
+        print(response.reasonPhrase);
+      }
+    }catch(e){
+    }
+    return false;
+  }
+
+  static Future<OrderRead?> purchaseOrderRead() async{
+    try{
+      var id = userInfo['id'];
+      var request = http.Request('GET', Uri.parse("$baseUrl/PurchaseOrders/PurchaseOrders_Read?filter=purchaseOrder.customerId~eq~'$id'"));
+      http.StreamedResponse response = await request.send();
+      if (response.statusCode == 200) {
+        var r = await response.stream.bytesToString();
+        var _model = orderReadFromJson(r);
+        purchaseOrderList = _model;
+        return _model;
+      }
+      else {
+        print(response.reasonPhrase);
+      }
+    }catch(e){
+      print(e.toString());
+    }
+    return null;
+  }
 
   Future register(name, phone, email, password, cityId, type) async{
     var fcmToken;

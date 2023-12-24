@@ -1,6 +1,9 @@
 import 'package:automall/MyWidget.dart';
 import 'package:automall/constant/app_size.dart';
 import 'package:automall/constant/color/MyColors.dart';
+import 'package:automall/eShop/cartScreen.dart';
+import 'package:automall/helper/functions.dart';
+import 'package:automall/main.dart';
 import 'package:flutter/material.dart';
 
 class TopBarEShop extends StatelessWidget {
@@ -39,7 +42,7 @@ class TopBarEShop extends StatelessWidget {
     );
   }
   Widget _cartIcon() {
-    return IconButton(onPressed: (){}, icon: const Icon(Icons.shopping_cart_outlined));
+    return IconButton(onPressed: ()=> MyApplication.navigateTo(navigatorKey.currentContext!, CartScreen()), icon: const Icon(Icons.shopping_cart_outlined));
   }
 
 }

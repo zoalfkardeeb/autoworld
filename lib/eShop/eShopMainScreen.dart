@@ -288,6 +288,7 @@ class _EShopMainScreenState extends State<EShopMainScreen> {
     await Future.wait([
       MyAPI.productRead(),
       MyAPI.categoryRead(),
+      MyAPI.purchaseOrderRead(),
     ]);
     setState(() {
       pleaseWait = false;
@@ -314,6 +315,10 @@ class _EShopMainScreenState extends State<EShopMainScreen> {
     _foundItems.clear();
     if(productList != null && productList!.data != null){
       for(var product in productList!.data!){
+        List<int> purchaseAttributeValueIds = [];
+        for(var pur in product.purchaseAttributeValues!){
+          purchaseAttributeValueIds.add(pur[0].purchaseAttributeValues!.id!);
+        }
         _foundItems.add(ItemModel(
                 id: product.id.toString(),
                 networkImage: product.productDetailsPics![0].attachment!,
@@ -324,7 +329,8 @@ class _EShopMainScreenState extends State<EShopMainScreen> {
                 price: product.price.toString(),
                 imageListGallery: getGalaryImages(product.productDetailsPics!),
                 attributeValues: product.attributeValues,
-              description: product.products!.description,
+                description: product.products!.description,
+                purchaseAttributeValueIds: purchaseAttributeValueIds,
             ));
       }
     }

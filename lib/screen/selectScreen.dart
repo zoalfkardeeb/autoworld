@@ -320,6 +320,7 @@ class _SelectScreenState extends State<SelectScreen> {
       });
       await Future.wait([
         MyAPI.productRead(),
+        MyAPI.purchaseOrderRead(),
         MyAPI.categoryRead(),
       ]);
       setState(() {

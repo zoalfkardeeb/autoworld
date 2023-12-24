@@ -7,6 +7,7 @@ import 'dart:io';
 import 'package:automall/MyWidget.dart';
 import 'package:automall/api.dart';
 import 'package:automall/eShop/model/response/category.dart';
+import 'package:automall/eShop/model/response/orderRead.dart';
 import 'package:automall/eShop/model/response/productRead.dart';
 import 'package:automall/helper/launchUrlHelper.dart';
 import 'package:automall/model/response/addressRead.dart';
@@ -17,6 +18,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import 'model/transaction.dart';
 import 'helper/boxes.dart';
+OrderRead? purchaseOrderList;
 AddressRead? addressList;
 ProductRead? productList;
 Category? categoryList;
