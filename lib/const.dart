@@ -18,7 +18,8 @@ import 'package:url_launcher/url_launcher.dart';
 
 import 'model/transaction.dart';
 import 'helper/boxes.dart';
-OrderRead? purchaseOrderList;
+OrderRead? cartProductList;
+OrderRead? orderProductList;
 AddressRead? addressList;
 ProductRead? productList;
 Category? categoryList;

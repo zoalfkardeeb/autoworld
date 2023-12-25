@@ -68,7 +68,7 @@ class _EShopMainScreenState extends State<EShopMainScreen> {
                         child: RefreshIndicator(
                           onRefresh: ()=> _pullRefresh(),
                           child: GridView.count(
-                            childAspectRatio: AppWidth.w50/AppWidth.w80,
+                            childAspectRatio: AppWidth.w50/AppWidth.w70/1.1,
                             //maxCrossAxisExtent: AppWidth.w70, // maximum item width
                             mainAxisSpacing: AppWidth.w4, // spacing between rows
                             crossAxisSpacing: AppWidth.w4, // spacing between columns
@@ -238,7 +238,7 @@ class _EShopMainScreenState extends State<EShopMainScreen> {
           MyWidget(context).headText(itemModel.name, scale: 0.55, maxLine: 2, align: TextAlign.start, paddingV: AppHeight.h1/2),
           MyWidget(context).bodyText1(itemModel.category.text, padding: 0.0, scale: 0.8, maxLine: 2),
           SizedBox(height: AppHeight.h1,),
-          Row(
+          /*Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Expanded(
@@ -278,6 +278,7 @@ class _EShopMainScreenState extends State<EShopMainScreen> {
             ],
           ),
           SizedBox(height: AppWidth.w1,),
+          */
           MyWidget(context).headText('${AppLocalizations.of(context)!.translate('Price')}: ${itemModel.price} ${AppLocalizations.of(context)!.translate('currency')}', scale: 0.55, color: MyColors.mainColor),
         ],
       ),
@@ -320,6 +321,7 @@ class _EShopMainScreenState extends State<EShopMainScreen> {
           purchaseAttributeValueIds.add(pur[0].purchaseAttributeValues!.id!);
         }
         _foundItems.add(ItemModel(
+                suppliers: product.suppliers!,
                 id: product.id.toString(),
                 networkImage: product.productDetailsPics![0].attachment!,
                 isFavorite: checkIsFafourite(product.id.toString()),

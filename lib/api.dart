@@ -181,16 +181,34 @@ class MyAPI{
     return false;
   }
 
-  static Future<OrderRead?> purchaseOrderRead() async{
+  static Future getOrderProductList() async{
+    orderProductList = await purchaseOrderRead();
+  }
+  
+  static Future getCartProductList() async{
+    cartProductList = await purchaseOrderRead(status: 0);
+  }
+  
+  static Future<OrderRead?> purchaseOrderRead({status}) async{
+    status??= 1;
     try{
       var id = userInfo['id'];
       var request = http.Request('GET', Uri.parse("$baseUrl/PurchaseOrders/PurchaseOrders_Read?filter=purchaseOrder.customerId~eq~'$id'"));
       http.StreamedResponse response = await request.send();
       if (response.statusCode == 200) {
         var r = await response.stream.bytesToString();
-        var _model = orderReadFromJson(r);
-        purchaseOrderList = _model;
-        return _model;
+        var _model1 = orderReadFromJson(r);
+        var _model2 = orderReadFromJson(r);
+        _model1.data = _model1.data!.where((element) => element.status!=0).toList();
+        orderProductList =  _model1;
+        _model2.data!.removeWhere((element) => element.status==0);
+        cartProductList = _model2;
+        if(status == 0){
+          return _model2;
+        }
+        else {
+          return _model1;
+        }
       }
       else {
         print(response.reasonPhrase);

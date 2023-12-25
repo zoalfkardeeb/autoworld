@@ -42,13 +42,14 @@ class MyWidget{
 
 
 
-  static Widget shadowContainer({required child, width, margin}){
+  static Widget shadowContainer({required child, width, margin, padding}){
     margin ??= 0.0;
     width ??= double.infinity;
+    padding ??= AppWidth.w2;
     return Container(
       width: width,
       margin: EdgeInsets.symmetric(vertical: AppHeight.h1, horizontal: margin),
-      padding: EdgeInsets.all(AppWidth.w2),
+      padding: EdgeInsets.all(padding),
       decoration:  BoxDecoration(
         color: MyColors.topCon,
         boxShadow:const [BoxShadow(
@@ -295,11 +296,12 @@ class MyWidget{
     );
   }
 
-  bodyText1(text,{double? scale, padding, padV, maxLine,bool? baseLine, color, align}){
+  bodyText1(text,{double? scale, padding, padV, maxLine,bool? baseLine,bool? underLine, color, align}){
     scale ??= 1.0;
     padding??= MediaQuery.of(context).size.width/20;
     maxLine??=2;
     baseLine??=false;
+    underLine??=false;
     padV??=0.0;
     color??= MyColors.bodyText1;
     align ??= TextAlign.center;
@@ -315,7 +317,7 @@ class MyWidget{
             style: TextStyle(
                 fontSize: MediaQuery.of(context).size.width/25 * scale,
                 color: color,
-                decoration: baseLine? TextDecoration.lineThrough: TextDecoration.none,
+                decoration: baseLine? TextDecoration.lineThrough: underLine? TextDecoration.underline : TextDecoration.none,
                 fontFamily: lng==2?'GESS':'Gotham',
             ),
           ),

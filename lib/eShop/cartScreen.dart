@@ -42,7 +42,7 @@ class _CartScreenState extends State<CartScreen> {
           children:[
             Column(
               children: [
-                TopBarEShop(title: AppLocalizations.of(context)!.translate('Basket')),
+                TopBarEShop(title: AppLocalizations.of(context)!.translate('Basket'), navCart: false,),
                 Expanded(
                   child: Stack(
                     children: [
@@ -52,6 +52,7 @@ class _CartScreenState extends State<CartScreen> {
                               child: RefreshIndicator(
                                 onRefresh: ()=> _pullRefresh(),
                                 child: ListView(
+                                  padding: EdgeInsets.symmetric(horizontal: AppWidth.w4*1.5, vertical: AppHeight.h1),
                                   children: _foundItems.map((item) {
                                     return _itemContainer(itemModel: item);
                                   }).toList(),
@@ -95,16 +96,31 @@ class _CartScreenState extends State<CartScreen> {
     required ItemModel itemModel
   }){
     ShopHelper shopHelper = ShopHelper(notify: ()=>setState(() {}), itemModel: itemModel);
-    return Container(
+    return MyWidget.shadowContainer(
+      padding: 0.0,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Stack(
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(AppWidth.w2)),
+              color: MyColors.mainColor,
+            ),
+            padding: EdgeInsets.symmetric(horizontal: AppWidth.w4),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                MyWidget(context).bodyText1(itemModel.suppliers.fullName??'', padding: 0.0, scale: 0.8, maxLine: 1, color: MyColors.black, underLine: true),
+                IconButton(onPressed: ()=> select(), icon: const Icon(Icons.check_circle, color: MyColors.white,)),
+              ],
+            ),
+          ),
+          Row(
             children: [
-              Align(child:
               GestureDetector(
                 onTap:()=>MyApplication.navigateTo(context, ProductDetails(item: itemModel)),
                 child: Container(
+                  margin: EdgeInsets.all(AppWidth.w2),
                   decoration: BoxDecoration(
                       boxShadow: const [BoxShadow(
                         color: MyColors.black,
@@ -115,29 +131,27 @@ class _CartScreenState extends State<CartScreen> {
                       borderRadius: BorderRadius.all(Radius.circular(AppWidth.w2)),
                       image: DecorationImage(image: NetworkImage(itemModel.networkImage), fit: BoxFit.cover,)
                   ),
-                  height: AppWidth.w40,
+                  height: AppWidth.w24,
+                  width: AppWidth.w24,
                 ),
               ),
-              ),
-              Align(alignment: Alignment.topRight,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: AppWidth.w2*0),
-                  child: IconButton(onPressed: () =>shopHelper.addToFavorite(), icon: Icon(itemModel.isFavorite? Icons.favorite : Icons.favorite_border,color: MyColors.mainColor,)),
+              SizedBox(
+                width: AppWidth.w30,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    MyWidget(context).headText(itemModel.name, scale: 0.55, maxLine: 2, align: TextAlign.start, paddingV: AppHeight.h1/2),
+                    MyWidget(context).bodyText1(itemModel.category.text, padding: 0.0, scale: 0.8, maxLine: 2),
+                    SizedBox(height: AppWidth.w1,),
+                    MyWidget(context).headText('${AppLocalizations.of(context)!.translate('Price')}: ${itemModel.price} ${AppLocalizations.of(context)!.translate('currency')}', scale: 0.5, color: MyColors.mainColor),
+                  ],
                 ),
               ),
-            ],
-          ),
-          SizedBox(height: AppWidth.w1,),
-          MyWidget(context).headText(itemModel.name, scale: 0.55, maxLine: 2, align: TextAlign.start, paddingV: AppHeight.h1/2),
-          MyWidget(context).bodyText1(itemModel.category.text, padding: 0.0, scale: 0.8, maxLine: 2),
-          SizedBox(height: AppHeight.h1,),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
               Expanded(
                 child: Container(
                   height: AppWidth.w4*1.5,
                   width: AppWidth.w20*1.3,
+                  margin: EdgeInsets.symmetric(horizontal: AppWidth.w2),
                   padding: EdgeInsets.symmetric(horizontal: AppWidth.w1),
                   decoration: BoxDecoration(
                     border: Border.all(color: MyColors.mainColor, width: 1),
@@ -170,8 +184,6 @@ class _CartScreenState extends State<CartScreen> {
               ),
             ],
           ),
-          SizedBox(height: AppWidth.w1,),
-          MyWidget(context).headText('${AppLocalizations.of(context)!.translate('Price')}: ${itemModel.price} ${AppLocalizations.of(context)!.translate('currency')}', scale: 0.55, color: MyColors.mainColor),
         ],
       ),
     );
@@ -194,7 +206,7 @@ class _CartScreenState extends State<CartScreen> {
       return false;
     }
     checkAmount(productId){
-      return 0;
+      return 1;
     }
     getGalaryImages(List<ProductDetailsPic> productDetailsPics){
       List<GalarryItems> pics = [];
@@ -205,27 +217,30 @@ class _CartScreenState extends State<CartScreen> {
 
     }
     _foundItems.clear();
-    if(productList != null && productList!.data != null){
-      for(var product in productList!.data!){
+    if(cartProductList != null && cartProductList!.data != null){
+      for(var product in cartProductList!.data!){
         List<int> purchaseAttributeValueIds = [];
-        for(var pur in product.purchaseAttributeValues!){
-          purchaseAttributeValueIds.add(pur[0].purchaseAttributeValues!.id!);
+        for(var pur in product.purchaseOrderProductsAttr!){
+          purchaseAttributeValueIds.add(pur.purchaseAttributeValues!.id!);
         }
         _foundItems.add(ItemModel(
+          suppliers: product.productDetails!.suppliers!,
           id: product.id.toString(),
-          networkImage: product.productDetailsPics![0].attachment!,
+          networkImage: product.productDetails!.productDetailsPics![0].attachment!,
           isFavorite: checkIsFafourite(product.id.toString()),
           amount: checkAmount(product.id.toString()),
-          name: product.products!.name.toString(),
-          category: CategoryModel(id: product.products!.productCategory!.id.toString(), text: product.products!.productCategory!.name!) ,
+          name: product.productDetails!.products!.name.toString(),
+          category: CategoryModel(id: product.productDetails!.products!.productCategory!.id.toString(), text: product.productDetails!.products!.productCategory!.name!) ,
           price: product.price.toString(),
-          imageListGallery: getGalaryImages(product.productDetailsPics!),
-          attributeValues: product.attributeValues,
-          description: product.products!.description,
+          imageListGallery: getGalaryImages(product.productDetails!.productDetailsPics!),
+          attributeValues:" product.attributeValues",
+          description: product.productDetails!.products!.description,
           purchaseAttributeValueIds: purchaseAttributeValueIds,
         ));
       }
     }
   }
+
+  select() {}
 
 }

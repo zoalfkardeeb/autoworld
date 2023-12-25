@@ -1,4 +1,5 @@
 import 'package:automall/MyWidget.dart';
+import 'package:automall/const.dart';
 import 'package:automall/constant/app_size.dart';
 import 'package:automall/constant/color/MyColors.dart';
 import 'package:automall/eShop/cartScreen.dart';
@@ -8,7 +9,11 @@ import 'package:flutter/material.dart';
 
 class TopBarEShop extends StatelessWidget {
   final title;
-  const TopBarEShop({key, required this.title}): super(key:key);
+  late bool navCart = true;
+  TopBarEShop({key, required this.title, navCart}): super(key:key){
+   navCart??=true;
+   this.navCart = navCart;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +40,7 @@ class TopBarEShop extends StatelessWidget {
                   child: MyWidget(context).titleText1(title),
                 ),
                 _cartIcon(),
+                SizedBox(width: AppWidth.w4,)
               ],
             ),
           ],
@@ -42,7 +48,15 @@ class TopBarEShop extends StatelessWidget {
     );
   }
   Widget _cartIcon() {
-    return IconButton(onPressed: ()=> MyApplication.navigateTo(navigatorKey.currentContext!, CartScreen()), icon: const Icon(Icons.shopping_cart_outlined));
+    return GestureDetector(
+      onTap: ()=> navCart && cartProductList!.data!.length > 0 ? MyApplication.navigateTo(navigatorKey.currentContext!, CartScreen()) : null,
+        child: Column(
+          children: [
+            MyWidget(navigatorKey.currentContext!).bodyText1(cartProductList!.data!.length.toString(), color: MyColors.mainColor, padding: 0.0, padV: 0.0),
+            Icon(Icons.shopping_cart_outlined,),
+          ],
+        ),
+    );
   }
 
 }
