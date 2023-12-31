@@ -9,10 +9,10 @@ class ShopHelper{
   Function() notify;
   ItemModel itemModel;
   ShopHelper({required this.notify, required this.itemModel});
-  addItem() async{
+  addItemToBasket() async{
     pleaseWait = true;
     notify();
-    var result = false;
+    var result = true;
     if(itemModel.amount>0){
       result = await MyAPI.addProduct(product:
       AddProduct(
@@ -36,6 +36,37 @@ class ShopHelper{
       )
       );
     }
+    pleaseWait = false;
+    notify();
+  }
+
+  addItem() async{
+    pleaseWait = true;
+    notify();
+    var result = true;
+/*    if(itemModel.amount>0){
+      result = await MyAPI.addProduct(product:
+      AddProduct(
+        purchaseOrderId: itemModel.purchaseOrderId,
+        price: double.parse(itemModel.price),
+        purchaseOrderProductId: itemModel.purchaseOrderProductId,
+        customerId:userInfo['id'],
+        purchaseAttributeValuesIds: itemModel.purchaseAttributeValueIds,
+        operationType: 1,
+        productDetailsId: int.parse(itemModel.id),
+      )
+      );
+    }else{
+      result = await MyAPI.createProduct(product:
+      CreateProduct(
+        price: double.parse(itemModel.price),
+        customerId:userInfo['id'],
+        purchaseAttributeValuesIds: itemModel.purchaseAttributeValueIds,
+        operationType: 1,
+        productDetailsId: int.parse(itemModel.id),
+      )
+      );
+    }*/
     if(result){
       itemModel.amount += 1;
     }
@@ -43,7 +74,7 @@ class ShopHelper{
     notify();
   }
   removeItem() async{
-    if(itemModel.amount>0){
+    if(itemModel.amount>1){
       itemModel.amount -= 1;
     }
     notify();

@@ -224,6 +224,7 @@ class _CartScreenState extends State<CartScreen> {
           purchaseAttributeValueIds.add(pur.purchaseAttributeValues!.id!);
         }
         _foundItems.add(ItemModel(
+         // purchaseAttributeValues: product.purchaseAttributeValues!,
           suppliers: product.productDetails!.suppliers!,
           id: product.id.toString(),
           networkImage: product.productDetails!.productDetailsPics![0].attachment!,
@@ -234,7 +235,7 @@ class _CartScreenState extends State<CartScreen> {
           price: product.price.toString(),
           imageListGallery: getGalaryImages(product.productDetails!.productDetailsPics!),
           attributeValues:" product.attributeValues",
-          description: product.productDetails!.products!.description,
+         // description: product.productDetails.products..description??"",
           purchaseAttributeValueIds: purchaseAttributeValueIds,
         ));
       }

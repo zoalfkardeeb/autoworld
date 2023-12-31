@@ -68,7 +68,7 @@ class _EShopMainScreenState extends State<EShopMainScreen> {
                         child: RefreshIndicator(
                           onRefresh: ()=> _pullRefresh(),
                           child: GridView.count(
-                            childAspectRatio: AppWidth.w50/AppWidth.w70/1.1,
+                            childAspectRatio: AppWidth.w50/AppWidth.w70/1.05,
                             //maxCrossAxisExtent: AppWidth.w70, // maximum item width
                             mainAxisSpacing: AppWidth.w4, // spacing between rows
                             crossAxisSpacing: AppWidth.w4, // spacing between columns
@@ -290,6 +290,7 @@ class _EShopMainScreenState extends State<EShopMainScreen> {
       MyAPI.productRead(),
       MyAPI.categoryRead(),
       MyAPI.purchaseOrderRead(),
+      MyAPI.brandsReadStore(),
     ]);
     setState(() {
       pleaseWait = false;
@@ -321,17 +322,18 @@ class _EShopMainScreenState extends State<EShopMainScreen> {
           purchaseAttributeValueIds.add(pur[0].purchaseAttributeValues!.id!);
         }
         _foundItems.add(ItemModel(
+                purchaseAttributeValues: product.purchaseAttributeValues!,
                 suppliers: product.suppliers!,
                 id: product.id.toString(),
                 networkImage: product.productDetailsPics![0].attachment!,
                 isFavorite: checkIsFafourite(product.id.toString()),
-                amount: checkAmount(product.id.toString()),
+                amount: 1,
                 name: product.products!.name.toString(),
                 category: CategoryModel(id: product.products!.productCategory!.id.toString(), text: product.products!.productCategory!.name!) ,
                 price: product.price.toString(),
                 imageListGallery: getGalaryImages(product.productDetailsPics!),
                 attributeValues: product.attributeValues,
-                description: product.products!.description,
+                description: product.description??"",
                 purchaseAttributeValueIds: purchaseAttributeValueIds,
             ));
       }

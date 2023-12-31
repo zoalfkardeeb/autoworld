@@ -1,7 +1,9 @@
 import 'package:automall/MyWidget.dart';
 import 'package:automall/constant/app_size.dart';
 import 'package:automall/constant/color/MyColors.dart';
+import 'package:automall/eShop/model/categoryModel.dart';
 import 'package:automall/eShop/model/itemModel.dart';
+import 'package:automall/eShop/model/response/productRead.dart';
 import 'package:automall/eShop/shopHelper.dart';
 import 'package:automall/eShop/topBar.dart';
 import 'package:automall/localizations.dart';
@@ -75,7 +77,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               MyWidget(context).bodyText1(widget.item.category.text, padding: 0.0, scale: 0.8),
-                              MyWidget(context).bodyText1(widget.item.attributeValues, padding: 0.0, scale: 0.8),
+                           //   MyWidget(context).bodyText1(widget.item.attributeValues, padding: 0.0, scale: 0.8),
                             ],
                           ),
                           Container(
@@ -114,6 +116,11 @@ class _ProductDetailsState extends State<ProductDetails> {
                       ),
                       SizedBox(height: AppWidth.w1,),
                       MyWidget(context).headText('${AppLocalizations.of(context)!.translate('Price')}: ${widget.item.price} ${AppLocalizations.of(context)!.translate('currency')}', scale: 0.55, color: MyColors.mainColor),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: widget.item.purchaseAttributeValues!.map((e) => _horizontalScrolAtt(e[0])).toList(),
+                      ),
+                      SizedBox(height: AppHeight.h1,),
                       _description(),
                       _suggestion(),
                     ],
@@ -200,4 +207,50 @@ class _ProductDetailsState extends State<ProductDetails> {
   }
 
   _addToCart() {}
+
+  Widget _horizontalScrolAtt(PurchaseAttributeValue attributeValue) {
+    var textH = attributeValue.purchaseAttributeValues!.purchaseAttribute!.name??'';
+    List<CategoryModel> attributeList = [
+      CategoryModel(id: attributeValue.purchaseAttributeValuesId!.toString(), text: attributeValue.purchaseAttributeValues!.val.toString(), select: true),
+    ];
+    selectAtt({required attributesId}){
+      for(var c in attributeList){
+        c.select = false;
+      }
+      attributeList.where((element) => element.id == attributesId).first.select = true;
+      setState(() {});
+    }
+    Widget text({required text, required select, required attributesId}){
+      return GestureDetector(
+        onTap: () => selectAtt(attributesId: attributesId),
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: AppWidth.w2, vertical: AppWidth.w1),
+          margin: EdgeInsets.symmetric(horizontal: AppWidth.w1),
+          decoration: BoxDecoration(
+              color: select? MyColors.mainColor: MyColors.trans,
+              borderRadius: BorderRadius.all(Radius.circular(AppWidth.w2)),
+              border: Border.all(color: select? MyColors.mainColor: MyColors.trans)
+          ),
+          child: MyWidget(context).headText(text, scale: 0.5, color: select? MyColors.white: MyColors.black, paddingH: 0.0),
+        ),
+      );
+    }
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(height: AppHeight.h1,),
+        MyWidget(context).bodyText1(textH+': ', padding: 0.0),
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Padding(
+            padding:  EdgeInsets.symmetric(horizontal: AppWidth.w4*0),
+            child: Row(
+              children: attributeList.map((e) => text(text: e.text, select: e.select, attributesId: e.id)).toList(),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
 }

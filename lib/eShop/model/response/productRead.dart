@@ -40,17 +40,24 @@ class Datum {
   int? id;
   bool? isActive;
   String? code;
+  int? productId;
+  dynamic description;
+  dynamic arDescription;
+  dynamic brands;
   List<ProductDetailsPic>? productDetailsPics;
   double? price;
   Products? products;
   Suppliers? suppliers;
   List<List<PurchaseAttributeValue>>? purchaseAttributeValues;
   String attributeValues = "";
-
   Datum({
     this.id,
     this.isActive,
     this.code,
+    this.productId,
+    this.description,
+    this.arDescription,
+    this.brands,
     this.productDetailsPics,
     this.price,
     this.products,
@@ -59,7 +66,9 @@ class Datum {
   }){
     if(purchaseAttributeValues!=null){
       for( var att in purchaseAttributeValues!){
-        attributeValues += " ${att[0].purchaseAttributeValues!.val},";
+        for(var a in att){
+          attributeValues += " ${a.purchaseAttributeValues!.val},";
+        }
       }
     }
   }
@@ -68,6 +77,10 @@ class Datum {
     id: json["id"],
     isActive: json["isActive"],
     code: json["code"],
+    productId: json["productId"],
+    description: json["description"],
+    arDescription: json["arDescription"],
+    brands: json["brands"],
     productDetailsPics: json["productDetailsPics"] == null ? [] : List<ProductDetailsPic>.from(json["productDetailsPics"]!.map((x) => ProductDetailsPic.fromJson(x))),
     price: json["price"]+0.0,
     products: json["products"] == null ? null : Products.fromJson(json["products"]),
@@ -79,6 +92,10 @@ class Datum {
     "id": id,
     "isActive": isActive,
     "code": code,
+    "productId": productId,
+    "description": description,
+    "arDescription": arDescription,
+    "brands": brands,
     "productDetailsPics": productDetailsPics == null ? [] : List<dynamic>.from(productDetailsPics!.map((x) => x.toJson())),
     "price": price,
     "products": products?.toJson(),
@@ -119,8 +136,6 @@ class Products {
   int? id;
   String? name;
   String? arName;
-  String? description;
-  String? arDescription;
   int? productCategoryId;
   ProductCategory? productCategory;
 
@@ -128,8 +143,6 @@ class Products {
     this.id,
     this.name,
     this.arName,
-    this.description,
-    this.arDescription,
     this.productCategoryId,
     this.productCategory,
   });
@@ -138,8 +151,6 @@ class Products {
     id: json["id"],
     name: json["name"],
     arName: json["arName"],
-    description: json["description"],
-    arDescription: json["arDescription"],
     productCategoryId: json["productCategoryId"],
     productCategory: json["productCategory"] == null ? null : ProductCategory.fromJson(json["productCategory"]),
   );
@@ -148,8 +159,6 @@ class Products {
     "id": id,
     "name": name,
     "arName": arName,
-    "description": description,
-    "arDescription": arDescription,
     "productCategoryId": productCategoryId,
     "productCategory": productCategory?.toJson(),
   };

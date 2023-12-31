@@ -322,6 +322,7 @@ class _SelectScreenState extends State<SelectScreen> {
         MyAPI.productRead(),
         MyAPI.purchaseOrderRead(),
         MyAPI.categoryRead(),
+        MyAPI.brandsReadStore(),
       ]);
       setState(() {
         pleaseWait = false;

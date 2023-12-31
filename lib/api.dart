@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:another_flushbar/flushbar.dart';
 import 'package:automall/constant/string/Strings.dart';
 import 'package:automall/eShop/model/request/addProduct.dart';
+import 'package:automall/eShop/model/response/brandsRead.dart';
 import 'package:automall/eShop/model/response/category.dart';
 import 'package:automall/eShop/model/response/orderRead.dart';
 import 'package:automall/model/request/address.dart';
@@ -215,6 +216,30 @@ class MyAPI{
       }
     }catch(e){
       print(e.toString());
+    }
+    return null;
+  }
+
+  static Future<BrandsRead?> brandsReadStore({country}) async{
+    try{
+      var headers = {
+        'accept': '*/*'
+      };
+      var request = http.Request('GET', Uri.parse('https://api.autoworldqa.com/Brands/Brands_Read'));
+
+      request.headers.addAll(headers);
+
+      http.StreamedResponse response = await request.send();
+      if(response.statusCode == 200){
+        var r = await response.stream.bytesToString();
+        var _model1 = brandsReadFromJson(r);
+        brandListStore  = _model1;
+        print(r);
+        return _model1;
+      }
+    }
+    catch(e){
+      return null;
     }
     return null;
   }
