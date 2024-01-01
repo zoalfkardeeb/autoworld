@@ -6,6 +6,7 @@ class ImagePath{
   static String carCare = 'assets/images/selectScreen/Car-care.png';
   static String breakDownService = 'assets/images/selectScreen/Breakdown-service.png';
   static String carForSell = 'assets/images/selectScreen/Car-for-sale.png';
+  static String eshope = 'assets/images/selectScreen/eshope.png';
   static String customisation = 'assets/images/selectScreen/Customisation.png';
   static String exhibition = 'assets/images/selectScreen/Exhibition.png';
   static String featuredBoards = 'assets/images/selectScreen/Featured-boards.png';

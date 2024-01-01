@@ -311,9 +311,10 @@ class _BrandScreenState extends State<BrandScreen> {
   }
 
   _selectBrand(index) async{
-    setState(() {
+    _navigate(index, true);
+    /*setState(() {
       (_selectedBrand == index) ? _selectedBrand = 10000000000 : _selectedBrand = index;
-    });
+    });*/
    /* Navigator.push(
         context,
         MaterialPageRoute(
@@ -325,7 +326,8 @@ class _BrandScreenState extends State<BrandScreen> {
     setState(() {
       pleaseWait = true;
     });
-    await MyAPI(context: context).getSupliers(brandList[index]['id'], mainPart, original: original, afterMarket: !original, indexGarage: indexGarage, perBrand: true);
+    if(original == null) await MyAPI(context: context).getSupliers(brandList[index]['id'], mainPart, original: false, afterMarket: false, indexGarage: indexGarage, perBrand: true);
+    else await MyAPI(context: context).getSupliers(brandList[index]['id'], mainPart, original: original, afterMarket: !original, indexGarage: indexGarage, perBrand: true);
     setState(() {
       pleaseWait = false;
       _selectedBrand =1000;

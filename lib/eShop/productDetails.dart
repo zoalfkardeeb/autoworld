@@ -118,7 +118,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                       MyWidget(context).headText('${AppLocalizations.of(context)!.translate('Price')}: ${widget.item.price} ${AppLocalizations.of(context)!.translate('currency')}', scale: 0.55, color: MyColors.mainColor),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: widget.item.purchaseAttributeValues!.map((e) => _horizontalScrolAtt(e[0])).toList(),
+                        children: widget.item.purchaseAttributeValues!.map((e) => _horizontalScrolAtt(e)).toList(),
                       ),
                       SizedBox(height: AppHeight.h1,),
                       _description(),
@@ -208,11 +208,12 @@ class _ProductDetailsState extends State<ProductDetails> {
 
   _addToCart() {}
 
-  Widget _horizontalScrolAtt(PurchaseAttributeValue attributeValue) {
-    var textH = attributeValue.purchaseAttributeValues!.purchaseAttribute!.name??'';
-    List<CategoryModel> attributeList = [
-      CategoryModel(id: attributeValue.purchaseAttributeValuesId!.toString(), text: attributeValue.purchaseAttributeValues!.val.toString(), select: true),
-    ];
+  Widget _horizontalScrolAtt(List<PurchaseAttributeValue> attributeValueList) {
+    var textH = attributeValueList[0].purchaseAttributeValues!.purchaseAttribute!.name??'';
+    List<CategoryModel> attributeList = [];
+    for(var attributeValue in attributeValueList){
+      attributeList.add(CategoryModel(id: attributeValue.purchaseAttributeValuesId!.toString(), text: attributeValue.purchaseAttributeValues!.val.toString(), select: true),);
+    }
     selectAtt({required attributesId}){
       for(var c in attributeList){
         c.select = false;
@@ -252,5 +253,4 @@ class _ProductDetailsState extends State<ProductDetails> {
       ],
     );
   }
-
 }

@@ -158,7 +158,7 @@ class _SelectScreenState extends State<SelectScreen> {
     _m = MyWidget(context);
     imageList.clear();
     imageList.add({'image': ImagePath.spareParts, 'text': AppLocalizations.of(context)!.translate('Spare Parts'), 'id':0});
-    imageList.add({'image': ImagePath.carForSell, 'text': AppLocalizations.of(context)!.translate('E-Shop'), 'id':30});
+    imageList.add({'image': ImagePath.eshope, 'text': AppLocalizations.of(context)!.translate('E-Shop'), 'id':30});
     imageList.add({'image': ImagePath.carForSell, 'text': AppLocalizations.of(context)!.translate('Car for Sell'), 'id':20});
     imageList.add({'image': ImagePath.garages, 'text': AppLocalizations.of(context)!.translate('Garages'), 'id':1});
     imageList.add({'image': ImagePath.batteriesAndTyres, 'text': AppLocalizations.of(context)!.translate('Batteries & tyres'), 'id':2});

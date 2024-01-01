@@ -2,6 +2,10 @@
 //
 //     final productRead = productReadFromJson(jsonString);
 
+// To parse this JSON data, do
+//
+//     final productRead = productReadFromJson(jsonString);
+
 import 'dart:convert';
 
 ProductRead productReadFromJson(String str) => ProductRead.fromJson(json.decode(str));
@@ -41,15 +45,17 @@ class Datum {
   bool? isActive;
   String? code;
   int? productId;
-  dynamic description;
-  dynamic arDescription;
-  dynamic brands;
+  String? description;
+  String? arDescription;
+  int? brandId;
+  Brands? brands;
   List<ProductDetailsPic>? productDetailsPics;
-  double? price;
+  int? price;
   Products? products;
   Suppliers? suppliers;
   List<List<PurchaseAttributeValue>>? purchaseAttributeValues;
   String attributeValues = "";
+
   Datum({
     this.id,
     this.isActive,
@@ -57,6 +63,7 @@ class Datum {
     this.productId,
     this.description,
     this.arDescription,
+    this.brandId,
     this.brands,
     this.productDetailsPics,
     this.price,
@@ -80,9 +87,10 @@ class Datum {
     productId: json["productId"],
     description: json["description"],
     arDescription: json["arDescription"],
-    brands: json["brands"],
+    brandId: json["brandId"],
+    brands: json["brands"] == null ? null : Brands.fromJson(json["brands"]),
     productDetailsPics: json["productDetailsPics"] == null ? [] : List<ProductDetailsPic>.from(json["productDetailsPics"]!.map((x) => ProductDetailsPic.fromJson(x))),
-    price: json["price"]+0.0,
+    price: json["price"],
     products: json["products"] == null ? null : Products.fromJson(json["products"]),
     suppliers: json["suppliers"] == null ? null : Suppliers.fromJson(json["suppliers"]),
     purchaseAttributeValues: json["purchaseAttributeValues"] == null ? [] : List<List<PurchaseAttributeValue>>.from(json["purchaseAttributeValues"]!.map((x) => List<PurchaseAttributeValue>.from(x.map((x) => PurchaseAttributeValue.fromJson(x))))),
@@ -95,12 +103,57 @@ class Datum {
     "productId": productId,
     "description": description,
     "arDescription": arDescription,
-    "brands": brands,
+    "brandId": brandId,
+    "brands": brands?.toJson(),
     "productDetailsPics": productDetailsPics == null ? [] : List<dynamic>.from(productDetailsPics!.map((x) => x.toJson())),
     "price": price,
     "products": products?.toJson(),
     "suppliers": suppliers?.toJson(),
     "purchaseAttributeValues": purchaseAttributeValues == null ? [] : List<dynamic>.from(purchaseAttributeValues!.map((x) => List<dynamic>.from(x.map((x) => x.toJson())))),
+  };
+}
+
+class Brands {
+  int? id;
+  String? name;
+  int? order;
+  int? brandCountryId;
+  dynamic brandsCountry;
+  String? logo;
+  bool? isActive;
+  dynamic arName;
+
+  Brands({
+    this.id,
+    this.name,
+    this.order,
+    this.brandCountryId,
+    this.brandsCountry,
+    this.logo,
+    this.isActive,
+    this.arName,
+  });
+
+  factory Brands.fromJson(Map<String, dynamic> json) => Brands(
+    id: json["id"],
+    name: json["name"],
+    order: json["order"],
+    brandCountryId: json["brandCountryId"],
+    brandsCountry: json["brandsCountry"],
+    logo: json["logo"],
+    isActive: json["isActive"],
+    arName: json["arName"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "name": name,
+    "order": order,
+    "brandCountryId": brandCountryId,
+    "brandsCountry": brandsCountry,
+    "logo": logo,
+    "isActive": isActive,
+    "arName": arName,
   };
 }
 
