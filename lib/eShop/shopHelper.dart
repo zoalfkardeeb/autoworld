@@ -9,11 +9,24 @@ class ShopHelper{
   Function() notify;
   ItemModel itemModel;
   ShopHelper({required this.notify, required this.itemModel});
+  bool checkCartItem(){
+    var check = false;
+    if(cartProductList != null || cartProductList!.data!.length>0){
+      for(var c in cartProductList!.data!){
+        List<int> purchaseAttributeValueIds=[];
+        for(var i in c.purchaseOrderProductsAttr!){
+          purchaseAttributeValueIds.add(i.purchaseAttributeValuesId!);
+        }
+        if(c.id == itemModel.id.toString() && itemModel.purchaseAttributeValueIds == purchaseAttributeValueIds) check = true;
+      }
+    }
+    return check;
+  }
   addItemToBasket() async{
     pleaseWait = true;
     notify();
     var result = true;
-    if(itemModel.amount>0){
+    if(checkCartItem()){
       result = await MyAPI.addProduct(product:
       AddProduct(
         purchaseOrderId: itemModel.purchaseOrderId,
@@ -73,12 +86,14 @@ class ShopHelper{
     pleaseWait = false;
     notify();
   }
+
   removeItem() async{
     if(itemModel.amount>1){
       itemModel.amount -= 1;
     }
     notify();
   }
+
   addToFavorite(){
       itemModel.isFavorite = !itemModel.isFavorite;
     notify();

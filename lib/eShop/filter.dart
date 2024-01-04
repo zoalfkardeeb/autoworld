@@ -1,4 +1,5 @@
 import 'package:automall/MyWidget.dart';
+import 'package:automall/const.dart';
 import 'package:automall/constant/app_size.dart';
 import 'package:automall/constant/color/MyColors.dart';
 import 'package:automall/constant/font_size.dart';
@@ -6,6 +7,7 @@ import 'package:automall/eShop/eShopMainScreen.dart';
 import 'package:automall/localizations.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+
 class FilterE_shop extends StatefulWidget {
   final Function() notify;
   const FilterE_shop({key, required this.notify}) : super(key : key);
@@ -15,6 +17,19 @@ class FilterE_shop extends StatefulWidget {
 }
 
 class _FilterE_shopState extends State<FilterE_shop> {
+
+  late List<Filter> _brand = [];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    selectedBrand = null;
+    for(var v in brandListStore!.data!){
+      _brand.add(Filter(text: v.name!, id: v.id!));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,27 +49,29 @@ class _FilterE_shopState extends State<FilterE_shop> {
                 children: [
                   MyWidget(context).bodyText1(AppLocalizations.of(context)!.translate('Filter your research to find immediately what you need'), color: MyColors.black, scale: 1.2),
                   SizedBox(height: AppHeight.h1,),
-                  dropDown2(['items1', 'items2'], null, "select"),
+                 // dropDown2(['items1', 'items2'], null, "select"),
                   SizedBox(height: AppHeight.h1,),
-                  dropDown2(['items1', 'items2'], null, "select"),
+                  dropDown2(_brand, null, selectedBrand == null? AppLocalizations.of(context)!.translate('Brand') : selectedBrand!.text),
                   SizedBox(height: AppHeight.h1,),
-                  Padding(
+                  /*Padding(
                     padding: EdgeInsets.symmetric(horizontal: AppWidth.w10),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        MyWidget(context).bodyText1(AppLocalizations.of(context)!.translate('production Year'), padding: 0.1, color: MyColors.black, scale: 0.85),
+                  //      MyWidget(context).bodyText1(AppLocalizations.of(context)!.translate('production Year'), padding: 0.1, color: MyColors.black, scale: 0.85),
                         Row(
                           children: [
-                            Flexible(child: dropDown2(['items1', 'items2'], null, "select")),
+                       *//*     Flexible(child: dropDown2(['items1', 'items2'], null, "select")),
                             SizedBox(width: AppWidth.w2,),
                             Flexible(child: dropDown2(['items1', 'items2'], null, "select")),
-                          ],
+                       *//*   ],
                         ),
                       ],
                     ),
                   ),
                   SizedBox(height: AppHeight.h2*1.5,),
+                  */
+                  SizedBox(height: AppHeight.h2),
                   MyWidget(context).bottomContainer(
                       GestureDetector(
                         onTap:() => _filter(),
@@ -71,7 +88,11 @@ class _FilterE_shopState extends State<FilterE_shop> {
     );
   }
 
-  Widget dropDown2(List<String> items, selectedValue,String hintText){
+  Widget dropDown2(List<Filter> filter, selectedValue, String hintText){
+    List<String> items = [];
+    for(var i in filter){
+      items.add(i.text);
+    }
     return DropdownButtonHideUnderline(
       child: DropdownButton2<String>(
         isExpanded: true,
@@ -113,9 +134,8 @@ class _FilterE_shopState extends State<FilterE_shop> {
             .toList(),
         value: selectedValue,
         onChanged: (String? value) {
-          setState(() {
-            selectedValue = value;
-          });
+            selectedBrand = _brand.where((element) => element.text == value).toList().first;
+            widget.notify();
         },
         buttonStyleData: ButtonStyleData(
           height: AppHeight.h4*1.2,
@@ -168,4 +188,9 @@ class _FilterE_shopState extends State<FilterE_shop> {
     applyFilter = applyfilter??true;
     widget.notify();
   }
+}
+class Filter{
+  String text;
+  int id;
+  Filter({required this.text, required this.id});
 }

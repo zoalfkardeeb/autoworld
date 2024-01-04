@@ -1,19 +1,21 @@
 import 'package:automall/MyWidget.dart';
 import 'package:automall/constant/app_size.dart';
 import 'package:automall/constant/color/MyColors.dart';
+import 'package:automall/eShop/eShopMainScreen.dart';
 import 'package:automall/eShop/model/categoryModel.dart';
 import 'package:automall/eShop/model/itemModel.dart';
 import 'package:automall/eShop/model/response/productRead.dart';
 import 'package:automall/eShop/shopHelper.dart';
 import 'package:automall/eShop/topBar.dart';
+import 'package:automall/helper/functions.dart';
 import 'package:automall/localizations.dart';
 import 'package:automall/photoView.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 
 class ProductDetails extends StatefulWidget {
-  final ItemModel item;
-  const ProductDetails({key, required this.item}) : super(key: key);
+  late ItemModel item;
+  ProductDetails({key, required this.item}) : super(key: key);
 
   @override
   State<ProductDetails> createState() => _ProductDetailsState();
@@ -122,7 +124,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                       ),
                       SizedBox(height: AppHeight.h1,),
                       _description(),
-                      _suggestion(),
+                      //_suggestion(),
                     ],
                   ),
                 ),
@@ -206,24 +208,38 @@ class _ProductDetailsState extends State<ProductDetails> {
 
   }
 
-  _addToCart() {}
+  _addToCart() async{
+    await shopHelper.addItemToBasket();
+   MyApplication.navigateToReplace(context, EShopMainScreen(title: 'title'));
+  }
 
   Widget _horizontalScrolAtt(List<PurchaseAttributeValue> attributeValueList) {
     var textH = attributeValueList[0].purchaseAttributeValues!.purchaseAttribute!.name??'';
     List<CategoryModel> attributeList = [];
     for(var attributeValue in attributeValueList){
-      attributeList.add(CategoryModel(id: attributeValue.purchaseAttributeValuesId!.toString(), text: attributeValue.purchaseAttributeValues!.val.toString(), select: true),);
+      var se = false;
+      widget.item.purchaseAttributeValueIds.forEach((element) {
+        if(element.toString()==attributeValue.purchaseAttributeValues!.id.toString()) se = true;
+      });
+      attributeList.add(
+        CategoryModel(
+            id: attributeValue.purchaseAttributeValues!.id.toString(),
+            text: attributeValue.purchaseAttributeValues!.val.toString(),
+            select: se,
+        ),
+      );
     }
     selectAtt({required attributesId}){
       for(var c in attributeList){
-        c.select = false;
+        widget.item.purchaseAttributeValueIds.removeWhere((element) => element.toString() == c.id.toString());
       }
-      attributeList.where((element) => element.id == attributesId).first.select = true;
+      widget.item.purchaseAttributeValueIds.add(int.parse(attributesId.toString()));
+      //attributeList.where((element) => element.id == attributesId).first.select = true;
       setState(() {});
     }
     Widget text({required text, required select, required attributesId}){
       return GestureDetector(
-        onTap: () => selectAtt(attributesId: attributesId),
+        onTap: () => select? null: selectAtt(attributesId: attributesId),
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: AppWidth.w2, vertical: AppWidth.w1),
           margin: EdgeInsets.symmetric(horizontal: AppWidth.w1),

@@ -17,4 +17,5 @@ class ImagePath{
   static String motorVanService = 'assets/images/selectScreen/Motor-Van-Service-.png';
   static String offers = 'assets/images/selectScreen/Offers.png';
   static String rentACar = 'assets/images/selectScreen/Rent-a-car.png';
+  static String networkLogo = 'https://www.autoworldqa.com/images/logo.png';
 }

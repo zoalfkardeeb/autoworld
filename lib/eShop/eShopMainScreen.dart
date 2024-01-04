@@ -3,6 +3,7 @@ import 'package:automall/api.dart';
 import 'package:automall/const.dart';
 import 'package:automall/constant/app_size.dart';
 import 'package:automall/constant/color/MyColors.dart';
+import 'package:automall/constant/images/imagePath.dart';
 import 'package:automall/eShop/filter.dart';
 import 'package:automall/eShop/model/categoryModel.dart';
 import 'package:automall/eShop/model/itemModel.dart';
@@ -26,6 +27,7 @@ class EShopMainScreen extends StatefulWidget {
 }
 
 bool showFilter = false, applyFilter = false;
+Filter? selectedBrand;
 
 class _EShopMainScreenState extends State<EShopMainScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
@@ -56,7 +58,7 @@ class _EShopMainScreenState extends State<EShopMainScreen> {
         children:[
           Column(
           children: [
-            TopBarEShop(title: widget.title),
+            TopBarEShop(title: AppLocalizations.of(context)!.translate('E-Shop')),
             Expanded(
               child: Stack(
                 children: [
@@ -83,7 +85,7 @@ class _EShopMainScreenState extends State<EShopMainScreen> {
                     ]
                   ),
                   showFilter?
-                  FilterE_shop(notify: () => setState(() {}),).animate().fadeIn(duration: 300.ms):const SizedBox(),
+                  FilterE_shop(notify: () => setState(() {_fillFoundItem();}),).animate().fadeIn(duration: 300.ms):const SizedBox(),
                 ],
               ),
             )
@@ -112,7 +114,6 @@ class _EShopMainScreenState extends State<EShopMainScreen> {
           element.attributeValues.toString().toLowerCase().contains(_searchController.text) ||
           element.category.text.toString().toLowerCase().contains(_searchController.text)
       ).toList();
-
     });
   }
   Widget _search() {
@@ -124,6 +125,7 @@ class _EShopMainScreenState extends State<EShopMainScreen> {
         }else{
           showFilter = true;
         }
+        _fillFoundItem();
       });
     }
     return Container(
@@ -178,7 +180,7 @@ class _EShopMainScreenState extends State<EShopMainScreen> {
         onTap: () => filter(categoryId: categoyId),
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: AppWidth.w2, vertical: AppWidth.w1),
-          margin: EdgeInsets.symmetric(horizontal: AppWidth.w2),
+          margin: EdgeInsets.symmetric(horizontal: AppWidth.w1),
           decoration: BoxDecoration(
             color: select? MyColors.mainColor: MyColors.trans,
             borderRadius: BorderRadius.all(Radius.circular(AppWidth.w2)),
@@ -189,6 +191,7 @@ class _EShopMainScreenState extends State<EShopMainScreen> {
       );
     }
     return SingleChildScrollView(
+      scrollDirection:Axis.horizontal,
       child: Padding(
         padding:  EdgeInsets.symmetric(horizontal: AppWidth.w4),
         child: Row(
@@ -325,6 +328,7 @@ class _EShopMainScreenState extends State<EShopMainScreen> {
                 purchaseAttributeValues: product.purchaseAttributeValues!,
                 suppliers: product.suppliers!,
                 id: product.id.toString(),
+                brands:product.brands,
                 networkImage: product.productDetailsPics![0].attachment!,
                 isFavorite: checkIsFafourite(product.id.toString()),
                 amount: 1,
@@ -338,8 +342,10 @@ class _EShopMainScreenState extends State<EShopMainScreen> {
             ));
       }
     }
+    if(applyFilter){
+      _filterBrand();
+    }
   }
-
   _fillCategory(){
     _categoryList.clear();
     _categoryList.add(CategoryModel(id: '00', text: AppLocalizations.of(navigatorKey.currentContext!)!.translate('All'), select: true));
@@ -353,9 +359,19 @@ class _EShopMainScreenState extends State<EShopMainScreen> {
   _filterCategory(){
     var categoryId = _categoryList.where((element) => element.select).toList()[0].id.toString();
     if(categoryId != "00"){
-      _foundItems = _foundItems.where((element) => element.category.id == categoryId).toList();
+      _foundItems = _foundItems.where((element) => element.category.id.toString() == categoryId).toList();
     }else{
       _fillFoundItem();
     }
+  }
+
+  _filterBrand(){
+    if(selectedBrand != null){
+      var brandId = selectedBrand!.id.toString();
+      _foundItems = _foundItems.where((element) => element.brands==null || element.brands!.id.toString() == brandId).toList();
+    }else{
+      _fillFoundItem();
+    }
+
   }
 }

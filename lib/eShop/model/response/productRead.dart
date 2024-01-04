@@ -8,6 +8,8 @@
 
 import 'dart:convert';
 
+import 'package:automall/constant/images/imagePath.dart';
+
 ProductRead productReadFromJson(String str) => ProductRead.fromJson(json.decode(str));
 
 String productReadToJson(ProductRead data) => json.encode(data.toJson());
@@ -71,6 +73,9 @@ class Datum {
     this.suppliers,
     this.purchaseAttributeValues,
   }){
+    if(productDetailsPics!.length==0){
+      productDetailsPics!.add(ProductDetailsPic(attachment: ImagePath.networkLogo, id: 1, productDetailsId: 1));
+    }
     if(purchaseAttributeValues!=null){
       for( var att in purchaseAttributeValues!){
         for(var a in att){
