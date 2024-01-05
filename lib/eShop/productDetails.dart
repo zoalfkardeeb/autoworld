@@ -1,4 +1,5 @@
 import 'package:automall/MyWidget.dart';
+import 'package:automall/const.dart';
 import 'package:automall/constant/app_size.dart';
 import 'package:automall/constant/color/MyColors.dart';
 import 'package:automall/eShop/eShopMainScreen.dart';
@@ -45,98 +46,77 @@ class _ProductDetailsState extends State<ProductDetails> {
     }
     return Scaffold(
       backgroundColor: MyColors.topCon,
-      body: Column(
+      body: Stack(
         children: [
-          TopBarEShop(title: widget.item.name),
-          Expanded(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: AppWidth.w4*1.5),
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Stack(
+          Column(
+            children: [
+              TopBarEShop(title: widget.item.name),
+              Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: AppWidth.w4*1.5),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          GestureDetector(
-                            onTap: ()=> MyWidget(context).showImage('src', listNetworkImage: widget.item.imageListGallery, selectedIndex: _selectedImageIndex), 
-                            child: _imageSlider(imageList),
+                          Stack(
+                              children: [
+                                GestureDetector(
+                                  onTap: ()=> MyWidget(context).showImage('src', listNetworkImage: widget.item.imageListGallery, selectedIndex: _selectedImageIndex),
+                                  child: _imageSlider(imageList),
+                                ),
+                                Align(
+                                  alignment: Alignment.bottomRight,
+                                  child: Padding(
+                                    padding: EdgeInsets.only(top: AppHeight.h20- AppHeight.h2, right: AppWidth.w2),
+                                    child: IconButton(onPressed: () =>shopHelper.addToFavorite(), icon: Icon(widget.item.isFavorite? Icons.favorite : Icons.favorite_border,color: MyColors.mainColor, size: AppHeight.h4,)),
+                                  ),
+                                )
+                              ]
                           ),
-                          Align(
-                            alignment: Alignment.bottomRight,
-                            child: Padding(
-                              padding: EdgeInsets.only(top: AppHeight.h20- AppHeight.h2, right: AppWidth.w2),
-                              child: IconButton(onPressed: () =>shopHelper.addToFavorite(), icon: Icon(widget.item.isFavorite? Icons.favorite : Icons.favorite_border,color: MyColors.mainColor, size: AppHeight.h4,)),
-                            ),
-                          )
-                        ]
-                      ),
-                      SizedBox(height: AppWidth.w1,),
-                      MyWidget(context).headText(widget.item.name, scale: 0.6),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                          SizedBox(height: AppWidth.w1,),
+                          MyWidget(context).headText(widget.item.name, scale: 0.6),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              MyWidget(context).bodyText1(widget.item.category.text, padding: 0.0, scale: 0.8),
-                           //   MyWidget(context).bodyText1(widget.item.attributeValues, padding: 0.0, scale: 0.8),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  MyWidget(context).bodyText1(widget.item.category.text, padding: 0.0, scale: 0.8),
+                                  //   MyWidget(context).bodyText1(widget.item.attributeValues, padding: 0.0, scale: 0.8),
+                                ],
+                              ),
                             ],
                           ),
-                          Container(
-                            height: AppWidth.w4*1.5,
-                            width: AppWidth.w20*1.3,
-                            padding: EdgeInsets.symmetric(horizontal: AppWidth.w1),
-                            decoration: BoxDecoration(
-                              border: Border.all(color: MyColors.mainColor, width: 1),
-                              borderRadius: BorderRadius.all(Radius.circular(AppWidth.w1)),
-                            ),
-                            child: widget.item.amount != 0?
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                SizedBox(
-                                    width: AppWidth.w5,
-                                    height: AppWidth.w5,
-                                    child: IconButton(onPressed: ()=> shopHelper.removeItem(), icon: Icon(Icons.remove,size: AppWidth.w4,color: MyColors.mainColor), padding: const EdgeInsets.all(0.1))),
-                                const VerticalDivider(color: MyColors.mainColor, thickness: 1,),
-                                MyWidget(context).headText('${widget.item.amount}', scale: 0.5, color: MyColors.mainColor),
-                                const VerticalDivider(color: MyColors.mainColor, thickness: 1,),
-                                SizedBox(
-                                    width: AppWidth.w5,
-                                    height: AppWidth.w5,
-                                    child: IconButton(onPressed: ()=> shopHelper.addItem(), icon: Icon(Icons.add, size: AppWidth.w4,color: MyColors.mainColor), padding: const EdgeInsets.all(0.1),)),
-                              ],
-                            )
-                                :
-                            SizedBox(
-                                width: AppWidth.w5,
-                                height: AppWidth.w5,
-                                child: IconButton(onPressed: ()=> shopHelper.addItem(), icon: Icon(Icons.add, size: AppWidth.w4,color: MyColors.mainColor), padding: const EdgeInsets.all(0.1),)),
-
+                          SizedBox(height: AppWidth.w1,),
+                          MyWidget(context).headText('${AppLocalizations.of(context)!.translate('Price')}: ${widget.item.price} ${AppLocalizations.of(context)!.translate('currency')}', scale: 0.55, color: MyColors.mainColor),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: widget.item.purchaseAttributeValues!.map((e) => _horizontalScrolAtt(e)).toList(),
                           ),
+                          SizedBox(height: AppHeight.h1,),
+                          _description(),
+                          //_suggestion(),
                         ],
                       ),
-                      SizedBox(height: AppWidth.w1,),
-                      MyWidget(context).headText('${AppLocalizations.of(context)!.translate('Price')}: ${widget.item.price} ${AppLocalizations.of(context)!.translate('currency')}', scale: 0.55, color: MyColors.mainColor),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: widget.item.purchaseAttributeValues!.map((e) => _horizontalScrolAtt(e)).toList(),
-                      ),
-                      SizedBox(height: AppHeight.h1,),
-                      _description(),
-                      //_suggestion(),
-                    ],
-                  ),
-                ),
-              )
-          ),
-          MyWidget(context).bottomContainer(
-              GestureDetector(
-                   onTap:() => _addToCart(),
-                child: MyWidget(context).bodyText1(AppLocalizations.of(context)!.translate('Add to basket'), color: MyColors.black, scale: 1.4),
+                    ),
+                  )
               ),
-              AppWidth.w8, bottomConRati: 0.08, color: MyColors.mainColor)
-        ],
+              MyWidget(context).bottomContainer(
+                  widget.item.amount == 0? GestureDetector(
+                    onTap:() => _addToCart(),
+                    child: MyWidget(context).bodyText1(AppLocalizations.of(context)!.translate('Add to basket'), color: MyColors.black, scale: 1.4),
+                  ): _addMinCounter(),
+                  AppWidth.w8, bottomConRati: 0.08, color: MyColors.mainColor)
+            ],
+          ),
+          Align(
+            alignment: Alignment.center,
+            child: pleaseWait?
+            MyWidget(context).progress()
+                :
+            const SizedBox(),
+          ),
+        ]
       ),
     );
   }
@@ -210,7 +190,7 @@ class _ProductDetailsState extends State<ProductDetails> {
 
   _addToCart() async{
     await shopHelper.addItemToBasket();
-   MyApplication.navigateToReplace(context, EShopMainScreen(title: 'title'));
+   //MyApplication.navigateToReplace(context, EShopMainScreen(title: 'title'));
   }
 
   Widget _horizontalScrolAtt(List<PurchaseAttributeValue> attributeValueList) {
@@ -267,6 +247,43 @@ class _ProductDetailsState extends State<ProductDetails> {
           ),
         ),
       ],
+    );
+  }
+
+  _addMinCounter() {
+    var color = MyColors.black;
+    var color1 = MyColors.mainColor;
+    return Container(
+      //height: AppWidth.w4*1.5,
+      //width: AppWidth.w20*1.3,
+      padding: EdgeInsets.symmetric(horizontal: AppWidth.w1),
+      decoration: BoxDecoration(
+        border: Border.all(color: color1, width: 1),
+        borderRadius: BorderRadius.all(Radius.circular(AppWidth.w1)),
+      ),
+      child: widget.item.amount != 0?
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          SizedBox(
+              width: AppWidth.w10,
+              height: AppWidth.w10,
+              child: IconButton(onPressed: ()=> shopHelper.removeItem(), icon: Icon(Icons.remove,size: AppWidth.w10,color: color), padding: const EdgeInsets.all(0.1))),
+          VerticalDivider(color: color1, thickness: 1,),
+          MyWidget(context).headText('${widget.item.amount}', scale: 1.2, color: color),
+          VerticalDivider(color: color1, thickness: 1,),
+          SizedBox(
+              width: AppWidth.w10,
+              height: AppWidth.w10,
+              child: IconButton(onPressed: ()=> shopHelper.addItem(), icon: Icon(Icons.add, size: AppWidth.w10,color: color), padding: const EdgeInsets.all(0.1),)),
+        ],
+      )
+          :
+      SizedBox(
+          width: AppWidth.w5,
+          height: AppWidth.w5,
+          child: IconButton(onPressed: ()=> shopHelper.addItem(), icon: Icon(Icons.add, size: AppWidth.w4,color: MyColors.mainColor), padding: const EdgeInsets.all(0.1),)),
+
     );
   }
 }

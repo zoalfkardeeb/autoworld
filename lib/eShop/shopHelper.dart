@@ -8,46 +8,37 @@ import 'model/itemModel.dart';
 class ShopHelper{
   Function() notify;
   ItemModel itemModel;
-  ShopHelper({required this.notify, required this.itemModel});
-  bool checkCartItem(){
-    var check = false;
+  ShopHelper({required this.notify, required this.itemModel}) {
+    itemModel.amount = checkCartItem();
+  }
+  int checkCartItem(){
+    int quantity = 0;
     if(cartProductList != null || cartProductList!.data!.length>0){
       for(var c in cartProductList!.data!){
         List<int> purchaseAttributeValueIds=[];
         for(var i in c.purchaseOrderProductsAttr!){
           purchaseAttributeValueIds.add(i.purchaseAttributeValuesId!);
         }
-        if(c.id == itemModel.id.toString() && itemModel.purchaseAttributeValueIds == purchaseAttributeValueIds) check = true;
+        if(c.id == itemModel.id.toString() && itemModel.purchaseAttributeValueIds == purchaseAttributeValueIds) quantity = c.quantity!;
       }
     }
-    return check;
+    return quantity;
   }
   addItemToBasket() async{
     pleaseWait = true;
     notify();
     var result = true;
-    if(checkCartItem()){
-      result = await MyAPI.addProduct(product:
-      AddProduct(
-        purchaseOrderId: itemModel.purchaseOrderId,
-        price: double.parse(itemModel.price),
-        purchaseOrderProductId: itemModel.purchaseOrderProductId,
-        customerId:userInfo['id'],
-        purchaseAttributeValuesIds: itemModel.purchaseAttributeValueIds,
-        operationType: 1,
-        productDetailsId: int.parse(itemModel.id),
-      )
-      );
-    }else{
-      result = await MyAPI.createProduct(product:
-      CreateProduct(
+    result = await MyAPI.createProduct(product:
+    CreateProduct(
         price: double.parse(itemModel.price),
         customerId:userInfo['id'],
         purchaseAttributeValuesIds: itemModel.purchaseAttributeValueIds,
         operationType: 1,
         productDetailsId: int.parse(itemModel.id),
-      )
-      );
+    )
+    );
+    if(result){
+      itemModel.amount += 1;
     }
     pleaseWait = false;
     notify();
@@ -57,8 +48,7 @@ class ShopHelper{
     pleaseWait = true;
     notify();
     var result = true;
-/*    if(itemModel.amount>0){
-      result = await MyAPI.addProduct(product:
+    result = await MyAPI.addProduct(product:
       AddProduct(
         purchaseOrderId: itemModel.purchaseOrderId,
         price: double.parse(itemModel.price),
@@ -69,17 +59,6 @@ class ShopHelper{
         productDetailsId: int.parse(itemModel.id),
       )
       );
-    }else{
-      result = await MyAPI.createProduct(product:
-      CreateProduct(
-        price: double.parse(itemModel.price),
-        customerId:userInfo['id'],
-        purchaseAttributeValuesIds: itemModel.purchaseAttributeValueIds,
-        operationType: 1,
-        productDetailsId: int.parse(itemModel.id),
-      )
-      );
-    }*/
     if(result){
       itemModel.amount += 1;
     }
@@ -88,9 +67,25 @@ class ShopHelper{
   }
 
   removeItem() async{
-    if(itemModel.amount>1){
+
+    pleaseWait = true;
+    notify();
+    var result = true;
+    result = await MyAPI.addProduct(product:
+    AddProduct(
+      purchaseOrderId: itemModel.purchaseOrderId,
+      price: double.parse(itemModel.price),
+      purchaseOrderProductId: itemModel.purchaseOrderProductId,
+      customerId:userInfo['id'],
+      purchaseAttributeValuesIds: itemModel.purchaseAttributeValueIds,
+      operationType: -1,
+      productDetailsId: int.parse(itemModel.id),
+    )
+    );
+    if(result){
       itemModel.amount -= 1;
     }
+    pleaseWait = false;
     notify();
   }
 
