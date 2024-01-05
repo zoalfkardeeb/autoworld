@@ -358,10 +358,9 @@ class _EShopMainScreenState extends State<EShopMainScreen> {
 
   _filterCategory(){
     var categoryId = _categoryList.where((element) => element.select).toList()[0].id.toString();
+    _fillFoundItem();
     if(categoryId != "00"){
       _foundItems = _foundItems.where((element) => element.category.id.toString() == categoryId).toList();
-    }else{
-      _fillFoundItem();
     }
   }
 
