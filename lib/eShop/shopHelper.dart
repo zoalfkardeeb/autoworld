@@ -2,7 +2,7 @@
 import 'package:automall/api.dart';
 import 'package:automall/const.dart';
 import 'package:automall/eShop/model/request/addProduct.dart';
-
+import 'package:collection/collection.dart';
 import 'model/itemModel.dart';
 
 class ShopHelper{
@@ -13,13 +13,14 @@ class ShopHelper{
   }
   int checkCartItem(){
     int quantity = 0;
+    Function unOrdDeepEq = const DeepCollectionEquality.unordered().equals;
     if(cartProductList != null || cartProductList!.data!.length>0){
       for(var c in cartProductList!.data!){
         List<int> purchaseAttributeValueIds=[];
         for(var i in c.purchaseOrderProductsAttr!){
           purchaseAttributeValueIds.add(i.purchaseAttributeValuesId!);
         }
-        if(c.id == itemModel.id.toString() && itemModel.purchaseAttributeValueIds == purchaseAttributeValueIds) quantity = c.quantity!;
+        if(c.id == itemModel.id.toString() && unOrdDeepEq(itemModel.purchaseAttributeValueIds, purchaseAttributeValueIds)) quantity = c.quantity!;
       }
     }
     return quantity;

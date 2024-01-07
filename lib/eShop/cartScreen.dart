@@ -21,17 +21,14 @@ class CartScreen extends StatefulWidget {
 
 class _CartScreenState extends State<CartScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
-  final TextEditingController _searchController = TextEditingController();
 
-  late List<ItemModel> _foundItems = [
-  ];
+  late List<ItemModel> _foundItems = [];
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     _fillFoundItem();
-    _searchController.addListener(() {search(); });
   }
   @override
   Widget build(BuildContext context) {
@@ -41,29 +38,36 @@ class _CartScreenState extends State<CartScreen> {
       body: Stack(
           children:[
             Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 TopBarEShop(title: AppLocalizations.of(context)!.translate('Basket'), navCart: false,),
                 Expanded(
-                  child: Stack(
-                    children: [
-                      Column(
-                          children:[
-                            Flexible(
-                              child: RefreshIndicator(
-                                onRefresh: ()=> _pullRefresh(),
-                                child: ListView(
-                                  padding: EdgeInsets.symmetric(horizontal: AppWidth.w4*1.5, vertical: AppHeight.h1),
-                                  children: _foundItems.map((item) {
-                                    return _itemContainer(itemModel: item);
-                                  }).toList(),
-                                ),
-                              ),
+                  child: Column(
+                      children:[
+                        Flexible(
+                          child: RefreshIndicator(
+                            onRefresh: ()=> _refresh(),
+                            child: ListView(
+                              padding: EdgeInsets.symmetric(horizontal: AppWidth.w4*1.5, vertical: AppHeight.h1),
+                              children: _foundItems.map((item) {
+                                return _itemContainer(itemModel: item);
+                              }).toList(),
                             ),
-                          ]
-                      ),
-                    ],
+                          ),
+                        ),
+                      ]
                   ),
-                )
+                ),
+                _paymentSummery(),
+
+
+                MyWidget(context).bottomContainer(
+                    GestureDetector(
+                      onTap:() => _checkOut(),
+                      child: MyWidget(context).bodyText1(AppLocalizations.of(context)!.translate('Check out'), color: MyColors.black, scale: 1.4),
+                    ),
+                    AppWidth.w8, bottomConRati: 0.08, color: MyColors.mainColor)
+
               ],
             ),
             Align(
@@ -76,20 +80,6 @@ class _CartScreenState extends State<CartScreen> {
           ]
       ),
     );
-  }
-  search() async{
-    setState(() {
-      _fillFoundItem();
-      if(_searchController.text.length<3){
-        return;
-      }
-      _foundItems = _foundItems.where((element) =>
-      element.name.toString().toLowerCase().contains(_searchController.text) ||
-          element.attributeValues.toString().toLowerCase().contains(_searchController.text) ||
-          element.category.text.toString().toLowerCase().contains(_searchController.text)
-      ).toList();
-
-    });
   }
 
   Widget _itemContainer({
@@ -110,8 +100,8 @@ class _CartScreenState extends State<CartScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                MyWidget(context).bodyText1(itemModel.suppliers.fullName??'', padding: 0.0, scale: 0.8, maxLine: 1, color: MyColors.black, underLine: true),
-                IconButton(onPressed: ()=> select(), icon: const Icon(Icons.check_circle, color: MyColors.white,)),
+                MyWidget(context).bodyText1(itemModel.suppliers.fullName??'', padding: 0.0, scale: 0.8, maxLine: 1, color: MyColors.white, underLine: true),
+                IconButton(onPressed: ()=> select(itemModel), icon: Icon(itemModel.isSelect! ? Icons.check_circle:Icons.circle_outlined, color: MyColors.white,)),
               ],
             ),
           ),
@@ -188,19 +178,6 @@ class _CartScreenState extends State<CartScreen> {
       ),
     );
   }
-
-  _pullRefresh() async{
-   /* await Future.wait([
-      MyAPI.productRead(),
-      MyAPI.categoryRead(),
-      MyAPI.purchaseOrderRead(),
-    ]);*/
-    setState(() {
-      pleaseWait = false;
-      _fillFoundItem();
-    });
-  }
-
   _fillFoundItem(){
     checkIsFafourite(productId){
       return false;
@@ -214,14 +191,13 @@ class _CartScreenState extends State<CartScreen> {
         pics.add(GalarryItems(image: picture.attachment.toString(), id: picture.id!));
       }
       return pics;
-
     }
     _foundItems.clear();
     if(cartProductList != null && cartProductList!.data != null){
       for(var product in cartProductList!.data!){
         List<int> purchaseAttributeValueIds = [];
         for(var pur in product.purchaseOrderProductsAttr!){
-          purchaseAttributeValueIds.add(pur.purchaseAttributeValues!.id!);
+          purchaseAttributeValueIds.add(pur.purchaseAttributeValuesId!);
         }
         _foundItems.add(ItemModel(
          // purchaseAttributeValues: product.purchaseAttributeValues!,
@@ -229,7 +205,7 @@ class _CartScreenState extends State<CartScreen> {
           id: product.id.toString(),
           networkImage: product.productDetails!.productDetailsPics![0].attachment!,
           isFavorite: checkIsFafourite(product.id.toString()),
-          amount: checkAmount(product.id.toString()),
+          amount: product.quantity!,
           name: product.productDetails!.products!.name.toString(),
           category: CategoryModel(id: product.productDetails!.products!.productCategory!.id.toString(), text: product.productDetails!.products!.productCategory!.name!) ,
           price: product.price.toString(),
@@ -242,6 +218,52 @@ class _CartScreenState extends State<CartScreen> {
     }
   }
 
-  select() {}
+  select(ItemModel itemModel) {
+    itemModel.isSelect = !itemModel.isSelect;
+    setState(() {
 
+    });
+  }
+
+  _refresh() {}
+
+  _checkOut() {}
+
+  _paymentSummery() {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: AppHeight.h1, horizontal: AppWidth.w12),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          MyWidget(context).headText('Payment summery', scale: 0.7),
+          /* Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              MyWidget(context).bodyText1('Subtotal', padding: 0.0),
+              MyWidget(context).bodyText1('Subtotal', padding: 0.0),
+            ],
+          ),
+         */
+          SizedBox(height: AppHeight.h1,),
+          const Divider(height: 6, color: MyColors.black, thickness: 2,),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              MyWidget(context).headText('Total amount', scale: 0.6),
+              MyWidget(context).headText('${_calkTotal()} ${AppLocalizations.of(context)!.translate('currency')}', scale: 0.6, color: MyColors.mainColor),
+            ],
+          ),
+          SizedBox(height: AppHeight.h1,),
+        ],
+      ),
+    );
+  }
+
+  double _calkTotal(){
+    var total = 0.0;
+    for(var v in _foundItems){
+      total = total + v.amount * double.parse(v.price);
+    }
+    return total;
+  }
 }
