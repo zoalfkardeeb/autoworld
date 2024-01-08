@@ -5,6 +5,7 @@ import 'dart:io';
 import 'dart:math';
 import 'package:automall/constant/font_size.dart';
 import 'package:automall/constant/app_size.dart';
+import 'package:automall/eShop/trackOrder.dart';
 
 import 'package:automall/localization_service.dart';
 import 'package:automall/model/request/address.dart';
@@ -533,6 +534,25 @@ class MyWidget{
        ),
      );
    }
+   _yourShopOrder() async{
+     Navigator.of(context).pop();
+     if(guestType){
+       guestDialog();
+       return;
+     }
+     pleaseWait = true;
+     setState();
+     await MyAPI.getOrderProductList();
+     pleaseWait = false;
+     setState();
+     // ignore: use_build_context_synchronously
+     Navigator.push(
+       context,
+       MaterialPageRoute(
+         builder: (context) =>  const TrackOrders(),
+       ),
+     );
+   }
    _manageAddress() async{
      Navigator.of(context).pop();
      if(guestType){
@@ -632,6 +652,7 @@ class MyWidget{
                       :_iconText(()=> Navigator.of(context).push(MaterialPageRoute(builder:(context)=> SupplierOrdesr(barTitle: AppLocalizations.of(context)!.translate('name'),))), Icons.local_offer_outlined, AppLocalizations.of(context)!.translate('SupplierOrders')),
                   _iconText(()=> guestType ? guestDialog() : Navigator.of(context).push(MaterialPageRoute(builder:(context)=> const NotificationScreen())), Icons.list_alt_outlined, AppLocalizations.of(context)!.translate('My Orders')),
                   _iconText(()=> guestType ? guestDialog() : _yourAds(), Icons.list, AppLocalizations.of(context)!.translate('My Ads')),
+                  _iconText(()=> guestType ? guestDialog() : _yourShopOrder(), Icons.shopping_cart_outlined, AppLocalizations.of(context)!.translate('My Shop Orders')),
                   driver(),
                   _iconText(()=>_language(), Icons.language, AppLocalizations.of(context)!.translate('Language')),
                   driver(),

@@ -242,6 +242,7 @@
   "Please, input right number [3 -> 6] digits": "من فضلك أدخل رقم صحيح [3 -> 6] خانات",
   "Support": "دعم",
   "My Ads": "إعلاناتي",
+  "My Shop Orders": "طلبات المتجر",
   "Petrol": "بنزين",
   "Diesel": "ديزل",
   "Hybrid": "هايبرد",
@@ -263,6 +264,8 @@
   "Add new Address": "إضافة عنوان جديد",
   "Save Address": "حفظ العنوان",
   "Basket": "سلة المشتريات",
-  "Check out": "تأكيد"
+  "Check out": "تأكيد",
+  "Track Your Order": "تتبع طلباتك",
+  "Quantity": "الكمية"
 
 }

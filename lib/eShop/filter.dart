@@ -75,7 +75,7 @@ class _FilterE_shopState extends State<FilterE_shop> {
                   MyWidget(context).bottomContainer(
                       GestureDetector(
                         onTap:() => _filter(),
-                        child: MyWidget(context).bodyText1(AppLocalizations.of(context)!.translate('Filter My Research'), color: MyColors.black, scale: 1.4),
+                        child: MyWidget(context).bodyText1(AppLocalizations.of(context)!.translate('Filter My Research'), color: MyColors.white, scale: 1.4),
                       ),
                       AppWidth.w8, bottomConRati: 0.07, color: MyColors.mainColor),
                 ],

@@ -241,6 +241,7 @@
   "Please, input right number [3 -> 6] digits": "Please, input right number [3 -> 6] digits",
   "Support": "Support",
   "My Ads": "My Ads",
+  "My Shop Orders": "My Shop Orders",
   "Petrol": "Petrol",
   "Diesel": "Diesel",
   "Hybrid": "Hybrid",
@@ -261,7 +262,9 @@
   "Add new Address": "Add new Address",
   "Save Address": "Save Address",
   "Basket": "Basket",
-  "Check out": "Check out"
+  "Check out": "Check out",
+  "Track Your Order": "Track Your Order",
+  "Quantity": "Quantity"
 
 }
 

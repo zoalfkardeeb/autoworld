@@ -12,14 +12,15 @@ import 'package:automall/helper/functions.dart';
 import 'package:automall/localizations.dart';
 import 'package:automall/photoView.dart';
 import 'package:flutter/material.dart';
-class CartScreen extends StatefulWidget {
-  const CartScreen({Key? key}): super(key: key);
+import 'package:intl/intl.dart';
+class TrackOrders extends StatefulWidget {
+  const TrackOrders({Key? key}) : super(key: key);
 
   @override
-  State<CartScreen> createState() => _CartScreenState();
+  State<TrackOrders> createState() => _TrackOrdersState();
 }
 
-class _CartScreenState extends State<CartScreen> {
+class _TrackOrdersState extends State<TrackOrders> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
 
   late List<ItemModel> _foundItems = [];
@@ -32,6 +33,7 @@ class _CartScreenState extends State<CartScreen> {
   }
   @override
   Widget build(BuildContext context) {
+    _fillFoundItem();
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: MyColors.topCon,
@@ -40,7 +42,7 @@ class _CartScreenState extends State<CartScreen> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                TopBarEShop(title: AppLocalizations.of(context)!.translate('Basket'), navCart: false,),
+                TopBarEShop(title: AppLocalizations.of(context)!.translate('Track Your Order'), navCart: false,),
                 Expanded(
                   child: Column(
                       children:[
@@ -58,13 +60,10 @@ class _CartScreenState extends State<CartScreen> {
                       ]
                   ),
                 ),
-                _paymentSummery(),
-
-
                 MyWidget(context).bottomContainer(
                     GestureDetector(
-                      onTap:() => _checkOut(),
-                      child: MyWidget(context).bodyText1(AppLocalizations.of(context)!.translate('Check out'), color: MyColors.white, scale: 1.4),
+                      onTap:() => _spport(),
+                      child: MyWidget(context).bodyText1(AppLocalizations.of(context)!.translate('Support'), color: MyColors.white, scale: 1.4),
                     ),
                     AppWidth.w8, bottomConRati: 0.08, color: MyColors.mainColor)
 
@@ -96,12 +95,12 @@ class _CartScreenState extends State<CartScreen> {
               borderRadius: BorderRadius.all(Radius.circular(AppWidth.w2)),
               color: MyColors.qatarColor,
             ),
-            padding: EdgeInsets.symmetric(horizontal: AppWidth.w4),
+            padding: EdgeInsets.symmetric(horizontal: AppWidth.w4, vertical: AppHeight.h1),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                MyWidget(context).bodyText1(itemModel.suppliers.fullName??'', padding: 0.0, scale: 0.8, maxLine: 1, color: MyColors.white, underLine: true),
-                IconButton(onPressed: ()=> select(itemModel), icon: Icon(itemModel.isSelect! ? Icons.check_circle:Icons.circle_outlined, color: MyColors.white,)),
+                MyWidget(context).bodyText1(itemModel.orderSerial??'', padding: 0.0, scale: 0.8, maxLine: 1, color: MyColors.white,),
+                MyWidget(context).bodyText1(DateFormat('E d LLL y H:m').format(itemModel.orderDate!), padding: 0.0, scale: 0.8, maxLine: 1, color: MyColors.white,),
               ],
             ),
           ),
@@ -125,51 +124,27 @@ class _CartScreenState extends State<CartScreen> {
                   width: AppWidth.w24,
                 ),
               ),
-              SizedBox(
-                width: AppWidth.w30,
+              Expanded(
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    MyWidget(context).headText(itemModel.name, scale: 0.55, maxLine: 2, align: TextAlign.start, paddingV: AppHeight.h1/2),
-                    MyWidget(context).bodyText1(itemModel.category.text, padding: 0.0, scale: 0.8, maxLine: 2),
+                    MyWidget(context).headText(itemModel.name, scale: 0.55, maxLine: 2, align: TextAlign.start, paddingV: AppHeight.h1/3),
+                    MyWidget(context).bodyText1('${AppLocalizations.of(context)!.translate('Quantity')} ${itemModel.amount}', padding: 0.0, scale: 0.8, maxLine: 2),
                     SizedBox(height: AppWidth.w1,),
-                    MyWidget(context).headText('${AppLocalizations.of(context)!.translate('Price')}: ${itemModel.price} ${AppLocalizations.of(context)!.translate('currency')}', scale: 0.5, color: MyColors.mainColor),
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: AppHeight.h1/2, horizontal: AppWidth.w4*1.5),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Icon(Icons.storefront_outlined, color: _statusColor(itemModel.status)),
+                          Icon(Icons.payments_outlined, color: _statusColor(itemModel.status)),
+                          Icon(Icons.delivery_dining_outlined, color: _statusColor(itemModel.status)),
+                          Icon(Icons.fact_check_outlined, color: _statusColor(itemModel.status)),
+                        ],
+                      ),
+                    )
                   ],
-                ),
-              ),
-              Expanded(
-                child: Container(
-                  height: AppWidth.w4*1.5,
-                  width: AppWidth.w20*1.3,
-                  margin: EdgeInsets.symmetric(horizontal: AppWidth.w2),
-                  padding: EdgeInsets.symmetric(horizontal: AppWidth.w1),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: MyColors.mainColor, width: 1),
-                    borderRadius: BorderRadius.all(Radius.circular(AppWidth.w1)),
-                  ),
-                  child: itemModel.amount != 0?
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      SizedBox(
-                          width: AppWidth.w5,
-                          height: AppWidth.w5,
-                          child: IconButton(onPressed: ()=> shopHelper.removeItem(), icon: Icon(Icons.remove,size: AppWidth.w4,color: MyColors.mainColor), padding: const EdgeInsets.all(0.1))),
-                      const VerticalDivider(color: MyColors.mainColor, thickness: 1,),
-                      MyWidget(context).headText('${itemModel.amount}', scale: 0.5, color: MyColors.mainColor),
-                      const VerticalDivider(color: MyColors.mainColor, thickness: 1,),
-                      SizedBox(
-                          width: AppWidth.w5,
-                          height: AppWidth.w5,
-                          child: IconButton(onPressed: ()=> shopHelper.addItem(), icon: Icon(Icons.add, size: AppWidth.w4,color: MyColors.mainColor), padding: const EdgeInsets.all(0.1),)),
-                    ],
-                  )
-                      :
-                  SizedBox(
-                      width: AppWidth.w5,
-                      height: AppWidth.w5,
-                      child: IconButton(onPressed: ()=> shopHelper.addItem(), icon: Icon(Icons.add, size: AppWidth.w4,color: MyColors.mainColor), padding: const EdgeInsets.all(0.1),)),
-
                 ),
               ),
             ],
@@ -178,6 +153,7 @@ class _CartScreenState extends State<CartScreen> {
       ),
     );
   }
+
   _fillFoundItem(){
     checkIsFafourite(productId){
       return false;
@@ -193,14 +169,17 @@ class _CartScreenState extends State<CartScreen> {
       return pics;
     }
     _foundItems.clear();
-    if(cartProductList != null && cartProductList!.data != null){
-      for(var product in cartProductList!.data!){
+    if(orderProductList != null && orderProductList!.data != null){
+      for(var product in orderProductList!.data!){
         List<int> purchaseAttributeValueIds = [];
         for(var pur in product.purchaseOrderProductsAttr!){
           purchaseAttributeValueIds.add(pur.purchaseAttributeValuesId!);
         }
         _foundItems.add(ItemModel(
-         // purchaseAttributeValues: product.purchaseAttributeValues!,
+          // purchaseAttributeValues: product.purchaseAttributeValues!,
+          status: product.status,
+          orderSerial: '${product.codeSerial??''}',
+          orderDate: product.purchaseOrder?.insertDate??DateTime.now(),
           suppliers: product.productDetails!.suppliers!,
           id: product.id.toString(),
           networkImage: product.productDetails!.productDetailsPics![0].attachment!,
@@ -211,59 +190,33 @@ class _CartScreenState extends State<CartScreen> {
           price: product.price.toString(),
           imageListGallery: getGalaryImages(product.productDetails!.productDetailsPics!),
           attributeValues:" product.attributeValues",
-         // description: product.productDetails.products..description??"",
+          // description: product.productDetails.products..description??"",
           purchaseAttributeValueIds: purchaseAttributeValueIds,
         ));
       }
     }
   }
 
-  select(ItemModel itemModel) {
-    itemModel.isSelect = !itemModel.isSelect;
-    setState(() {
+  _refresh() async{
 
-    });
   }
 
-  _refresh() async{}
+  _spport() {}
 
-  _checkOut() {}
-
-  _paymentSummery() {
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: AppHeight.h1, horizontal: AppWidth.w12),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          MyWidget(context).headText('Payment summery', scale: 0.7),
-          /* Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              MyWidget(context).bodyText1('Subtotal', padding: 0.0),
-              MyWidget(context).bodyText1('Subtotal', padding: 0.0),
-            ],
-          ),
-         */
-          SizedBox(height: AppHeight.h1,),
-          const Divider(height: 6, color: MyColors.black, thickness: 2,),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              MyWidget(context).headText('Total amount', scale: 0.6),
-              MyWidget(context).headText('${_calkTotal()} ${AppLocalizations.of(context)!.translate('currency')}', scale: 0.6, color: MyColors.mainColor),
-            ],
-          ),
-          SizedBox(height: AppHeight.h1,),
-        ],
-      ),
-    );
-  }
-
-  double _calkTotal(){
-    var total = 0.0;
-    for(var v in _foundItems){
-      total = total + v.amount * double.parse(v.price);
+  _statusColor(int? status){
+    status??=0;
+    var color = MyColors.card;
+    switch(status.toString()){
+      case '0':
+        color = MyColors.card;
+        break;
+      case '1':
+        color = MyColors.qatarColor;
+        break;
+      case '2':
+        color = MyColors.black;
+        break;
     }
-    return total;
+    return color;
   }
 }

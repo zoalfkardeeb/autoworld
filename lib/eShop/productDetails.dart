@@ -104,7 +104,7 @@ class _ProductDetailsState extends State<ProductDetails> {
               MyWidget(context).bottomContainer(
                   widget.item.amount == 0? GestureDetector(
                     onTap:() => _addToCart(),
-                    child: MyWidget(context).bodyText1(AppLocalizations.of(context)!.translate('Add to basket'), color: MyColors.black, scale: 1.4),
+                    child: MyWidget(context).bodyText1(AppLocalizations.of(context)!.translate('Add to basket'), color: MyColors.white, scale: 1.4),
                   ): _addMinCounter(),
                   AppWidth.w8, bottomConRati: 0.08, color: MyColors.mainColor)
             ],
