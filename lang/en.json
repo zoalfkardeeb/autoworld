@@ -264,7 +264,12 @@
   "Basket": "Basket",
   "Check out": "Check out",
   "Track Your Order": "Track Your Order",
-  "Quantity": "Quantity"
+  "Quantity": "Quantity",
+  "Place Order": "Place Order",
+  "Pay with": "Pay with",
+  "Card": "Card",
+  "On Delivery": "On Delivery"
+
 
 }
 

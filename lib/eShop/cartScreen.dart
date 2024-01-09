@@ -1,7 +1,9 @@
 import 'package:automall/MyWidget.dart';
+import 'package:automall/api.dart';
 import 'package:automall/const.dart';
 import 'package:automall/constant/app_size.dart';
 import 'package:automall/constant/color/MyColors.dart';
+import 'package:automall/eShop/checkOut.dart';
 import 'package:automall/eShop/model/categoryModel.dart';
 import 'package:automall/eShop/model/itemModel.dart';
 import 'package:automall/eShop/model/response/productRead.dart';
@@ -59,14 +61,12 @@ class _CartScreenState extends State<CartScreen> {
                   ),
                 ),
                 _paymentSummery(),
-
-
                 MyWidget(context).bottomContainer(
                     GestureDetector(
-                      onTap:() => _checkOut(),
+                      onTap:() => _calkTotal()==0? null : _checkOut(),
                       child: MyWidget(context).bodyText1(AppLocalizations.of(context)!.translate('Check out'), color: MyColors.white, scale: 1.4),
                     ),
-                    AppWidth.w8, bottomConRati: 0.08, color: MyColors.mainColor)
+                    AppWidth.w8, bottomConRati: 0.08, color: _calkTotal()==0? MyColors.card : MyColors.mainColor)
 
               ],
             ),
@@ -227,7 +227,16 @@ class _CartScreenState extends State<CartScreen> {
 
   _refresh() async{}
 
-  _checkOut() {}
+  _checkOut() async{
+    setState(() {
+      pleaseWait = true;
+    });
+    await MyAPI.addressRead();
+    setState(() {
+      pleaseWait = false;
+    });
+    MyApplication.navigateTo(context, CheckOutScreen());
+  }
 
   _paymentSummery() {
     return Padding(
@@ -262,7 +271,7 @@ class _CartScreenState extends State<CartScreen> {
   double _calkTotal(){
     var total = 0.0;
     for(var v in _foundItems){
-      total = total + v.amount * double.parse(v.price);
+      if(v.isSelect) total = total + v.amount * double.parse(v.price);
     }
     return total;
   }

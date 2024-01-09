@@ -266,6 +266,10 @@
   "Basket": "سلة المشتريات",
   "Check out": "تأكيد",
   "Track Your Order": "تتبع طلباتك",
-  "Quantity": "الكمية"
+  "Quantity": "الكمية",
+  "Place Order": "تأكيد الطلب",
+  "Pay with": "طريقة الدفع",
+  "Card": "بطاقة",
+  "On Delivery": "عند الاستلام"
 
 }
