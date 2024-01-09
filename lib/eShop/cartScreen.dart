@@ -201,6 +201,7 @@ class _CartScreenState extends State<CartScreen> {
         }
         _foundItems.add(ItemModel(
          // purchaseAttributeValues: product.purchaseAttributeValues!,
+          purchaseOrderProductId: product.purchaseOrder!.id,
           suppliers: product.productDetails!.suppliers!,
           id: product.id.toString(),
           networkImage: product.productDetails!.productDetailsPics![0].attachment!,
@@ -235,7 +236,8 @@ class _CartScreenState extends State<CartScreen> {
     setState(() {
       pleaseWait = false;
     });
-    MyApplication.navigateTo(context, CheckOutScreen());
+    // ignore: use_build_context_synchronously
+    MyApplication.navigateToReplace(context, CheckOutScreen(foundItems: _foundItems.where((element) => element.isSelect).toList(),));
   }
 
   _paymentSummery() {

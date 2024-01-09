@@ -138,7 +138,7 @@ class MyAPI{
     return null;
   }
 
-  static Future<bool> addProduct({required AddProduct product}) async{
+  static Future<bool> addOrderProduct({required AddProduct product}) async{
     try{
       var headers = {
         'accept': '*/*',
@@ -160,7 +160,7 @@ class MyAPI{
     return false;
   }
 
-  static Future<bool> createProduct({required CreateProduct product}) async{
+  static Future<bool> createOrderProduct({required CreateProduct product}) async{
     try{
       var headers = {
         'accept': '*/*',
@@ -177,6 +177,34 @@ class MyAPI{
       else {
         print(response.reasonPhrase);
       }
+    }catch(e){
+    }
+    return false;
+  }
+
+  static Future<bool> changeStatusOrderProduct({required String purchaseOrderProductsId, required int status, required String addressId}) async{
+    try{
+      var headers = {
+        'accept': '*/*',
+        'Content-Type': 'application/json'
+      };
+      var request = http.Request('POST', Uri.parse('https://api.autoworldqa.com/PurchaseOrders/PurchaseOrders_ChangeStatus'));
+      request.body = json.encode({
+        "purchaseOrderProductsId": purchaseOrderProductsId,
+        "status": status,
+        "addressId": addressId
+      });
+      request.headers.addAll(headers);
+
+      http.StreamedResponse response = await request.send();
+
+      if (response.statusCode == 200) {
+        print(await response.stream.bytesToString());
+      }
+      else {
+        print(response.reasonPhrase);
+      }
+
     }catch(e){
     }
     return false;

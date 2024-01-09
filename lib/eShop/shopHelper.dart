@@ -29,7 +29,7 @@ class ShopHelper{
     pleaseWait = true;
     notify();
     var result = true;
-    result = await MyAPI.createProduct(product:
+    result = await MyAPI.createOrderProduct(product:
     CreateProduct(
         price: double.parse(itemModel.price),
         customerId:userInfo['id'],
@@ -49,7 +49,7 @@ class ShopHelper{
     pleaseWait = true;
     notify();
     var result = true;
-    result = await MyAPI.addProduct(product:
+    result = await MyAPI.addOrderProduct(product:
       AddProduct(
         purchaseOrderId: itemModel.purchaseOrderId,
         price: double.parse(itemModel.price),
@@ -72,7 +72,7 @@ class ShopHelper{
     pleaseWait = true;
     notify();
     var result = true;
-    result = await MyAPI.addProduct(product:
+    result = await MyAPI.addOrderProduct(product:
     AddProduct(
       purchaseOrderId: itemModel.purchaseOrderId,
       price: double.parse(itemModel.price),
