@@ -16,7 +16,7 @@ class ShopHelper{
   int checkCartItem(){
     int quantity = 0;
     Function unOrdDeepEq = const DeepCollectionEquality.unordered().equals;
-    if(cartProductList != null || cartProductList!.data!.length>0){
+    if(cartProductList != null && cartProductList!.data!.length>0){
       itemModel.purchaseOrderId ??= cartProductList!.data![0].purchaseOrder!.id;
       for(var c in cartProductList!.data!){
         List<int> purchaseAttributeValueIds=[];

@@ -91,12 +91,19 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   _placeOrder() async{
     List<Future> d = [];
     for(var v in _foundItems){
-      d.add(MyAPI.changeStatusOrderProduct(purchaseOrderProductsId: v.purchaseOrderProductId.toString(), status: _payType, addressId: _selectedAddress!.id.toString()));
+      if(v.isSelect) {
+       // d.add(MyAPI.changeStatusOrderProduct(purchaseOrderProductsId: v.purchaseOrderProductId.toString(), status: _payType, addressId: _selectedAddress!.id.toString()));
+        await MyAPI.changeStatusOrderProduct(purchaseOrderProductsId: v.purchaseOrderProductId.toString(), status: _payType, addressId: _selectedAddress!.id.toString());
+      }
+      else{
+       // d.add(MyAPI.changeStatusOrderProduct(purchaseOrderProductsId: v.purchaseOrderProductId.toString(), status: 5, addressId: _selectedAddress!.id.toString()));
+        await MyAPI.changeStatusOrderProduct(purchaseOrderProductsId: v.purchaseOrderProductId.toString(), status: 5, addressId: _selectedAddress!.id.toString());
+      }
     }
     setState(() {
       pleaseWait = true;
     });
-    await Future.wait(d);
+  //  await Future.wait(d);
     await MyAPI.getOrderProductList();
     setState(() {
       pleaseWait = false;
@@ -108,7 +115,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   double _calkTotal(){
     var total = 0.0;
     for(var v in _foundItems){
-      total = total + v.amount * double.parse(v.price);
+      if(v.isSelect) total = total + v.amount * double.parse(v.price);
     }
     return total;
   }
@@ -300,6 +307,10 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   }
 
   _changePayType(int payType) {
+    if(payType==1){
+      MyWidget.showInfoDialog(text: "This service is under construction!");
+      return;
+    }
     _payType = payType;
     print(_payType);
     setState(() {

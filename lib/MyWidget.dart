@@ -8,6 +8,7 @@ import 'package:automall/constant/app_size.dart';
 import 'package:automall/eShop/trackOrder.dart';
 
 import 'package:automall/localization_service.dart';
+import 'package:automall/main.dart';
 import 'package:automall/model/request/address.dart';
 import 'package:automall/photoView.dart';
 import 'package:automall/screen/SupplierOrder.dart';
@@ -41,6 +42,49 @@ class MyWidget{
   BuildContext context;
   MyWidget(this.context);
 
+
+  static showInfoDialog({required text}) {
+    var curve = AppWidth.w5;
+    Dialog errorDialog = Dialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(curve),), //this right here
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(curve)),
+          color: MyColors.bottomCon,
+        ),
+        height: MediaQuery.of(navigatorKey.currentContext!).size.width/2,
+        width: MediaQuery.of(navigatorKey.currentContext!).size.width/3*2,
+        padding: EdgeInsets.all(curve),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            Expanded(
+              child: Row(
+                children: [
+                  Icon(Icons.info_outline, color: MyColors.white, size: MediaQuery.of(navigatorKey.currentContext!).size.width/10,),
+                  SizedBox(
+                    width: MediaQuery.of(navigatorKey.currentContext!).size.width/2,
+                    child: MyWidget(navigatorKey.currentContext!).bodyText1(AppLocalizations.of(navigatorKey.currentContext!)!.translate(text), maxLine: 2, color: MyColors.white, scale: 1),
+                  )
+                ],
+              ),
+            ),
+            Row(
+              children: [
+                TextButton(onPressed: () {
+                  Navigator.of(navigatorKey.currentContext!).pop();
+                },
+                    child: MyWidget(navigatorKey.currentContext!).bodyText1(AppLocalizations.of(navigatorKey.currentContext!)!.translate('Ok'),  color: MyColors.white)),
+                const Expanded(child: SizedBox()),
+              ],
+            )
+          ],
+        ),
+      ),
+    );
+    showDialog(context: navigatorKey.currentContext!, builder: (BuildContext context) => errorDialog);
+  }
 
 
   static Widget shadowContainer({required child, width, margin, padding}){

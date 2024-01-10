@@ -191,6 +191,15 @@ class MyAPI{
   }
 
   static Future<bool> changeStatusOrderProduct({required String purchaseOrderProductsId, required int status, required String addressId}) async{
+    /*
+    status
+    0:new
+    1:paid
+    2:on the way
+    3: pay on delivery
+    4: delivered
+    5:deleted
+    */
     try{
       var headers = {
         'accept': '*/*',

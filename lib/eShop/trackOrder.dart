@@ -201,7 +201,9 @@ class _TrackOrdersState extends State<TrackOrders> {
 
   }
 
-  _spport() {}
+  _spport() {
+
+  }
 
   _statusColor(int? status){
     status??=0;
@@ -211,7 +213,7 @@ class _TrackOrdersState extends State<TrackOrders> {
         color = MyColors.card;
         break;
       case '1':
-        color = MyColors.qatarColor;
+        color = MyColors.mainColor;
         break;
       case '2':
         color = MyColors.black;

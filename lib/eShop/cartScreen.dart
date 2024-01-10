@@ -238,7 +238,7 @@ class _CartScreenState extends State<CartScreen> {
       pleaseWait = false;
     });
     // ignore: use_build_context_synchronously
-    MyApplication.navigateToReplace(context, CheckOutScreen(foundItems: _foundItems.where((element) => element.isSelect).toList(),));
+    MyApplication.navigateToReplace(context, CheckOutScreen(foundItems: _foundItems,));
   }
 
   _paymentSummery() {
