@@ -214,7 +214,7 @@ class _EShopMainScreenState extends State<EShopMainScreen> {
             children: [
               Align(child:
               GestureDetector(
-                onTap:()=>MyApplication.navigateTo(context, ProductDetails(item: itemModel)),
+                onTap:()=>MyApplication.navigateTo(context, ProductDetails(item: itemModel), then: ()=> setState(() {})),
                 child: Container(
                     decoration: BoxDecoration(
                       boxShadow: const [BoxShadow(

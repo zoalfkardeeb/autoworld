@@ -19,8 +19,8 @@ class MyApplication {
     Navigator.of(context).pushReplacement(FadeRoute(page: page));// MaterialPageRoute(builder: (context) => page));
   }
 
-  static void navigateTo(BuildContext context, Widget page) async {
-    Navigator.of(context).push(FadeRoute(page: page));//MaterialPageRoute(builder: (context) => page));
+  static void navigateTo(BuildContext context, Widget page, {Function()? then}) async {
+    Navigator.of(context).push(FadeRoute(page: page)).then((value) => then==null?then:then());//MaterialPageRoute(builder: (context) => page));
   }
 
   static Future<void> navigateTorePlaceUntil(BuildContext context, Widget page) async {
