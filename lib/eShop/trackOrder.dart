@@ -85,7 +85,7 @@ class _TrackOrdersState extends State<TrackOrders> {
   Widget _itemContainer({
     required ItemModel itemModel
   }){
-    ShopHelper shopHelper = ShopHelper(notify: ()=>setState(() {}), itemModel: itemModel);
+   // ShopHelper shopHelper = ShopHelper(notify: ()=>setState(() {}), itemModel: itemModel);
     return MyWidget.shadowContainer(
       padding: 0.0,
       child: Column(
@@ -108,7 +108,7 @@ class _TrackOrdersState extends State<TrackOrders> {
           Row(
             children: [
               GestureDetector(
-                onTap:()=>MyApplication.navigateTo(context, ProductDetails(item: itemModel)),
+                onTap:()=>null,//MyApplication.navigateTo(context, ProductDetails(item: itemModel)),
                 child: Container(
                   margin: EdgeInsets.all(AppWidth.w2),
                   decoration: BoxDecoration(
@@ -180,7 +180,7 @@ class _TrackOrdersState extends State<TrackOrders> {
           // purchaseAttributeValues: product.purchaseAttributeValues!,
           status: product.status,
           orderSerial: '${product.codeSerial??''}',
-          orderDate: product.purchaseOrder?.insertDate??DateTime.now(),
+          orderDate: product.purchaseOrder?.orderDate??DateTime.now(),
           suppliers: product.productDetails!.suppliers!,
           id: product.id.toString(),
           networkImage: product.productDetails!.productDetailsPics![0].attachment!,
