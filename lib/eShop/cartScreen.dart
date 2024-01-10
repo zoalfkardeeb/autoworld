@@ -34,6 +34,7 @@ class _CartScreenState extends State<CartScreen> {
   }
   @override
   Widget build(BuildContext context) {
+    _fillFoundItem();
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: MyColors.topCon,

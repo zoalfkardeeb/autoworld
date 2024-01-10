@@ -47,6 +47,7 @@ class ShopHelper{
     ),purchaseOrderId: itemModel.purchaseOrderId
     );
     if(result){
+      checkCartItem();
       itemModel.amount += 1;
     }
     pleaseWait = false;
