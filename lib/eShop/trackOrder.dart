@@ -137,10 +137,10 @@ class _TrackOrdersState extends State<TrackOrders> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          Icon(Icons.storefront_outlined, color: _statusColor(itemModel.status)),
-                          Icon(Icons.payments_outlined, color: _statusColor(itemModel.status)),
-                          Icon(Icons.delivery_dining_outlined, color: _statusColor(itemModel.status)),
-                          Icon(Icons.fact_check_outlined, color: _statusColor(itemModel.status)),
+                          Icon(Icons.storefront_outlined, color: _statusColor(2/*itemModel.status*/)),
+                          Icon(Icons.payments_outlined, color: _statusColor(1/*itemModel.status*/)),
+                          Icon(Icons.delivery_dining_outlined, color: _statusColor(0/*itemModel.status*/)),
+                          Icon(Icons.fact_check_outlined, color: _statusColor(0/*itemModel.status*/)),
                         ],
                       ),
                     )
