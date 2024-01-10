@@ -11,6 +11,7 @@ import 'package:automall/eShop/topBar.dart';
 import 'package:automall/helper/functions.dart';
 import 'package:automall/localizations.dart';
 import 'package:automall/photoView.dart';
+import 'package:automall/screen/support/support.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 class TrackOrders extends StatefulWidget {
@@ -202,7 +203,7 @@ class _TrackOrdersState extends State<TrackOrders> {
   }
 
   _spport() {
-
+    MyApplication.navigateTo(context, const SupportScreen());
   }
 
   _statusColor(int? status){
