@@ -20,7 +20,7 @@ class ShopHelper{
         for(var i in c.purchaseOrderProductsAttr!){
           purchaseAttributeValueIds.add(i.purchaseAttributeValuesId!);
         }
-        if(c.id == itemModel.id.toString() && unOrdDeepEq(itemModel.purchaseAttributeValueIds, purchaseAttributeValueIds)) quantity = c.quantity!;
+        if(c.productDetails!.id.toString() == itemModel.id.toString() && unOrdDeepEq(itemModel.purchaseAttributeValueIds, purchaseAttributeValueIds)) quantity = c.quantity!;
       }
     }
     return quantity;
