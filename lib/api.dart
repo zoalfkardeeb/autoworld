@@ -228,9 +228,9 @@ class MyAPI{
         var r = await response.stream.bytesToString();
         var _model1 = orderReadFromJson(r);
         var _model2 = orderReadFromJson(r);
-        _model1.data = _model1.data!.where((element) => element.status!=0).toList();
+        _model1.data = _model1.data!.where((element) => element.status==1 || element.status==2 || element.status==3 || element.status==4).toList();
         orderProductList =  _model1;
-        _model2.data!.removeWhere((element) => element.status==0);
+        _model2.data = _model2.data!.where((element) => element.status==0).toList();
         cartProductList = _model2;
         if(status == 0){
           return _model2;
