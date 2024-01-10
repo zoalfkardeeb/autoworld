@@ -112,6 +112,7 @@ class _EShopMainScreenState extends State<EShopMainScreen> {
       _foundItems = _foundItems.where((element) =>
       element.name.toString().toLowerCase().contains(_searchController.text) ||
           element.attributeValues.toString().toLowerCase().contains(_searchController.text) ||
+          element.description.toString().toLowerCase().contains(_searchController.text) ||
           element.category.text.toString().toLowerCase().contains(_searchController.text)
       ).toList();
     });
