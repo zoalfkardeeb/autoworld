@@ -15,12 +15,15 @@ class ShopHelper{
     int quantity = 0;
     Function unOrdDeepEq = const DeepCollectionEquality.unordered().equals;
     if(cartProductList != null || cartProductList!.data!.length>0){
+      itemModel.purchaseOrderId = cartProductList!.data![0].purchaseOrder!.id;
       for(var c in cartProductList!.data!){
         List<int> purchaseAttributeValueIds=[];
         for(var i in c.purchaseOrderProductsAttr!){
           purchaseAttributeValueIds.add(i.purchaseAttributeValuesId!);
         }
-        if(c.productDetails!.id.toString() == itemModel.id.toString() && unOrdDeepEq(itemModel.purchaseAttributeValueIds, purchaseAttributeValueIds)) quantity = c.quantity!;
+        if(c.productDetails!.id.toString() == itemModel.id.toString() && unOrdDeepEq(itemModel.purchaseAttributeValueIds, purchaseAttributeValueIds)) {
+          quantity = c.quantity!;
+        }
       }
     }
     return quantity;
@@ -36,7 +39,7 @@ class ShopHelper{
         purchaseAttributeValuesIds: itemModel.purchaseAttributeValueIds,
         operationType: 1,
         productDetailsId: int.parse(itemModel.id),
-    )
+    ),purchaseOrderId: itemModel.purchaseOrderId
     );
     if(result){
       itemModel.amount += 1;
@@ -68,7 +71,6 @@ class ShopHelper{
   }
 
   removeItem() async{
-
     pleaseWait = true;
     notify();
     var result = true;

@@ -3,6 +3,9 @@
 //     final orderRead = orderReadFromJson(jsonString);
 
 import 'dart:convert';
+import 'package:automall/constant/images/imagePath.dart';
+import 'package:automall/constant/string/Strings.dart';
+
 import 'productRead.dart';
 OrderRead orderReadFromJson(String str) => OrderRead.fromJson(json.decode(str));
 
@@ -129,7 +132,9 @@ class ProductDetails {
     this.code,
     this.isActive,
     this.productDetailsPics,
-  });
+  }){
+    if(productDetailsPics!.isEmpty) productDetailsPics!.add(ProductDetailsPic( attachment:ImagePath.networkLogo, id: 123456));
+  }
 
   factory ProductDetails.fromJson(Map<String, dynamic> json) => ProductDetails(
     id: json["id"],

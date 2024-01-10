@@ -160,7 +160,7 @@ class MyAPI{
     return false;
   }
 
-  static Future<bool> createOrderProduct({required CreateProduct product}) async{
+  static Future<bool> createOrderProduct({required CreateProduct product, purchaseOrderId}) async{
     try{
       var headers = {
         'accept': '*/*',
@@ -168,10 +168,16 @@ class MyAPI{
       };
       var request = http.Request('POST', Uri.parse('$baseUrl/PurchaseOrders/PurchaseOrdersProducts_Create'));
       request.body = createProductToJson(product);
+      if(purchaseOrderId!=null){
+        var data=json.decode(request.body);
+        data["purchaseOrderId"]=purchaseOrderId;
+        request.body=json.encode(data);
+      }
       request.headers.addAll(headers);
       http.StreamedResponse response = await request.send();
       if (response.statusCode == 200) {
         print(await response.stream.bytesToString());
+        await getCartProductList();
         return true;
       }
       else {

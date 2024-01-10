@@ -203,7 +203,7 @@ class _CartScreenState extends State<CartScreen> {
          // purchaseAttributeValues: product.purchaseAttributeValues!,
           purchaseOrderProductId: product.purchaseOrder!.id,
           suppliers: product.productDetails!.suppliers!,
-          id: product.id.toString(),
+          id: product.productDetails!.id.toString(),
           networkImage: product.productDetails!.productDetailsPics![0].attachment!,
           isFavorite: checkIsFafourite(product.id.toString()),
           amount: product.quantity!,
