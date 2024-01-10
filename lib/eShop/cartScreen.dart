@@ -108,7 +108,7 @@ class _CartScreenState extends State<CartScreen> {
           Row(
             children: [
               GestureDetector(
-                onTap:()=>MyApplication.navigateTo(context, ProductDetails(item: itemModel)),
+                onTap:()=>null,//MyApplication.navigateTo(context, ProductDetails(item: itemModel)),
                 child: Container(
                   margin: EdgeInsets.all(AppWidth.w2),
                   decoration: BoxDecoration(
@@ -200,12 +200,13 @@ class _CartScreenState extends State<CartScreen> {
           purchaseAttributeValueIds.add(pur.purchaseAttributeValuesId!);
         }
         _foundItems.add(ItemModel(
-         // purchaseAttributeValues: product.purchaseAttributeValues!,
-          purchaseOrderProductId: product.purchaseOrder!.id,
+          //purchaseAttributeValues: product.productDetails.products.,
+          purchaseOrderProductId: product.id,
+          purchaseOrderId: product.purchaseOrder!.id,
           suppliers: product.productDetails!.suppliers!,
           id: product.productDetails!.id.toString(),
           networkImage: product.productDetails!.productDetailsPics![0].attachment!,
-          isFavorite: checkIsFafourite(product.id.toString()),
+          isFavorite: checkIsFafourite(product.productDetails!.id.toString()),
           amount: product.quantity!,
           name: product.productDetails!.products!.name.toString(),
           category: CategoryModel(id: product.productDetails!.products!.productCategory!.id.toString(), text: product.productDetails!.products!.productCategory!.name!) ,

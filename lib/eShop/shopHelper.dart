@@ -4,6 +4,7 @@ import 'package:automall/const.dart';
 import 'package:automall/eShop/model/request/addProduct.dart';
 import 'package:collection/collection.dart';
 import 'model/itemModel.dart';
+import 'package:automall/eShop/model/response/orderRead.dart' as orderRead;
 
 class ShopHelper{
   Function() notify;
@@ -11,11 +12,12 @@ class ShopHelper{
   ShopHelper({required this.notify, required this.itemModel}) {
     itemModel.amount = checkCartItem();
   }
+  orderRead.Datum? _cartItem;
   int checkCartItem(){
     int quantity = 0;
     Function unOrdDeepEq = const DeepCollectionEquality.unordered().equals;
     if(cartProductList != null || cartProductList!.data!.length>0){
-      itemModel.purchaseOrderId = cartProductList!.data![0].purchaseOrder!.id;
+      itemModel.purchaseOrderId ??= cartProductList!.data![0].purchaseOrder!.id;
       for(var c in cartProductList!.data!){
         List<int> purchaseAttributeValueIds=[];
         for(var i in c.purchaseOrderProductsAttr!){
@@ -23,6 +25,9 @@ class ShopHelper{
         }
         if(c.productDetails!.id.toString() == itemModel.id.toString() && unOrdDeepEq(itemModel.purchaseAttributeValueIds, purchaseAttributeValueIds)) {
           quantity = c.quantity!;
+          itemModel.purchaseOrderId = c.purchaseOrder!.id;
+          itemModel.purchaseOrderProductId = c.id;
+          _cartItem = c;
         }
       }
     }

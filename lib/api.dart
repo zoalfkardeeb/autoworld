@@ -149,7 +149,9 @@ class MyAPI{
       request.headers.addAll(headers);
       http.StreamedResponse response = await request.send();
       if (response.statusCode == 200) {
-        print(await response.stream.bytesToString());
+        var r = await response.stream.bytesToString();
+        print(r);
+        await getCartProductList();
         return true;
       }
       else {
