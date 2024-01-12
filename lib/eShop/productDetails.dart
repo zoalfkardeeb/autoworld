@@ -41,7 +41,7 @@ class _ProductDetailsState extends State<ProductDetails> {
     imageList.clear();
     for (var element in widget.item.imageListGallery) {
       imageList.add(
-          MyWidget(context).networkImage(element.image, AppWidth.w90, crossAlign: CrossAxisAlignment.center, height: AppHeight.h20)
+          MyWidget(context).networkImage(element.image, AppWidth.w80, crossAlign: CrossAxisAlignment.center)
       );
     }
     return Scaffold(
@@ -64,31 +64,31 @@ class _ProductDetailsState extends State<ProductDetails> {
                                   onTap: ()=> MyWidget(context).showImage('src', listNetworkImage: widget.item.imageListGallery, selectedIndex: _selectedImageIndex),
                                   child: _imageSlider(imageList),
                                 ),
-                                Align(
+                               /* Align(
                                   alignment: Alignment.bottomRight,
                                   child: Padding(
                                     padding: EdgeInsets.only(top: AppHeight.h20- AppHeight.h2, right: AppWidth.w2),
                                     child: IconButton(onPressed: () =>shopHelper.addToFavorite(), icon: Icon(widget.item.isFavorite? Icons.favorite : Icons.favorite_border,color: MyColors.mainColor, size: AppHeight.h4,)),
                                   ),
-                                )
+                                )*/
                               ]
                           ),
                           SizedBox(height: AppWidth.w1,),
-                          MyWidget(context).headText(widget.item.name, scale: 0.6),
+                          MyWidget(context).headText(widget.item.name, scale: 0.7),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  MyWidget(context).bodyText1(widget.item.category.text, padding: 0.0, scale: 0.8),
+                                  MyWidget(context).bodyText1("${widget.item.category.text}, ${widget.item.code ?? ''}", padding: 0.0, scale: 1, maxLine: 2),
                                   //   MyWidget(context).bodyText1(widget.item.attributeValues, padding: 0.0, scale: 0.8),
                                 ],
                               ),
                             ],
                           ),
                           SizedBox(height: AppWidth.w1,),
-                          MyWidget(context).headText('${AppLocalizations.of(context)!.translate('Price')}: ${widget.item.price} ${AppLocalizations.of(context)!.translate('currency')}', scale: 0.55, color: MyColors.mainColor),
+                          MyWidget(context).headText('${AppLocalizations.of(context)!.translate('Price')}: ${widget.item.price} ${AppLocalizations.of(context)!.translate('currency')}', scale: 0.8, color: MyColors.mainColor),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: widget.item.purchaseAttributeValues!.map((e) => _horizontalScrolAtt(e)).toList(),
@@ -130,7 +130,7 @@ class _ProductDetailsState extends State<ProductDetails> {
       width: double.infinity,
 
       /// Height of the [ImageSlideshow].
-      height: MediaQuery.of(context).size.height/3.5,
+      height: AppWidth.w90,
 
       /// The page to show when first creating the [ImageSlideshow].
       initialPage: 0,
@@ -163,7 +163,7 @@ class _ProductDetailsState extends State<ProductDetails> {
   _description() {
     if(widget.item.description != null){
       return MyWidget.shadowContainer(
-        child: MyWidget(context).bodyText1('${AppLocalizations.of(context)!.translate('Description:')}\n ${widget.item.description.toString()}', padding: 0.0, scale: 0.8, align: TextAlign.start),
+        child: MyWidget(context).bodyText1('${AppLocalizations.of(context)!.translate('Description:')}\n ${widget.item.description.toString()}', padding: 0.0, scale: 1, align: TextAlign.start),
       );
     }
     else{

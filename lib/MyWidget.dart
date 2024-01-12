@@ -2133,10 +2133,8 @@ class MyWidget{
           crossAxisAlignment: crossAlign,
           children: [
       ClipRRect(
-
       borderRadius: BorderRadius.circular(MediaQuery.of(context).size.width/20),
-    child:
-    Image.network(netImage,
+    child: Image.network(netImage,
               width: width,
               height: height,
               fit: BoxFit.fitWidth,),

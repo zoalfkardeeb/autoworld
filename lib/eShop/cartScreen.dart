@@ -201,6 +201,7 @@ class _CartScreenState extends State<CartScreen> {
           purchaseAttributeValueIds.add(pur.purchaseAttributeValuesId!);
         }
         _foundItems.add(ItemModel(
+          code: product.productDetails!.code,
           //purchaseAttributeValues: product.productDetails.products.,
           purchaseOrderProductId: product.id,
           purchaseOrderId: product.purchaseOrder!.id,

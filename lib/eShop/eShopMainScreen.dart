@@ -113,6 +113,7 @@ class _EShopMainScreenState extends State<EShopMainScreen> {
       element.name.toString().toLowerCase().contains(_searchController.text) ||
           element.attributeValues.toString().toLowerCase().contains(_searchController.text) ||
           element.description.toString().toLowerCase().contains(_searchController.text) ||
+          element.code.toString().toLowerCase().contains(_searchController.text) ||
           element.category.text.toString().toLowerCase().contains(_searchController.text)
       ).toList();
     });
@@ -240,7 +241,7 @@ class _EShopMainScreenState extends State<EShopMainScreen> {
           ),
           SizedBox(height: AppWidth.w1,),
           MyWidget(context).headText(itemModel.name, scale: 0.55, maxLine: 2, align: TextAlign.start, paddingV: AppHeight.h1/2),
-          MyWidget(context).bodyText1(itemModel.category.text, padding: 0.0, scale: 0.8, maxLine: 2),
+          MyWidget(context).bodyText1("${itemModel.category.text}, ${itemModel.code ?? ''}", padding: 0.0, scale: 0.8, maxLine: 2),
           SizedBox(height: AppHeight.h1,),
           /*Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -326,6 +327,7 @@ class _EShopMainScreenState extends State<EShopMainScreen> {
           purchaseAttributeValueIds.add(pur[0].purchaseAttributeValues!.id!);
         }
         _foundItems.add(ItemModel(
+          code: product.code,
                 purchaseAttributeValues: product.purchaseAttributeValues!,
                 suppliers: product.suppliers!,
                 id: product.id.toString(),

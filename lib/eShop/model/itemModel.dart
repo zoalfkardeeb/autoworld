@@ -5,6 +5,7 @@ import 'package:automall/photoView.dart';
 class ItemModel{
   String? purchaseOrderId;
   String? purchaseOrderProductId;
+  String? code;
   DateTime? orderDate;
   String? orderSerial;
   String id, name, networkImage, price, attributeValues;
@@ -19,5 +20,5 @@ class ItemModel{
   int? status;
   Suppliers suppliers;
   List<GalarryItems> imageListGallery = [];
-  ItemModel({this.status ,this.orderSerial, this.orderDate, this.brands, this.purchaseAttributeValues ,required this.suppliers ,this.purchaseOrderId, this.purchaseOrderProductId, required this.purchaseAttributeValueIds, required this.id, required this.networkImage, required this.isFavorite, required this.amount, required this.name, required this.category, required this.price, required this.imageListGallery, required this.attributeValues, this.description});
+  ItemModel({this.code ,this.status ,this.orderSerial, this.orderDate, this.brands, this.purchaseAttributeValues ,required this.suppliers ,this.purchaseOrderId, this.purchaseOrderProductId, required this.purchaseAttributeValueIds, required this.id, required this.networkImage, required this.isFavorite, required this.amount, required this.name, required this.category, required this.price, required this.imageListGallery, required this.attributeValues, this.description});
 }

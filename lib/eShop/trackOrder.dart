@@ -177,14 +177,14 @@ class _TrackOrdersState extends State<TrackOrders> {
           purchaseAttributeValueIds.add(pur.purchaseAttributeValuesId!);
         }
         _foundItems.add(ItemModel(
-          // purchaseAttributeValues: product.purchaseAttributeValues!,
-          status: product.status,
-          orderSerial: '${product.codeSerial??''}',
-          orderDate: product.purchaseOrder?.orderDate??DateTime.now(),
+          //purchaseAttributeValues: product.productDetails.products.,
+          code: product.productDetails!.code,
+          purchaseOrderProductId: product.id,
+          purchaseOrderId: product.purchaseOrder!.id,
           suppliers: product.productDetails!.suppliers!,
-          id: product.id.toString(),
+          id: product.productDetails!.id.toString(),
           networkImage: product.productDetails!.productDetailsPics![0].attachment!,
-          isFavorite: checkIsFafourite(product.id.toString()),
+          isFavorite: checkIsFafourite(product.productDetails!.id.toString()),
           amount: product.quantity!,
           name: product.productDetails!.products!.name.toString(),
           category: CategoryModel(id: product.productDetails!.products!.productCategory!.id.toString(), text: product.productDetails!.products!.productCategory!.name!) ,
