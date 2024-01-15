@@ -5,9 +5,11 @@ import 'dart:io';
 import 'dart:math';
 import 'package:automall/constant/font_size.dart';
 import 'package:automall/constant/app_size.dart';
+import 'package:automall/constant/string/Strings.dart';
 import 'package:automall/eShop/trackOrder.dart';
 
 import 'package:automall/localization_service.dart';
+import 'package:automall/location/location.dart';
 import 'package:automall/main.dart';
 import 'package:automall/model/request/address.dart';
 import 'package:automall/photoView.dart';
@@ -24,6 +26,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:map_location_picker/map_location_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
@@ -1451,6 +1454,41 @@ class MyWidget{
     nameController.text = userInfo['name'];
     mobileController.text = userInfo['mobile']; //userInfo['mobile'];
     cityController.text = userInfo['city']['name']; //userInfo['city'];
+
+
+    _showPlacePicker() async {
+      pleaseWait = true;
+      setState();
+      await getCurrentLocation();
+      // ignore: use_build_context_synchronously
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) {
+            return GoogleMapLocationPicker(
+              apiKey: Strings.mapKey,
+              //popOnNextButtonTaped: true,
+              currentLatLng: currentLocation == null ? const LatLng(25.3407106, 52.9036987)
+                  : LatLng(currentLocation!.latitude, currentLocation!.longitude),
+              onNext: (GeocodingResult? result) {
+                if (result != null) {
+                  lat = result.geometry.location.lat.toString();
+                  lang = result.geometry.location.lng.toString();
+                  Navigator.of(context).pop();
+                }
+              },
+              onSuggestionSelected: (Prediction? result) {
+                if (result != null) {
+
+                }
+              },
+            );
+          },
+        ),
+      ).then((value) => setState());
+      pleaseWait = false;
+      setState();
+    }
     _selectImageProfile() async {
       final ImagePicker picker = ImagePicker();
       final XFile? xFile = await picker.pickImage(source: ImageSource.gallery, imageQuality: 30, maxWidth: 2000, maxHeight: 2000);
@@ -1462,7 +1500,7 @@ class MyWidget{
     _save()async{
       pleaseWait = true;
       setState();
-      await MyAPI(context:context).updateProfile();
+      await MyAPI(context:context).updateProfile(lat: lat, lng: lang);
       editProfile = false;
       pleaseWait = false;
       setState();
@@ -1535,6 +1573,11 @@ class MyWidget{
               bodyText1(AppLocalizations.of(context)!.translate('City'), align: TextAlign.start, padding: MediaQuery.of(context).size.width/10,padV: hSpace/7),
               ProfiletextFiled(curve, MyColors.white, MyColors.black, cityController, readOnly: true),
             ],),
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: AppWidth.w8, vertical: AppHeight.h2),
+            child: MyWidget(context).raisedButton(curve, AppWidth.w80, AppLocalizations.of(context)!.translate('Pick from map'),
+                null, () async => await _showPlacePicker()),
           ),
         ],
     );

@@ -6,6 +6,7 @@ import 'package:flutter_svg/svg.dart';
 
 import '../MyWidget.dart';
 import 'package:automall/constant/color/MyColors.dart';
+import 'package:automall/helper/launchUrlHelper.dart';
 
 import '../const.dart';
 class SuplierInfo extends StatefulWidget {
@@ -131,6 +132,7 @@ class _SuplierInfoState extends State<SuplierInfo> {
                           ),
                         ]
                     ),
+                    _location(suplierList[index]['user']['lat'], suplierList[index]['user']['lng']),
                     suplierList[index]['details'] != null ? Container(
                       width: AppWidth.w100,
                       margin: EdgeInsets.all(AppPadding.p20),
@@ -237,20 +239,6 @@ class _SuplierInfoState extends State<SuplierInfo> {
 
   String? path ;
 
-  selectAll() {
-    for(int i = 0; i<_suplierListCheck.length; i++){
-      _suplierListCheck[i] = true;
-    }
-    setState(() {});
-  }
-
-  clearAll() {
-    for (int i = 0; i < _suplierListCheck.length; i++) {
-      _suplierListCheck[i] = false;
-    }
-    setState(() {});
-  }
-
   _htmlScreen(htmlText){
     return SingleChildScrollView(
       child: h.Html(
@@ -259,5 +247,26 @@ class _SuplierInfoState extends State<SuplierInfo> {
                 """,
       ),
     );
+  }
+
+  Widget _location(lat, lng){
+    if(lat==null){
+      return SizedBox();
+    }
+    else{
+      return GestureDetector(
+        onTap: ()=> LaunchUrlHelper.openMap(lat, lng),
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: AppWidth.w8),
+          child: Row(
+            children: [
+              Icon(Icons.location_on_outlined, size: AppHeight.h4,),
+              MyWidget(context).bodyText1('$lat, $lng', scale:1.2),
+            ],
+          ),
+        ),
+      );
+    }
+
   }
 }

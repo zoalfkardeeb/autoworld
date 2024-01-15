@@ -1478,7 +1478,7 @@ class MyAPI{
     }
   }
 
-  Future updateProfile() async {
+  Future updateProfile({lat, lng}) async {
     var apiUrl = Uri.parse('$_baseUrl/SignUp/SignUp_UpdateInfo?');
     var request = http.MultipartRequest('POST', apiUrl);
     request.fields['Id'] = userData["id"];
@@ -1487,6 +1487,10 @@ class MyAPI{
     request.fields['Mobile'] = mobileController.text;
     request.fields['Email'] = userInfo["email"];
     request.fields['Password'] = userInfo["password"];
+    if(lat != null){
+      request.fields['lat'] = lat;
+      request.fields['lng'] = lng;
+    }
     //request.fields['Type'] = userInfo["Type"].toString();
     print(path);
     print(request.fields);

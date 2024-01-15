@@ -622,7 +622,7 @@ class _RegisterState extends State<Register> {
   }
 
   _selectType(){
-    _type(type, text){
+    _type(selectType, text){
       return Row(
         mainAxisAlignment: MainAxisAlignment.center,
         //textDirection: TextDirection.rtl,
@@ -631,10 +631,10 @@ class _RegisterState extends State<Register> {
         children: [
           GestureDetector(
             onTap: ()=> setState(() {
-              type = type;
+              type = selectType;
               print(type.toString());
             }),
-            child: SvgPicture.asset(type == type?'assets/images/check.svg':'assets/images/check-not.svg' ,height: MediaQuery.of(context).size.width/13, fit: BoxFit.contain,),
+            child: SvgPicture.asset(type == selectType?'assets/images/check.svg':'assets/images/check-not.svg' ,height: MediaQuery.of(context).size.width/13, fit: BoxFit.contain,),
           ),
           SizedBox(width: MediaQuery.of(context).size.width/40,),
           Column(
@@ -643,8 +643,7 @@ class _RegisterState extends State<Register> {
             ],
           )
         ],
-      )
-        ;
+      );
       return Row(
         children: [
           Expanded(

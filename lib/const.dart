@@ -56,6 +56,7 @@ bool termsAndConditions = false;
 var nameController = TextEditingController();
 var mobileController = TextEditingController();
 var cityController = TextEditingController();
+String? lat, lang;
 bool editProfile = false;
 var timeDiff = const Duration(seconds: 0);
 

@@ -250,6 +250,9 @@ class _AddAddressState extends State<AddAddress> {
   LatLng position = LatLng(25.3407106, 52.9036987);
 
   _showPlacePicker() async {
+    setState(() {
+      pleaseWait = true;
+    });
     await getCurrentLocation();
     // ignore: use_build_context_synchronously
     Navigator.push(
@@ -279,6 +282,9 @@ class _AddAddressState extends State<AddAddress> {
         },
       ),
     ).then((value) => _setState());
+    setState(() {
+      pleaseWait = false;
+    });
   }
 
 }

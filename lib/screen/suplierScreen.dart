@@ -519,5 +519,4 @@ class _SuplierScreenState extends State<SuplierScreen> {
         ));
   }
 
-
 }
