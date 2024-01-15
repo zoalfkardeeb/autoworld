@@ -133,21 +133,23 @@ class _SuplierInfoState extends State<SuplierInfo> {
                         ]
                     ),
                     _location(suplierList[index]['user']['lat'], suplierList[index]['user']['lng']),
-                    suplierList[index]['details'] != null ? Container(
-                      width: AppWidth.w100,
-                      margin: EdgeInsets.all(AppPadding.p20),
-                       decoration: BoxDecoration(
-                         color: MyColors.topCon,
-                         borderRadius: BorderRadius.all(Radius.circular(hSpace/3)),
-                         boxShadow: const [BoxShadow(
-                           color: MyColors.black,
-                           offset: Offset(2, 3),
-                           blurRadius: 3,
-                         )],
-                       ),
-                     child: _htmlScreen(suplierList[index]['details']??''),
-                     //child: _m!.bodyText1(unescape.convert(suplierList[index]['details']??''), align: TextAlign.start, padV: hSpace/3, scale: 1, maxLine: 100),
-                   ):const SizedBox(),
+                    suplierList[index]['details'] != null ? Expanded(
+                      child: Container(
+                        width: AppWidth.w100,
+                        margin: EdgeInsets.all(AppPadding.p20),
+                         decoration: BoxDecoration(
+                           color: MyColors.topCon,
+                           borderRadius: BorderRadius.all(Radius.circular(hSpace/3)),
+                           boxShadow: const [BoxShadow(
+                             color: MyColors.black,
+                             offset: Offset(2, 3),
+                             blurRadius: 3,
+                           )],
+                         ),
+                       child: _htmlScreen(suplierList[index]['details']??''),
+                       //child: _m!.bodyText1(unescape.convert(suplierList[index]['details']??''), align: TextAlign.start, padV: hSpace/3, scale: 1, maxLine: 100),
+                   ),
+                    ):const SizedBox(),
                   ],
                 )
                   :
