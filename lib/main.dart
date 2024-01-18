@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:automall/eShop/worker/mainScreen.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:automall/screen/SplachScreen.dart';
 import 'package:flutter/material.dart';
@@ -158,7 +159,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             primarySwatch: Colors.red,
           ),
-          home: const SplashScreen(),
+          home: MainWorkerScreen(),//const SplashScreen(),
           routes: const {
           },
         );

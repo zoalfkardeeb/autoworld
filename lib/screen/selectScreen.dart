@@ -105,14 +105,16 @@ class _SelectScreenState extends State<SelectScreen> {
     setState(() {
       pleaseWait = true;
     });
-    await MyAPI(context: context).getCarSell('');
-    // ignore: use_build_context_synchronously
-    await MyAPI(context: context).getCarModel();
-    await MyAPI(context: context).getBrands();
-    setState(() {
-      pleaseWait = false;
-    });
-    if(carSellsList.isNotEmpty) MyApplication.navigateTo(context, CarSellDetails(indexCarSell: carSellsList.indexWhere((element) => element['id'] == id)));
+    if(url.toLowerCase().contains('car')){
+      await MyAPI(context: context).getCarSell('');
+      // ignore: use_build_context_synchronously
+      await MyAPI(context: context).getCarModel();
+      await MyAPI(context: context).getBrands();
+      setState(() {
+        pleaseWait = false;
+      });
+      if(carSellsList.isNotEmpty) MyApplication.navigateTo(context, CarSellDetails(indexCarSell: carSellsList.indexWhere((element) => element['id'] == id)));
+    }
   }
 
   Future<void> _initDeepLinks() async {
