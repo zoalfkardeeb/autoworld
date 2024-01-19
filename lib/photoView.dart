@@ -23,7 +23,7 @@ class PhotoView extends StatelessWidget {
           _topBar(curve, context),
           //Padding(padding:EdgeInsets.symmetric(horizontal: 40), child: GestureDetector(child: Icon(Icons.close, color: MyColors.white,),onTap: ()=>Navigator.pop(context))),
           Expanded(
-              child: networkImageList==null? p.PhotoView(imageProvider: networkImage,):
+              child: networkImageList==null? p.PhotoView(imageProvider: networkImage, enableRotation: false,):
                   _listPhoto(context)
             ,
           ),
@@ -36,36 +36,33 @@ class PhotoView extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Flexible(
-          child: Container(
-              child: PhotoViewGallery.builder(
-                scrollPhysics: const BouncingScrollPhysics(),
-                builder: (BuildContext context, int index) {
-                  return PhotoViewGalleryPageOptions(
-                    imageProvider: NetworkImage(networkImageList![index].image),
-                    initialScale: p.PhotoViewComputedScale.contained * 0.8,
-                    heroAttributes: p.PhotoViewHeroAttributes(tag: networkImageList![index].id),
-                  );
-                },
-                itemCount: networkImageList!.length,
-                enableRotation:true,
-              /*  loadingBuilder: (context, event) => Center(
-                  child: Container(
-                    width: 20.0,
-                    height: 20.0,
-                    child: CircularProgressIndicator(
-                      value: event == null
-                          ? 0
-                          : event.cumulativeBytesLoaded / event.expectedTotalBytes,
-                    ),
-                  ),
+          child: PhotoViewGallery.builder(
+            scrollPhysics: const BouncingScrollPhysics(),
+            builder: (BuildContext context, int index) {
+              return PhotoViewGalleryPageOptions(
+                imageProvider: NetworkImage(networkImageList![index].image),
+                initialScale: p.PhotoViewComputedScale.contained * 0.8,
+                heroAttributes: p.PhotoViewHeroAttributes(tag: networkImageList![index].id),
+              );
+            },
+            itemCount: networkImageList!.length,
+          /*  loadingBuilder: (context, event) => Center(
+              child: Container(
+                width: 20.0,
+                height: 20.0,
+                child: CircularProgressIndicator(
+                  value: event == null
+                      ? 0
+                      : event.cumulativeBytesLoaded / event.expectedTotalBytes,
                 ),
-              */
-                backgroundDecoration: const BoxDecoration(
-                  color: MyColors.white
-                ),
-                pageController: _pageController,
-                onPageChanged: (value) =>  onPageChanged(value),
-              )
+              ),
+            ),
+          */
+            backgroundDecoration: const BoxDecoration(
+              color: MyColors.white
+            ),
+            pageController: _pageController,
+            onPageChanged: (value) =>  onPageChanged(value),
           ),
         ),
         SizedBox(

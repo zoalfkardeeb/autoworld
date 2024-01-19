@@ -3,6 +3,7 @@ import 'package:automall/api.dart';
 import 'package:automall/const.dart';
 import 'package:automall/constant/app_size.dart';
 import 'package:automall/constant/color/MyColors.dart';
+import 'package:automall/constant/images/imagePath.dart';
 import 'package:automall/constant/string/Strings.dart';
 import 'package:automall/helper/functions.dart';
 import 'package:automall/localizations.dart';
@@ -75,7 +76,7 @@ class _AddAddressState extends State<AddAddress> {
                           null, () async => await _showPlacePicker()),
                     ),
                     Padding(
-                      padding: EdgeInsets.all(AppWidth.w4),
+                      padding: EdgeInsets.symmetric(horizontal:AppWidth.w4),
                       child: Row(
                         children: [
                           const Icon(Icons.location_on_outlined),
@@ -106,12 +107,13 @@ class _AddAddressState extends State<AddAddress> {
                                   _aprController,
                                   AppLocalizations.of(context)!
                                       .translate('Apartment number')),
-                              SizedBox(height: AppHeight.h1,),
+                              SizedBox(height: AppHeight.h1/2,),
                             ],
                           ),
                         ),
                       ),
                     ),
+                    Image.asset(ImagePath.address),
                   ],
                 )
             ),
