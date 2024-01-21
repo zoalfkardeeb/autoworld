@@ -1,4 +1,5 @@
 
+import 'package:automall/MyWidget.dart';
 import 'package:automall/api.dart';
 import 'package:automall/const.dart';
 import 'package:automall/eShop/model/request/addProduct.dart';
@@ -36,16 +37,19 @@ class ShopHelper{
   addItemToBasket() async{
     pleaseWait = true;
     notify();
-    var result = true;
-    result = await MyAPI.createOrderProduct(product:
-    CreateProduct(
+    var result = false;
+    if(checkStoreAvilable())
+    {
+      result = await MyAPI.createOrderProduct(product:
+      CreateProduct(
         price: double.parse(itemModel.price),
         customerId:userInfo['id'],
         purchaseAttributeValuesIds: itemModel.purchaseAttributeValueIds,
         operationType: 1,
         productDetailsId: int.parse(itemModel.id),
     ),purchaseOrderId: itemModel.purchaseOrderId
-    );
+      );
+    }
     if(result){
       checkCartItem();
       itemModel.amount += 1;
@@ -57,8 +61,9 @@ class ShopHelper{
   addItem() async{
     pleaseWait = true;
     notify();
-    var result = true;
-    result = await MyAPI.addOrderProduct(product:
+    var result = false;
+    if(checkStoreAvilable()) {
+      result = await MyAPI.addOrderProduct(product:
       AddProduct(
         purchaseOrderId: itemModel.purchaseOrderId,
         price: double.parse(itemModel.price),
@@ -69,6 +74,7 @@ class ShopHelper{
         productDetailsId: int.parse(itemModel.id),
       )
       );
+    }
     if(result){
       itemModel.amount += 1;
     }
@@ -101,5 +107,18 @@ class ShopHelper{
   addToFavorite(){
       itemModel.isFavorite = !itemModel.isFavorite;
     notify();
+  }
+
+  bool checkStoreAvilable(){
+    bool avilable = true;
+    if(itemModel.outOfStock){
+      MyWidget.showInfoDialog(text: 'Out Of Stock');
+      avilable = false;
+    }
+    if(itemModel.amount >= (itemModel.avilableInStore??100000)){
+      MyWidget.showInfoDialog(text: 'available in store only: ${itemModel.avilableInStore}');
+      avilable = false;
+    }
+    return avilable;
   }
 }

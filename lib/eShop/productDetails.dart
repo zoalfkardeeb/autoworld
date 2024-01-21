@@ -106,7 +106,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                     onTap:() => _addToCart(),
                     child: MyWidget(context).bodyText1(AppLocalizations.of(context)!.translate('Add to basket'), color: MyColors.white, scale: 1.4),
                   ): _addMinCounter(),
-                  AppWidth.w8, bottomConRati: 0.08, color: MyColors.mainColor)
+                  AppWidth.w8, bottomConRati: 0.08, color: widget.item.outOfStock? MyColors.card : MyColors.mainColor)
             ],
           ),
           Align(
