@@ -50,6 +50,7 @@ class Datum {
   String? description;
   String? arDescription;
   int? brandId;
+  int? storeQuantity;
   Brands? brands;
   List<ProductDetailsPic>? productDetailsPics;
   int? price;

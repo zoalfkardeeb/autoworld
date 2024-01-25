@@ -90,19 +90,20 @@ class MyWidget{
   }
 
 
-  static Widget shadowContainer({required child, width, margin, padding}){
+  static Widget shadowContainer({required child, width, margin, padding, color}){
     margin ??= 0.0;
     width ??= double.infinity;
     padding ??= AppWidth.w2;
+    color ??= MyColors.black;
     return Container(
       width: width,
       margin: EdgeInsets.symmetric(vertical: AppHeight.h1, horizontal: margin),
       padding: EdgeInsets.all(padding),
       decoration:  BoxDecoration(
         color: MyColors.topCon,
-        boxShadow:const [BoxShadow(
-          color: MyColors.black,
-          offset: Offset(1, 2),
+        boxShadow: [BoxShadow(
+          color: color,
+          offset: const Offset(1, 2),
           blurRadius: 2,
         )],
         borderRadius: BorderRadius.all(Radius.circular(AppWidth.w2)),
@@ -169,7 +170,7 @@ class MyWidget{
           horizontal:
           AppWidth.w4*1.5),
       child: Container(
-        // height: FontSize.s18*2.5,
+        //height: FontSize.s18*2.5,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius:

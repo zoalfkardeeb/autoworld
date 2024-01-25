@@ -14,6 +14,7 @@ class MainWorkerScreen extends StatefulWidget {
 class _MainWorkerScreenState extends State<MainWorkerScreen> {
   List order = ['',''];
   MyWidget? _m;
+  bool _currentOrder = true;
 
   @override
   Widget build(BuildContext context) {
@@ -39,15 +40,45 @@ class _MainWorkerScreenState extends State<MainWorkerScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   _topBar(AppWidth.w8),
-                  const SizedBox(height: 3,),
+                  SizedBox(height: AppHeight.h1,),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: AppWidth.w4),
+                    child: Row(
+                      children: [
+                        Flexible(
+                          child: GestureDetector(
+                            child: MyWidget.shadowContainer(
+                                child: MyWidget(context).headText(
+                                    AppLocalizations.of(context)!.translate('Current Order'), scale: 0.7,
+                                    color: _currentOrder? MyColors.mainColor : MyColors.black),
+                              color: _currentOrder? MyColors.mainColor: MyColors.black,
+                            ),
+                            onTap: ()=> _changeCurrentOrder(),
+                          ),
+                        ),
+                        SizedBox(width: AppWidth.w4,),
+                        Flexible(
+                          child: GestureDetector(
+                            child: MyWidget.shadowContainer(
+                              child: MyWidget(context).headText(
+                                  AppLocalizations.of(context)!.translate('Delivered Order'), scale: 0.7,
+                                  color: _currentOrder? MyColors.black : MyColors.mainColor),
+                              color: _currentOrder? MyColors.black : MyColors.mainColor,
+                            ),
+                              onTap: ()=> _changeCurrentOrder()),
+                        ),
+                      ],
+                    ),
+                  ),
                   Expanded(
                     flex: 1,
                     child: ListView(
-
+                      padding: const EdgeInsets.symmetric(vertical: 0.0),
                       children: order.map((e) => MyWidget.shadowContainer(
                         padding: AppWidth.w4,
                         margin: AppWidth.w4,
                         child: _orderContainer(),
+                       // color: MyColors.mainColor
                       ),).toList(),
                     )
                   ),
@@ -198,5 +229,9 @@ class _MainWorkerScreenState extends State<MainWorkerScreen> {
     );
   }
 
+  _changeCurrentOrder(){
+    _currentOrder=!_currentOrder;
+    setState(() {});
+  }
 
 }

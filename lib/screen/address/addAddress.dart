@@ -95,8 +95,22 @@ class _AddAddressState extends State<AddAddress> {
                         child: SingleChildScrollView(
                           child: Column(
                             children: [
-                              MyWidget(context).textFiledAddress(_titleController,
-                                  AppLocalizations.of(context)!.translate('Title')),
+                              MyWidget(context).textFiledAddress(_titleController, AppLocalizations.of(context)!.translate('Title')),
+                             /* Padding(
+                                padding: EdgeInsets.symmetric(horizontal: AppWidth.w8),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Flexible(
+                                        child: MyWidget.shadowContainer(child: MyWidget(context).bodyText1(AppLocalizations.of(context)!.translate('Building')))),
+                                    Flexible(
+                                        child: MyWidget(context).textFiledAddress(
+                                            _buildingController,
+                                            "123", ),),
+                                  ],
+                                ),
+                              ),
+                             */
                               MyWidget(context).textFiledAddress(
                                   _buildingController,
                                   AppLocalizations.of(context)!

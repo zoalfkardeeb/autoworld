@@ -115,8 +115,8 @@ class ShopHelper{
       MyWidget.showInfoDialog(text: 'Out Of Stock');
       avilable = false;
     }
-    if(itemModel.amount >= (itemModel.avilableInStore??100000)){
-      MyWidget.showInfoDialog(text: 'available in store only: ${itemModel.avilableInStore}');
+    if(itemModel.amount >= (itemModel.storeQuantity??100000)){
+      MyWidget.showInfoDialog(text: 'available in store only: ${itemModel.storeQuantity}');
       avilable = false;
     }
     return avilable;
