@@ -72,6 +72,7 @@ class Datum {
     this.price,
     this.products,
     this.suppliers,
+    this.storeQuantity,
     this.purchaseAttributeValues,
   }){
     if(productDetailsPics!.length==0){
@@ -92,6 +93,7 @@ class Datum {
     code: json["code"],
     productId: json["productId"],
     description: json["description"],
+    storeQuantity: json["storeQuantity"],
     arDescription: json["arDescription"],
     brandId: json["brandId"],
     brands: json["brands"] == null ? null : Brands.fromJson(json["brands"]),
@@ -108,6 +110,7 @@ class Datum {
     "code": code,
     "productId": productId,
     "description": description,
+    "storeQuantity": storeQuantity,
     "arDescription": arDescription,
     "brandId": brandId,
     "brands": brands?.toJson(),

@@ -22,7 +22,7 @@ class ItemModel{
   bool outOfStock = false;
   int? storeQuantity;
   List<GalarryItems> imageListGallery = [];
-  ItemModel({this.code ,this.status ,this.orderSerial, this.orderDate, this.brands, this.purchaseAttributeValues ,required this.suppliers ,this.purchaseOrderId, this.purchaseOrderProductId, required this.purchaseAttributeValueIds, required this.id, required this.networkImage, required this.isFavorite, required this.amount, required this.name, required this.category, required this.price, required this.imageListGallery, required this.attributeValues, this.description}) {
+  ItemModel({this.storeQuantity ,this.code ,this.status ,this.orderSerial, this.orderDate, this.brands, this.purchaseAttributeValues ,required this.suppliers ,this.purchaseOrderId, this.purchaseOrderProductId, required this.purchaseAttributeValueIds, required this.id, required this.networkImage, required this.isFavorite, required this.amount, required this.name, required this.category, required this.price, required this.imageListGallery, required this.attributeValues, this.description}) {
     if(storeQuantity==0){
       outOfStock = true;
     }

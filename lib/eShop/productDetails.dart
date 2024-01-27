@@ -16,20 +16,17 @@ import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 
 class ProductDetails extends StatefulWidget {
   late ItemModel item;
-  ProductDetails({key, required this.item}) : super(key: key);
+  late List<ItemModel> suggestionList;
+  ProductDetails({key, required this.item, required this.suggestionList}) : super(key: key);
 
   @override
   State<ProductDetails> createState() => _ProductDetailsState();
 }
 
 class _ProductDetailsState extends State<ProductDetails> {
-  List<GalarryItems> suggestionList = [
-    GalarryItems(image: 'https://maycointernational.com/wp-content/uploads/2019/07/Blog-CarParts.jpg', id: 1),
-    GalarryItems(image: 'https://maycointernational.com/wp-content/uploads/2019/07/Blog-CarParts.jpg', id: 1),
-    GalarryItems(image: 'https://maycointernational.com/wp-content/uploads/2019/07/Blog-CarParts.jpg', id: 1),
-  ];
+
   List<Widget> imageList = [];
-  late final ShopHelper shopHelper;
+  late ShopHelper shopHelper;
   @override
   void initState() {
     super.initState();
@@ -88,7 +85,14 @@ class _ProductDetailsState extends State<ProductDetails> {
                             ],
                           ),
                           SizedBox(height: AppWidth.w1,),
-                          MyWidget(context).headText('${AppLocalizations.of(context)!.translate('Price')}: ${widget.item.price} ${AppLocalizations.of(context)!.translate('currency')}', scale: 0.8, color: MyColors.mainColor),
+                          Row(
+                            children: [
+                              Expanded(
+                                  child: MyWidget(context).headText('${AppLocalizations.of(context)!.translate('Price')}: ${widget.item.price} ${AppLocalizations.of(context)!.translate('currency')}', scale: 0.8, color: MyColors.mainColor, align: TextAlign.start),
+                              ),
+                              MyWidget(context).bodyText1(widget.item.outOfStock ? AppLocalizations.of(context)!.translate('Out of stock'): '${AppLocalizations.of(context)!.translate('Available')} ${widget.item.storeQuantity}', scale: 0.9, color: MyColors.mainColor.withOpacity(0.7)),
+                            ],
+                          ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: widget.item.purchaseAttributeValues!.map((e) => _horizontalScrolAtt(e)).toList(),
@@ -174,18 +178,33 @@ class _ProductDetailsState extends State<ProductDetails> {
   }
 
   _suggestion(){
-
+    select(ItemModel e) async{
+      setState(() {
+        pleaseWait = true;
+      });
+      widget.item = e;
+      shopHelper = ShopHelper(notify: ()=>setState(() {}), itemModel: widget.item);
+      await Future.delayed(const Duration(seconds: 1));
+      setState(() {
+        pleaseWait = false;
+      });
+    }
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(height: AppHeight.h2,width: AppWidth.w4,),
         MyWidget(context).headText(AppLocalizations.of(context)!.translate('Suggestion:'), scale: 0.6),
-        Row(
-          children: suggestionList.map((e) => MyWidget.shadowContainer(child: Image.network(e.image, height: AppHeight.h10, fit: BoxFit.cover,), width: AppWidth.w24, margin: AppWidth.w2,)).toList(),
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: widget.suggestionList.map((e) =>
+                GestureDetector(
+                  onTap: ()=> select(e),
+                    child: MyWidget.shadowContainer(child: Image.network(e.networkImage, height: AppHeight.h10, fit: BoxFit.cover,), width: AppWidth.w24, margin: AppWidth.w2,))).toList(),
+          ),
         )
       ],
     );
-
   }
 
   _addToCart() async{

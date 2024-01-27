@@ -214,7 +214,7 @@ class _EShopMainScreenState extends State<EShopMainScreen> {
           children: [
             Align(child:
             GestureDetector(
-              onTap:()=>MyApplication.navigateTo(context, ProductDetails(item: itemModel), then: ()=> setState(() {})),
+              onTap:()=>_navigateToDetails(itemModel),
               child: Container(
                   decoration: BoxDecoration(
                     boxShadow: const [BoxShadow(
@@ -288,7 +288,6 @@ class _EShopMainScreenState extends State<EShopMainScreen> {
       ],
     );
   }
-
   _pullRefresh() async{
     await Future.wait([
       MyAPI.productRead(),
@@ -302,7 +301,6 @@ class _EShopMainScreenState extends State<EShopMainScreen> {
       _fillFoundItem();
     });
   }
-
   _fillFoundItem(){
     checkIsFafourite(productId){
       return false;
@@ -326,7 +324,8 @@ class _EShopMainScreenState extends State<EShopMainScreen> {
           purchaseAttributeValueIds.add(pur[0].purchaseAttributeValues!.id!);
         }
         _foundItems.add(ItemModel(
-          code: product.code,
+                code: product.code,
+                storeQuantity: product.storeQuantity,
                 purchaseAttributeValues: product.purchaseAttributeValues!,
                 suppliers: product.suppliers!,
                 id: product.id.toString(),
@@ -357,7 +356,6 @@ class _EShopMainScreenState extends State<EShopMainScreen> {
       }
     }
   }
-
   _filterCategory(){
     var categoryId = _categoryList.where((element) => element.select).toList()[0].id.toString();
     _fillFoundItem();
@@ -365,7 +363,6 @@ class _EShopMainScreenState extends State<EShopMainScreen> {
       _foundItems = _foundItems.where((element) => element.category.id.toString() == categoryId).toList();
     }
   }
-
   _filterBrand(){
     if(selectedBrand != null){
       var brandId = selectedBrand!.id.toString();
@@ -374,5 +371,48 @@ class _EShopMainScreenState extends State<EShopMainScreen> {
       _fillFoundItem();
     }
 
+  }
+
+  _navigateToDetails(ItemModel itemModel) {
+    List<ItemModel> suggestion = [];
+    var s = productList!.data!.where((element) => element.products!.productCategoryId!.toString()==itemModel.category.id).toList();
+      checkIsFafourite(productId){
+        return false;
+      }
+      getGalaryImages(List<ProductDetailsPic> productDetailsPics){
+        List<GalarryItems> pics = [];
+        for(var picture in productDetailsPics){
+          pics.add(GalarryItems(image: picture.attachment.toString(), id: picture.id!));
+        }
+        return pics;
+      }
+      suggestion.clear();
+      if(s != null){
+        for(var product in s){
+          List<int> purchaseAttributeValueIds = [];
+          for(var pur in product.purchaseAttributeValues!){
+            purchaseAttributeValueIds.add(pur[0].purchaseAttributeValues!.id!);
+          }
+          suggestion.add(ItemModel(
+            code: product.code,
+            storeQuantity: product.storeQuantity,
+            purchaseAttributeValues: product.purchaseAttributeValues!,
+            suppliers: product.suppliers!,
+            id: product.id.toString(),
+            brands:product.brands,
+            networkImage: product.productDetailsPics![0].attachment!,
+            isFavorite: checkIsFafourite(product.id.toString()),
+            amount: 1,
+            name: product.products!.name.toString(),
+            category: CategoryModel(id: product.products!.productCategory!.id.toString(), text: product.products!.productCategory!.name!) ,
+            price: product.price.toString(),
+            imageListGallery: getGalaryImages(product.productDetailsPics!),
+            attributeValues: product.attributeValues,
+            description: product.description??"",
+            purchaseAttributeValueIds: purchaseAttributeValueIds,
+          ));
+        }
+      }
+    MyApplication.navigateTo(context, ProductDetails(item: itemModel, suggestionList: suggestion,), then: ()=> setState(() {}));
   }
 }
