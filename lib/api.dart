@@ -421,6 +421,59 @@ class MyAPI{
     }
   }
 
+  loginGuest() async{
+    var email = 'guest@autoworldqa.com';
+    var password = '123456';
+    try{
+      http.Response response = await http.post(
+          Uri.parse('$_baseUrl/api/Auth/login?'),
+          body: jsonEncode({"UserName": email, "Password": password, "lang": lng}),
+          headers: {
+            "Accept-Language": LocalizationService.getCurrentLocale().languageCode,
+            "Accept": "application/json",
+            "content-type": "application/json",
+          });
+      if(response.statusCode == 200){
+        print(jsonDecode(response.body));
+        if(jsonDecode(response.body)['error_des'] == "" || jsonDecode(response.body)['error_des'] == null){
+          token = await jsonDecode(response.body)['content']['token'];
+          userData = await jsonDecode(response.body)['content'];//id , email, name, token, fbKey
+          //isLogin = true;
+          await readUserInfo(userData['id']);
+          await userLang(lng, userData['id']);
+          return true;
+        }
+        else if(jsonDecode(response.body)['error_code'] == 2){
+          Navigator.of(context!).push(MaterialPageRoute(builder:(context)=>Verification(value: jsonDecode(response.body)['content']['id'] ,email: email, password: password,  verCode: '',),));
+          flushBar(jsonDecode(response.body)['error_des']);
+          return false;
+        }
+        else if(jsonDecode(response.body)['error_code'] == 3){
+          flushBar(jsonDecode(response.body)['error_des']);
+          return false;
+        }
+        else{
+          // Navigator.of(context!).push(MaterialPageRoute(builder:(context)=>Verification(value: 'value' ,email: email, password: password,  verCode: '',),));
+          flushBar(jsonDecode(response.body)['error_des']);
+          return false;
+        }
+      }
+      else if(response.statusCode == 500){
+        flushBar(response.reasonPhrase.toString());
+        return false;
+      }
+      else{
+        flushBar(response.reasonPhrase.toString());
+        return false;
+      }
+    }
+    catch(e){
+      flushBar(AppLocalizations.of(context!)!.translate('please! check your network connection'));
+      return false;
+      print(e);
+    }
+  }
+
   userLang(langNum , id) async{
     try{
       http.Response response = await http.post(

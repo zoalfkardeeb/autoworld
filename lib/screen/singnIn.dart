@@ -16,6 +16,7 @@ import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:async';
 
@@ -139,7 +140,6 @@ class _Sign_inState extends State<Sign_in> {
               ),
             ),
           ),
-
           Align(
             alignment: Alignment.topCenter,
             child: showAll? Container(
@@ -318,14 +318,14 @@ class _Sign_inState extends State<Sign_in> {
         setState(() {
         });
         return;
-    }
+    }*/
     setState(() {
       chLogIn = true;
     });
-
+    await MyAPI(context: context).loginGuest();
     setState(() {
       chLogIn = false;
-    });*/
+    });
     guestType = true;
     Navigator.push(
         context,

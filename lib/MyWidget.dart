@@ -701,7 +701,7 @@ class MyWidget{
                   _iconText(()=>_manageAddress(), Icons.location_on_outlined, AppLocalizations.of(context)!.translate('Manage Address')),
                   _iconText(()=>changePassword(()=> _resetPass(() => setState(), scaffoldKey)), Icons.password_outlined, AppLocalizations.of(context)!.translate('Change Password?')),
                   driver(),
-                  userInfo['type'] == 0 ? const SizedBox()
+                  userInfo['type'] != 0 ? const SizedBox()
                       :_iconText(()=> Navigator.of(context).push(MaterialPageRoute(builder:(context)=> SupplierOrdesr(barTitle: AppLocalizations.of(context)!.translate('name'),))), Icons.local_offer_outlined, AppLocalizations.of(context)!.translate('SupplierOrders')),
                   _iconText(()=> guestType ? guestDialog() : Navigator.of(context).push(MaterialPageRoute(builder:(context)=> const NotificationScreen())), Icons.list_alt_outlined, AppLocalizations.of(context)!.translate('My Orders')),
                   _iconText(()=> guestType ? guestDialog() : _yourAds(), Icons.list, AppLocalizations.of(context)!.translate('My Ads')),
