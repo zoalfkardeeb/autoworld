@@ -199,6 +199,7 @@ class _ManageAddressState extends State<ManageAddress> {
               notes: address.notes,
               lat: address.lat.toString(),
               lng: address.lng.toString(),
+              street: address.street.toString(),
             )
         )
     );

@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 class MyColors {
- static const blue = Colors.black;
+ static const blue = Color.fromRGBO(4, 40, 150, 1.0);
  static const trans = Color(0x00000000);
  static const backGround = Color(0xffE4E4E4);
  static const white = Color(0xffFFFFFF);

@@ -166,15 +166,20 @@ class MyWidget{
     return Padding(
       padding: EdgeInsets.symmetric(
           vertical:
-          AppHeight.h1,
+          AppHeight.h2,
           horizontal:
-          AppWidth.w4*1.5),
+          AppWidth.w8),
       child: Container(
         //height: FontSize.s18*2.5,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius:
-          BorderRadius.all(Radius.circular(AppWidth.w4/2)),
+        decoration:  BoxDecoration(
+          color: MyColors.topCon,
+          // ignore: prefer_const_literals_to_create_immutables
+          boxShadow: [BoxShadow(
+            color: MyColors.black,
+            offset: const Offset(1, 2),
+            blurRadius: 2,
+          )],
+          borderRadius: BorderRadius.all(Radius.circular(AppWidth.w2)),
         ),
         child: TextFormField(
           textAlign: TextAlign.start,
@@ -190,23 +195,23 @@ class MyWidget{
           ),
           decoration: InputDecoration(
             enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(
-                  MediaQuery.of(context).size.height / 5),
+              gapPadding: 0.0,
+              borderRadius: BorderRadius.circular(AppWidth.w2),
               borderSide: const BorderSide(
                 color: Colors.white,
-                width: 2,
+                width: 1,
               ),
             ),
             focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(
-                  MediaQuery.of(context).size.height / 5),
+              gapPadding: 0.0,
+              borderRadius: BorderRadius.circular(AppWidth.w2),
               borderSide: const BorderSide(
                 color: Colors.white,
-                width: 2,
+                width: 1,
               ),
             ),
             filled: true,
-            fillColor: Colors.white,
+            fillColor: MyColors.topCon,
             border: InputBorder.none,
             hintText: hintText,
             hintStyle: TextStyle(

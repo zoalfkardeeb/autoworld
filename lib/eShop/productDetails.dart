@@ -95,7 +95,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                           ),
                           SizedBox(height: AppHeight.h1,),
                           _description(),
-                          //_suggestion(),
+                          _suggestion(),
                         ],
                       ),
                     ),

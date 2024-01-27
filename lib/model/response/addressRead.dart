@@ -47,6 +47,7 @@ class Datum {
   double? lat;
   double? lng;
   String? title;
+  String? street;
 
   Datum({
     this.id,
@@ -59,6 +60,7 @@ class Datum {
     this.lat,
     this.lng,
     this.title,
+    this.street,
   });
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
@@ -72,6 +74,7 @@ class Datum {
     lat: json["lat"]?.toDouble(),
     lng: json["lng"]?.toDouble(),
     title: json["title"],
+    street: json["street"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -85,6 +88,7 @@ class Datum {
     "lat": lat,
     "lng": lng,
     "title": title,
+    "street": street,
   };
 }
 

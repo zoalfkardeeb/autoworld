@@ -18,6 +18,7 @@ class AddressRequest {
   String? building;
   String? floor;
   String? appartment;
+  String? street;
 
   AddressRequest({
     this.id,
@@ -29,6 +30,7 @@ class AddressRequest {
     this.building,
     this.floor,
     this.appartment,
+    this.street,
   });
 
   factory AddressRequest.fromJson(Map<String, dynamic> json) => AddressRequest(
@@ -41,6 +43,7 @@ class AddressRequest {
     building: json["building"],
     floor: json["floor"],
     appartment: json["appartment"],
+    street: json["street"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -53,5 +56,6 @@ class AddressRequest {
     "building": building,
     "floor": floor,
     "appartment": appartment,
+    "street": street,
   };
 }
