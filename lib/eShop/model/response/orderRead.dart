@@ -5,6 +5,7 @@
 import 'dart:convert';
 import 'package:automall/constant/images/imagePath.dart';
 import 'package:automall/constant/string/Strings.dart';
+import 'package:automall/eShop/model/response/user.dart';
 
 import 'productRead.dart';
 OrderRead orderReadFromJson(String str) => OrderRead.fromJson(json.decode(str));
@@ -172,7 +173,7 @@ class PurchaseOrder {
   DateTime? orderDate;
   dynamic notes;
   dynamic endDate;
-  dynamic user;
+  User? user;
   dynamic profileAddress;
 
   PurchaseOrder({
@@ -201,7 +202,7 @@ class PurchaseOrder {
     orderDate: json["orderDate"] == null ? null : DateTime.parse(json["orderDate"]),
     notes: json["notes"],
     endDate: json["endDate"],
-    user: json["user"],
+    user: json["user"] == null ? null : userFromJson(json["user"]),
     profileAddress: json["profileAddress"],
   );
 

@@ -21,6 +21,7 @@ import 'model/transaction.dart';
 import 'helper/boxes.dart';
 OrderRead? cartProductList;
 OrderRead? orderProductList;
+OrderRead? workerOrderList;
 AddressRead? addressList;
 ProductRead? productList;
 Category? categoryList;

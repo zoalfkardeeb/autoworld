@@ -287,6 +287,31 @@ class MyAPI{
     return null;
   }
 
+  static Future<OrderRead?> getWorkerOrderRead() async{
+    try{
+      var headers = {
+        'accept': '*/*',
+        'Authorization': token,
+      };
+      var id = userInfo['id'];
+      var request = http.Request('GET', Uri.parse("$baseUrl/PurchaseOrders/PurchaseOrders_Read?"));
+      //var request = http.Request('GET', Uri.parse("$baseUrl/PurchaseOrders/PurchaseOrders_Read?filter=purchaseOrder.customerId~eq~'$id'"));
+      request.headers.addAll(headers);
+      http.StreamedResponse response = await request.send();
+      if (response.statusCode == 200) {
+        var r = await response.stream.bytesToString();
+        var _model = orderReadFromJson(r);
+        workerOrderList = _model;
+      }
+      else {
+        print(response.reasonPhrase);
+      }
+    }catch(e){
+      print(e.toString());
+    }
+    return null;
+  }
+
   static Future<BrandsRead?> brandsReadStore({country}) async{
     try{
       var headers = {
