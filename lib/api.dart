@@ -36,7 +36,8 @@ class MyAPI{
    try{
      var headers = {
        'accept': '*/*',
-       'Content-Type': 'application/json'
+       'Content-Type': 'application/json',
+       'Authorization': token,
      };
      var request = http.Request('POST', Uri.parse('$baseUrl/ProfileAddress/ProfileAddress_Create'));
      request.body = addressRequestToJson(address);
@@ -59,7 +60,8 @@ class MyAPI{
     try{
       var headers = {
         'accept': '*/*',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+      'Authorization': token,
       };
       var request = http.Request('POST', Uri.parse('$baseUrl/ProfileAddress/ProfileAddress_Update'));
       request.body = addressRequestToJson(address);
@@ -80,7 +82,13 @@ class MyAPI{
   static Future<AddressRead?> addressRead() async{
     try{
       var id = userInfo['id'];
+      var headers = {
+        'accept': '*/*',
+        'Content-Type': 'application/json',
+        'Authorization': token,
+      };
       var request = http.Request('GET', Uri.parse("$baseUrl/ProfileAddress/ProfileAddress_Read?filter=userId~eq~'$id'"));
+      request.headers.addAll(headers);
       http.StreamedResponse response = await request.send();
       if (response.statusCode == 200) {
         var r = await response.stream.bytesToString();
@@ -100,8 +108,9 @@ class MyAPI{
   static Future<Category?> categoryRead() async{
     try{
       var headers = {
-        'accept': '*/*'
-      };
+        'accept': '*/*',
+      'Authorization': token,
+    };
       var request = http.Request('GET', Uri.parse('$baseUrl/ProductCategory/ProductCategory_Read'));
       request.headers.addAll(headers);
       http.StreamedResponse response = await request.send();
@@ -122,7 +131,12 @@ class MyAPI{
 
   static Future<ProductRead?> productRead() async{
     try{
+      var headers = {
+        'accept': '*/*',
+        'Authorization': token,
+      };
       var request = http.Request('GET', Uri.parse('$baseUrl/Products/Products_Read'));
+      request.headers.addAll(headers);
       http.StreamedResponse response = await request.send();
       if (response.statusCode == 200) {
         var r = await response.stream.bytesToString();
@@ -142,7 +156,8 @@ class MyAPI{
     try{
       var headers = {
         'accept': '*/*',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+      'Authorization': token,
       };
       var request = http.Request('POST', Uri.parse('$baseUrl/PurchaseOrders/PurchaseOrdersProducts_Create'));
       request.body = addProductToJson(product);
@@ -166,7 +181,8 @@ class MyAPI{
     try{
       var headers = {
         'accept': '*/*',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+      'Authorization': token,
       };
       var request = http.Request('POST', Uri.parse('$baseUrl/PurchaseOrders/PurchaseOrdersProducts_Create'));
       request.body = createProductToJson(product);
@@ -203,7 +219,8 @@ class MyAPI{
     try{
       var headers = {
         'accept': '*/*',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+      'Authorization': token,
       };
       var request = http.Request('POST', Uri.parse('https://api.autoworldqa.com/PurchaseOrders/PurchaseOrders_ChangeStatus'));
       request.body = json.encode({
@@ -238,8 +255,13 @@ class MyAPI{
   static Future<OrderRead?> purchaseOrderRead({status}) async{
     status??= 1;
     try{
+      var headers = {
+        'accept': '*/*',
+        'Authorization': token,
+      };
       var id = userInfo['id'];
       var request = http.Request('GET', Uri.parse("$baseUrl/PurchaseOrders/PurchaseOrders_Read?filter=purchaseOrder.customerId~eq~'$id'"));
+      request.headers.addAll(headers);
       http.StreamedResponse response = await request.send();
       if (response.statusCode == 200) {
         var r = await response.stream.bytesToString();
@@ -268,7 +290,8 @@ class MyAPI{
   static Future<BrandsRead?> brandsReadStore({country}) async{
     try{
       var headers = {
-        'accept': '*/*'
+        'accept': '*/*',
+      'Authorization': token,
       };
       var request = http.Request('GET', Uri.parse('https://api.autoworldqa.com/Brands/Brands_Read'));
 
@@ -622,7 +645,7 @@ class MyAPI{
             "Accept-Language": LocalizationService.getCurrentLocale().languageCode,
             "Accept": "application/json",
             "content-type": "application/json",
-            //"Authorization": token,
+            "Authorization": token,
           });
       //await Hive.initFlutter();
       //Hive.registerAdapter(TransactionAdapter());
@@ -772,7 +795,6 @@ class MyAPI{
     }
 
   }
-
 
   Future getBrands({country}) async{
     try{
