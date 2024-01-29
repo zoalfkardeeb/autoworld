@@ -5,6 +5,8 @@ import 'package:automall/constant/color/MyColors.dart';
 
 import 'package:automall/const.dart';
 import 'package:automall/constant/font_size.dart';
+import 'package:automall/eShop/worker/mainScreen.dart';
+import 'package:automall/helper/functions.dart';
 import 'package:automall/localizations.dart';
 import 'package:automall/screen/register.dart';
 import 'package:automall/screen/selectScreen.dart';
@@ -293,23 +295,28 @@ class _Sign_inState extends State<Sign_in> {
     if(response) {
       guestType = false;
       _save();
-      await MyAPI(context: context).getOrders(userInfo['id']);
+      if(userInfo['type'] == 3){
+        await MyAPI.getWorkerOrderRead();
+      }else{
+        await MyAPI(context: context).getOrders(userInfo['id']);
+      }
     }
 
     setState(() {
       chLogIn = false;
     });
-    if(response){
-      if(true) {
+    if(response && userInfo['type'] == 3){
+      // ignore: use_build_context_synchronously
+      MyApplication.navigateTo(context, MainWorkerScreen());
+    }
+    else if(response){
+        // ignore: use_build_context_synchronously
         Navigator.pushReplacement(
             context,
             MaterialPageRoute(
               builder: (context) => const SelectScreen(),
             )
         );
-      } else{
-
-      }
     }
   }
 

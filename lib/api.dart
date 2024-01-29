@@ -294,8 +294,7 @@ class MyAPI{
         'Authorization': token,
       };
       var id = userInfo['id'];
-      var request = http.Request('GET', Uri.parse("$baseUrl/PurchaseOrders/PurchaseOrders_Read?"));
-      //var request = http.Request('GET', Uri.parse("$baseUrl/PurchaseOrders/PurchaseOrders_Read?filter=purchaseOrder.customerId~eq~'$id'"));
+      var request = http.Request('GET', Uri.parse("$baseUrl/PurchaseOrders/PurchaseOrders_Read?filter=deliveryUserId~eq~'$id'"));
       request.headers.addAll(headers);
       http.StreamedResponse response = await request.send();
       if (response.statusCode == 200) {

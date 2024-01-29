@@ -42,8 +42,8 @@ class OrderRead {
 
 class Datum {
   String? id;
-  dynamic deliveryUserId;
-  dynamic deliveryNote;
+  String? deliveryUserId;
+  String? deliveryNote;
   dynamic deliveryEndDate;
   dynamic deliveryStartDate;
   String? codeSerial;

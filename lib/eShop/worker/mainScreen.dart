@@ -119,6 +119,16 @@ class _MainWorkerScreenState extends State<MainWorkerScreen> {
     );
   }
 
+  _fillOrderList(){
+    if(workerOrderList!= null){
+      if(_currentOrder) {
+        _orderList = workerOrderList!.data!.where((element) => element.status==1||element.status==2||element.status==3).toList();
+      }else{
+        _orderList = workerOrderList!.data!.where((element) => element.status==4).toList();
+      }
+    }
+  }
+
   _orderContainer(order.Datum order){
     return Column(
       children: [
@@ -238,9 +248,7 @@ class _MainWorkerScreenState extends State<MainWorkerScreen> {
           pleaseWait = true;
         });
         await MyAPI.getWorkerOrderRead();
-        if(workerOrderList!= null){
-          _orderList = workerOrderList!.data!.toList();
-        }
+        _fillOrderList();
         setState(() {
           pleaseWait = false;
         });
@@ -299,6 +307,7 @@ class _MainWorkerScreenState extends State<MainWorkerScreen> {
 
   _changeCurrentOrder(){
     _currentOrder=!_currentOrder;
+    _fillOrderList();
     setState(() {});
   }
 
