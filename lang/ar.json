@@ -273,7 +273,12 @@
   "On Delivery": "عند الاستلام",
   "Phone Number": "رقم الهاتف",
   "Out of stock": "نفذ من المتجر",
-  "Available": "العدد المتوفر: "
-
+  "Available": "العدد المتوفر: ",
+  "Street:": "العنوان:",
+  "Zone:": "المنطقة:",
+  "Building No:": "رقم المبنى:",
+  "Unit No:": "رقم الشقة:",
+  "Enter your address manually": "أدخل عنوانك:",
+  "Title": "اسم العنوان"
 
 }

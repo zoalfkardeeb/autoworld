@@ -271,7 +271,13 @@
   "On Delivery": "On Delivery",
   "Phone Number": "Phone Number",
   "Out of stock": "Out of stock",
-  "Available": "Available:"
+  "Available": "Available:",
+  "Street:": "Street:",
+  "Zone:": "Zone:",
+  "Building No:": "Building No:",
+  "Unit No:": "Unit No:",
+  "Enter your address manually": "Enter your address manually",
+  "Title": "Name your address"
 
 }
 
