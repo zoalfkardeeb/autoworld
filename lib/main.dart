@@ -159,7 +159,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             primarySwatch: Colors.red,
           ),
-          home: const MainWorkerScreen(),//const SplashScreen(),
+          home: const SplashScreen(),
           routes: const {
           },
         );

@@ -236,6 +236,7 @@ class MyAPI{
         print(await response.stream.bytesToString());
       }
       else {
+        print(await response.stream.bytesToString());
         print(response.reasonPhrase);
       }
 
