@@ -24,6 +24,7 @@ class _MainWorkerScreenState extends State<MainWorkerScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    _fillOrderList();
   }
 
   @override
@@ -183,14 +184,16 @@ class _MainWorkerScreenState extends State<MainWorkerScreen> {
     call(){
       LaunchUrlHelper.makePhoneCall(phone);
     }
-    deliver(){
+    deliver() async{
       setState(() {
         pleaseWait = true;
       });
-      MyAPI.changeStatusOrderProduct(
+      await MyAPI.changeStatusOrderProduct(
           purchaseOrderProductsId: purchaseOrderProductsId,
           status: status == 1 || status == 3?2 : status == 2 ? 4: status,
           addressId: addressId);
+      await MyAPI.getWorkerOrderRead();
+      _fillOrderList();
       setState(() {
         pleaseWait = false;
       });
