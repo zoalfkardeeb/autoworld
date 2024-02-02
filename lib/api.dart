@@ -31,14 +31,15 @@ class MyAPI{
   final _baseUrl = 'https://api.autoworldqa.com';
   static final baseUrl = 'https://api.autoworldqa.com';
   //final _baseUrl = 'https://automallonline.info';
-
+  static final _acceptLang = LocalizationService.getCurrentLocale().languageCode;
+  static var headers = {
+    'accept': '*/*',
+    "Accept-Language": _acceptLang,
+    'Content-Type': 'application/json',
+    'Authorization': token,
+  };
   static Future<bool> addAdreess(AddressRequest address) async {
    try{
-     var headers = {
-       'accept': '*/*',
-       'Content-Type': 'application/json',
-       'Authorization': token,
-     };
      var request = http.Request('POST', Uri.parse('$baseUrl/ProfileAddress/ProfileAddress_Create'));
      request.body = addressRequestToJson(address);
      request.headers.addAll(headers);
@@ -58,11 +59,6 @@ class MyAPI{
 
   static Future<bool> updateAddreess(AddressRequest address) async {
     try{
-      var headers = {
-        'accept': '*/*',
-        'Content-Type': 'application/json',
-      'Authorization': token,
-      };
       var request = http.Request('POST', Uri.parse('$baseUrl/ProfileAddress/ProfileAddress_Update'));
       request.body = addressRequestToJson(address);
       request.headers.addAll(headers);
@@ -82,11 +78,6 @@ class MyAPI{
   static Future<AddressRead?> addressRead() async{
     try{
       var id = userInfo['id'];
-      var headers = {
-        'accept': '*/*',
-        'Content-Type': 'application/json',
-        'Authorization': token,
-      };
       var request = http.Request('GET', Uri.parse("$baseUrl/ProfileAddress/ProfileAddress_Read?filter=userId~eq~'$id'"));
       request.headers.addAll(headers);
       http.StreamedResponse response = await request.send();
@@ -107,10 +98,6 @@ class MyAPI{
 
   static Future<Category?> categoryRead() async{
     try{
-      var headers = {
-        'accept': '*/*',
-      'Authorization': token,
-    };
       var request = http.Request('GET', Uri.parse('$baseUrl/ProductCategory/ProductCategory_Read'));
       request.headers.addAll(headers);
       http.StreamedResponse response = await request.send();
@@ -131,10 +118,6 @@ class MyAPI{
 
   static Future<ProductRead?> productRead() async{
     try{
-      var headers = {
-        'accept': '*/*',
-        'Authorization': token,
-      };
       var request = http.Request('GET', Uri.parse('$baseUrl/Products/Products_Read'));
       request.headers.addAll(headers);
       http.StreamedResponse response = await request.send();
@@ -154,11 +137,6 @@ class MyAPI{
 
   static Future<bool> addOrderProduct({required AddProduct product}) async{
     try{
-      var headers = {
-        'accept': '*/*',
-        'Content-Type': 'application/json',
-      'Authorization': token,
-      };
       var request = http.Request('POST', Uri.parse('$baseUrl/PurchaseOrders/PurchaseOrdersProducts_Create'));
       request.body = addProductToJson(product);
       request.headers.addAll(headers);
@@ -179,11 +157,6 @@ class MyAPI{
 
   static Future<bool> createOrderProduct({required CreateProduct product, purchaseOrderId}) async{
     try{
-      var headers = {
-        'accept': '*/*',
-        'Content-Type': 'application/json',
-      'Authorization': token,
-      };
       var request = http.Request('POST', Uri.parse('$baseUrl/PurchaseOrders/PurchaseOrdersProducts_Create'));
       request.body = createProductToJson(product);
       if(purchaseOrderId!=null){
@@ -217,11 +190,6 @@ class MyAPI{
     5:deleted
     */
     try{
-      var headers = {
-        'accept': '*/*',
-        'Content-Type': 'application/json',
-      'Authorization': token,
-      };
       var request = http.Request('POST', Uri.parse('https://api.autoworldqa.com/PurchaseOrders/PurchaseOrders_ChangeStatus'));
       request.body = json.encode({
         "purchaseOrderProductsId": purchaseOrderProductsId,
@@ -255,10 +223,6 @@ class MyAPI{
   static Future<OrderRead?> purchaseOrderRead({status}) async{
     status??= 1;
     try{
-      var headers = {
-        'accept': '*/*',
-        'Authorization': token,
-      };
       var id = userInfo['id'];
       var request = http.Request('GET', Uri.parse("$baseUrl/PurchaseOrders/PurchaseOrders_Read?filter=purchaseOrder.customerId~eq~'$id'"));
       request.headers.addAll(headers);
@@ -289,10 +253,6 @@ class MyAPI{
 
   static Future<OrderRead?> getWorkerOrderRead() async{
     try{
-      var headers = {
-        'accept': '*/*',
-        'Authorization': token,
-      };
       var id = userInfo['id'];
       var request = http.Request('GET', Uri.parse("$baseUrl/PurchaseOrders/PurchaseOrders_Read?filter=deliveryUserId~eq~'$id'"));
       request.headers.addAll(headers);
@@ -313,10 +273,6 @@ class MyAPI{
 
   static Future<BrandsRead?> brandsReadStore({country}) async{
     try{
-      var headers = {
-        'accept': '*/*',
-      'Authorization': token,
-      };
       var request = http.Request('GET', Uri.parse('https://api.autoworldqa.com/Brands/Brands_Read'));
 
       request.headers.addAll(headers);
@@ -665,12 +621,7 @@ class MyAPI{
       http.Response response = await http.get(
           Uri.parse('$_baseUrl/City/City_Read?'),
           //body: jsonEncode({"UserName": email, "Password": password, "FBKey":fcmToken.toString()}),
-          headers: {
-            "Accept-Language": LocalizationService.getCurrentLocale().languageCode,
-            "Accept": "application/json",
-            "content-type": "application/json",
-            "Authorization": token,
-          });
+          headers: headers);
       //await Hive.initFlutter();
       //Hive.registerAdapter(TransactionAdapter());
       //await Hive.openBox<Transaction>('transactions');
@@ -706,7 +657,7 @@ class MyAPI{
             "Accept-Language": LocalizationService.getCurrentLocale().languageCode,
             "Accept": "application/json",
             "content-type": "application/json",
-            "Authorization": token,
+            //"Authorization": token,
           });
       //await Hive.initFlutter();
       //Hive.registerAdapter(TransactionAdapter());
@@ -751,12 +702,7 @@ class MyAPI{
       http.Response response = await http.get(
           uri,
           //body: jsonEncode({"UserName": email, "Password": password, "FBKey":fcmToken.toString()}),
-          headers: {
-            "Accept-Language": LocalizationService.getCurrentLocale().languageCode,
-            "Accept": "application/json",
-            "content-type": "application/json",
-            "Authorization": token,
-          });
+          headers: headers);
       //await Hive.initFlutter();
       //Hive.registerAdapter(TransactionAdapter());
       //await Hive.openBox<Transaction>('transactions');
@@ -789,12 +735,7 @@ class MyAPI{
       http.Response response = await http.get(
           uri,
           //body: jsonEncode({"UserName": email, "Password": password, "FBKey":fcmToken.toString()}),
-          headers: {
-            "Accept-Language": LocalizationService.getCurrentLocale().languageCode,
-            "Accept": "application/json",
-            "content-type": "application/json",
-            "Authorization": token,
-          });
+          headers: headers);
       //await Hive.initFlutter();
       //Hive.registerAdapter(TransactionAdapter());
       //await Hive.openBox<Transaction>('transactions');
@@ -825,12 +766,7 @@ class MyAPI{
       http.Response response = await http.get(
           Uri.parse('$_baseUrl/Brands/Brands_Read?filter=isActive~eq~true'),
           //body: jsonEncode({"UserName": email, "Password": password, "FBKey":fcmToken.toString()}),
-          headers: {
-            "Accept-Language": LocalizationService.getCurrentLocale().languageCode,
-            "Accept": "application/json",
-            "content-type": "application/json",
-            "Authorization": token,
-          });
+          headers: headers);
       if(response.statusCode == 200){
         print(jsonDecode(response.body));
         if(jsonDecode(response.body)['error_des'] == "" || jsonDecode(response.body)['error_des'] == null){
@@ -858,12 +794,7 @@ class MyAPI{
       http.Response response = await http.get(
           Uri.parse('$_baseUrl/CarTypes/CarTypes_Read?filter=isActive~eq~true'),
           //body: jsonEncode({"UserName": email, "Password": password, "FBKey":fcmToken.toString()}),
-          headers: {
-            "Accept-Language": LocalizationService.getCurrentLocale().languageCode,
-            "Accept": "application/json",
-            "content-type": "application/json",
-            "Authorization": token,
-          });
+          headers: headers);
       if(response.statusCode == 200){
         print(jsonDecode(response.body));
         if(jsonDecode(response.body)['error_des'] == "" || jsonDecode(response.body)['error_des'] == null){
@@ -892,12 +823,7 @@ class MyAPI{
           //Uri.parse('$_baseUrl/GaragBrands/GaragBrands_Read?filter=isActive~eq~true'),
           Uri.parse('$_baseUrl/GaragBrands/GaragBrands_Read?filter=isActive~eq~true'),
           //body: jsonEncode({"UserName": email, "Password": password, "FBKey":fcmToken.toString()}),
-          headers: {
-            "Accept-Language": LocalizationService.getCurrentLocale().languageCode,
-            "Accept": "application/json",
-            "content-type": "application/json",
-            "Authorization": token,
-          });
+          headers: headers);
       //await Hive.initFlutter();
       //Hive.registerAdapter(TransactionAdapter());
       //await Hive.openBox<Transaction>('transactions');
@@ -929,12 +855,7 @@ class MyAPI{
           //Uri.parse('$_baseUrl/GaragBrands/GaragBrands_Read?filter=isActive~eq~true'),
           Uri.parse('$_baseUrl/BrandsCountry/BrandsCountry_Read?filter=isActive~eq~true'),
           //body: jsonEncode({"UserName": email, "Password": password, "FBKey":fcmToken.toString()}),
-          headers: {
-            "Accept-Language": LocalizationService.getCurrentLocale().languageCode,
-            "Accept": "application/json",
-            "content-type": "application/json",
-            "Authorization": token,
-          });
+          headers: headers);
       //await Hive.initFlutter();
       //Hive.registerAdapter(TransactionAdapter());
       //await Hive.openBox<Transaction>('transactions');
@@ -984,12 +905,7 @@ class MyAPI{
           //Uri.parse("$_baseUrl/Suppliers/Suppliers_Read?"),
           //: Uri.parse("$_baseUrl/Suppliers/SuppliersByBrands_Read?brandId='$id'filter=$brabd~eq~true"),
           //body: jsonEncode({"UserName": email, "Password": password, "FBKey":fcmToken.toString()}),
-          headers: {
-            "Accept-Language": LocalizationService.getCurrentLocale().languageCode,
-            "Accept": "application/json",
-            "content-type": "application/json",
-            "Authorization": token,
-          });
+          headers: headers);
       //await Hive.initFlutter();
       //Hive.registerAdapter(TransactionAdapter());
       //await Hive.openBox<Transaction>('transactions');
@@ -1088,12 +1004,7 @@ class MyAPI{
     try{
       http.Response response = await http.get(
           Uri.parse(url),
-          headers: {
-            "Accept-Language": LocalizationService.getCurrentLocale().languageCode,
-            "Accept": "application/json",
-            "content-type": "application/json",
-            "Authorization": token,
-          });
+          headers: headers);
       if(response.statusCode == 200){
         print(jsonDecode(response.body));
         if(jsonDecode(response.body)['errors'] == "" || jsonDecode(response.body)['errors'] == null){
@@ -1126,12 +1037,7 @@ class MyAPI{
         //Uri.parse("$_baseUrl/Suppliers/Suppliers_Read?filter=id~eq~'$id'~and~$brabd~eq~true"),
           Uri.parse(url),
           //Uri.parse("$_baseUrl/Orders/Orders_Read?"),
-          headers: {
-            "Accept-Language": LocalizationService.getCurrentLocale().languageCode,
-            "Accept": "application/json",
-            "content-type": "application/json",
-            "Authorization": token,
-          });
+          headers: headers);
       if(response.statusCode == 200){
         print(jsonDecode(response.body));
         if(jsonDecode(response.body)['errors'] == "" || jsonDecode(response.body)['errors'] == null){
@@ -1160,12 +1066,7 @@ class MyAPI{
     try{
       http.Response response = await http.get(
           Uri.parse(url),
-          headers: {
-            "Accept-Language": LocalizationService.getCurrentLocale().languageCode,
-            "Accept": "application/json",
-            "content-type": "application/json",
-            "Authorization": token,
-          });
+          headers: headers);
       if(response.statusCode == 200){
         print(jsonDecode(response.body));
         if(jsonDecode(response.body)['errors'] == "" || jsonDecode(response.body)['errors'] == null){
@@ -1196,12 +1097,7 @@ class MyAPI{
             'id':id,
             'status':status/*.toString()*/
           }),
-          headers: {
-            "Accept-Language": LocalizationService.getCurrentLocale().languageCode,
-            "Accept": "application/json",
-            "content-type": "application/json",
-            "Authorization": token,
-          });
+          headers: headers);
       if(response.statusCode == 200){
         await MyAPI(context: context).getCarSellByUserId();
         print(jsonDecode(response.body));
@@ -1238,12 +1134,7 @@ class MyAPI{
         //Uri.parse("$_baseUrl/Suppliers/Suppliers_Read?filter=id~eq~'$id'~and~$brabd~eq~true"),
           Uri.parse(url),
           //Uri.parse("$_baseUrl/Orders/Orders_Read?"),
-          headers: {
-            "Accept-Language": LocalizationService.getCurrentLocale().languageCode,
-            "Accept": "application/json",
-            "content-type": "application/json",
-            "Authorization": token,
-          });
+          headers: headers);
       if(response.statusCode == 200){
         print(jsonDecode(response.body));
         if(jsonDecode(response.body)['errors'] == "" || jsonDecode(response.body)['errors'] == null){
@@ -1273,12 +1164,7 @@ class MyAPI{
     try{
       http.Response response = await http.get(
           Uri.parse(url),
-          headers: {
-            "Accept-Language": LocalizationService.getCurrentLocale().languageCode,
-            "Accept": "application/json",
-            "content-type": "application/json",
-            "Authorization": token,
-          });
+          headers: headers);
       if(response.statusCode == 200){
         print(jsonDecode(response.body));
         if(jsonDecode(response.body)['errors'] == "" || jsonDecode(response.body)['errors'] == null){
@@ -1305,10 +1191,6 @@ class MyAPI{
     var url = "$_baseUrl/CarModels/CarModels_Read";
     print(url.toString());
     try{
-      var headers = {
-        'Authorization': token,
-        'Content-Type': 'application/json'
-      };
       var request = http.Request('POST', Uri.parse('https://api.autoworldqa.com/CarKey/CarKey_Update'));
       request.body = json.encode({
         "Id": carPanel['id'],
@@ -1357,12 +1239,7 @@ class MyAPI{
       http.Response response = await http.get(
         //Uri.parse("$_baseUrl/Suppliers/Suppliers_Read?filter=id~eq~'$id'~and~$brabd~eq~true"),
           Uri.parse(url),
-          headers: {
-            "Accept-Language": LocalizationService.getCurrentLocale().languageCode,
-            "Accept": "application/json",
-            "content-type": "application/json",
-            "Authorization": token,
-          });
+          headers: headers);
       if(response.statusCode == 200){
         print(jsonDecode(response.body));
         if(jsonDecode(response.body)['errors'] == "" || jsonDecode(response.body)['errors'] == null){
@@ -1542,6 +1419,7 @@ class MyAPI{
          // "Accept-Language": LocalizationService.getCurrentLocale().languageCode,
          // "Accept": "application/json",
          // "content-type": "application/json",
+          "Accept-Language": _acceptLang,
           "Authorization": token,
         },
       );
@@ -1604,6 +1482,7 @@ class MyAPI{
       print(path);
     }
     Map<String, String> headers = {
+      "Accept-Language": _acceptLang,
       "Accept": "application/json",
       "Content-type": "multipart/form-data",
       "Authorization": token,
@@ -1635,6 +1514,7 @@ class MyAPI{
     //request.fields['City.Country.Name'] = userInfo["city"]['name'];
     request.fields['City.Name'] = userInfo["city"]['name'];
     Map<String, String> headers = {
+      "Accept-Language": _acceptLang,
       "Accept": "application/json",
       "Content-type": "multipart/form-data",
       "Authorization": token,
@@ -1706,12 +1586,7 @@ class MyAPI{
       };
       print('Req: ------------------------');
       print(jsonEncode(mapDate));
-      http.Response response = await http.post(apiUrl,body:jsonEncode(mapDate),headers: {
-        //"Accept-Language": LocalizationService.getCurrentLocale().languageCode,
-        "Accept": "application/json",
-        "content-type": "application/json",
-        "Authorization": token,
-      });
+      http.Response response = await http.post(apiUrl,body:jsonEncode(mapDate),headers: headers);
 
       print('ResAll: ------------------------');
       print(response);
@@ -1855,12 +1730,7 @@ class MyAPI{
       };
       print('Req: ------------------------');
       print(jsonEncode(mapDate));
-      http.Response response = await http.post(apiUrl,body:jsonEncode(mapDate),headers: {
-        //"Accept-Language": LocalizationService.getCurrentLocale().languageCode,
-        "Accept": "application/json",
-        "content-type": "application/json",
-        "Authorization": token,
-      });
+      http.Response response = await http.post(apiUrl,body:jsonEncode(mapDate),headers: headers);
 
       print('ResAll: ------------------------');
       print(response);
@@ -1909,12 +1779,7 @@ class MyAPI{
       };
       print('Req: ------------------------');
       print(jsonEncode(mapDate));
-      http.Response response = await http.post(apiUrl,body:jsonEncode(mapDate),headers: {
-        //"Accept-Language": LocalizationService.getCurrentLocale().languageCode,
-        "Accept": "application/json",
-        "content-type": "application/json",
-        "Authorization": token,
-      });
+      http.Response response = await http.post(apiUrl,body:jsonEncode(mapDate),headers: headers);
 
       print('ResAll: ------------------------');
       print(response);
@@ -1965,12 +1830,7 @@ class MyAPI{
       };
       print('Req: ------------------------');
       print(jsonEncode(mapDate));
-      http.Response response = await http.post(apiUrl,body:jsonEncode(mapDate),headers: {
-        //"Accept-Language": LocalizationService.getCurrentLocale().languageCode,
-        "Accept": "application/json",
-        "content-type": "application/json",
-        "Authorization": token,
-      });
+      http.Response response = await http.post(apiUrl,body:jsonEncode(mapDate),headers: headers);
 
       print('ResAll: ------------------------');
       print(response);
@@ -2030,12 +1890,7 @@ class MyAPI{
      };
      print('Req: ------------------------');
      print(jsonEncode(mapDate));
-     http.Response response = await http.post(apiUrl,body:jsonEncode(mapDate),headers: {
-       //"Accept-Language": LocalizationService.getCurrentLocale().languageCode,
-       "Accept": "application/json",
-       "content-type": "application/json",
-       "Authorization": token,
-     });
+     http.Response response = await http.post(apiUrl,body:jsonEncode(mapDate),headers: headers);
 
      print('ResAll: ------------------------');
      print(response);
@@ -2079,10 +1934,7 @@ class MyAPI{
 
   requestResetPassword(email) async {
     http.Response response = await http.post(Uri.parse('$_baseUrl/SignUp/RequestResetPassword?UserEmail=$email'),
-        headers: {
-          "Authorization": token,
-          "accept": "application/json",
-        });
+        headers: headers);
     //curl -X POST "https://mr-service.online/Main/SignUp/RequestResetPassword?UserEmail=www.osh.themyth%40gmail.com" -H "accept: */*"
     //curl -X POST "https://mr-service.online/api/Auth/login" -H "accept: text/plain" -H "Content-Type: application/json-patch+json" -d "{\"UserName\":\"www.osh.themyth@gmail.com\",\"Password\":\"0938025347\"}"
     if (response.statusCode == 200) {
@@ -2118,10 +1970,7 @@ class MyAPI{
   newPasswordVer(String newPassword, email, code) async{
     //curl -X POST "https://mr-service.online/Main/SignUp/ResetPassword?UserEmail=www.osh.themyth2%40gmail.com&code=160679&password=0938025347" -H "accept: */*"
     var apiUrl = Uri.parse('$_baseUrl/SignUp/ResetPassword?UserEmail=$email&code=$code&password=$newPassword');
-    http.Response response = await http.post(apiUrl, headers: {
-      "Accept": "application/json",
-      "Authorization": token,
-    });
+    http.Response response = await http.post(apiUrl, headers: headers);
     if (response.statusCode == 200) {
       print("we're good");
       //userData = jsonDecode(response.body);
@@ -2207,12 +2056,7 @@ class MyAPI{
       };
       print('Req: ------------------------');
       print(jsonEncode(mapDate));
-      http.Response response = await http.post(apiUrl,body:jsonEncode(mapDate),headers: {
-        //"Accept-Language": LocalizationService.getCurrentLocale().languageCode,
-        "Accept": "application/json",
-        "content-type": "application/json",
-        "Authorization": token,
-      });
+      http.Response response = await http.post(apiUrl,body:jsonEncode(mapDate),headers: headers);
 
       print('ResAll: ------------------------');
       print(response);
@@ -2283,12 +2127,7 @@ class MyAPI{
       };
       print('Req: ------------------------');
       print(jsonEncode(mapDate));
-      http.Response response = await http.post(apiUrl,body:jsonEncode(mapDate),headers: {
-        //"Accept-Language": LocalizationService.getCurrentLocale().languageCode,
-        "Accept": "application/json",
-        "content-type": "application/json",
-        "Authorization": token,
-      });
+      http.Response response = await http.post(apiUrl,body:jsonEncode(mapDate),headers: headers);
 
       print('ResAll: ------------------------');
       print(response);
@@ -2339,12 +2178,7 @@ class MyAPI{
       print(jsonEncode(mapDate));
       http.Response response = await http.post(apiUrl,
           body:jsonEncode(mapDate),
-          headers: {
-        //"Accept-Language": LocalizationService.getCurrentLocale().languageCode,
-        "Accept": "application/json",
-        "content-type": "application/json",
-        "Authorization": token,
-      });
+          headers: headers);
 
       print('ResAll: ------------------------');
       print(response);
@@ -2394,12 +2228,7 @@ class MyAPI{
       };
       print('Req: ------------------------');
       print(jsonEncode(mapDate));
-      http.Response response = await http.post(apiUrl,body:jsonEncode(mapDate),headers: {
-        //"Accept-Language": LocalizationService.getCurrentLocale().languageCode,
-        "Accept": "application/json",
-        "content-type": "application/json",
-        "Authorization": token,
-      });
+      http.Response response = await http.post(apiUrl,body:jsonEncode(mapDate),headers: headers);
 
       print('ResAll: ------------------------');
       print(response);
