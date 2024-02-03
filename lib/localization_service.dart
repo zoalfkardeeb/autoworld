@@ -60,7 +60,9 @@ class LocalizationService extends Translations{
       defaultLocale = locale!;
     }
     else{
-      defaultLocale=const Locale('en','US');
+      lng==0? defaultLocale = const Locale('en','US')
+      : lng==2? defaultLocale = const Locale('ar','AR')
+      : defaultLocale = const Locale('en','US');
     }
     return defaultLocale;
   }

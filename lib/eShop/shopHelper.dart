@@ -3,6 +3,7 @@ import 'package:automall/MyWidget.dart';
 import 'package:automall/api.dart';
 import 'package:automall/const.dart';
 import 'package:automall/eShop/model/request/addProduct.dart';
+import 'package:automall/main.dart';
 import 'package:collection/collection.dart';
 import 'model/itemModel.dart';
 import 'package:automall/eShop/model/response/orderRead.dart' as orderRead;
@@ -35,6 +36,10 @@ class ShopHelper{
     return quantity;
   }
   addItemToBasket() async{
+    if(guestType){
+      MyWidget(navigatorKey.currentContext!).guestDialog();
+      return;
+    }
     pleaseWait = true;
     notify();
     var result = false;
@@ -59,6 +64,10 @@ class ShopHelper{
   }
 
   addItem() async{
+    if(guestType){
+      MyWidget(navigatorKey.currentContext!).guestDialog();
+      return;
+    }
     pleaseWait = true;
     notify();
     var result = false;
@@ -83,6 +92,10 @@ class ShopHelper{
   }
 
   removeItem() async{
+    if(guestType){
+      MyWidget(navigatorKey.currentContext!).guestDialog();
+      return;
+    }
     pleaseWait = true;
     notify();
     var result = true;

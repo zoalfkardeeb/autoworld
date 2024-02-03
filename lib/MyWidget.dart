@@ -68,7 +68,7 @@ class MyWidget{
                   Icon(Icons.info_outline, color: MyColors.white, size: MediaQuery.of(navigatorKey.currentContext!).size.width/10,),
                   SizedBox(
                     width: MediaQuery.of(navigatorKey.currentContext!).size.width/2,
-                    child: MyWidget(navigatorKey.currentContext!).bodyText1(AppLocalizations.of(navigatorKey.currentContext!)!.translate(text), maxLine: 2, color: MyColors.white, scale: 1),
+                    child: MyWidget(navigatorKey.currentContext!).bodyText1(AppLocalizations.of(navigatorKey.currentContext!)!.translate(text), maxLine: 4, color: MyColors.white, scale: 1),
                   )
                 ],
               ),
@@ -701,7 +701,7 @@ class MyWidget{
                   _iconText(()=>_manageAddress(), Icons.location_on_outlined, AppLocalizations.of(context)!.translate('Manage Address')),
                   _iconText(()=>changePassword(()=> _resetPass(() => setState(), scaffoldKey)), Icons.password_outlined, AppLocalizations.of(context)!.translate('Change Password?')),
                   driver(),
-                  userInfo['type'] != 0 ? const SizedBox()
+                  userInfo['type'] != 1 ? const SizedBox()
                       :_iconText(()=> Navigator.of(context).push(MaterialPageRoute(builder:(context)=> SupplierOrdesr(barTitle: AppLocalizations.of(context)!.translate('name'),))), Icons.local_offer_outlined, AppLocalizations.of(context)!.translate('SupplierOrders')),
                   _iconText(()=> guestType ? guestDialog() : Navigator.of(context).push(MaterialPageRoute(builder:(context)=> const NotificationScreen())), Icons.list_alt_outlined, AppLocalizations.of(context)!.translate('My Orders')),
                   _iconText(()=> guestType ? guestDialog() : _yourAds(), Icons.list, AppLocalizations.of(context)!.translate('My Ads')),

@@ -144,7 +144,7 @@ class _MainWorkerScreenState extends State<MainWorkerScreen> {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    _m!.headText('Serial:', scale: 0.7),
+                    _m!.headText(AppLocalizations.of(context)!.translate('Serial'), scale: 0.7),
                     _m!.headText(order.codeSerial, color: MyColors.qatarColor),
                   ],
                 ),
@@ -160,7 +160,7 @@ class _MainWorkerScreenState extends State<MainWorkerScreen> {
                 Column(
                   children: [
                     Icon(Icons.payments_outlined, size: AppHeight.h6,),
-                    _m!.headText('${order.purchaseOrder!.payType == 0?'Card':'Cash'}', color: MyColors.qatarColor, scale: 0.7),
+                    _m!.headText('${order.purchaseOrder!.payType == 0? AppLocalizations.of(context)!.translate('Card') : AppLocalizations.of(context)!.translate('Cash')}', color: MyColors.qatarColor, scale: 0.7),
                   ],
                 ),
               ],
@@ -170,8 +170,8 @@ class _MainWorkerScreenState extends State<MainWorkerScreen> {
         _selectId==order.purchaseOrder!.customerId?
         _deliverRow(
           phone: '${order.purchaseOrder!.user==null?'00974':order.purchaseOrder!.user!.mobile}',
-          lat: order.purchaseOrder!.profileAddress==null?'':order.purchaseOrder!.profileAddress['lat'].toString(),
-          lng: order.purchaseOrder!.profileAddress==null?'':order.purchaseOrder!.profileAddress['lng'].toString(),
+          lat: order.purchaseOrder!.profileAddress==null?'':order.purchaseOrder!.profileAddress!.lat.toString(),
+          lng: order.purchaseOrder!.profileAddress==null?'':order.purchaseOrder!.profileAddress!.lng.toString(),
           status: order.status??0,
           purchaseOrderProductsId: order.purchaseOrder!.id,
           addressId: order.purchaseOrder!.addressId,
@@ -214,7 +214,7 @@ class _MainWorkerScreenState extends State<MainWorkerScreen> {
                     onPressed: ()=> call(),
                     icon: Icon(Icons.call_outlined, size: AppHeight.h6,)
                 ),
-                _m!.headText('Call', scale: 0.7, paddingV: AppHeight.h1),
+                _m!.headText(AppLocalizations.of(context)!.translate('Call'), scale: 0.7, paddingV: AppHeight.h1),
               ],
             ),
             Column(
@@ -223,7 +223,7 @@ class _MainWorkerScreenState extends State<MainWorkerScreen> {
                     onPressed: ()=> location(),
                     icon: Icon(Icons.location_on_outlined, size: AppHeight.h6,)
                 ),
-                _m!.headText('Location', scale: 0.7, paddingV: AppHeight.h1),
+                _m!.headText(AppLocalizations.of(context)!.translate('Location'), scale: 0.7, paddingV: AppHeight.h1),
               ],
             ),
             Column(
@@ -235,7 +235,7 @@ class _MainWorkerScreenState extends State<MainWorkerScreen> {
                       icon: Icon(Icons.delivery_dining_outlined, size: AppHeight.h6,)
                   ),
                 ),
-                _m!.headText(status == 1 || status == 3?'Start':'Deliver', scale: 0.7, paddingV: AppHeight.h1),
+                _m!.headText(status == 1 || status == 3?AppLocalizations.of(context)!.translate('Start'):AppLocalizations.of(context)!.translate('Deliver'), scale: 0.7, paddingV: AppHeight.h1),
               ],
             ),
 

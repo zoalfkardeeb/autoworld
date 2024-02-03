@@ -101,7 +101,7 @@ class _TrackOrdersState extends State<TrackOrders> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 MyWidget(context).bodyText1(itemModel.orderSerial??'', padding: 0.0, scale: 0.8, maxLine: 1, color: MyColors.white,),
-                MyWidget(context).bodyText1(DateFormat('E d LLL y H:m').format(itemModel.orderDate!), padding: 0.0, scale: 0.8, maxLine: 1, color: MyColors.white,),
+                MyWidget(context).bodyText1(DateFormat('E d LLL y H:m').format(itemModel.orderDate??DateTime.now()), padding: 0.0, scale: 0.8, maxLine: 1, color: MyColors.white,),
               ],
             ),
           ),
@@ -138,10 +138,10 @@ class _TrackOrdersState extends State<TrackOrders> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          Icon(Icons.storefront_outlined, color: _statusColor(2/*itemModel.status*/)),
-                          Icon(Icons.payments_outlined, color: _statusColor(1/*itemModel.status*/)),
-                          Icon(Icons.delivery_dining_outlined, color: _statusColor(0/*itemModel.status*/)),
-                          Icon(Icons.fact_check_outlined, color: _statusColor(0/*itemModel.status*/)),
+                          Icon(Icons.storefront_outlined, color: _statusColor(2)),
+                          Icon(Icons.payments_outlined, color: _statusColor(itemModel.status==3?1:itemModel.status==1?2:0)),
+                          Icon(Icons.delivery_dining_outlined, color: _statusColor(itemModel.status == 2 ? 1 : itemModel.status == 4 ? 2:0)),
+                          Icon(Icons.fact_check_outlined, color: _statusColor(itemModel.status == 4? 2:0)),
                         ],
                       ),
                     )
@@ -178,6 +178,7 @@ class _TrackOrdersState extends State<TrackOrders> {
         }
         _foundItems.add(ItemModel(
           //purchaseAttributeValues: product.productDetails.products.,
+          status: product.status??3,
           code: product.productDetails!.code,
           purchaseOrderProductId: product.id,
           purchaseOrderId: product.purchaseOrder!.id,
