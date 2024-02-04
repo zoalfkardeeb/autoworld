@@ -173,7 +173,7 @@ class _MainWorkerScreenState extends State<MainWorkerScreen> {
           lat: order.purchaseOrder!.profileAddress==null?'':order.purchaseOrder!.profileAddress!.lat.toString(),
           lng: order.purchaseOrder!.profileAddress==null?'':order.purchaseOrder!.profileAddress!.lng.toString(),
           status: order.status??0,
-          purchaseOrderProductsId: order.purchaseOrder!.id,
+          purchaseOrderProductsId: order.id,
           addressId: order.purchaseOrder!.addressId,
         ):const SizedBox(),
       ],

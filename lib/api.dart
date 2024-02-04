@@ -201,7 +201,7 @@ class MyAPI{
         "addressId": addressId
       });
       request.headers.addAll(getHeaders());
-
+      print(request.body);
       http.StreamedResponse response = await request.send();
 
       if (response.statusCode == 200) {
@@ -212,7 +212,6 @@ class MyAPI{
         print(await response.stream.bytesToString());
         print(response.reasonPhrase);
       }
-
     }catch(e){
     }
     return false;
@@ -236,6 +235,7 @@ class MyAPI{
         "addressId": addressId
       });
       request.headers.addAll(getHeaders());
+      print(request.body);
 
       http.StreamedResponse response = await request.send();
 

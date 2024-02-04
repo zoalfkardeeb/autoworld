@@ -58,6 +58,7 @@ class ShopHelper{
     if(result){
       checkCartItem();
       itemModel.amount += 1;
+      itemModel.storeQuantity = itemModel.storeQuantity!- 1;
     }
     pleaseWait = false;
     notify();
@@ -86,6 +87,7 @@ class ShopHelper{
     }
     if(result){
       itemModel.amount += 1;
+      itemModel.storeQuantity = itemModel.storeQuantity!- 1;
     }
     pleaseWait = false;
     notify();
@@ -112,6 +114,7 @@ class ShopHelper{
     );
     if(result){
       itemModel.amount -= 1;
+      itemModel.storeQuantity = itemModel.storeQuantity! + 1;
     }
     pleaseWait = false;
     notify();
@@ -124,14 +127,14 @@ class ShopHelper{
 
   bool checkStoreAvilable(){
     bool avilable = true;
-    if(itemModel.outOfStock){
+    if(itemModel.outOfStock || itemModel.storeQuantity == 0){
       MyWidget.showInfoDialog(text: 'Out Of Stock');
       avilable = false;
     }
-    if(itemModel.amount >= (itemModel.storeQuantity??100000)){
+/*    if(itemModel.amount >= (itemModel.storeQuantity??100000)){
       MyWidget.showInfoDialog(text: 'available in store only: ${itemModel.storeQuantity}');
       avilable = false;
-    }
+    }*/
     return avilable;
   }
 }
