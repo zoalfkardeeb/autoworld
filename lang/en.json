@@ -277,7 +277,15 @@
   "Building No:": "Building No:",
   "Unit No:": "Unit No:",
   "Enter your address manually": "Enter your address manually",
-  "Title": "Name your address"
+  "Title": "Name your address",
+  "Start": "Start",
+  "Deliver": "Deliver",
+  "Call": "Call",
+  "Location": "Location",
+  "Cash": "Cash",
+  "Serial": "Serial",
+  "Current Order": "Current Order",
+  "Delivered Order": "Delivered Order"
 
 }
 

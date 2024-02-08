@@ -89,27 +89,32 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   }
 
   _placeOrder() async{
-    List<Future> d = [];
+    setState(() {
+      pleaseWait = true;
+    });
+    List<String> purchaseOrderProductsId= [];
     for(var v in _foundItems){
       if(v.isSelect) {
+        purchaseOrderProductsId.add(v.purchaseOrderProductId.toString());
        // d.add(MyAPI.changeStatusOrderProduct(purchaseOrderProductsId: v.purchaseOrderProductId.toString(), status: _payType, addressId: _selectedAddress!.id.toString()));
-        await MyAPI.changeStatusOrderProduct(purchaseOrderProductsId: v.purchaseOrderProductId.toString(), status: _payType, addressId: _selectedAddress!.id.toString());
+       // await MyAPI.changeStatusOrderProduct(purchaseOrderProductsId: v.purchaseOrderProductId.toString(), status: _payType, addressId: _selectedAddress!.id.toString());
       }
       else{
        // d.add(MyAPI.changeStatusOrderProduct(purchaseOrderProductsId: v.purchaseOrderProductId.toString(), status: 5, addressId: _selectedAddress!.id.toString()));
         await MyAPI.changeStatusOrderProduct(purchaseOrderProductsId: v.purchaseOrderProductId.toString(), status: 5, addressId: _selectedAddress!.id.toString());
       }
     }
-    setState(() {
-      pleaseWait = true;
-    });
+   var t = await MyAPI.purchaseOrdersPayment(purchaseOrderProductsId: purchaseOrderProductsId, status: _payType, addressId: _selectedAddress!.id.toString());
+
   //  await Future.wait(d);
-    await MyAPI.getOrderProductList();
+   if(t){
+     await MyAPI.getOrderProductList();
+     // ignore: use_build_context_synchronously
+     MyApplication.navigateToReplace(context, const TrackOrders());
+   }
     setState(() {
       pleaseWait = false;
     });
-    // ignore: use_build_context_synchronously
-    MyApplication.navigateToReplace(context, const TrackOrders());
   }
 
   double _calkTotal(){
@@ -308,7 +313,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
 
   _changePayType(int payType) {
     if(payType==1){
-      MyWidget.showInfoDialog(text: "This service is under construction!");
+      MyWidget.showInfoDialog(text: "This service is under construction");
       return;
     }
     _payType = payType;

@@ -279,6 +279,14 @@
   "Building No:": "رقم المبنى:",
   "Unit No:": "رقم الشقة:",
   "Enter your address manually": "أدخل عنوانك:",
-  "Title": "اسم العنوان"
+  "Title": "اسم العنوان",
+  "Start": "انطلق",
+  "Deliver": "تم التوصيل",
+  "Call": "اتصل",
+  "Location": "خريطة",
+  "Cash": "كاش",
+  "Serial": "الرقم",
+  "Current Order": "الطلبات الحالية",
+  "Delivered Order": "الطلبات الموصلة"
 
 }
