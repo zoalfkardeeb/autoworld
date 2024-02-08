@@ -52,7 +52,7 @@ class ShopHelper{
     }
     if(result){
       checkCartItem();
-      itemModel.amount += 1;
+      increaseQuantity();
     }
     pleaseWait = false;
     notify();
@@ -76,7 +76,7 @@ class ShopHelper{
       );
     }
     if(result){
-      itemModel.amount += 1;
+      increaseQuantity();
     }
     pleaseWait = false;
     notify();
@@ -98,7 +98,7 @@ class ShopHelper{
     )
     );
     if(result){
-      itemModel.amount -= 1;
+      reduceQuantity();
     }
     pleaseWait = false;
     notify();
@@ -115,10 +115,21 @@ class ShopHelper{
       MyWidget.showInfoDialog(text: 'Out Of Stock');
       avilable = false;
     }
-    if(itemModel.amount >= (itemModel.storeQuantity??100000)){
+/*    if(itemModel.amount >= (itemModel.storeQuantity??100000)){
       MyWidget.showInfoDialog(text: 'available in store only: ${itemModel.storeQuantity}');
       avilable = false;
-    }
+    }*/
     return avilable;
   }
+  void increaseQuantity(){
+    itemModel.amount += 1;
+    itemModel.storeQuantity = itemModel.storeQuantity! - 1;
+    if(itemModel.storeQuantity==0)itemModel.outOfStock=true;
+  }
+  void reduceQuantity(){
+    itemModel.amount -= 1;
+    itemModel.storeQuantity = itemModel.storeQuantity! + 1;
+    if(itemModel.storeQuantity!=0)itemModel.outOfStock=false;
+  }
+
 }

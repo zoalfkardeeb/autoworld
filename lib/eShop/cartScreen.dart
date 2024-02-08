@@ -101,8 +101,8 @@ class _CartScreenState extends State<CartScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                MyWidget(context).bodyText1(itemModel.suppliers.fullName??'', padding: 0.0, scale: 0.8, maxLine: 1, color: MyColors.white, underLine: true),
-                IconButton(onPressed: ()=> select(itemModel), icon: Icon(itemModel.isSelect! ? Icons.check_circle:Icons.circle_outlined, color: MyColors.white,)),
+                MyWidget(context).bodyText1(itemModel.suppliers.fullName??'', padding: 0.0, scale: 0.8, maxLine: 1, color: MyColors.white, underLine: true, padV: AppHeight.h1),
+                //IconButton(onPressed: ()=> select(itemModel), icon: Icon(itemModel.isSelect! ? Icons.check_circle:Icons.circle_outlined, color: MyColors.white,)),
               ],
             ),
           ),
@@ -203,6 +203,7 @@ class _CartScreenState extends State<CartScreen> {
         _foundItems.add(ItemModel(
           code: product.productDetails!.code,
           //purchaseAttributeValues: product.productDetails.products.,
+          storeQuantity: product.productDetails!.storeQuantity!,
           purchaseOrderProductId: product.id,
           purchaseOrderId: product.purchaseOrder!.id,
           suppliers: product.productDetails!.suppliers!,

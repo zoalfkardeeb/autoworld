@@ -52,7 +52,7 @@ class TopBarEShop extends StatelessWidget {
       onTap: ()=> navCart && cartProductList!.data!.length > 0 ? MyApplication.navigateTo(navigatorKey.currentContext!, CartScreen()) : null,
         child: Column(
           children: [
-            MyWidget(navigatorKey.currentContext!).bodyText1(cartProductList!.data!.length.toString(), color: MyColors.mainColor, padding: 0.0, padV: 0.0),
+            MyWidget(navigatorKey.currentContext!).bodyText1(cartProductList==null?"0":cartProductList!.data!.length.toString(), color: MyColors.mainColor, padding: 0.0, padV: 0.0),
             Icon(Icons.shopping_cart_outlined,),
           ],
         ),
