@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:automall/helper/functions.dart';
 import 'package:automall/screen/SupplierOrder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -332,10 +333,7 @@ class _ReplyScreenState extends State<ReplyScreen> {
         pleaseWait = false;
       });
       if(add){
-        Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => SupplierOrdesr(barTitle: AppLocalizations.of(context)!.translate('name'),),),
-              (Route<dynamic> route) => false,
-        );
+        MyApplication.navigateToReplace(context, SupplierOrdesr(barTitle: AppLocalizations.of(context)!.translate('name')));
       }
     }
     Dialog errorDialog = Dialog(

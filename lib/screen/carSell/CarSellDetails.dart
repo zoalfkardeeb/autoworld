@@ -522,7 +522,7 @@ class _CarSellDetailsState extends State<CarSellDetails> {
   }
 
   _share() {
-    Share.share('${AppLocalizations.of(context)!.translate('Hi! See what I found on Auto Mall')}\nhttps://www.autoworldqa.com/car/${carSellsList[_indexCarSell]['id']}', subject: 'Auto World');
+    Share.share('${AppLocalizations.of(context)!.translate('Hi! See what I found at Auto World')}\nhttps://www.autoworldqa.com/carsalesread/${carSellsList[_indexCarSell]['id']}', subject: 'Auto World');
   }
 
 
