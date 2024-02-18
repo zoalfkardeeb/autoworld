@@ -38,7 +38,7 @@ class ShopHelper{
     pleaseWait = true;
     notify();
     var result = false;
-    if(checkStoreAvilable())
+    if(checkStoreAvailable())
     {
       result = await MyAPI.createOrderProduct(product:
       CreateProduct(
@@ -62,7 +62,7 @@ class ShopHelper{
     pleaseWait = true;
     notify();
     var result = false;
-    if(checkStoreAvilable()) {
+    if(checkStoreAvailable()) {
       result = await MyAPI.addOrderProduct(product:
       AddProduct(
         purchaseOrderId: itemModel.purchaseOrderId,
@@ -109,7 +109,7 @@ class ShopHelper{
     notify();
   }
 
-  bool checkStoreAvilable(){
+  bool checkStoreAvailable(){
     bool avilable = true;
     if(itemModel.outOfStock){
       MyWidget.showInfoDialog(text: 'Out Of Stock');
@@ -121,11 +121,13 @@ class ShopHelper{
     }*/
     return avilable;
   }
+
   void increaseQuantity(){
     itemModel.amount += 1;
     itemModel.storeQuantity = itemModel.storeQuantity! - 1;
     if(itemModel.storeQuantity==0)itemModel.outOfStock=true;
   }
+
   void reduceQuantity(){
     itemModel.amount -= 1;
     itemModel.storeQuantity = itemModel.storeQuantity! + 1;
