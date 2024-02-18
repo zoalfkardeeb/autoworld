@@ -7,6 +7,7 @@
 	<key>com.apple.developer.associated-domains</key>
 	<array>
 		<string>applinks:automallqa.com</string>
+		<string>applinks:www.autoworldqa.com</string>
 	</array>
 </dict>
 </plist>
