@@ -142,9 +142,9 @@ class _AddSellCarScreenState extends State<AddSellCarScreen> {
                           //_m!.selectFromTheListDrop(curve, _productionYearController, () => _openList(_dropDownKeyProductionYear), AppLocalizations.of(context)!.translate('production Year'), true, _dropDownProductionYear(width,curve)),
                           _m!.selectFromTheListDrop(curve, _gearBoxTypeController, () => _openList(_dropDownKeyGearBox), AppLocalizations.of(context)!.translate('Gear Box Type'), true, _dropDownGearBoxType(width,curve)),
                           _m!.selectFromTheListDrop(curve, _motorTypeController, () => _openList(_dropDownKeyMotorType), AppLocalizations.of(context)!.translate('Motor Type'), true, _dropDownMotorType(width,curve)),
-                         _m!.textFiled(curve/2, Colors.white, MyColors.bodyText1, _keloMetrageController, AppLocalizations.of(context)!.translate('Kelometrage'), Icons.edit_outlined, withoutValidator: true, newLineAction: true, number: true, height: MediaQuery.of(context).size.width/8),
-                          _m!.textFiled(curve/2, Colors.white, MyColors.bodyText1, _priceController, AppLocalizations.of(context)!.translate('Price'), Icons.edit_outlined, withoutValidator: true, newLineAction: true, number: true, height: MediaQuery.of(context).size.width/8),
-                          _m!.textFiled(curve/2, Colors.white, MyColors.bodyText1, _descController, AppLocalizations.of(context)!.translate('Remarks'), Icons.edit_outlined, withoutValidator: true, newLineAction: true, height: MediaQuery.of(context).size.height/7),
+                         _m!.textFiled(curve/2, Colors.white, MyColors.bodyText1, _keloMetrageController, AppLocalizations.of(context)!.translate('Kelometrage'), Icons.edit_outlined, withoutValidator: true, newLineAction: false, number: true, height: MediaQuery.of(context).size.width/8),
+                          _m!.textFiled(curve/2, Colors.white, MyColors.bodyText1, _priceController, AppLocalizations.of(context)!.translate('Price'), Icons.edit_outlined, withoutValidator: true, newLineAction: false, number: true, height: MediaQuery.of(context).size.width/8),
+                          _m!.textFiled(curve/2, Colors.white, MyColors.bodyText1, _descController, AppLocalizations.of(context)!.translate('Remarks'), Icons.edit_outlined, withoutValidator: true, newLineAction: false, height: MediaQuery.of(context).size.height/7),
                           SizedBox(height: hSpace/2,),
                           Column(
                             mainAxisAlignment: MainAxisAlignment.start,

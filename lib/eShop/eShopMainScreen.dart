@@ -58,7 +58,7 @@ class _EShopMainScreenState extends State<EShopMainScreen> {
         children:[
           Column(
           children: [
-            TopBarEShop(title: AppLocalizations.of(context)!.translate('E-Shop')),
+            TopBarEShop(title: AppLocalizations.of(context)!.translate('E-Shop'),notify: ()=>setState(() {}),),
             Expanded(
               child: Stack(
                 children: [

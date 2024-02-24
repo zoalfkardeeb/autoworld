@@ -810,7 +810,7 @@ class MyWidget{
   }
 
   textFiled(curve, Color containerColor,Color textColor,TextEditingController controller, hintText, icon, { height, click ,bool? number, bool? password, double? width, double? blurRaduis, bool? boxShadow, RequiredValidator? requiredValidator, String? val,bool? withoutValidator, bool? readOnly, bool? newLineAction, fontSize}){
-    newLineAction??=false;
+    newLineAction = false;
     readOnly??=false;
     withoutValidator??=false;
     requiredValidator??= RequiredValidator(errorText: AppLocalizations.of(context)!.translate('required'));
@@ -864,7 +864,6 @@ class MyWidget{
                       maxLines: password? 1: null,
                       //validator: requiredValidator,
                       //autovalidateMode: requiredValidator.errorText == ''? AutovalidateMode.disabled : AutovalidateMode.onUserInteraction,
-
                       keyboardType: password? TextInputType.visiblePassword: number?  TextInputType.number : newLineAction? TextInputType.multiline: TextInputType.text,
                       controller: controller,
                       textAlign: TextAlign.start,
@@ -875,7 +874,6 @@ class MyWidget{
                       textInputAction: newLineAction? TextInputAction.newline : TextInputAction.done,
                       decoration: InputDecoration(
                         border: InputBorder.none,
-
                         //labelText: titleText,
                         hintText: hintText,
                         hintStyle: TextStyle(
@@ -1580,11 +1578,11 @@ class MyWidget{
               ProfiletextFiled(curve, MyColors.white, MyColors.black, cityController, readOnly: true),
             ],),
           ),
-          Padding(
+         /* Padding(
             padding: EdgeInsets.symmetric(horizontal: AppWidth.w8, vertical: AppHeight.h2),
             child: MyWidget(context).raisedButton(curve, AppWidth.w80, AppLocalizations.of(context)!.translate('Pick from map'),
                 null, () async => await _showPlacePicker()),
-          ),
+          ),*/
         ],
     );
   }
