@@ -10,10 +10,11 @@ import 'package:flutter/material.dart';
 class TopBarEShop extends StatelessWidget {
   final title;
   late bool navCart = true;
-  TopBarEShop({key, required this.title, navCart}): super(key:key){
-   navCart??=true;
-   this.navCart = navCart;
-  }
+  Function()? notify;
+  bool naveReplace;
+
+
+  TopBarEShop({key, required this.title, this.navCart = true, this.notify, this.naveReplace = false}): super(key:key){}
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +50,11 @@ class TopBarEShop extends StatelessWidget {
   }
   Widget _cartIcon() {
     return GestureDetector(
-      onTap: ()=>cartProductList==null? null: navCart && cartProductList!.data!.length > 0 ? MyApplication.navigateTo(navigatorKey.currentContext!, CartScreen()) : null,
+      onTap: ()=>cartProductList==null? null :
+      navCart && cartProductList!.data!.length > 0 ?
+      naveReplace? MyApplication.navigateToReplace(navigatorKey.currentContext!, CartScreen())
+      : MyApplication.navigateTo(navigatorKey.currentContext!, CartScreen(), then: notify)
+          : null,
         child: Column(
           children: [
             MyWidget(navigatorKey.currentContext!).bodyText1(cartProductList==null?"0":cartProductList!.data!.length.toString(), color: MyColors.mainColor, padding: 0.0, padV: 0.0),

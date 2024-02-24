@@ -10,7 +10,8 @@ class MyColors {
  static const buttonText = Color(0xffffffff);
  static const button = Color(0xffffce00);
  static const bodyText1 = Color(0xff343434);
- static const qatarColor = Color(0xff802C3C);
+ static const qatarColor1 = Color(0xff802C3C);
+ static const qatarColor = Color(0xff7E1417);
  static const red = Color(0xffff0000);
  static const bodyText2 = Color(0xff111111);
  static const fieldText = Color(0xff000000);
@@ -18,7 +19,8 @@ class MyColors {
  static const bottomCon = Color(0xff3C3F41);
  static const topCon = Color(0xffECECEC);
  static const backgroundNew = Color(0xffECECEC);
- static const mainColor = Color(0xffE50019);
+ static const mainColor1 = Color(0xffE50019);
+ static const mainColor = Color(0xffED1C24);
  static const buttonTextColor =  Color(0xff343434);
  static const gray =  Color(0xff1d1d1d);
  static const green =  Color(0xff279827);

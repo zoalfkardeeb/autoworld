@@ -36,6 +36,7 @@ class _ProductDetailsState extends State<ProductDetails> {
   @override
   Widget build(BuildContext context) {
     imageList.clear();
+    shopHelper = ShopHelper(notify: ()=>setState(() {}), itemModel: widget.item);
     for (var element in widget.item.imageListGallery) {
       imageList.add(
           MyWidget(context).networkImage(element.image, AppWidth.w80, crossAlign: CrossAxisAlignment.center)
@@ -47,7 +48,7 @@ class _ProductDetailsState extends State<ProductDetails> {
         children: [
           Column(
             children: [
-              TopBarEShop(title: widget.item.name),
+              TopBarEShop(title: widget.item.name, notify: _setState,),
               Expanded(
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: AppWidth.w4*1.5),
@@ -304,5 +305,9 @@ class _ProductDetailsState extends State<ProductDetails> {
           child: IconButton(onPressed: ()=> shopHelper.addItem(), icon: Icon(Icons.add, size: AppWidth.w4,color: MyColors.mainColor), padding: const EdgeInsets.all(0.1),)),
 
     );
+  }
+
+  _setState() async{
+    setState(() { });
   }
 }

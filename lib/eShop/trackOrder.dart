@@ -43,7 +43,7 @@ class _TrackOrdersState extends State<TrackOrders> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                TopBarEShop(title: AppLocalizations.of(context)!.translate('Track Your Order'), navCart: false,),
+                TopBarEShop(title: AppLocalizations.of(context)!.translate('Track Your Order'), navCart: false, notify: ()=>setState(() {}),),
                 Expanded(
                   child: Column(
                       children:[
