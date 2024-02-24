@@ -318,7 +318,8 @@ class _EShopMainScreenState extends State<EShopMainScreen> {
     }
     _foundItems.clear();
     if(productList != null && productList!.data != null){
-      for(var product in productList!.data!){
+      var products = productList!.data!.where((element) => true).toList();
+      for(var product in products){
         List<int> purchaseAttributeValueIds = [];
         for(var pur in product.purchaseAttributeValues!){
           purchaseAttributeValueIds.add(pur[0].purchaseAttributeValues!.id!);

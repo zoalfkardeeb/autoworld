@@ -11,6 +11,8 @@ class ShopHelper{
   Function() notify;
   ItemModel itemModel;
   ShopHelper({required this.notify, required this.itemModel}) {
+    itemModel.storeQuantity = productList!.data!.where((element) => element.id.toString() == itemModel.id).toList()[0].storeQuantity;
+    if(itemModel.storeQuantity == 0)itemModel.outOfStock = true; else itemModel.outOfStock = false;
     itemModel.amount = checkCartItem();
   }
   orderRead.Datum? _cartItem;
@@ -125,12 +127,14 @@ class ShopHelper{
   void increaseQuantity(){
     itemModel.amount += 1;
     itemModel.storeQuantity = itemModel.storeQuantity! - 1;
+    productList!.data!.where((element) => element.id.toString() == itemModel.id).toList()[0].storeQuantity = itemModel.storeQuantity;
     if(itemModel.storeQuantity==0)itemModel.outOfStock=true;
   }
 
   void reduceQuantity(){
     itemModel.amount -= 1;
     itemModel.storeQuantity = itemModel.storeQuantity! + 1;
+    productList!.data!.where((element) => element.id.toString() == itemModel.id).toList()[0].storeQuantity = itemModel.storeQuantity;
     if(itemModel.storeQuantity!=0)itemModel.outOfStock=false;
   }
 
