@@ -157,10 +157,13 @@ class MyApp extends StatelessWidget {
           },
           title: 'Auto World',
           theme: ThemeData(
-            primarySwatch: Colors.red,
             primaryColor: Colors.red,
             primaryColorDark: Colors.red,
-              primaryColorLight:  Colors.red,
+            primaryColorLight:  Colors.red,
+            // Define the default brightness and colors.
+            colorScheme: ColorScheme.fromSeed(
+              seedColor: Colors.red,
+            ),
           ),
           home: const SplashScreen(),
           routes: const {

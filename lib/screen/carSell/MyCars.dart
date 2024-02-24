@@ -52,6 +52,7 @@ class _MyCarsForSellState extends State<MyCarsForSell> {
     }
     var curve = MediaQuery.of(context).size.height / 30;
     return Scaffold(
+      backgroundColor: MyColors.topCon,
       body: Stack(
         
         children: [
