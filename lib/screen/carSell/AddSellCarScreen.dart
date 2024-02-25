@@ -509,7 +509,7 @@ class _AddSellCarScreenState extends State<AddSellCarScreen> {
     if(brands.isEmpty) MyAPI(context: context).getBrands();
     List<String> listType = [];
     for(int i=0; i<brands.length; i++){
-      listType.add(brands[i]['name']);
+      listType.add(brands[i]['name']??'');
     }
     if(listType.isEmpty) {
       return;
