@@ -986,7 +986,7 @@ class MyAPI{
               suplierList.removeWhere((element) => element['garagCustomization'] == false);
             }
           }
-          suplierList.removeWhere((element) => element['user']['id']== userInfo['id']);
+         // suplierList.removeWhere((element) => element['user']['id']== userInfo['id']);
           suplierList.sort((a, b) {
             var aOrder = a['order']??1; //before -> var adate = a.expiry;
             var bOrder = b['order']??1; //before -> var bdate = b.expiry;
