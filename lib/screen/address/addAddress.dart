@@ -93,7 +93,7 @@ class _AddAddressState extends State<AddAddress> {
                 Flexible(
                   child: MyWidget.shadowContainer(
                       margin: AppWidth.w8,
-                      padding: AppWidth.w4,
+                      paddingH: AppWidth.w4,
                       child: Container(
                         padding: EdgeInsets.all(AppWidth.w1),
                         decoration: BoxDecoration(

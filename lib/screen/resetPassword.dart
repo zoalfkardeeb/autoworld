@@ -439,7 +439,10 @@ class _ResetPasswordState extends State<ResetPassword> {
 
   void resend() async{
     setState(() => chVer = true);
-    bool sent = await myAPI!.sendEmail('${AppLocalizations.of(context)!.translate('Your activation code is :')}\n$verCode' , AppLocalizations.of(context)!.translate('Activation Code'), email);
+    await Future.wait([
+      //myAPI!.sendEmail(AppLocalizations.of(context)!.translate('Your activation code is :') +  '\n$verCode' , AppLocalizations.of(context)!.translate('Activation Code'), email),
+      myAPI!.resend(email),
+    ]);
     setState(() => chVer = false);
   }
 }

@@ -393,7 +393,7 @@ class _SuplierScreenState extends State<SuplierScreen> {
       );
     }
     return GestureDetector(
-      onTap: () => _explore(index),
+      onTap: () => _check(suplierList.indexOf(_foundSupliers[index])),
       child: Container(
         margin: EdgeInsets.only(left: AppWidth.w4, right: AppWidth.w4, bottom: AppHeight.h2*1.5),
         padding: EdgeInsets.symmetric(horizontal: AppWidth.w4, vertical: AppWidth.w1),
@@ -408,7 +408,10 @@ class _SuplierScreenState extends State<SuplierScreen> {
         ),
         child: Row(
           children: [
-            _m!.logoContainer(suplierImagePath, raduis, isSupp: true),
+            GestureDetector(
+              onTap: ()=> _explore(index),
+              child: _m!.logoContainer(suplierImagePath, raduis, isSupp: true),
+            ),
             SizedBox(width: AppWidth.w2,),
             Expanded(child: suplierNameCon()),
             _withoutQutation == null?

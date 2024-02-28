@@ -1,10 +1,13 @@
 // ignore_for_file: file_names
 import 'package:automall/MyWidget.dart';
 import 'package:automall/api.dart';
+import 'package:automall/constant/app_size.dart';
 import 'package:automall/constant/color/MyColors.dart';
 
 import 'package:automall/const.dart';
+import 'package:automall/helper/functions.dart';
 import 'package:automall/localizations.dart';
+import 'package:automall/screen/carSell/AllBrandCarSells.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -60,7 +63,7 @@ class _ExhibtionScreenState extends State<ExhibtionScreen> {
     _m = MyWidget(context);
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      backgroundColor: Colors.grey[100],
+      backgroundColor: MyColors.topCon,
       key: _scaffoldKey,
       //appBar: _m!.appBar(barHight, _scaffoldKey),
       drawer: _m!.drawer(() => _setState(), ()=> _tap(2), ()=> _tap(1), _scaffoldKey),
@@ -83,7 +86,7 @@ class _ExhibtionScreenState extends State<ExhibtionScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   _topBar(curve),
-                  Padding(
+                  /*Padding(
                     padding: EdgeInsets.symmetric(horizontal: curve, vertical: curve/2),
                     child: TextField(
                       controller: _searchController,
@@ -110,19 +113,17 @@ class _ExhibtionScreenState extends State<ExhibtionScreen> {
                         ),
                       ),
                     ),
-                  ),
+                  ),*/
                   Expanded(
                     flex: 1,
-                    child: GridView.builder(
-                      padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.width/40, horizontal: MediaQuery.of(context).size.width/40),
+                    child: ListView.builder(
+                      padding: EdgeInsets.symmetric(vertical: AppHeight.h2, horizontal: AppWidth.w4),
                       itemCount: _foundExhibtion.length,
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                          childAspectRatio: 0.7,
-                          crossAxisCount: 2),
                       itemBuilder: (BuildContext context, int index) {
                         return GestureDetector(
-                          child: _m!.cardExhibtion(curve, click: ()=> _selectCard(index), exhibtionLogo: _foundExhibtion[index]['supplier']['user']['imagePath'], toolImage: _foundExhibtion[index]['offerImg'],toolName: lng==2?_foundExhibtion[index]['arTitle']:_foundExhibtion[index]['title'],companyName: _foundExhibtion[index]['supplier']['fullName']),
+                          //child: _m!.cardExhibtion(curve, click: ()=> _selectCard(index), exhibtionLogo: _foundExhibtion[index]['galleryImg']/*['user']['imagePath']*/, toolImage: _foundExhibtion[index]['galleryImg'],toolName: lng==2?_foundExhibtion[index]['arTitle']:_foundExhibtion[index]['title'],companyName: lng==2?_foundExhibtion[index]['arDetails']:_foundExhibtion[index]['details']),
                           //child: _m!.cardOffers(curve,logo: _foundOffers[1]['supplier']['user']['imagePath'], toolImage: _foundOffers[1]['offerImg'],toolName: lng==2?_foundOffers[1]['arTitle']:_foundOffers[1]['title'],companyName: _foundOffers[1]['supplier']['fullName'], scale: 0.8),
+                          child: MyWidget.shadowContainer(child: Image.network(_foundExhibtion[index]['galleryImg'], height: AppHeight.h16, fit: BoxFit.fitWidth,), paddingH: 0.0),
                           onTap: () => _selectCard(index),
                         )
                         ;
@@ -219,16 +220,15 @@ class _ExhibtionScreenState extends State<ExhibtionScreen> {
   }
 
   _selectCard(index) async{
-    if(guestType){
-      _m!.guestDialog();
-      return;
-    }else {
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const ExhibtionCars(),
-          ));
-    }
+
+    setState(() {
+      pleaseWait = true;
+    });
+    await MyAPI(context: context).getCarSell("", galleryId: _foundExhibtion[index]['id'].toString());
+    setState(() {
+      pleaseWait = false;
+    });
+    MyApplication.navigateTo(context, const AllBrandCarSells());
   }
 
   _tap(num) async{

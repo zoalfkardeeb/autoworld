@@ -326,7 +326,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     return SizedBox(
       width: AppWidth.w80,
       child: MyWidget.shadowContainer(
-        padding: 0.0,
+        paddingH: 0.0,
           child: Row(
             children: [
               Expanded(

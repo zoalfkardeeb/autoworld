@@ -90,15 +90,16 @@ class MyWidget{
   }
 
 
-  static Widget shadowContainer({required child, width, margin, padding, color}){
+  static Widget shadowContainer({required child, width, margin, paddingH, color, padV}){
     margin ??= 0.0;
     width ??= double.infinity;
-    padding ??= AppWidth.w2;
+    paddingH ??= AppWidth.w2;
+    padV ??= paddingH;
     color ??= MyColors.black;
     return Container(
       width: width,
       margin: EdgeInsets.symmetric(vertical: AppHeight.h1, horizontal: margin),
-      padding: EdgeInsets.all(padding),
+      padding: EdgeInsets.symmetric(horizontal: paddingH, vertical: padV),
       decoration:  BoxDecoration(
         color: MyColors.topCon,
         boxShadow: [BoxShadow(
@@ -1732,7 +1733,7 @@ class MyWidget{
                     headText(toolName /*+ AppLocalizations.of(context)!.translate(' Kit ') + disacount.toString() + ' % ' + AppLocalizations.of(context)!.translate('OFF')*/,scale: 0.45*scale, maxLine: 2,  paddingH: raduis/4, color: MyColors.bodyText1),
                     SizedBox(height: curve/4,),
                     SizedBox(width: MediaQuery.of(context).size.width/4,
-                    child: raisedButton(curve, MediaQuery.of(context).size.width/4.5, AppLocalizations.of(context)!.translate('Visit'), 'assets/images/ic_street_view.svg', ()=>click(), iconHight: curve/1.4 ,height: MediaQuery.of(context).size.height/16),
+                    child: raisedButton(curve, MediaQuery.of(context).size.width/4.0, AppLocalizations.of(context)!.translate('Visit'), 'assets/images/ic_street_view.svg', ()=>click(), iconHight: curve/1.4 ,height: MediaQuery.of(context).size.height/16),
                     ),
                     SizedBox(height: curve/4,),
                   ],
@@ -2328,7 +2329,7 @@ class MyWidget{
                                     SizedBox(height: vSpace,),
                                     iconText("assets/images/ic_engine.svg", cylenders, MyColors.gray, scale: scale, imageScale: 0.5, paddingH: 0.2),
                                     SizedBox(height: vSpace,),
-                                    iconText(fromUser?"assets/images/ic_red_user.svg":"assets/images/ic-shop.svg", fromUser? AppLocalizations.of(context)!.translate('From User'): AppLocalizations.of(context)!.translate('From User'), MyColors.gray, scale: scale, imageScale: 0.5, paddingH: 0.2),
+                                    iconText(fromUser?"assets/images/ic_red_user.svg":"assets/images/ic-shop.svg", fromUser? AppLocalizations.of(context)!.translate('From User'): AppLocalizations.of(context)!.translate('From Gallery'), MyColors.gray, scale: scale, imageScale: 0.5, paddingH: 0.2),
                                   ],
                                 ),
                               ),
