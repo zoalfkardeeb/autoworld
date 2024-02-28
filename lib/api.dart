@@ -1065,11 +1065,12 @@ class MyAPI{
 
   }
 
-  getCarSell(String brandId) async{
+  getCarSell(String brandId, {String? galleryId}) async{
     //var url = "$_baseUrl/Orders/Orders_Read?";
     print('Car sell');
     var url = "$_baseUrl/CarSell/CarSell_Read";
     if(brandId.isNotEmpty) url = "$_baseUrl/CarSell/CarSell_Read?filter=brandId~eq~'$brandId'";
+    if(galleryId != null && galleryId.isNotEmpty) url = "$_baseUrl/CarSell/CarSell_Read?filter=brandId~eq~'$brandId'";
     print(url.toString());
     //var url = "$_baseUrl/Orders/Orders_Read?";
     try{
