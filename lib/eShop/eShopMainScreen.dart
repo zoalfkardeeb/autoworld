@@ -45,6 +45,8 @@ class _EShopMainScreenState extends State<EShopMainScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    showFilter = false;
+    applyFilter = false;
     _fillFoundItem();
     _fillCategory();
     _searchController.addListener(() {search(); });
