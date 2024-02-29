@@ -224,6 +224,12 @@ class _ExhibtionScreenState extends State<ExhibtionScreen> {
     setState(() {
       pleaseWait = true;
     });
+    await Future.wait(
+        [
+          MyAPI(context: context).getBrands(),
+          MyAPI(context: context).getCarType(),
+          MyAPI(context: context).getCarModel(),
+        ]);
     await MyAPI(context: context).getCarSell("", galleryId: _foundExhibtion[index]['id'].toString());
     setState(() {
       pleaseWait = false;

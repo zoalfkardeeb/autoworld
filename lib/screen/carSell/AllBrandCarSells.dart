@@ -68,7 +68,7 @@ class _AllBrandCarSellsState extends State<AllBrandCarSells> {
           'insertDate': carSellsList[i]['insertDate'].toString(),
           'view': carSellsList[i]['viewCount'].toString(),
           'numberOfCylindes': carSellsList[i]['numberOfCylindes'].toString(),
-          'fromUser': carSellsList[i]['user']['type'] ==0 ? true : false,
+          'fromUser': carSellsList[i]['galleryId'] == null ? true : false,
           'isNew': !carSellsList[i]['isPaid']
         });
         var exist = false;
